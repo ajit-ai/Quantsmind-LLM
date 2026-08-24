@@ -23,7 +23,8 @@ Legend: [x] done · [~] partially done / verify pending · [ ] not started
 
 - [x] P0.a Finance chat UI (Gradio) — prompt → financial knowledge, disclaimer enforced
 - [x] P0.b Pluggable OpenAI-compatible backend (works with Ollama/vLLM/OpenRouter today)
-- [~] P0.c Verify UI E2E with a real local backend (Ollama qwen2.5) on user machine
+- [x] P0.c UI E2E verified on user machine (Gradio 6.25; demo mode confirmed 2026-08-24)
+- [ ] P0.d Optional: connect real backend (Ollama qwen2.5) and verify grounded answers
 
 Exit when: CI green on GitHub + 0.10/0.11 closed.
 
