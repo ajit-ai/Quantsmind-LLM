@@ -48,18 +48,23 @@ powershell -File scripts/smoke_pipeline.ps1
 python -m serving.app          # opens http://localhost:7860
 ```
 
-- **No backend set?** Runs in demo mode with canned finance explainers.
-- **Connect any OpenAI-compatible model** (Ollama, vLLM, OpenRouter, ...):
+- **Default: demo mode** — canned finance explainers, no external model, nothing leaves your machine.
+- **Phase 3: your own model.** Quantsmind's trained model will be served via vLLM
+  (OpenAI-compatible API) and the UI plugs into it directly:
 
 ```powershell
-$env:QM_API_BASE = "http://localhost:11434/v1"   # e.g. Ollama
-$env:QM_API_KEY  = "ollama"
-$env:QM_MODEL    = "qwen2.5:7b"
+$env:QM_API_BASE = "http://localhost:8000/v1"   # YOUR Quantsmind vLLM server
+$env:QM_API_KEY  = "local-dev"
+$env:QM_MODEL    = "quantsmind-1.5b"
 python -m serving.app
 ```
 
-Every answer carries the mandatory *"not investment advice"* disclaimer. This same UI
-will point at Quantsmind's own served model in Phase 3 (identical API contract).
+> **Note:** Quantsmind does NOT depend on any third-party model. The variables above are
+> a generic socket — for quick UI testing you *may* point it at any OpenAI-compatible
+> backend, but the product target is Quantsmind's own from-scratch model (see
+> `docs/DESIGN_ARCHITECTURE.md`). Nothing in training/data/tokenizer uses external models.
+
+Every answer carries the mandatory *"not investment advice"* disclaimer.
 
 ### India data residency (default ON)
 
