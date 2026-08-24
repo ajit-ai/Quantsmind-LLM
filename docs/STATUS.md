@@ -25,6 +25,8 @@ Legend: [x] done · [~] partially done / verify pending · [ ] not started
 - [x] P0.b Pluggable OpenAI-compatible backend (works with Ollama/vLLM/OpenRouter today)
 - [x] P0.c UI E2E verified on user machine (Gradio 6.25; demo mode confirmed 2026-08-24)
 - [ ] P0.d Optional: connect real backend (Ollama qwen2.5) and verify grounded answers
+- [x] P0.e India data-residency guard + SEBI-aware prompt (ADR-0002)
+- [x] P0.f Competitive analysis vs India market (docs/COMPETITIVE_ANALYSIS.md) — strategy: sell engine, not app; RA partnership required; ~2-quarter window
 
 Exit when: CI green on GitHub + 0.10/0.11 closed.
 
