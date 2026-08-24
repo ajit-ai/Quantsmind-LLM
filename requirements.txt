@@ -3,3 +3,5 @@ tokenizers>=0.15
 numpy>=1.26
 pyyaml>=6.0
 pytest>=8.0
+gradio>=4.44
+openai>=1.40

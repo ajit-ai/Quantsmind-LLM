@@ -25,6 +25,9 @@ jobs:
       - name: Unit tests
         run: python -m pytest tests -q
 
+      - name: UI module import check
+        run: python -c "import serving.app"
+
       - name: End-to-end smoke pipeline (tiny CPU train)
         run: bash scripts/smoke_pipeline.sh
 

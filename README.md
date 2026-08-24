@@ -41,3 +41,22 @@ bash scripts/smoke_pipeline.sh               # end-to-end CPU smoke run (Linux/m
 # Windows PowerShell:
 powershell -File scripts/smoke_pipeline.ps1
 ```
+
+## Chat UI (type a prompt → financial knowledge)
+
+```bash
+python -m serving.app          # opens http://localhost:7860
+```
+
+- **No backend set?** Runs in demo mode with canned finance explainers.
+- **Connect any OpenAI-compatible model** (Ollama, vLLM, OpenRouter, ...):
+
+```powershell
+$env:QM_API_BASE = "http://localhost:11434/v1"   # e.g. Ollama
+$env:QM_API_KEY  = "ollama"
+$env:QM_MODEL    = "qwen2.5:7b"
+python -m serving.app
+```
+
+Every answer carries the mandatory *"not investment advice"* disclaimer. This same UI
+will point at Quantsmind's own served model in Phase 3 (identical API contract).
