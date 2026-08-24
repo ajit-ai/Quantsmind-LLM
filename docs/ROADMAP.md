@@ -1,79 +1,87 @@
 # Quantsmind-LLM — Development Roadmap
 
-**Scope**: Finance/Trading vertical · Tier-1 use cases (RAG + tools + 7B-class) · B2B2C.
-**Strategy**: extend an Apache-2.0 open base (Qwen3-8B class) → finance adaptation → partner pilot.
-Durations assume 1–2 engineers + rented GPU. Each phase has hard exit criteria; do not advance without passing them.
+**Scope**: Finance/Trading vertical · Tier-1 use cases (RAG + tools) · B2B2C.
+**Core (ADR-0003, FINAL)**: **from-scratch sovereign pretrain** — 300M pilot → 1.5B
+"Quantsmind-Bharat" → 7B when funded. Open models = benchmark rivals only.
+Durations assume 1–2 engineers + rented GPU. Hard exit criteria per phase; every phase
+ends with develop→main merge.
 
 ---
 
-## Phase 0 — Foundations (Weeks 1–2)  ← current
+## Phase 0 — Foundations (Weeks 1–2) — ~95% complete
 
-| Workstream | Deliverables |
-|---|---|
-| Repo & CI | Scaffold, lint, pytest suite, CPU smoke-train of tiny model in CI |
-| Training infra | `training/model.py` + `pretrain.py` (LR schedule, checkpoint/resume, watchdog) — powers draft-model now, from-scratch option later |
-| Eval infra | Harness config skeleton, `promotion.yaml` gate rules |
-| Tokenizer tooling | byte-BPE trainer + tests (draft-model/data tooling) |
+- [x] Repo, CI, training stack (transformer + pretrain loop + checkpoint/resume + watchdogs)
+- [x] Tokenizer trainer + tests; data encode pipeline; smoke pipeline
+- [x] Product UI shell (Gradio) with India residency guard + SEBI-aware prompt
+- [x] Strategy docs: ADR-0003 from-scratch sovereign; competitive analysis
+- [~] Verify first GitHub Actions run green
+- [ ] ruff lint in CI; ADR-0001 formalization
 
-**Exit**: CI green on GitHub Actions — unit tests pass and 30-step toy run completes with checkpoint+resume.
+## Phase 1 — Data v0 + 300M Pilot (Weeks 2–6)
 
-## Phase 1 — Base bake-off (Weeks 2–4)
+- [ ] 1.1 Corpus acquisition v0 → 12B tokens India-weighted general mix (web/wiki/code/finance)
+- [ ] 1.2 Train 49k BPE tokenizer on corpus sample; pass round-trip + fertility tests
+- [ ] 1.3 Dedup + quality filter + PII scrub + decontamination; provenance ledger live
+- [ ] 1.4 Private India-finance held-out eval set v0 (~500 items, never trained on)
+- [ ] 1.5 LR probes at 100M-token scale (2–3 short runs)
+- [ ] 1.6 **300M pilot pretrain** — 8×A100, 1–2 days, <₹10K
+- [ ] 1.7 Eval battery on pilot + benchmark rivals (open 300M-class models)
 
-> **Competitive clock** (see COMPETITIVE_ANALYSIS.md): Sarvam is circling BFSI with
-> sovereign positioning; Stoxo proved retail demand. Window to demonstrate
-> "finance-tuned sovereign engine" is ~2 quarters — M2 is the proof point.
+**Exit**: smooth loss (no unrecovered spikes), MFU ≥40%, checkpoint/resume drill passed,
+pilot scores recorded vs rivals; data card v0 published.
 
-- Download candidates: Qwen3-8B, Qwen2.5-7B-Instruct, Mistral-7B-v0.3, Gemma-2-9B
-- Wire lm-eval-harness + finance suites (FinQA/TAT-QA/ConvFinQA) + Hindi/Hinglish probes
-- Run full battery on each candidate on 1×A100; log to W&B
-- Build **private India-finance held-out eval set** (v0, ~500 items, never trained on)
+## Phase 2 — 1.5B Quantsmind-Bharat Pretrain (Weeks 6–12)
 
-**Exit**: champion selected by weighted score → ADR-001; eval harness reproducible via one command.
+- [ ] 2.1 Corpus scale-up to 60B tokens; India-finance layer as mid-train tail (~20%)
+- [ ] 2.2 Provision 32×A100 rental; storage + checkpoint redundancy drill
+- [ ] 2.3 **1.5B pretrain** (₹3–5 lakh) with daily eval snapshots + spike playbook armed
+- [ ] 2.4 Mid-train finance tail; long-context extension (16k) if stable
+- [ ] 2.5 Loss trajectory vs scaling-law prediction from pilot (tolerance gate)
 
-## Phase 2 — Finance adaptation (Weeks 4–8)
+**Exit**: sovereign 1.5B base weights exist; beats 300M pilot across suite;
+India-finance set floor met; milestone tag `qm-base-1.5b-v1`.
 
-- Domain corpus build: filings/transcripts/q-fin per license ledger → CPT mix v1 (~10B tokens)
-- A1 CPT run (full-FT if ≥4×A100 else LoRA-r256 ladder); LR probes first at 100M-token scale
-- A2 SFT mixture build (50–150k pairs: QA, extraction, summarization, calc-tool traces) + train
-- A3 DPO pairs (10–40k) + train
-- A4 safety pass: advisory-boundary + jailbreak SFT/DPO mix; red-team round 1
-- A5 calculator/tool-call curriculum baked into SFT data; exact-match arithmetic eval added
+## Phase 3 — Post-Training: SFT + DPO + Safety (Weeks 12–16)
 
-**Exit**: candidate beats base by clear margin on finance suite; arithmetic suite 100% via-tool;
-refusal precision ≥95%; no general-benchmark regression >2%; all data cards published.
+- [ ] 3.1 SFT mixture build (50–150k pairs: chat, finance QA, extraction, summarization,
+      calculator-tool traces) + train
+- [ ] 3.2 DPO pair generation + train (10–40k pairs)
+- [ ] 3.3 Safety pass: advisory-boundary refusals + jailbreak mixture; red-team round 1
+- [ ] 3.4 Exact-match arithmetic suite (hard-fail, via-tool only)
+- [ ] 3.5 Promotion gate vs base + benchmark rivals scorecard published
 
-## Phase 3 — B2B2C product layer (Weeks 8–10)
+**Exit**: finance scores ↑ vs base; arithmetic 100% via-tool; refusal precision ≥95%;
+no general-benchmark regression >2%; tag `qm-chat-1.5b-v1`.
 
-- Gateway: tenant router, partner keys, quotas, billing meter hooks, SSE streaming
-- RAG service: hybrid retrieval over filings/news/partner docs; market-snapshot context packer
-- Guardrails: injection filter, PII redaction, SEBI-style disclaimer injector, advisory-refusal policy
-- Serving: vLLM AWQ-int4 engine pool; speculative decoding w/ our draft model; K8s manifests
-- Immutable audit log per message; OTel dashboards (TTFT/TPOT/tool-error rates)
+## Phase 4 — B2B2C Product Layer (Weeks 16–18)
 
-**Exit**: end-to-end demo — partner-key request → grounded, disclaimed answer with tool-verified numbers; load test 2× projected peak.
+- [ ] 4.1 Gateway: tenant router, partner keys, quotas, billing hooks, SSE
+- [ ] 4.2 RAG service: hybrid retrieval + market-snapshot context packer
+- [ ] 4.3 Guardrails: injection filter, PII redaction, SEBI disclaimer injector
+- [ ] 4.4 vLLM serving pool (1.5B AWQ-int4) + speculative decoding w/ self-trained draft
+- [ ] 4.5 Immutable per-message audit log + OTel dashboards
+- [ ] 4.6 India-region deployment target (Mumbai region / Indian DC)
 
-## Phase 4 — Pilot launch (Weeks 10–12)
+**Exit**: partner-key request → grounded, disclaimed, tool-verified answer E2E; load test 2× peak.
 
-> **Positioning rule** (COMPETITIVE_ANALYSIS.md §5): sell the compliant engine, not the
-> app. Pilot target = a broker/wealth platform that needs its own branded AI answer to
-> Stoxo-class products and cannot risk foreign-API wrappers under SEBI's forthcoming
-> tiered AI rules.
+## Phase 5 — Pilot Launch (Weeks 18–20)
 
-- One named B2B pilot partner (broker/wealth app) — success criteria contracted up front
-- SEBI-RA partner firm signed for advisory-adjacent features (RA owns accountability; we power)
-- Compliance pack per partner: audit-log export, residency attestation, kill-switch demo,
-  model-inventory row (RBI MD / SEBI CSCRF aligned)
-- Shadow-mode week → canary 5% → full ramp; weekly eval reports; feedback flywheel capture
-- Model card + eval report published internally; go/no-go review board
+> Positioning (COMPETITIVE_ANALYSIS.md): sell the compliant engine, not the app.
 
-**Exit**: pilot SLOs met in production; partner sign-off; compliance pack accepted by
-partner's compliance officer; rollback rehearsed.
+- [ ] 5.1 Sign pilot B2B partner (broker/wealth platform) + success criteria
+- [ ] 5.2 SEBI-RA partner firm for advisory-adjacent features
+- [ ] 5.3 Compliance pack: audit-log export, residency attestation, kill-switch demo,
+      model-inventory row (RBI MD / SEBI CSCRF aligned)
+- [ ] 5.4 Shadow week → canary 5% → ramp; weekly eval reports; feedback flywheel
+- [ ] 5.5 Model card + eval report; go/no-go review
 
-## Phase 5 — Compound & decide Wave-2 (Quarter 2)
+**Exit**: production SLOs met; partner + compliance sign-off; rollback rehearsed.
+
+## Phase 6 — Compound & 7B Decision (Q3+)
 
 - Data flywheel → monthly SFT/DPO refreshes; Hindi/Hinglish strengthening
-- Draft-model scale-up; context extension experiments
-- Wave-2 vertical (agri/commodity adjacent) only if: corpus identified + eval suite built + anchor customer signed
+- Context extension toward 32k; tool-use expansion
+- 7B run (₹30–60 lakh) only when: pilot revenue/commitments + cluster plan exist
 
 ---
 
@@ -81,30 +89,38 @@ partner's compliance officer; rollback rehearsed.
 
 | M | Target | Gate |
 |---|---|---|
-| M0 | wk 2 | CI green incl. smoke-train |
-| M1 | wk 4 | Champion base chosen (ADR-001) |
-| M2 | wk 8 | Finance-adapted model passes promotion gate |
-| M3 | wk 10 | Product layer demo end-to-end |
-| M4 | wk 12 | Production pilot live |
-| M5 | Q2 | Refresh cadence + Wave-2 decision |
+| M0 Pipeline proven | wk 2 | CI green incl. smoke-train |
+| M1 300M pilot trained + evals proven | wk 6 | exit Phase 1 |
+| M2 Sovereign 1.5B base weights | wk 12 | exit Phase 2 |
+| M3 Aligned chat model passes gate | wk 16 | exit Phase 3 |
+| M4 Product layer E2E demo | wk 18 | exit Phase 4 |
+| M5 Production pilot live | wk 20 | exit Phase 5 |
+| M6 7B decision | Q3 | funded + cluster plan |
+
+## Budget Summary (cloud rental, A100-class)
+
+| Item | Estimate |
+|---|---|
+| Phase 1 pilot + probes | < ₹15K |
+| Phase 2 1.5B pretrain | ₹3–5 lakh |
+| Phase 3 post-training | ₹20–50K |
+| Phase 4 serving (pilot scale) | ₹30–60K/mo |
+| 7B (optional, Phase 6) | ₹30–60 lakh |
 
 ## Risk Register
 
 | Risk | Mitigation |
 |---|---|
-| Base license change / model withdrawal | Pin weights + hashes in DVC; bake-off keeps 2 Apache alternates ready |
-| Finance benchmark contamination | Strict decontamination; private held-out set is the deciding metric |
-| Arithmetic hallucination reaching users | Tool-mandate architecture + exact-match hard-fail gate |
-| Advisory-compliance breach | Refusal training + disclaimer injector + audit trail + partner contract flags |
-| Competitor verticalizes first (Sarvam→BFSI, Stoxo→white-label) | 2-quarter window tracked in COMPETITIVE_ANALYSIS.md; M2 demo is the counter-move; quarterly market re-scan |
-| SEBI AI guidelines finalize with stricter controls | Map final text to our controls (audit/residency/kill-switch already built); update safety/ policies |
-| Single-GPU serving cost creep | int4 + spec-decode budgets enforced in load tests |
-| Data licensing gaps | Provenance ledger + legal review before CPT starts |
-| Key-person dependency | Runbooks + this repo as single source of truth |
+| Loss spikes at scale | Spike playbook, async checkpoints, LR margin from probes |
+| 1.5B quality floor too low for Tier-1 | Pilot gate before big spend; RAG+tools compensate; 7B is the escalation path |
+| Data licensing gaps | Provenance ledger; legal review gate before pretrain |
+| Benchmark contamination | Decontamination + private held-out set decides |
+| Arithmetic hallucination to users | Tool mandate + exact-match hard-fail gate |
+| Advisory-compliance breach | Refusal training + disclaimers + audit trail + RA partner |
+| Competitor verticalizes first | 2-quarter window (COMPETITIVE_ANALYSIS.md); M2 demo is the counter-move |
+| Compute cost overrun | Phase-gated spend; kill criteria per phase |
 
 ## Branching & Release Flow
 
-- `feat/*` → PR into `develop` (integration)
-- `develop` → release PR into protected `main`, attaching the eval report
-- Tags: model releases tagged `model-vN.M` with git SHA + dataset tag + config hash
-- Every phase ends with develop→main merge per project rule
+- `feat/*` → PR into `develop` → release PR into protected `main` with eval report attached
+- Model tags: `qm-pilot-300m-vN`, `qm-base-1.5b-vN`, `qm-chat-1.5b-vN` with git SHA + dataset tag + config hash

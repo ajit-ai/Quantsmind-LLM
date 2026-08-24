@@ -1,11 +1,13 @@
 # Quantsmind-LLM — Design Architecture
 
-> **Decision record (ADR-000)**: Quantsmind-LLM is a **finance/trading vertical LLM platform**
-> targeting **B2B2C** distribution, built by **extending an Apache-2.0 open base model**
-> (recommended: Qwen3-8B class) rather than pretraining from scratch. From-scratch
-> pretraining remains a documented future option (Phase X) once revenue supports it.
-> Rationale: a self-trained 7B cannot match industrial open bases (~36T training tokens);
-> adaptation costs ~2–5% of pretraining while adapted weights remain fully ours to serve.
+> **Decision record (ADR-0003, FINAL — supersedes the interim open-base plan)**:
+> Quantsmind-LLM is a **finance/trading vertical LLM platform** targeting **B2B2C**
+> distribution, with a **from-scratch, sovereign-weights Indian LLM** as the product core:
+> **300M pilot → 1.5B "Quantsmind-Bharat" production → 7B when funded.**
+> Founder decision: weight ownership and the "born-in-India, owned-weights" story are the
+> mission. Open models (Qwen/Llama/Mistral) may appear in evaluation **as benchmark rivals
+> to beat — never as the product core.** Accepted trade: raw capability below GPT-4-class
+> on open-ended knowledge, compensated by RAG + tool-grounding + domain focus.
 
 ---
 
@@ -16,12 +18,13 @@
 | Vertical | Finance & Trading (single-vertical focus; other industries deferred) |
 | Customer model | **B2B2C**: partners = brokers / wealth platforms / fintechs; their retail end-users consume via partner apps |
 | Product shape | White-label "Investor Copilot": OpenAI-compatible API + embed SDK, partner-scoped RAG |
-| Base strategy | Extend Apache-2.0 open base → finance CPT → SFT → DPO → safety |
-| Recommended base | Qwen3-8B / Qwen2.5-7B (Apache 2.0; strong reasoning/math, Hinglish-capable) |
+| Base strategy | **From-scratch pretrain**: 300M pilot → 1.5B production → 7B when funded |
+| Model ownership | 100% sovereign weights — architecture, tokenizer, data, training all in-repo |
+| Open models | Benchmark rivals in eval harness only; never the product core |
 | Market | India-first (₹, NSE/BSE/SEBI conventions), world-ready corpus mix (~70/30) |
-| Context | 32k native-class; partner docs handled via RAG, not raw context stuffing |
-| Serving economics | AWQ-int4 8B on single A100/4090-class GPU — commodity B2B2C cost per message |
-| License posture | Adapted weights + data ledger + adapters + serving stack are project-owned |
+| Context | 2k (pilot) → 8k (1.5B) → extend toward 32k via RoPE scaling post-launch |
+| Serving economics | AWQ-int4 1.5B on single consumer/A100-class GPU — very low B2B2C cost per message |
+| License posture | All weights, data ledger, and serving stack are project-owned from birth |
 
 **Non-goals (v1):** general-purpose chatbot market, real-time alpha signals, unlicensed personalized advice, multimodal, other industry verticals (see ROADMAP Wave-2+).
 
@@ -48,10 +51,15 @@
 └───────────┬───────────────────────────────────────────────────────────┘
             ▼
 ┌───────────────────────────────────────────────────────────────────────┐
-│ ADAPTATION PLATFORM                                                    │
-│ base bake-off (eval harness) → champion ADR                            │
-│   → finance continued-pretrain (5–20B tok, LoRA/full FT ladder)        │
-│   → SFT (chat + finance tasks) → DPO → safety/advisory-refusal tuning  │
+│ PRE-TRAINING PLATFORM                                                  │
+│ tokenizer (49k BPE) → 300M pilot (12B tok) → 1.5B Quantsmind-Bharat    │
+│   (60B tok, India-finance-weighted) → mid-train tail → long-ctx ext    │
+│ open models run through the same eval harness as benchmark rivals only │
+└───────────┬───────────────────────────────────────────────────────────┘
+            ▼
+┌───────────────────────────────────────────────────────────────────────┐
+│ POST-TRAINING PLATFORM                                                 │
+│ SFT (chat + finance tasks) → DPO → safety/advisory-refusal tuning      │
 │   → calculator/tool-call curriculum                                    │
 └───────────┬───────────────────────────────────────────────────────────┘
             ▼
@@ -76,45 +84,50 @@
 
 ## 3. Model Strategy
 
-### 3.1 Base bake-off (Phase 1)
-Candidates: Qwen3-8B, Qwen2.5-7B-Instruct, Mistral-7B-v0.3, Gemma-2-9B (license backup).
-Each runs the full eval battery (general + finance + Hindi/Hinglish probes).
-Champion selected by weighted score in `evaluation/promotion.yaml`; decision recorded as ADR.
+### 3.1 Pre-training ladder (sovereign weights)
 
-### 3.2 Adaptation ladder
+| Run | Params | Tokens | Corpus | Compute (A100-class) | Est. cost* |
+|---|---|---|---|---|---|
+| Pilot | 300M | 12B | India-weighted general v0 | 8 GPUs × 1–2 days | < ₹10K |
+| **Production** | **1.5B "Quantsmind-Bharat"** | **60B** | general + India-finance tail | 32 GPUs × ~1.5 days | **₹3–5 lakh** |
+| Flagship (funded) | 7B | 200B+ | full mix + long-ctx | 64+ GPUs × ~2 wks | ₹30–60 lakh |
+
+*\*cloud rental estimates; configs already in `configs/model/`.*
+
+Scaling-law discipline: LR probes at 100M-token scale before each ladder run; 1.5B loss
+trajectory must match pilot-extrapolated prediction within tolerance before mid-train.
+
+### 3.2 Post-training ladder
 
 | Step | Method | Scale |
 |---|---|---|
-| A1 Domain CPT | Full-parameter or LoRA-r128 continued pretrain on finance mix | 5–20B tokens |
-| A2 SFT | Chat template + finance task mixture (QA, extraction, summarization, calc-tool calls) | 50–150k pairs |
-| A3 DPO | Preference pairs incl. refusal-of-personalized-advice style targets | 10–40k pairs |
-| A4 Safety pass | Adversarial jailbreak + advisory-boundary SFT/DPO mixture | red-team suite |
-| A5 Tool curriculum | Calculator/unit-converter/API-call traces for numeric grounding | synthetic + audited |
+| P1 SFT | Chat template + finance task mixture (QA, extraction, summarization, calc-tool calls) | 50–150k pairs |
+| P2 DPO | Preference pairs incl. refusal-of-personalized-advice style targets | 10–40k pairs |
+| P3 Safety pass | Adversarial jailbreak + advisory-boundary SFT/DPO mixture | red-team suite |
+| P4 Tool curriculum | Calculator/unit-converter/API-call traces for numeric grounding | synthetic + audited |
 
-### 3.3 Numeric grounding rules (non-negotiable product requirement)
+### 3.3 Benchmark rivals (not product core)
+Qwen2.5/3, Llama-3.x, Mistral run through the identical eval battery each release cycle.
+Purpose: (a) honest public scorecard "sovereign 1.5B vs open 7B-class on India-finance",
+(b) regression alarms, (c) they never appear in the serving path.
+
+### 3.4 Numeric grounding rules (non-negotiable product requirement)
 - All arithmetic presented to end-users must come from the calculator/tool path, never free-token math
-- Digit-group tokenization preserved from base tokenizer behavior; tool-trace data reinforces it
+- Digit-group tokenization behavior trained in via tool-trace data
 - Eval gate includes exact-match arithmetic suite (percentages, CAGR, ratios, unit conversions)
 
-### 3.4 Draft model (speculative decoding)
-Our `training/` from-scratch stack is repurposed to train a ~150M draft model on domain text,
-cutting serving latency ~2×. This keeps the from-scratch codepath alive and commercially useful.
+### 3.5 Draft model (speculative decoding)
+The same from-scratch stack trains a ~150M draft model on domain text, cutting serving
+latency ~2× at Phase-4 time.
 
-### 3.5 Future from-scratch option (Phase X)
-If revenue funds it: Llama-style dense 7B per configs already in repo. Kept as ADR trail only.
-
----
-
-## 4. Data Platform
-
-### 4.1 Corpora
+### 4.1 Corpora (pre-training + post-training)
 | Corpus | Sources | Use |
 |---|---|---|
-| Finance CPT mix | EDGAR/NSE-BSE-style filings (per license), earnings transcripts, arXiv q-fin, open financial textbooks, market explainers | A1 |
-| India-weighted layer | SEBI circulars summaries (public), exchange education content (licensed), ₹/crore conventions, Indian market terminology | A1 tail |
-| SFT mixture | Teacher-distilled finance instruction data + human-audited samples | A2 |
-| DPO pairs | Sampled from our own SFT model, ranked by judge + human spot-check | A3 |
-| Red-team set | Jailbreaks, advice-boundary probes, injection attacks | A4 |
+| General pretrain mix | Web (clean), wiki, code (licensed), books/academic (open) | 300M pilot + 1.5B base |
+| India-finance pretrain layer | NSE/BSE-style filings (per license), earnings transcripts, arXiv q-fin, open financial textbooks, market explainers, SEBI circular summaries (public), ₹/crore conventions | 1.5B mid-train tail |
+| SFT mixture | Teacher-distilled finance instruction data + human-audited samples | P1 |
+| DPO pairs | Sampled from our own SFT model, ranked by judge + human spot-check | P2 |
+| Red-team set | Jailbreaks, advice-boundary probes, injection attacks | P3 |
 
 ### 4.2 Pipeline (unchanged engineering)
 acquire → license/compliance filter → exact+fuzzy dedup → quality classifier → PII scrub → decontamination vs all benchmarks → version-tagged shards (DVC) → provenance ledger.
@@ -132,7 +145,8 @@ every corpus ships a data card.
 - Arithmetic tool-suite: exact-match, hard-fail
 - Chat: MT-Bench/Arena-Hard style LLM-judge, fixed judge across runs
 - Safety: advisory-boundary refusals ≥95% precision, jailbreak hard-fail set 100%, injection resistance
-- Forgetting check: no general benchmark −2% relative vs champion base without sign-off
+- Forgetting check: no general benchmark −2% relative vs previous release without sign-off
+- Benchmark rivals (open 7B-class) scored on the same battery for the public India-finance scorecard
 - Rules encoded in `evaluation/promotion.yaml`; every release auto-generates eval report + model card
 
 ---
@@ -152,7 +166,7 @@ partner app/webhook ──► Gateway
 audit log (immutable, per-message) · OTel metrics · feedback capture → flywheel
 ```
 
-SLOs: TTFT p95 <800ms @1k-token prompt · ≥1,500 tok/s/worker (8B int4, A100-class) · 99.5% uptime.
+SLOs: TTFT p95 <800ms @1k-token prompt · ≥2,500 tok/s/worker (1.5B int4, single GPU) · 99.5% uptime.
 Deployment: K8s HPA; per-partner canary aliases; nightly eval smoke in prod shadow mode.
 
 ---
@@ -187,8 +201,9 @@ quantsmind-llm/
 
 | Area | Choice | Alternative considered |
 |---|---|---|
-| Base vs scratch | Open-base extension, Apache-2.0 (ADR-000) | From-scratch (deferred, Phase X) |
-| Primary base candidate | Qwen3-8B / Qwen2.5-7B | Mistral-7B, Gemma-2-9B |
+| Base vs scratch | **From-scratch sovereign pretrain (ADR-0003, FINAL)** | Open-base extension (interim ADR-000, superseded) |
+| Pretrain ladder | 300M pilot → 1.5B Quantsmind-Bharat → 7B when funded | Single big run (no pipeline proof) |
+| Open models | Benchmark rivals in eval only | Product core (rejected: ownership mission) |
 | Alignment | SFT + DPO | PPO-RLHF (ops-heavy) |
 | Numerics | Tool-bus calculator mandate | Free-token arithmetic |
 | Serving | vLLM + FastAPI gateway, AWQ-int4 | TensorRT-LLM (vendor lock) |
