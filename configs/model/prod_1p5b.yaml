@@ -1,0 +1,14 @@
+# Quantsmind-LLM model config — production 1.5B
+model:
+  name: qm-prod-1p5b
+  vocab_size: 49152
+  d_model: 2048
+  n_layers: 24
+  n_heads: 16
+  n_kv_heads: 8          # GQA
+  ffn_dim: 5504          # SwiGLU, ~2.7x d_model
+  max_seq_len: 8192      # extend to 32k via YaRN in mid-train
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false
+  attn_kernel: flash_attention_2
