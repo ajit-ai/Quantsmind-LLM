@@ -1,0 +1,35 @@
+run:
+  name: smoke-toy-ci
+  model_config: configs/model/toy_ci.yaml
+  seed: 42
+
+model:
+  vocab_size_override: 512
+
+data:
+  dataset_tag: sample
+  seq_len: 128
+
+optimizer:
+  lr_peak: 1.0e-3
+  warmup_steps: 10
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+batch:
+  micro_batch_size: 8
+  grad_accum_steps: 1
+
+training:
+  max_steps: 30
+  log_every_steps: 10
+  checkpoint_every_steps: 30
+
+watchdog:
+  nan_check_every_steps: 10
+
+logging:
+  tracker: none

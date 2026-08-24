@@ -1,0 +1,37 @@
+# Corpus mix definition — v0 general (pilot phase)
+# Weights are fractions of total tokens per epoch-shuffled stream.
+corpus_tag: corpus-v0-general
+target_tokens: 1.2e10
+
+sources:
+  - name: web_clean
+    weight: 0.50
+    license: allowlist
+  - name: code_licensed
+    weight: 0.15
+  - name: books_academic_open
+    weight: 0.15
+  - name: math_synthetic
+    weight: 0.05
+  - name: wiki_reference
+    weight: 0.10
+  - name: instructions_seed
+    weight: 0.05
+
+pipeline:
+  dedup:
+    exact_hash: true
+    minhash_jaccard_threshold: 0.8
+  quality:
+    fasttext_model: data/classifiers/quality_v0.bin
+    perplexity_max_percentile: 95
+  pii_scrub: true
+  decontaminate_against:
+    - mmlu_pro
+    - hellaswag
+    - arc_challenge
+    - gsm8k
+    - humaneval
+    - finqa            # never train on eval sets
+  shard_format: arrow
+  docs_per_shard: 2000

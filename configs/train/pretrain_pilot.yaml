@@ -1,0 +1,46 @@
+# Pre-training stage config — pilot run (Phase 1)
+run:
+  name: pretrain-pilot-300m-v0
+  model_config: configs/model/pilot_300m.yaml
+  seed: 42
+
+data:
+  dataset_tag: corpus-v0-general   # DVC tag from data pipeline
+  seq_len: 2048
+  pack_documents: true
+  cross_doc_attention_mask: true
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3          # confirm via scaling-law probe before real run
+  lr_schedule: cosine       # warmup then cosine to 10% of peak
+  warmup_steps: 2000
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16           # autocast; fp32 master weights
+  grad_accum_steps: auto    # fit global batch below
+
+batch:
+  global_tokens_per_step: 524288   # ~0.5M tokens/step
+  micro_batch_size: auto
+
+training:
+  max_tokens: 1.2e10        # ~12B tokens pilot budget
+  checkpoint_every_steps: 1000
+  keep_checkpoints: 3       # ring buffer + milestones
+  eval_every_steps: 500
+  log_every_steps: 10
+
+watchdog:
+  nan_check_every_steps: 100
+  loss_spike_sigma: 3.0     # trigger rollback playbook
+  spike_action: rollback_skip_halve_lr
+
+logging:
+  tracker: wandb
+  project: quantsmind-llm

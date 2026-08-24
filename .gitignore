@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Training artifacts — NEVER commit weights/checkpoints
+*.bin
+*.safetensors
+*.pt
+*.ckpt
+checkpoints/
+runs/
+
+# Data artifacts (versioned via DVC instead)
+data/raw/
+data/shards/
+*.arrow
+*.parquet
+
+# Env & secrets
+.env
+*.key
+secrets/
+
+# Tooling
+.wandb/
+.dvc/cache/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
