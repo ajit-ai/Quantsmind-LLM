@@ -60,3 +60,13 @@ python -m serving.app
 
 Every answer carries the mandatory *"not investment advice"* disclaimer. This same UI
 will point at Quantsmind's own served model in Phase 3 (identical API contract).
+
+### India data residency (default ON)
+
+Prompts are blocked from leaving your controlled network unless you explicitly override:
+
+```powershell
+$env:QM_STRICT_RESIDENCY = "0"   # conscious override; default is "1" (private/India-only)
+```
+
+Policy: localhost / private-network / India-hosted endpoints only (see `docs/adr/0002-india-data-residency.md`).
