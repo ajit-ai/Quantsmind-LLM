@@ -30,17 +30,18 @@ Legend: [x] done · [~] partially done / verify pending · [ ] not started
 
 Exit when: CI green on GitHub + 0.10/0.11 closed.
 
-## PHASE 1 — Base Bake-off (Weeks 2–4) — 0%
+## PHASE 1 — Data v0 + 300M Pilot (Weeks 2–6) — ~55%
 
-- [ ] 1.1 Provision GPU box (1×A100/4090-class rented)
-- [ ] 1.2 Download candidates: Qwen3-8B, Qwen2.5-7B-Instruct, Mistral-7B-v0.3, Gemma-2-9B
-- [ ] 1.3 Wire lm-eval-harness: general suites + FinQA/TAT-QA/ConvFinQA
-- [ ] 1.4 Hindi/Hinglish probe set (~200 prompts)
-- [ ] 1.5 Build private India-finance held-out eval v0 (~500 items)
-- [ ] 1.6 Run full battery on all candidates → weighted scorecard
-- [ ] 1.7 Select champion → ADR-001
+- [~] 1.1 Corpus pipeline built & verified (downloaders, chunking, quality, PII, dedup, stats)
+- [~] 1.1b Corpus v0 built: 9,311 chunks / ~10M tokens (wiki-en 2000 docs, wiki-hi 500, Gutenberg econ) — scale-up to 12B tokens pending
+- [x] 1.2 Tokenizer v0 trained: 49,152 BPE, round-trip OK, ~10M tokens encoded (tokenizer/qm_bpe_v0.json)
+- [~] 1.3 Data card v0 published (data/DATA_CARD_v0.md); fuzzy dedup + decontamination before 12B build
+- [~] 1.4 India-finance eval set: 26/500 seed items, schema + loader tested
+- [ ] 1.5 LR probes (Kaggle free GPU tier)
+- [ ] 1.6 300M pilot pretrain (Kaggle free GPU tier, patient mode)
+- [ ] 1.7 Eval battery on pilot + benchmark rivals
 
-Exit when: one-command reproducible evals; champion named.
+**Rs.0 spent to date.**
 
 ## PHASE 2 — Finance Adaptation (Weeks 4–8) — 0%
 
