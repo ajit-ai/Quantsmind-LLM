@@ -38,23 +38,27 @@ def respond(message: str, history):
     yield append_disclaimer("".join(full))
 
 
+def build_ui():
+    with gr.Blocks() as ui:
+        gr.ChatInterface(
+            fn=respond,
+            title=TITLE,
+            description=DESCRIPTION,
+            examples=[
+                "What is a P/E ratio and how do I interpret it?",
+                "Explain CAGR with an example.",
+                "What happens to my SIP if markets crash?",
+            ],
+        )
+    return ui
+
+
 def main():
     port = int(os.environ.get("QM_UI_PORT", "7860"))
-    demo = gr.ChatInterface(
-        fn=respond,
-        title=TITLE,
-        description=DESCRIPTION,
-        theme=gr.themes.Soft(),
-        examples=[
-            "What is a P/E ratio and how do I interpret it?",
-            "Explain CAGR with an example.",
-            "What happens to my SIP if markets crash?",
-        ],
-    )
     cfg = LLMConfig.from_env()
     mode = f"backend={cfg.model}" if cfg.configured() else "DEMO MODE (no backend configured)"
     print(f"Starting Quantsmind UI on http://localhost:{port} [{mode}]")
-    demo.launch(server_name="0.0.0.0", server_port=port)
+    build_ui().launch(server_name="0.0.0.0", server_port=port)
 
 
 if __name__ == "__main__":
