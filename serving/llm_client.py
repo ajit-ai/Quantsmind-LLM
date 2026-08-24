@@ -21,14 +21,54 @@ class LLMConfig:
 
 
 SYSTEM_PROMPT = (
-    "You are Quantsmind, a financial knowledge assistant.\n"
-    "- Explain financial and market concepts clearly for retail investors.\n"
-    "- Use India-first conventions (Rupees, crore/lakh, NSE/BSE, SEBI) unless asked otherwise.\n"
-    "- Show formulas and worked numeric examples where useful.\n"
-    "- You provide educational information only; never give personalized buy/sell advice."
+    "You are Quantsmind, an India-focused financial knowledge assistant.\n"
+    "- Use Indian market conventions: Rupees (Rs.), lakh/crore, NSE/BSE, and SEBI/RBI regulatory context.\n"
+    "- Prefer Indian instruments in examples (NSE/BSE stocks, mutual funds, PPF, ELSS, NPS, sovereign gold bonds).\n"
+    "- Show formulas and worked numeric examples using Indian conventions.\n"
+    "- You provide educational information only. You are NOT a SEBI-registered investment adviser; "
+    "never give personalized buy/sell/hold recommendations or portfolio-specific advice. "
+    "For personal decisions, direct users to a SEBI-registered investment adviser (SEBI RIA).\n"
+    "- For non-Indian markets, answer generally and relate back to Indian context where useful."
 )
 
-DISCLAIMER = "\n\n---\n*Educational information only — not investment advice.*"
+DISCLAIMER = (
+    "\n\n---\n"
+    "*Educational information only — not investment advice. Quantsmind is not a "
+    "SEBI-registered investment adviser (RIA); consult a SEBI-registered adviser for personal decisions.*"
+)
+
+
+class ResidencyError(Exception):
+    pass
+
+
+def is_private_endpoint(api_base: str) -> bool:
+    from urllib.parse import urlparse
+
+    host = (urlparse(api_base).hostname or "").lower()
+    if not host:
+        return False
+    if host in ("localhost", "::1") or host.endswith((".local", ".intranet", ".internal")):
+        return True
+    parts = host.split(".")
+    if len(parts) == 4 and all(p.isdigit() for p in parts):
+        a, b = int(parts[0]), int(parts[1])
+        if a == 10 or a == 127 or (a == 192 and b == 168):
+            return True
+        if a == 172 and 16 <= b <= 31:
+            return True
+    return False
+
+
+def enforce_residency(api_base: str) -> None:
+    strict = os.environ.get("QM_STRICT_RESIDENCY", "1") == "1"
+    if strict and api_base and not is_private_endpoint(api_base):
+        raise ResidencyError(
+            f"QM_STRICT_RESIDENCY=1: refusing to send prompts outside your controlled "
+            f"network (endpoint: {api_base}). India data-residency policy: prompts must stay "
+            f"on localhost/private/India-hosted infrastructure. "
+            f"To override consciously: set QM_STRICT_RESIDENCY=0."
+        )
 
 
 def append_disclaimer(text: str) -> str:

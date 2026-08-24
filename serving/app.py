@@ -4,10 +4,12 @@ import gradio as gr
 
 from serving.llm_client import (
     LLMConfig,
+    ResidencyError,
     append_disclaimer,
     build_messages,
     client_stream,
     demo_stream,
+    enforce_residency,
 )
 
 TITLE = "Quantsmind — Financial Knowledge Assistant"
@@ -27,6 +29,11 @@ def respond(message: str, history):
             yield chunk
         return
     messages = build_messages(history, message)
+    try:
+        enforce_residency(cfg.api_base)
+    except ResidencyError as e:
+        yield f"**Blocked by India data-residency policy**\n\n{e}"
+        return
     full = []
     try:
         for delta in client_stream(cfg.api_base, cfg.api_key, cfg.model, messages):
