@@ -1,0 +1,6 @@
+{
+  "vocab_size": 49152,
+  "num_tokens": 9993983,
+  "dtype": "uint16",
+  "corpus": "data\\corpus_v0.txt"
+}
