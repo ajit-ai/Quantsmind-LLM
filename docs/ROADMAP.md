@@ -19,6 +19,10 @@ Durations assume 1–2 engineers + rented GPU. Each phase has hard exit criteria
 
 ## Phase 1 — Base bake-off (Weeks 2–4)
 
+> **Competitive clock** (see COMPETITIVE_ANALYSIS.md): Sarvam is circling BFSI with
+> sovereign positioning; Stoxo proved retail demand. Window to demonstrate
+> "finance-tuned sovereign engine" is ~2 quarters — M2 is the proof point.
+
 - Download candidates: Qwen3-8B, Qwen2.5-7B-Instruct, Mistral-7B-v0.3, Gemma-2-9B
 - Wire lm-eval-harness + finance suites (FinQA/TAT-QA/ConvFinQA) + Hindi/Hinglish probes
 - Run full battery on each candidate on 1×A100; log to W&B
@@ -50,11 +54,20 @@ refusal precision ≥95%; no general-benchmark regression >2%; all data cards pu
 
 ## Phase 4 — Pilot launch (Weeks 10–12)
 
+> **Positioning rule** (COMPETITIVE_ANALYSIS.md §5): sell the compliant engine, not the
+> app. Pilot target = a broker/wealth platform that needs its own branded AI answer to
+> Stoxo-class products and cannot risk foreign-API wrappers under SEBI's forthcoming
+> tiered AI rules.
+
 - One named B2B pilot partner (broker/wealth app) — success criteria contracted up front
+- SEBI-RA partner firm signed for advisory-adjacent features (RA owns accountability; we power)
+- Compliance pack per partner: audit-log export, residency attestation, kill-switch demo,
+  model-inventory row (RBI MD / SEBI CSCRF aligned)
 - Shadow-mode week → canary 5% → full ramp; weekly eval reports; feedback flywheel capture
 - Model card + eval report published internally; go/no-go review board
 
-**Exit**: pilot SLOs met in production; partner sign-off; rollback rehearsed.
+**Exit**: pilot SLOs met in production; partner sign-off; compliance pack accepted by
+partner's compliance officer; rollback rehearsed.
 
 ## Phase 5 — Compound & decide Wave-2 (Quarter 2)
 
@@ -83,6 +96,8 @@ refusal precision ≥95%; no general-benchmark regression >2%; all data cards pu
 | Finance benchmark contamination | Strict decontamination; private held-out set is the deciding metric |
 | Arithmetic hallucination reaching users | Tool-mandate architecture + exact-match hard-fail gate |
 | Advisory-compliance breach | Refusal training + disclaimer injector + audit trail + partner contract flags |
+| Competitor verticalizes first (Sarvam→BFSI, Stoxo→white-label) | 2-quarter window tracked in COMPETITIVE_ANALYSIS.md; M2 demo is the counter-move; quarterly market re-scan |
+| SEBI AI guidelines finalize with stricter controls | Map final text to our controls (audit/residency/kill-switch already built); update safety/ policies |
 | Single-GPU serving cost creep | int4 + spec-decode budgets enforced in load tests |
 | Data licensing gaps | Provenance ledger + legal review before CPT starts |
 | Key-person dependency | Runbooks + this repo as single source of truth |
