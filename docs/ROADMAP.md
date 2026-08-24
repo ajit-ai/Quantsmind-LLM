@@ -1,108 +1,95 @@
 # Quantsmind-LLM — Development Roadmap
 
-From-scratch training program. Durations assume a small dedicated team (2–4 ML engineers)
-and rented GPU capacity; adjust to your cluster reality. Each phase has explicit
-**exit criteria** — do not scale up until the previous phase passes.
+**Scope**: Finance/Trading vertical · Tier-1 use cases (RAG + tools + 7B-class) · B2B2C.
+**Strategy**: extend an Apache-2.0 open base (Qwen3-8B class) → finance adaptation → partner pilot.
+Durations assume 1–2 engineers + rented GPU. Each phase has hard exit criteria; do not advance without passing them.
 
 ---
 
-## Phase 0 — Foundations (Weeks 1–3)
+## Phase 0 — Foundations (Weeks 1–2)  ← current
 
 | Workstream | Deliverables |
 |---|---|
-| Repo & CI | Scaffold (this commit), lint, unit tests, smoke-train of a 10M-param model in CI |
-| Tokenizer | Train byte-BPE 49k on corpus sample; pass round-trip/fertility tests |
-| Data v0 | Acquire + dedup + quality-filter first 100B raw tokens; provenance ledger live |
-| Eval harness | lm-eval-harness wired for pilot sizes; finance bench stub; promotion.yaml drafted |
-| Infra | GPU access verified end-to-end: launch, log to W&B, checkpoint to storage, resume |
+| Repo & CI | Scaffold, lint, pytest suite, CPU smoke-train of tiny model in CI |
+| Training infra | `training/model.py` + `pretrain.py` (LR schedule, checkpoint/resume, watchdog) — powers draft-model now, from-scratch option later |
+| Eval infra | Harness config skeleton, `promotion.yaml` gate rules |
+| Tokenizer tooling | byte-BPE trainer + tests (draft-model/data tooling) |
 
-**Exit criteria:** a 10M toy model trains to sane loss (< 4.0 on 1B tokens) with full
-logging/checkpoint/resume working; tokenizer tests green.
+**Exit**: CI green on GitHub Actions — unit tests pass and 30-step toy run completes with checkpoint+resume.
 
-## Phase 1 — Pilot Run 300M (Weeks 3–6)
+## Phase 1 — Base bake-off (Weeks 2–4)
 
-- Train **300M on ~12B tokens** general mix (~8×A100 × 1–2 days per attempt)
-- Purpose: validate *everything* cheaply — data quality, LR schedule, throughput, evals
-- Ablate: 2–3 LRs via short scaling-law probes before the real run
-- Evaluate: perplexity curves vs reference open models at same size, basic benchmarks
+- Download candidates: Qwen3-8B, Qwen2.5-7B-Instruct, Mistral-7B-v0.3, Gemma-2-9B
+- Wire lm-eval-harness + finance suites (FinQA/TAT-QA/ConvFinQA) + Hindi/Hinglish probes
+- Run full battery on each candidate on 1×A100; log to W&B
+- Build **private India-finance held-out eval set** (v0, ~500 items, never trained on)
 
-**Exit criteria:** loss curve smooth (no unrecovered spikes); MFU ≥ 40%; eval harness
-produces comparable numbers to published 300M-class models (±10%); pipeline restarts
-from checkpoint cleanly after induced kill.
+**Exit**: champion selected by weighted score → ADR-001; eval harness reproducible via one command.
 
-## Phase 2 — Data Scale-Up + Mid-Training Design (Weeks 5–9, overlaps)
+## Phase 2 — Finance adaptation (Weeks 4–8)
 
-- Grow corpus toward 60–100B tokens; add domain corpus ingestion (filings/news/papers/synthetic QA)
-- PII + decontamination audits signed off by second engineer
-- Build SFT dataset (50–150k pairs) and DPO pair set via teacher-model distillation + human audit
-- Long-context plan: YaRN experiment scripted and tested on the 300M pilot
+- Domain corpus build: filings/transcripts/q-fin per license ledger → CPT mix v1 (~10B tokens)
+- A1 CPT run (full-FT if ≥4×A100 else LoRA-r256 ladder); LR probes first at 100M-token scale
+- A2 SFT mixture build (50–150k pairs: QA, extraction, summarization, calc-tool traces) + train
+- A3 DPO pairs (10–40k) + train
+- A4 safety pass: advisory-boundary + jailbreak SFT/DPO mix; red-team round 1
+- A5 calculator/tool-call curriculum baked into SFT data; exact-match arithmetic eval added
 
-**Exit criteria:** dataset v1 frozen, version-tagged, fully documented data card; decontam
-report shows 0 benchmark contamination above threshold; SFT/DPO datasets reviewed.
+**Exit**: candidate beats base by clear margin on finance suite; arithmetic suite 100% via-tool;
+refusal precision ≥95%; no general-benchmark regression >2%; all data cards published.
 
-## Phase 3 — Production Pre-Train 1.5B (Weeks 9–14)
+## Phase 3 — B2B2C product layer (Weeks 8–10)
 
-- Train **1.5B on ~60B tokens**: general → +code/math curriculum, domain-heavy final 20%
-- Ops: daily eval snapshots; spike playbook armed; budget checkpoints every 2k steps
-- Mid-train continuation on finance corpus (+ long-context extension to 16–32k if stable)
+- Gateway: tenant router, partner keys, quotas, billing meter hooks, SSE streaming
+- RAG service: hybrid retrieval over filings/news/partner docs; market-snapshot context packer
+- Guardrails: injection filter, PII redaction, SEBI-style disclaimer injector, advisory-refusal policy
+- Serving: vLLM AWQ-int4 engine pool; speculative decoding w/ our draft model; K8s manifests
+- Immutable audit log per message; OTel dashboards (TTFT/TPOT/tool-error rates)
 
-**Exit criteria:** beats 300M baseline across suite; finance bench ≥ defined floor;
-loss trajectory matches scaling-law prediction from pilot within tolerance.
+**Exit**: end-to-end demo — partner-key request → grounded, disclaimed answer with tool-verified numbers; load test 2× projected peak.
 
-## Phase 4 — Post-Training: SFT + DPO (Weeks 13–17)
+## Phase 4 — Pilot launch (Weeks 10–12)
 
-- Chat template finalized; SFT on curated pairs; DPO on preference pairs
-- Safety pass: adversarial SFT mixture + red-team round 1
-- Iterate: 2–3 cycles of (eval → fix data → retrain) — budgeted explicitly
+- One named B2B pilot partner (broker/wealth app) — success criteria contracted up front
+- Shadow-mode week → canary 5% → full ramp; weekly eval reports; feedback flywheel capture
+- Model card + eval report published internally; go/no-go review board
 
-**Exit criteria:** MT-Bench ≥ 7.0 target or documented gap analysis; jailbreak hard-fail
-set 100% blocked; refusal precision ≥ 95% on benign prompts.
+**Exit**: pilot SLOs met in production; partner sign-off; rollback rehearsed.
 
-## Phase 5 — Serving & Launch (Weeks 16–20)
+## Phase 5 — Compound & decide Wave-2 (Quarter 2)
 
-- vLLM deployment, quantization bake-off (FP8 vs AWQ-int4), speculative decoding with 300M draft
-- Gateway: auth, quotas, streaming, guardrails, canary routing, feedback capture
-- Load test to 2× projected peak; chaos drill (kill worker mid-stream)
-- Model card + eval report published internally; go/no-go review
-
-**Exit criteria:** all SLOs met under load; rollback path rehearsed; sign-off from safety review.
-
-## Phase 6 — Scale & Compound (Quarter 2+)
-
-- 7B run on 200B+ tokens (requires multi-node plan from Phase 3 learnings)
-- RL-with-verifiable-rewards for math/finance reasoning (GRPO-style)
-- Context extension to 128k; tool-use/calculator integration for arithmetic guarantees
-- Data flywheel: consented user feedback → monthly SFT/DPO refreshes
-- Consider MoE variant for inference economics once dense 7B is stable
+- Data flywheel → monthly SFT/DPO refreshes; Hindi/Hinglish strengthening
+- Draft-model scale-up; context extension experiments
+- Wave-2 vertical (agri/commodity adjacent) only if: corpus identified + eval suite built + anchor customer signed
 
 ---
 
-## Milestone Summary
+## Milestones
 
-| Milestone | Target date | Gate |
+| M | Target | Gate |
 |---|---|---|
-| M0 Pipeline proven (toy train) | wk 3 | exit P0 |
-| M1 Pilot 300M done | wk 6 | exit P1 |
-| M2 Dataset v1 frozen | wk 9 | exit P2 |
-| M3 Base 1.5B pretrained | wk 14 | exit P3 |
-| M4 Aligned chat model | wk 17 | exit P4 |
-| M5 Production serving | wk 20 | exit P5 |
-| M6 7B scale run | Q2 | roadmap |
+| M0 | wk 2 | CI green incl. smoke-train |
+| M1 | wk 4 | Champion base chosen (ADR-001) |
+| M2 | wk 8 | Finance-adapted model passes promotion gate |
+| M3 | wk 10 | Product layer demo end-to-end |
+| M4 | wk 12 | Production pilot live |
+| M5 | Q2 | Refresh cadence + Wave-2 decision |
 
 ## Risk Register
 
 | Risk | Mitigation |
 |---|---|
-| Loss spikes at scale | Spike playbook, frequent async checkpoints, LR margin from probes |
-| Data licensing gaps | Provenance ledger, license filter early in pipeline, legal review gate |
-| Finance benchmarks contaminated | Strict decontamination + private held-out finance set |
-| Compute cost overrun | Scaling-law probes before big runs; kill criteria per phase |
-| Single-point infra failure | Multi-region checkpoint copies; elastic restart drills |
-| Key-person dependency | Runbooks + paired rotations on data/training/serving |
+| Base license change / model withdrawal | Pin weights + hashes in DVC; bake-off keeps 2 Apache alternates ready |
+| Finance benchmark contamination | Strict decontamination; private held-out set is the deciding metric |
+| Arithmetic hallucination reaching users | Tool-mandate architecture + exact-match hard-fail gate |
+| Advisory-compliance breach | Refusal training + disclaimer injector + audit trail + partner contract flags |
+| Single-GPU serving cost creep | int4 + spec-decode budgets enforced in load tests |
+| Data licensing gaps | Provenance ledger + legal review before CPT starts |
+| Key-person dependency | Runbooks + this repo as single source of truth |
 
 ## Branching & Release Flow
 
-- `main` = protected release branch (tagged releases only)
-- `develop` = integration branch (this work happens here)
-- Feature branches `feat/*` → PR into `develop`; develop → main via release PR with eval report attached
-- Every model artifact tagged with git SHA + dataset version + config hash
+- `feat/*` → PR into `develop` (integration)
+- `develop` → release PR into protected `main`, attaching the eval report
+- Tags: model releases tagged `model-vN.M` with git SHA + dataset tag + config hash
+- Every phase ends with develop→main merge per project rule
