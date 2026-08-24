@@ -1,0 +1,3260 @@
+The NIFTY50 index moved gained by 614 points amid currency concerns.
+Orion Metals (NIFTY50) closed at 1393.99 (+1.6%) on 2025-02-03.
+Zen Pharma (MSFT) closed at 3428.50 (+8.6%) on 2025-05-15.
+Analysts set a target price of Rs.3311.65 with a sell rating.
+Analysts set a target price of Rs.411.29 with a sell rating.
+The company reported EPS of 19.81, beating consensus estimates of 114.44.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8582
+
+Trading volume reached 4,622,086 shares, up 6.7% from the previous session.
+The company reported EPS of 4.25, beating consensus estimates of 39.99.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8710
+
+Investors rotated into FMCG stocks as inflation cooled to 5.0%.
+Trading volume reached 1,803,042 shares, up 34.6% from the previous session.
+Trading volume reached 4,228,214 shares, up 36.8% from the previous session.
+Analysts set a target price of Rs.3609.34 with a hold rating.
+The NASDAQ index moved gained by 301 points amid inflation concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1064
+
+Trading volume reached 379,826 shares, up 0.2% from the previous session.
+The DOW index moved gained by 140 points amid liquidity concerns.
+Analysts set a target price of Rs.1974.45 with a buy rating.
+The company reported EPS of 52.43, beating consensus estimates of 87.56.
+Analysts set a target price of Rs.4749.48 with a accumulate rating.
+Quarterly revenue was Rs.553 crore versus Rs.40329 crore in the prior period.
+Quarterly revenue was Rs.19813 crore versus Rs.3701 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3752
+
+The SENSEX index moved fell by 134 points amid currency concerns.
+Investors rotated into banking stocks as inflation cooled to 6.2%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1848
+
+Investors rotated into banking stocks as inflation cooled to 4.2%.
+Yields on the 10-year benchmark note rose to 6.76 percent.
+Yields on the 10-year benchmark note rose to 6.30 percent.
+Analysts set a target price of Rs.2935.56 with a accumulate rating.
+The DOW index moved fell by 687 points amid liquidity concerns.
+Trading volume reached 2,831,899 shares, up 1.2% from the previous session.
+Trading volume reached 154,646 shares, up 3.8% from the previous session.
+Yields on the 10-year benchmark note rose to 6.57 percent.
+Trading volume reached 3,947,586 shares, up 19.2% from the previous session.
+The DOW index moved gained by 630 points amid currency concerns.
+The NIFTY50 index moved gained by 170 points amid rate concerns.
+Analysts set a target price of Rs.4613.84 with a sell rating.
+Yields on the 10-year benchmark note rose to 7.99 percent.
+Yields on the 10-year benchmark note rose to 7.03 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0369
+
+Investors rotated into energy stocks as inflation cooled to 7.3%.
+Quarterly revenue was Rs.19458 crore versus Rs.50777 crore in the prior period.
+Trading volume reached 3,455,831 shares, up 1.8% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0046
+
+The company reported EPS of 102.35, beating consensus estimates of 103.19.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8632
+
+Trading volume reached 2,731,051 shares, up 31.9% from the previous session.
+Quarterly revenue was Rs.33789 crore versus Rs.60736 crore in the prior period.
+Trading volume reached 2,312,508 shares, up 0.4% from the previous session.
+Analysts set a target price of Rs.3267.07 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0788
+
+The company reported EPS of 96.65, beating consensus estimates of 44.21.
+Trading volume reached 2,544,954 shares, up 26.0% from the previous session.
+Quarterly revenue was Rs.86341 crore versus Rs.13478 crore in the prior period.
+The company reported EPS of 15.55, beating consensus estimates of 67.97.
+Analysts set a target price of Rs.745.84 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1034
+
+The company reported EPS of 59.09, beating consensus estimates of 109.21.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4500
+
+The company reported EPS of 11.86, beating consensus estimates of 51.50.
+The NASDAQ index moved gained by 696 points amid inflation concerns.
+The NIFTY50 index moved fell by 633 points amid liquidity concerns.
+Orion Metals (TCS) closed at 1535.97 (+4.5%) on 2024-06-10.
+Analysts set a target price of Rs.4923.78 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.42 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3505
+
+Investors rotated into pharma stocks as inflation cooled to 6.3%.
+Quarterly revenue was Rs.65264 crore versus Rs.61311 crore in the prior period.
+Trading volume reached 4,993,502 shares, up 20.3% from the previous session.
+Analysts set a target price of Rs.3266.02 with a buy rating.
+The company reported EPS of 17.40, beating consensus estimates of 42.30.
+Trading volume reached 3,051,689 shares, up 12.4% from the previous session.
+Trading volume reached 3,681,470 shares, up 1.8% from the previous session.
+Analysts set a target price of Rs.2564.24 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6918
+
+The SENSEX index moved fell by 471 points amid earnings concerns.
+Quarterly revenue was Rs.1188 crore versus Rs.10884 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1603
+
+Investors rotated into FMCG stocks as inflation cooled to 5.4%.
+Delta Energy (AAPL) closed at 2560.90 (-9.7%) on 2025-12-01.
+Quarterly revenue was Rs.52696 crore versus Rs.71676 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.59 percent.
+Investors rotated into banking stocks as inflation cooled to 6.5%.
+Yields on the 10-year benchmark note rose to 7.00 percent.
+Investors rotated into banking stocks as inflation cooled to 6.6%.
+The DOW index moved gained by 574 points amid liquidity concerns.
+The SENSEX index moved fell by 796 points amid inflation concerns.
+Trading volume reached 1,446,134 shares, up 26.4% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9091
+
+Trading volume reached 512,586 shares, up 6.4% from the previous session.
+The company reported EPS of 50.47, beating consensus estimates of 115.54.
+Quarterly revenue was Rs.28699 crore versus Rs.76960 crore in the prior period.
+Trading volume reached 1,006,659 shares, up 5.2% from the previous session.
+Yields on the 10-year benchmark note rose to 7.19 percent.
+Trading volume reached 440,798 shares, up 23.4% from the previous session.
+The DOW index moved gained by 763 points amid earnings concerns.
+Trading volume reached 2,424,152 shares, up 5.0% from the previous session.
+The NASDAQ index moved fell by 150 points amid rate concerns.
+Quarterly revenue was Rs.38149 crore versus Rs.42596 crore in the prior period.
+Delta Energy (RELIANCE) closed at 3749.60 (-9.5%) on 2025-01-01.
+The NASDAQ index moved fell by 591 points amid inflation concerns.
+Trading volume reached 1,001,741 shares, up 18.7% from the previous session.
+The company reported EPS of 63.62, beating consensus estimates of 43.73.
+Analysts set a target price of Rs.4062.59 with a sell rating.
+Analysts set a target price of Rs.3867.96 with a sell rating.
+Quarterly revenue was Rs.3479 crore versus Rs.39607 crore in the prior period.
+Bharat Motors (MSFT) closed at 448.54 (+0.4%) on 2026-11-23.
+The company reported EPS of 116.69, beating consensus estimates of 113.02.
+Trading volume reached 3,268,295 shares, up 9.8% from the previous session.
+Delta Energy (AAPL) closed at 3500.80 (-1.9%) on 2026-12-22.
+Yields on the 10-year benchmark note rose to 6.64 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7282
+
+Quarterly revenue was Rs.72673 crore versus Rs.86300 crore in the prior period.
+Quarterly revenue was Rs.18521 crore versus Rs.83167 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0644
+
+Yields on the 10-year benchmark note rose to 7.59 percent.
+Analysts set a target price of Rs.374.96 with a buy rating.
+Investors rotated into FMCG stocks as inflation cooled to 4.5%.
+Quarterly revenue was Rs.4383 crore versus Rs.83615 crore in the prior period.
+Analysts set a target price of Rs.548.45 with a accumulate rating.
+Zen Pharma (MSFT) closed at 2407.85 (+7.8%) on 2025-01-10.
+Trading volume reached 2,565,656 shares, up 0.4% from the previous session.
+Quarterly revenue was Rs.32275 crore versus Rs.43214 crore in the prior period.
+Analysts set a target price of Rs.1338.14 with a hold rating.
+Yields on the 10-year benchmark note rose to 7.49 percent.
+The company reported EPS of 42.12, beating consensus estimates of 12.17.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4216
+
+Orion Metals (MSFT) closed at 2724.70 (-1.7%) on 2026-04-17.
+Investors rotated into energy stocks as inflation cooled to 5.8%.
+The company reported EPS of 83.37, beating consensus estimates of 61.54.
+Quarterly revenue was Rs.64018 crore versus Rs.18395 crore in the prior period.
+Analysts set a target price of Rs.2906.30 with a accumulate rating.
+Analysts set a target price of Rs.3476.75 with a sell rating.
+Quarterly revenue was Rs.54448 crore versus Rs.8270 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.46 percent.
+Yields on the 10-year benchmark note rose to 6.25 percent.
+Yields on the 10-year benchmark note rose to 6.47 percent.
+Quarterly revenue was Rs.9783 crore versus Rs.30508 crore in the prior period.
+Quarterly revenue was Rs.11862 crore versus Rs.13668 crore in the prior period.
+Trading volume reached 2,032,340 shares, up 20.0% from the previous session.
+Yields on the 10-year benchmark note rose to 6.83 percent.
+Quarterly revenue was Rs.83638 crore versus Rs.85675 crore in the prior period.
+Orion Metals (RELIANCE) closed at 521.80 (-7.0%) on 2026-01-06.
+The SENSEX index moved fell by 386 points amid rate concerns.
+Quarterly revenue was Rs.49364 crore versus Rs.16150 crore in the prior period.
+The SENSEX index moved fell by 485 points amid inflation concerns.
+Infotech Ltd (NIFTY50) closed at 3403.57 (-7.2%) on 2024-04-17.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8088
+
+Quarterly revenue was Rs.43262 crore versus Rs.42188 crore in the prior period.
+The NASDAQ index moved fell by 731 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.04 percent.
+Quarterly revenue was Rs.4364 crore versus Rs.50665 crore in the prior period.
+Trading volume reached 4,033,884 shares, up 21.8% from the previous session.
+Analysts set a target price of Rs.1281.65 with a buy rating.
+The company reported EPS of 26.65, beating consensus estimates of 63.41.
+Quarterly revenue was Rs.49467 crore versus Rs.87287 crore in the prior period.
+The company reported EPS of 110.56, beating consensus estimates of 116.12.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4907
+
+Analysts set a target price of Rs.1127.45 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.68 percent.
+The DOW index moved fell by 170 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1435
+
+Investors rotated into IT stocks as inflation cooled to 5.9%.
+The company reported EPS of 97.08, beating consensus estimates of 49.97.
+Yields on the 10-year benchmark note rose to 7.98 percent.
+Trading volume reached 953,876 shares, up 16.6% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4278
+
+The company reported EPS of 105.54, beating consensus estimates of 83.02.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6348
+
+Trading volume reached 1,586,518 shares, up 17.7% from the previous session.
+Quarterly revenue was Rs.8053 crore versus Rs.33201 crore in the prior period.
+Investors rotated into IT stocks as inflation cooled to 5.1%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6536
+
+Zen Pharma (HDFCBANK) closed at 2865.32 (+7.0%) on 2025-07-13.
+Trading volume reached 3,399,823 shares, up 26.5% from the previous session.
+Zen Pharma (TCS) closed at 2760.96 (+6.3%) on 2025-11-12.
+Analysts set a target price of Rs.4727.07 with a buy rating.
+Quarterly revenue was Rs.64408 crore versus Rs.44098 crore in the prior period.
+The NIFTY50 index moved gained by 556 points amid earnings concerns.
+Trading volume reached 3,023,614 shares, up 30.0% from the previous session.
+Analysts set a target price of Rs.338.08 with a buy rating.
+Quarterly revenue was Rs.14251 crore versus Rs.67554 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.02 percent.
+Trading volume reached 91,137 shares, up 34.1% from the previous session.
+The company reported EPS of 109.39, beating consensus estimates of 58.18.
+Delta Energy (SENSEX) closed at 496.10 (+4.1%) on 2024-02-09.
+Yields on the 10-year benchmark note rose to 6.81 percent.
+Investors rotated into banking stocks as inflation cooled to 5.9%.
+The company reported EPS of 99.67, beating consensus estimates of 115.75.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6717
+
+Quarterly revenue was Rs.44793 crore versus Rs.14625 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4724
+
+Yields on the 10-year benchmark note rose to 7.61 percent.
+Trading volume reached 978,089 shares, up 30.5% from the previous session.
+Infotech Ltd (NIFTY50) closed at 624.04 (+6.7%) on 2024-05-25.
+Analysts set a target price of Rs.3140.75 with a sell rating.
+Analysts set a target price of Rs.1467.65 with a accumulate rating.
+Delta Energy (INFY) closed at 337.88 (-7.0%) on 2026-04-06.
+Investors rotated into FMCG stocks as inflation cooled to 6.6%.
+Orion Metals (TCS) closed at 1315.24 (-0.9%) on 2024-03-25.
+Investors rotated into IT stocks as inflation cooled to 6.4%.
+The DOW index moved fell by 400 points amid earnings concerns.
+The company reported EPS of 74.22, beating consensus estimates of 30.70.
+Investors rotated into FMCG stocks as inflation cooled to 3.7%.
+The company reported EPS of 43.37, beating consensus estimates of 37.00.
+Quarterly revenue was Rs.77837 crore versus Rs.28386 crore in the prior period.
+Trading volume reached 4,760,948 shares, up 38.0% from the previous session.
+Analysts set a target price of Rs.4904.89 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 7.03 percent.
+The SENSEX index moved gained by 672 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 6.91 percent.
+The NIFTY50 index moved gained by 554 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0596
+
+Analysts set a target price of Rs.3852.71 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.96 percent.
+Trading volume reached 2,849,022 shares, up 32.1% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 3.9%.
+Analysts set a target price of Rs.2086.71 with a hold rating.
+Trading volume reached 2,861,840 shares, up 37.9% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 4.3%.
+The company reported EPS of 100.28, beating consensus estimates of 100.44.
+Investors rotated into FMCG stocks as inflation cooled to 4.6%.
+Quarterly revenue was Rs.47895 crore versus Rs.80818 crore in the prior period.
+The company reported EPS of 115.12, beating consensus estimates of 18.37.
+The company reported EPS of 31.54, beating consensus estimates of 43.56.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7347
+
+Analysts set a target price of Rs.3195.39 with a hold rating.
+The company reported EPS of 3.26, beating consensus estimates of 87.47.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8724
+
+Investors rotated into pharma stocks as inflation cooled to 6.9%.
+Investors rotated into pharma stocks as inflation cooled to 3.7%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0466
+
+Quarterly revenue was Rs.56918 crore versus Rs.38893 crore in the prior period.
+The NASDAQ index moved fell by 301 points amid currency concerns.
+Analysts set a target price of Rs.1240.77 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8396
+
+Quarterly revenue was Rs.16485 crore versus Rs.33131 crore in the prior period.
+Trading volume reached 957,312 shares, up 9.5% from the previous session.
+Orion Metals (RELIANCE) closed at 1517.02 (-0.9%) on 2024-08-03.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2445
+
+Quarterly revenue was Rs.24961 crore versus Rs.71753 crore in the prior period.
+The company reported EPS of 59.96, beating consensus estimates of 66.40.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0464
+
+The NIFTY50 index moved gained by 594 points amid inflation concerns.
+Investors rotated into banking stocks as inflation cooled to 5.6%.
+Yields on the 10-year benchmark note rose to 6.63 percent.
+The company reported EPS of 119.21, beating consensus estimates of 36.57.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6439
+
+Trading volume reached 4,783,662 shares, up 36.7% from the previous session.
+The DOW index moved fell by 436 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.26 percent.
+Analysts set a target price of Rs.1889.81 with a hold rating.
+Quarterly revenue was Rs.81896 crore versus Rs.19856 crore in the prior period.
+Trading volume reached 455,311 shares, up 18.7% from the previous session.
+Yields on the 10-year benchmark note rose to 6.79 percent.
+Trading volume reached 746,477 shares, up 29.2% from the previous session.
+Trading volume reached 1,227,626 shares, up 26.3% from the previous session.
+Quarterly revenue was Rs.25132 crore versus Rs.14494 crore in the prior period.
+Quarterly revenue was Rs.4724 crore versus Rs.54054 crore in the prior period.
+Investors rotated into FMCG stocks as inflation cooled to 5.4%.
+Apex Bank (AAPL) closed at 799.91 (-4.4%) on 2025-05-15.
+Investors rotated into FMCG stocks as inflation cooled to 5.8%.
+Yields on the 10-year benchmark note rose to 6.41 percent.
+Investors rotated into IT stocks as inflation cooled to 3.7%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1562
+
+Trading volume reached 2,520,664 shares, up 13.0% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3892
+
+Trading volume reached 2,188,186 shares, up 21.1% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 4.1%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3994
+
+The company reported EPS of 77.66, beating consensus estimates of 58.04.
+Apex Bank (INFY) closed at 2242.95 (-0.2%) on 2026-11-11.
+The company reported EPS of 109.65, beating consensus estimates of 53.53.
+Investors rotated into energy stocks as inflation cooled to 7.0%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5324
+
+Trading volume reached 1,262,593 shares, up 6.4% from the previous session.
+Trading volume reached 898,579 shares, up 15.4% from the previous session.
+Analysts set a target price of Rs.2405.67 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0493
+
+The company reported EPS of 48.40, beating consensus estimates of 49.91.
+The company reported EPS of 55.82, beating consensus estimates of 66.83.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7825
+
+Yields on the 10-year benchmark note rose to 7.75 percent.
+Yields on the 10-year benchmark note rose to 7.40 percent.
+Yields on the 10-year benchmark note rose to 7.32 percent.
+Investors rotated into IT stocks as inflation cooled to 5.6%.
+The NIFTY50 index moved fell by 545 points amid rate concerns.
+The company reported EPS of 75.11, beating consensus estimates of 34.77.
+Quarterly revenue was Rs.59043 crore versus Rs.48966 crore in the prior period.
+Investors rotated into banking stocks as inflation cooled to 4.7%.
+Investors rotated into pharma stocks as inflation cooled to 5.9%.
+Analysts set a target price of Rs.578.72 with a buy rating.
+Analysts set a target price of Rs.1543.39 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5542
+
+Yields on the 10-year benchmark note rose to 7.29 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1427
+
+Trading volume reached 4,020,924 shares, up 17.5% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 6.1%.
+The company reported EPS of 100.19, beating consensus estimates of 54.19.
+Infotech Ltd (TCS) closed at 3238.06 (-6.6%) on 2025-11-28.
+Trading volume reached 2,729,879 shares, up 4.9% from the previous session.
+The NIFTY50 index moved fell by 146 points amid currency concerns.
+Investors rotated into IT stocks as inflation cooled to 5.8%.
+Analysts set a target price of Rs.3383.70 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0747
+
+Quarterly revenue was Rs.26550 crore versus Rs.89216 crore in the prior period.
+Bharat Motors (TCS) closed at 3715.15 (-4.5%) on 2025-06-05.
+The company reported EPS of 55.80, beating consensus estimates of 2.23.
+Quarterly revenue was Rs.13344 crore versus Rs.59802 crore in the prior period.
+Orion Metals (HDFCBANK) closed at 689.12 (-4.6%) on 2026-12-19.
+Delta Energy (HDFCBANK) closed at 2807.32 (-6.1%) on 2026-04-26.
+Analysts set a target price of Rs.1828.29 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4197
+
+Trading volume reached 927,419 shares, up 6.7% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1669
+
+Quarterly revenue was Rs.68607 crore versus Rs.84998 crore in the prior period.
+Trading volume reached 1,539,079 shares, up 38.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3667
+
+Quarterly revenue was Rs.49378 crore versus Rs.59276 crore in the prior period.
+The company reported EPS of 3.46, beating consensus estimates of 74.29.
+Analysts set a target price of Rs.2503.28 with a buy rating.
+Investors rotated into FMCG stocks as inflation cooled to 6.4%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1811
+
+Trading volume reached 4,919,082 shares, up 12.2% from the previous session.
+Investors rotated into IT stocks as inflation cooled to 4.7%.
+Bharat Motors (AAPL) closed at 627.24 (-4.6%) on 2026-03-12.
+The company reported EPS of 110.55, beating consensus estimates of 19.98.
+The NASDAQ index moved fell by 717 points amid inflation concerns.
+The NIFTY50 index moved fell by 43 points amid rate concerns.
+Analysts set a target price of Rs.3925.93 with a hold rating.
+Bharat Motors (SENSEX) closed at 1497.53 (+5.9%) on 2025-11-04.
+Zen Pharma (SENSEX) closed at 507.10 (+2.8%) on 2026-12-10.
+The SENSEX index moved fell by 76 points amid currency concerns.
+Yields on the 10-year benchmark note rose to 7.36 percent.
+Trading volume reached 3,620,510 shares, up 35.2% from the previous session.
+Trading volume reached 4,726,540 shares, up 34.2% from the previous session.
+Trading volume reached 2,905,269 shares, up 39.7% from the previous session.
+The DOW index moved fell by 591 points amid rate concerns.
+The company reported EPS of 27.49, beating consensus estimates of 89.28.
+Investors rotated into FMCG stocks as inflation cooled to 6.9%.
+Analysts set a target price of Rs.837.32 with a accumulate rating.
+Trading volume reached 1,704,419 shares, up 6.5% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4449
+
+Infotech Ltd (INFY) closed at 2426.32 (+8.6%) on 2025-06-22.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6134
+
+The company reported EPS of 84.10, beating consensus estimates of 14.00.
+Quarterly revenue was Rs.88527 crore versus Rs.31914 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.98 percent.
+The NASDAQ index moved gained by 474 points amid earnings concerns.
+Quarterly revenue was Rs.26539 crore versus Rs.11562 crore in the prior period.
+The NASDAQ index moved fell by 162 points amid liquidity concerns.
+Trading volume reached 1,234,257 shares, up 1.2% from the previous session.
+The DOW index moved gained by 735 points amid currency concerns.
+Apex Bank (NIFTY50) closed at 1244.90 (-3.9%) on 2025-03-18.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7443
+
+Trading volume reached 4,671,337 shares, up 34.1% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4796
+
+Investors rotated into FMCG stocks as inflation cooled to 7.0%.
+Delta Energy (MSFT) closed at 1022.32 (+5.0%) on 2024-06-01.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9395
+
+Investors rotated into IT stocks as inflation cooled to 6.8%.
+Yields on the 10-year benchmark note rose to 6.95 percent.
+The company reported EPS of 9.96, beating consensus estimates of 96.28.
+Trading volume reached 2,147,922 shares, up 23.5% from the previous session.
+Delta Energy (HDFCBANK) closed at 1290.09 (+7.2%) on 2026-08-20.
+Investors rotated into banking stocks as inflation cooled to 5.0%.
+Analysts set a target price of Rs.4313.00 with a hold rating.
+Trading volume reached 4,651,045 shares, up 2.6% from the previous session.
+Yields on the 10-year benchmark note rose to 6.83 percent.
+Analysts set a target price of Rs.1587.89 with a hold rating.
+Zen Pharma (NIFTY50) closed at 500.18 (+2.3%) on 2026-04-16.
+The NIFTY50 index moved gained by 220 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 7.80 percent.
+Infotech Ltd (INFY) closed at 1293.48 (+9.7%) on 2024-07-02.
+Trading volume reached 2,906,172 shares, up 35.5% from the previous session.
+Quarterly revenue was Rs.71270 crore versus Rs.78160 crore in the prior period.
+The SENSEX index moved fell by 368 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 7.38 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7458
+
+Investors rotated into pharma stocks as inflation cooled to 4.3%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7143
+
+Yields on the 10-year benchmark note rose to 7.67 percent.
+Investors rotated into pharma stocks as inflation cooled to 5.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1187
+
+Analysts set a target price of Rs.1301.90 with a sell rating.
+The company reported EPS of 115.35, beating consensus estimates of 22.18.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7860
+
+Trading volume reached 559,103 shares, up 19.4% from the previous session.
+Analysts set a target price of Rs.3931.92 with a sell rating.
+Investors rotated into energy stocks as inflation cooled to 3.9%.
+The company reported EPS of 16.48, beating consensus estimates of 110.71.
+Investors rotated into energy stocks as inflation cooled to 4.7%.
+Orion Metals (AAPL) closed at 3045.76 (+6.8%) on 2026-06-07.
+Yields on the 10-year benchmark note rose to 7.46 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9396
+
+Trading volume reached 3,042,245 shares, up 20.7% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6108
+
+The SENSEX index moved gained by 347 points amid earnings concerns.
+The company reported EPS of 106.87, beating consensus estimates of 83.36.
+Yields on the 10-year benchmark note rose to 6.20 percent.
+The NASDAQ index moved gained by 373 points amid liquidity concerns.
+Trading volume reached 3,550,505 shares, up 13.8% from the previous session.
+Investors rotated into energy stocks as inflation cooled to 3.9%.
+Infotech Ltd (MSFT) closed at 1463.65 (-5.5%) on 2024-05-15.
+Quarterly revenue was Rs.60295 crore versus Rs.31976 crore in the prior period.
+Analysts set a target price of Rs.1026.60 with a accumulate rating.
+The DOW index moved fell by 541 points amid liquidity concerns.
+Analysts set a target price of Rs.758.22 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.08 percent.
+Trading volume reached 3,413,748 shares, up 32.9% from the previous session.
+Analysts set a target price of Rs.2249.54 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.28 percent.
+Quarterly revenue was Rs.86951 crore versus Rs.69233 crore in the prior period.
+The SENSEX index moved fell by 628 points amid currency concerns.
+Investors rotated into IT stocks as inflation cooled to 4.1%.
+Trading volume reached 3,450,135 shares, up 18.1% from the previous session.
+Analysts set a target price of Rs.504.49 with a hold rating.
+Yields on the 10-year benchmark note rose to 6.78 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5448
+
+Analysts set a target price of Rs.1180.78 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.44 percent.
+Quarterly revenue was Rs.83777 crore versus Rs.42176 crore in the prior period.
+Analysts set a target price of Rs.1553.41 with a hold rating.
+Orion Metals (HDFCBANK) closed at 3014.68 (-2.3%) on 2026-06-11.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6151
+
+Quarterly revenue was Rs.61720 crore versus Rs.41324 crore in the prior period.
+The company reported EPS of 18.76, beating consensus estimates of 87.33.
+Investors rotated into IT stocks as inflation cooled to 4.7%.
+Analysts set a target price of Rs.3704.75 with a hold rating.
+Quarterly revenue was Rs.77329 crore versus Rs.11031 crore in the prior period.
+The NASDAQ index moved gained by 16 points amid earnings concerns.
+Quarterly revenue was Rs.82660 crore versus Rs.82344 crore in the prior period.
+The SENSEX index moved gained by 544 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.95 percent.
+The company reported EPS of 111.81, beating consensus estimates of 111.74.
+Quarterly revenue was Rs.58995 crore versus Rs.15662 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.29 percent.
+Yields on the 10-year benchmark note rose to 7.07 percent.
+Quarterly revenue was Rs.66014 crore versus Rs.89626 crore in the prior period.
+Trading volume reached 1,511,730 shares, up 34.3% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 3.9%.
+Analysts set a target price of Rs.4873.38 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2067
+
+Trading volume reached 3,091,329 shares, up 0.6% from the previous session.
+Investors rotated into FMCG stocks as inflation cooled to 5.2%.
+The DOW index moved gained by 331 points amid rate concerns.
+Quarterly revenue was Rs.76137 crore versus Rs.64783 crore in the prior period.
+Analysts set a target price of Rs.1970.73 with a hold rating.
+Trading volume reached 660,323 shares, up 10.9% from the previous session.
+Trading volume reached 811,452 shares, up 21.2% from the previous session.
+Yields on the 10-year benchmark note rose to 7.56 percent.
+The company reported EPS of 113.41, beating consensus estimates of 20.23.
+Orion Metals (RELIANCE) closed at 1944.64 (-5.1%) on 2026-09-23.
+Quarterly revenue was Rs.22845 crore versus Rs.49427 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2624
+
+Yields on the 10-year benchmark note rose to 6.02 percent.
+Quarterly revenue was Rs.39727 crore versus Rs.48275 crore in the prior period.
+The company reported EPS of 66.24, beating consensus estimates of 96.08.
+Yields on the 10-year benchmark note rose to 6.86 percent.
+Trading volume reached 1,934,214 shares, up 4.9% from the previous session.
+Delta Energy (HDFCBANK) closed at 2815.63 (-9.7%) on 2024-06-14.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3209
+
+The company reported EPS of 16.07, beating consensus estimates of 43.59.
+Trading volume reached 3,749,388 shares, up 37.0% from the previous session.
+Quarterly revenue was Rs.15891 crore versus Rs.57663 crore in the prior period.
+Analysts set a target price of Rs.1113.93 with a buy rating.
+Trading volume reached 1,125,444 shares, up 10.9% from the previous session.
+The company reported EPS of 2.37, beating consensus estimates of 79.05.
+Trading volume reached 795,937 shares, up 19.9% from the previous session.
+Trading volume reached 850,822 shares, up 29.0% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9729
+
+Bharat Motors (MSFT) closed at 1107.24 (+9.3%) on 2026-01-26.
+Trading volume reached 2,973,778 shares, up 26.2% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7965
+
+Trading volume reached 3,577,209 shares, up 6.1% from the previous session.
+The company reported EPS of 51.58, beating consensus estimates of 87.34.
+The company reported EPS of 28.00, beating consensus estimates of 10.49.
+Analysts set a target price of Rs.4565.67 with a accumulate rating.
+Quarterly revenue was Rs.76732 crore versus Rs.10169 crore in the prior period.
+Quarterly revenue was Rs.20932 crore versus Rs.8364 crore in the prior period.
+Trading volume reached 4,701,700 shares, up 24.2% from the previous session.
+Yields on the 10-year benchmark note rose to 6.48 percent.
+Investors rotated into IT stocks as inflation cooled to 5.6%.
+Bharat Motors (RELIANCE) closed at 2745.38 (-0.8%) on 2026-02-23.
+The company reported EPS of 95.79, beating consensus estimates of 107.47.
+The DOW index moved fell by 272 points amid currency concerns.
+The company reported EPS of 68.63, beating consensus estimates of 102.53.
+Investors rotated into energy stocks as inflation cooled to 3.7%.
+Infotech Ltd (INFY) closed at 3168.76 (-9.7%) on 2024-01-07.
+Trading volume reached 3,674,009 shares, up 14.3% from the previous session.
+Quarterly revenue was Rs.88835 crore versus Rs.53765 crore in the prior period.
+Analysts set a target price of Rs.1579.53 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 6.20 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8650
+
+The DOW index moved fell by 226 points amid liquidity concerns.
+Yields on the 10-year benchmark note rose to 7.63 percent.
+Yields on the 10-year benchmark note rose to 6.25 percent.
+Trading volume reached 4,806,554 shares, up 15.4% from the previous session.
+Trading volume reached 940,561 shares, up 18.4% from the previous session.
+Analysts set a target price of Rs.4459.60 with a sell rating.
+The company reported EPS of 14.22, beating consensus estimates of 26.43.
+Trading volume reached 1,629,456 shares, up 10.1% from the previous session.
+Trading volume reached 4,767,532 shares, up 14.2% from the previous session.
+The company reported EPS of 82.75, beating consensus estimates of 86.16.
+Yields on the 10-year benchmark note rose to 6.99 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6577
+
+The company reported EPS of 8.80, beating consensus estimates of 11.87.
+The NIFTY50 index moved fell by 392 points amid inflation concerns.
+The company reported EPS of 111.02, beating consensus estimates of 70.22.
+Yields on the 10-year benchmark note rose to 7.29 percent.
+Analysts set a target price of Rs.4306.45 with a accumulate rating.
+Analysts set a target price of Rs.3750.63 with a hold rating.
+The DOW index moved fell by 289 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9003
+
+Analysts set a target price of Rs.3527.61 with a sell rating.
+Trading volume reached 1,407,923 shares, up 7.6% from the previous session.
+Trading volume reached 1,925,015 shares, up 21.1% from the previous session.
+Trading volume reached 1,250,678 shares, up 39.1% from the previous session.
+Yields on the 10-year benchmark note rose to 6.62 percent.
+The DOW index moved fell by 707 points amid inflation concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0233
+
+Zen Pharma (AAPL) closed at 247.11 (-1.4%) on 2025-09-22.
+Yields on the 10-year benchmark note rose to 7.85 percent.
+Yields on the 10-year benchmark note rose to 6.84 percent.
+The company reported EPS of 118.35, beating consensus estimates of 13.29.
+Orion Metals (AAPL) closed at 2821.21 (+5.1%) on 2026-12-16.
+The NIFTY50 index moved gained by 134 points amid currency concerns.
+Quarterly revenue was Rs.38438 crore versus Rs.87995 crore in the prior period.
+The NIFTY50 index moved fell by 373 points amid inflation concerns.
+The SENSEX index moved gained by 295 points amid currency concerns.
+The company reported EPS of 105.75, beating consensus estimates of 87.52.
+Delta Energy (INFY) closed at 2445.81 (+8.3%) on 2024-06-04.
+Analysts set a target price of Rs.2884.65 with a buy rating.
+Investors rotated into pharma stocks as inflation cooled to 7.2%.
+The company reported EPS of 110.13, beating consensus estimates of 31.93.
+Bharat Motors (INFY) closed at 3700.49 (+6.6%) on 2024-04-16.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0068
+
+Analysts set a target price of Rs.4315.44 with a buy rating.
+The company reported EPS of 9.66, beating consensus estimates of 15.64.
+Analysts set a target price of Rs.2273.36 with a accumulate rating.
+Delta Energy (SENSEX) closed at 1155.15 (-2.1%) on 2024-09-08.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4441
+
+Yields on the 10-year benchmark note rose to 6.06 percent.
+The company reported EPS of 68.93, beating consensus estimates of 68.41.
+Analysts set a target price of Rs.289.17 with a accumulate rating.
+Trading volume reached 4,635,880 shares, up 12.6% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2607
+
+Quarterly revenue was Rs.73036 crore versus Rs.30378 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0139
+
+The DOW index moved gained by 299 points amid earnings concerns.
+Trading volume reached 3,206,811 shares, up 30.5% from the previous session.
+Yields on the 10-year benchmark note rose to 6.63 percent.
+Yields on the 10-year benchmark note rose to 7.33 percent.
+The SENSEX index moved gained by 194 points amid rate concerns.
+The SENSEX index moved gained by 739 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.56 percent.
+Yields on the 10-year benchmark note rose to 6.97 percent.
+The NIFTY50 index moved gained by 562 points amid currency concerns.
+The NIFTY50 index moved gained by 372 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7991
+
+The company reported EPS of 88.16, beating consensus estimates of 34.27.
+Infotech Ltd (SENSEX) closed at 2253.06 (-2.1%) on 2024-01-14.
+The company reported EPS of 42.04, beating consensus estimates of 48.07.
+Zen Pharma (TCS) closed at 3564.75 (-7.8%) on 2024-09-25.
+Quarterly revenue was Rs.3267 crore versus Rs.50200 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.60 percent.
+Yields on the 10-year benchmark note rose to 7.21 percent.
+Trading volume reached 4,064,629 shares, up 11.4% from the previous session.
+The NIFTY50 index moved fell by 668 points amid rate concerns.
+Analysts set a target price of Rs.3799.69 with a sell rating.
+The NIFTY50 index moved gained by 180 points amid inflation concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7648
+
+Trading volume reached 4,366,873 shares, up 24.2% from the previous session.
+Delta Energy (RELIANCE) closed at 643.88 (-0.7%) on 2024-05-23.
+Trading volume reached 2,358,688 shares, up 7.2% from the previous session.
+Trading volume reached 662,528 shares, up 35.8% from the previous session.
+Analysts set a target price of Rs.4732.90 with a accumulate rating.
+Quarterly revenue was Rs.49547 crore versus Rs.23962 crore in the prior period.
+Infotech Ltd (HDFCBANK) closed at 2584.61 (-4.0%) on 2026-12-09.
+Quarterly revenue was Rs.13276 crore versus Rs.71814 crore in the prior period.
+Delta Energy (AAPL) closed at 306.57 (-8.2%) on 2026-03-24.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0675
+
+The NIFTY50 index moved fell by 795 points amid inflation concerns.
+Trading volume reached 2,989,240 shares, up 23.2% from the previous session.
+Quarterly revenue was Rs.67775 crore versus Rs.28119 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.04 percent.
+Yields on the 10-year benchmark note rose to 7.02 percent.
+Analysts set a target price of Rs.910.18 with a buy rating.
+The company reported EPS of 38.54, beating consensus estimates of 112.26.
+Yields on the 10-year benchmark note rose to 6.38 percent.
+Quarterly revenue was Rs.21935 crore versus Rs.52694 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0139
+
+Investors rotated into FMCG stocks as inflation cooled to 6.4%.
+The DOW index moved gained by 455 points amid liquidity concerns.
+Bharat Motors (HDFCBANK) closed at 1459.70 (-0.2%) on 2025-05-21.
+Investors rotated into energy stocks as inflation cooled to 7.3%.
+Trading volume reached 3,354,291 shares, up 36.4% from the previous session.
+Investors rotated into energy stocks as inflation cooled to 3.7%.
+Investors rotated into energy stocks as inflation cooled to 3.1%.
+Quarterly revenue was Rs.49689 crore versus Rs.70963 crore in the prior period.
+Analysts set a target price of Rs.2021.65 with a sell rating.
+The company reported EPS of 60.65, beating consensus estimates of 10.12.
+Investors rotated into IT stocks as inflation cooled to 3.9%.
+Analysts set a target price of Rs.3638.03 with a buy rating.
+Trading volume reached 3,605,261 shares, up 31.5% from the previous session.
+The company reported EPS of 40.01, beating consensus estimates of 54.32.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0436
+
+Zen Pharma (INFY) closed at 2869.52 (+3.1%) on 2026-03-19.
+Trading volume reached 1,428,688 shares, up 34.8% from the previous session.
+Quarterly revenue was Rs.69197 crore versus Rs.30433 crore in the prior period.
+The SENSEX index moved gained by 243 points amid inflation concerns.
+Analysts set a target price of Rs.508.59 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7730
+
+Analysts set a target price of Rs.1490.40 with a accumulate rating.
+Quarterly revenue was Rs.57125 crore versus Rs.88708 crore in the prior period.
+Investors rotated into banking stocks as inflation cooled to 7.2%.
+Trading volume reached 3,399,678 shares, up 2.3% from the previous session.
+Analysts set a target price of Rs.2256.51 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 7.95 percent.
+Analysts set a target price of Rs.3883.29 with a buy rating.
+The company reported EPS of 68.10, beating consensus estimates of 119.48.
+The NIFTY50 index moved gained by 597 points amid inflation concerns.
+The company reported EPS of 70.33, beating consensus estimates of 92.25.
+Quarterly revenue was Rs.71288 crore versus Rs.46181 crore in the prior period.
+The company reported EPS of 71.03, beating consensus estimates of 15.40.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5132
+
+The NASDAQ index moved fell by 499 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.08 percent.
+The company reported EPS of 45.10, beating consensus estimates of 101.05.
+Delta Energy (AAPL) closed at 2180.93 (+7.6%) on 2026-09-06.
+Delta Energy (SENSEX) closed at 3603.22 (-2.6%) on 2025-11-18.
+The NASDAQ index moved gained by 788 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2693
+
+Analysts set a target price of Rs.3144.43 with a sell rating.
+Investors rotated into energy stocks as inflation cooled to 5.5%.
+Quarterly revenue was Rs.79265 crore versus Rs.20392 crore in the prior period.
+Analysts set a target price of Rs.766.99 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1792
+
+Quarterly revenue was Rs.46428 crore versus Rs.9744 crore in the prior period.
+The company reported EPS of 117.49, beating consensus estimates of 109.31.
+The NIFTY50 index moved fell by 100 points amid earnings concerns.
+The company reported EPS of 93.82, beating consensus estimates of 85.17.
+Yields on the 10-year benchmark note rose to 6.88 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2026
+
+Yields on the 10-year benchmark note rose to 6.10 percent.
+The company reported EPS of 59.91, beating consensus estimates of 22.75.
+The company reported EPS of 85.54, beating consensus estimates of 109.81.
+Yields on the 10-year benchmark note rose to 6.45 percent.
+Analysts set a target price of Rs.4992.03 with a hold rating.
+Trading volume reached 4,525,381 shares, up 23.2% from the previous session.
+Analysts set a target price of Rs.416.82 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4377
+
+Trading volume reached 4,790,310 shares, up 32.0% from the previous session.
+Apex Bank (MSFT) closed at 3109.75 (-0.7%) on 2024-09-14.
+Yields on the 10-year benchmark note rose to 7.27 percent.
+Apex Bank (AAPL) closed at 2746.70 (+1.0%) on 2024-09-01.
+Quarterly revenue was Rs.82037 crore versus Rs.5582 crore in the prior period.
+The company reported EPS of 5.47, beating consensus estimates of 7.51.
+The company reported EPS of 67.57, beating consensus estimates of 73.35.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8936
+
+Trading volume reached 4,274,557 shares, up 21.0% from the previous session.
+Analysts set a target price of Rs.123.22 with a hold rating.
+Trading volume reached 4,105,456 shares, up 10.2% from the previous session.
+The DOW index moved gained by 301 points amid rate concerns.
+Delta Energy (MSFT) closed at 490.06 (-0.4%) on 2025-03-03.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9716
+
+Quarterly revenue was Rs.38747 crore versus Rs.66769 crore in the prior period.
+Quarterly revenue was Rs.42660 crore versus Rs.49045 crore in the prior period.
+Infotech Ltd (SENSEX) closed at 3751.98 (+6.4%) on 2025-11-20.
+Yields on the 10-year benchmark note rose to 6.92 percent.
+The company reported EPS of 91.80, beating consensus estimates of 49.28.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3045
+
+Trading volume reached 4,769,636 shares, up 26.7% from the previous session.
+Quarterly revenue was Rs.13222 crore versus Rs.9066 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2465
+
+The company reported EPS of 75.63, beating consensus estimates of 84.13.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1102
+
+Delta Energy (SENSEX) closed at 1548.51 (+1.7%) on 2024-10-23.
+Yields on the 10-year benchmark note rose to 7.04 percent.
+Analysts set a target price of Rs.2801.24 with a hold rating.
+Yields on the 10-year benchmark note rose to 7.79 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8512
+
+The company reported EPS of 13.15, beating consensus estimates of 15.08.
+The SENSEX index moved gained by 497 points amid inflation concerns.
+Analysts set a target price of Rs.2033.87 with a accumulate rating.
+Trading volume reached 2,680,916 shares, up 23.6% from the previous session.
+Investors rotated into energy stocks as inflation cooled to 6.9%.
+Quarterly revenue was Rs.48434 crore versus Rs.2328 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2155
+
+Trading volume reached 571,248 shares, up 38.1% from the previous session.
+Orion Metals (RELIANCE) closed at 1387.39 (-3.1%) on 2026-07-20.
+Analysts set a target price of Rs.2904.15 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5004
+
+The company reported EPS of 27.19, beating consensus estimates of 0.86.
+The company reported EPS of 51.05, beating consensus estimates of 98.32.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3033
+
+Yields on the 10-year benchmark note rose to 6.33 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7355
+
+Investors rotated into energy stocks as inflation cooled to 3.3%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6969
+
+Quarterly revenue was Rs.53002 crore versus Rs.71948 crore in the prior period.
+Analysts set a target price of Rs.4776.66 with a hold rating.
+Yields on the 10-year benchmark note rose to 7.49 percent.
+Quarterly revenue was Rs.4277 crore versus Rs.58898 crore in the prior period.
+Trading volume reached 1,527,659 shares, up 34.4% from the previous session.
+Quarterly revenue was Rs.4589 crore versus Rs.81669 crore in the prior period.
+Analysts set a target price of Rs.1387.36 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5304
+
+Trading volume reached 3,469,665 shares, up 7.1% from the previous session.
+Trading volume reached 4,698,765 shares, up 38.1% from the previous session.
+Investors rotated into FMCG stocks as inflation cooled to 4.8%.
+The SENSEX index moved fell by 53 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 6.79 percent.
+The NIFTY50 index moved gained by 517 points amid inflation concerns.
+Analysts set a target price of Rs.1781.53 with a accumulate rating.
+Investors rotated into FMCG stocks as inflation cooled to 3.4%.
+The DOW index moved fell by 231 points amid currency concerns.
+Yields on the 10-year benchmark note rose to 6.50 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6346
+
+The company reported EPS of 51.88, beating consensus estimates of 85.15.
+Trading volume reached 734,587 shares, up 22.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5800
+
+Quarterly revenue was Rs.49240 crore versus Rs.8363 crore in the prior period.
+Analysts set a target price of Rs.4303.44 with a hold rating.
+Yields on the 10-year benchmark note rose to 6.81 percent.
+The NIFTY50 index moved fell by 388 points amid liquidity concerns.
+Quarterly revenue was Rs.82960 crore versus Rs.35655 crore in the prior period.
+The company reported EPS of 24.93, beating consensus estimates of 55.79.
+The company reported EPS of 45.50, beating consensus estimates of 66.31.
+Investors rotated into IT stocks as inflation cooled to 4.2%.
+Trading volume reached 1,943,476 shares, up 8.9% from the previous session.
+The company reported EPS of 73.35, beating consensus estimates of 107.08.
+Yields on the 10-year benchmark note rose to 6.87 percent.
+Yields on the 10-year benchmark note rose to 6.76 percent.
+The DOW index moved fell by 751 points amid inflation concerns.
+Analysts set a target price of Rs.4666.85 with a sell rating.
+Analysts set a target price of Rs.184.19 with a hold rating.
+Quarterly revenue was Rs.66627 crore versus Rs.7951 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 6.5%.
+Yields on the 10-year benchmark note rose to 6.40 percent.
+Quarterly revenue was Rs.33650 crore versus Rs.64302 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0698
+
+Yields on the 10-year benchmark note rose to 6.54 percent.
+Delta Energy (INFY) closed at 3204.12 (-4.6%) on 2026-06-10.
+Yields on the 10-year benchmark note rose to 6.84 percent.
+Yields on the 10-year benchmark note rose to 6.69 percent.
+The company reported EPS of 112.82, beating consensus estimates of 36.42.
+Trading volume reached 3,527,272 shares, up 22.7% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1882
+
+Yields on the 10-year benchmark note rose to 6.33 percent.
+The NIFTY50 index moved gained by 724 points amid earnings concerns.
+Trading volume reached 4,423,141 shares, up 3.0% from the previous session.
+The DOW index moved fell by 473 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6896
+
+The NIFTY50 index moved gained by 299 points amid currency concerns.
+Investors rotated into FMCG stocks as inflation cooled to 6.9%.
+Quarterly revenue was Rs.79657 crore versus Rs.65427 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5431
+
+Analysts set a target price of Rs.4640.23 with a hold rating.
+Investors rotated into FMCG stocks as inflation cooled to 4.1%.
+Analysts set a target price of Rs.180.08 with a accumulate rating.
+The company reported EPS of 80.78, beating consensus estimates of 50.16.
+Trading volume reached 2,841,405 shares, up 4.9% from the previous session.
+The NIFTY50 index moved fell by 645 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.40 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2892
+
+The company reported EPS of 119.54, beating consensus estimates of 87.25.
+Analysts set a target price of Rs.4996.48 with a accumulate rating.
+Zen Pharma (RELIANCE) closed at 2861.61 (-8.6%) on 2026-10-20.
+The NIFTY50 index moved fell by 683 points amid rate concerns.
+The NIFTY50 index moved fell by 655 points amid liquidity concerns.
+Analysts set a target price of Rs.4871.24 with a sell rating.
+The NIFTY50 index moved fell by 697 points amid inflation concerns.
+Analysts set a target price of Rs.1955.75 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 7.57 percent.
+Analysts set a target price of Rs.3926.94 with a sell rating.
+The NASDAQ index moved fell by 268 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6132
+
+The DOW index moved fell by 695 points amid earnings concerns.
+The company reported EPS of 9.18, beating consensus estimates of 81.87.
+The company reported EPS of 95.04, beating consensus estimates of 64.66.
+Quarterly revenue was Rs.36894 crore versus Rs.512 crore in the prior period.
+Quarterly revenue was Rs.8531 crore versus Rs.87225 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8023
+
+Investors rotated into FMCG stocks as inflation cooled to 7.3%.
+The company reported EPS of 45.38, beating consensus estimates of 64.49.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8924
+
+The NIFTY50 index moved fell by 530 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.68 percent.
+Infotech Ltd (INFY) closed at 701.45 (+7.4%) on 2026-10-03.
+The company reported EPS of 109.28, beating consensus estimates of 9.65.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2411
+
+Delta Energy (AAPL) closed at 224.38 (-0.5%) on 2026-05-08.
+Zen Pharma (RELIANCE) closed at 3151.30 (-3.7%) on 2024-09-23.
+Quarterly revenue was Rs.69875 crore versus Rs.1151 crore in the prior period.
+The NASDAQ index moved fell by 753 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 6.46 percent.
+Analysts set a target price of Rs.1905.02 with a hold rating.
+Bharat Motors (TCS) closed at 3670.12 (-2.1%) on 2025-04-27.
+Analysts set a target price of Rs.4288.59 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.99 percent.
+Yields on the 10-year benchmark note rose to 6.95 percent.
+Analysts set a target price of Rs.1754.70 with a buy rating.
+Orion Metals (AAPL) closed at 3123.17 (-3.4%) on 2025-07-14.
+Yields on the 10-year benchmark note rose to 7.14 percent.
+Quarterly revenue was Rs.59145 crore versus Rs.25937 crore in the prior period.
+The NASDAQ index moved gained by 588 points amid currency concerns.
+Yields on the 10-year benchmark note rose to 6.66 percent.
+Trading volume reached 3,431,034 shares, up 24.9% from the previous session.
+Bharat Motors (TCS) closed at 1272.53 (-9.3%) on 2026-04-17.
+Yields on the 10-year benchmark note rose to 6.81 percent.
+Yields on the 10-year benchmark note rose to 6.54 percent.
+Analysts set a target price of Rs.1090.09 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2966
+
+The SENSEX index moved fell by 654 points amid earnings concerns.
+Trading volume reached 4,669,573 shares, up 32.0% from the previous session.
+The SENSEX index moved fell by 217 points amid liquidity concerns.
+Investors rotated into banking stocks as inflation cooled to 5.0%.
+Trading volume reached 3,626,830 shares, up 11.1% from the previous session.
+Quarterly revenue was Rs.12593 crore versus Rs.64931 crore in the prior period.
+Investors rotated into IT stocks as inflation cooled to 5.0%.
+Yields on the 10-year benchmark note rose to 6.17 percent.
+Investors rotated into banking stocks as inflation cooled to 4.9%.
+Trading volume reached 4,266,054 shares, up 38.8% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8320
+
+The company reported EPS of 23.92, beating consensus estimates of 92.41.
+The DOW index moved gained by 527 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2871
+
+Analysts set a target price of Rs.287.75 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.09 percent.
+The SENSEX index moved fell by 599 points amid currency concerns.
+The company reported EPS of 37.14, beating consensus estimates of 74.97.
+Investors rotated into banking stocks as inflation cooled to 6.3%.
+Analysts set a target price of Rs.1489.05 with a buy rating.
+Quarterly revenue was Rs.21837 crore versus Rs.18437 crore in the prior period.
+Quarterly revenue was Rs.77612 crore versus Rs.55807 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8651
+
+Infotech Ltd (RELIANCE) closed at 3216.40 (+3.7%) on 2024-10-21.
+Quarterly revenue was Rs.65981 crore versus Rs.29609 crore in the prior period.
+The SENSEX index moved gained by 670 points amid earnings concerns.
+Investors rotated into banking stocks as inflation cooled to 6.9%.
+The company reported EPS of 22.21, beating consensus estimates of 53.02.
+Analysts set a target price of Rs.4780.44 with a hold rating.
+Quarterly revenue was Rs.73368 crore versus Rs.40878 crore in the prior period.
+The company reported EPS of 29.96, beating consensus estimates of 108.18.
+The company reported EPS of 66.73, beating consensus estimates of 72.99.
+Investors rotated into FMCG stocks as inflation cooled to 6.8%.
+The NIFTY50 index moved fell by 33 points amid currency concerns.
+Delta Energy (MSFT) closed at 881.15 (-5.9%) on 2024-10-04.
+Apex Bank (MSFT) closed at 507.94 (+3.8%) on 2024-03-06.
+Yields on the 10-year benchmark note rose to 6.28 percent.
+Quarterly revenue was Rs.50372 crore versus Rs.9153 crore in the prior period.
+Analysts set a target price of Rs.1138.86 with a buy rating.
+Quarterly revenue was Rs.56362 crore versus Rs.77938 crore in the prior period.
+Orion Metals (HDFCBANK) closed at 177.91 (+0.6%) on 2024-10-12.
+Analysts set a target price of Rs.3868.87 with a buy rating.
+The NASDAQ index moved fell by 468 points amid liquidity concerns.
+Analysts set a target price of Rs.659.61 with a hold rating.
+Trading volume reached 2,142,561 shares, up 33.5% from the previous session.
+Quarterly revenue was Rs.82660 crore versus Rs.77742 crore in the prior period.
+Analysts set a target price of Rs.3091.74 with a buy rating.
+Analysts set a target price of Rs.4781.72 with a hold rating.
+Yields on the 10-year benchmark note rose to 7.81 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6833
+
+Infotech Ltd (MSFT) closed at 979.08 (-6.8%) on 2026-10-17.
+Trading volume reached 4,532,296 shares, up 7.0% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6852
+
+Analysts set a target price of Rs.4104.00 with a accumulate rating.
+Investors rotated into FMCG stocks as inflation cooled to 4.0%.
+The company reported EPS of 54.64, beating consensus estimates of 37.83.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7153
+
+The company reported EPS of 16.93, beating consensus estimates of 31.39.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9559
+
+The NASDAQ index moved gained by 687 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4910
+
+The SENSEX index moved fell by 278 points amid liquidity concerns.
+Investors rotated into banking stocks as inflation cooled to 6.8%.
+Yields on the 10-year benchmark note rose to 6.68 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7518
+
+Quarterly revenue was Rs.9725 crore versus Rs.62691 crore in the prior period.
+Quarterly revenue was Rs.78372 crore versus Rs.86491 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.91 percent.
+Bharat Motors (TCS) closed at 3435.30 (-3.7%) on 2025-07-26.
+Quarterly revenue was Rs.53090 crore versus Rs.18107 crore in the prior period.
+Trading volume reached 1,460,299 shares, up 23.2% from the previous session.
+Yields on the 10-year benchmark note rose to 6.92 percent.
+Quarterly revenue was Rs.35673 crore versus Rs.6679 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7201
+
+Analysts set a target price of Rs.3844.37 with a hold rating.
+The DOW index moved fell by 262 points amid currency concerns.
+Analysts set a target price of Rs.2258.65 with a accumulate rating.
+Trading volume reached 140,607 shares, up 25.7% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0733
+
+Trading volume reached 4,031,006 shares, up 4.3% from the previous session.
+Yields on the 10-year benchmark note rose to 7.00 percent.
+Quarterly revenue was Rs.776 crore versus Rs.2633 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.09 percent.
+Quarterly revenue was Rs.978 crore versus Rs.26525 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 3.0%.
+The company reported EPS of 45.66, beating consensus estimates of 87.21.
+Apex Bank (NIFTY50) closed at 2254.22 (+5.2%) on 2026-10-04.
+Analysts set a target price of Rs.4891.11 with a buy rating.
+Investors rotated into banking stocks as inflation cooled to 3.7%.
+Investors rotated into banking stocks as inflation cooled to 3.0%.
+Quarterly revenue was Rs.45349 crore versus Rs.54240 crore in the prior period.
+The company reported EPS of 112.11, beating consensus estimates of 110.94.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2971
+
+Infotech Ltd (INFY) closed at 3900.16 (+6.1%) on 2025-02-27.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8582
+
+Yields on the 10-year benchmark note rose to 6.43 percent.
+Investors rotated into energy stocks as inflation cooled to 4.0%.
+Investors rotated into pharma stocks as inflation cooled to 7.0%.
+Analysts set a target price of Rs.1736.56 with a sell rating.
+Quarterly revenue was Rs.6071 crore versus Rs.65168 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.54 percent.
+Quarterly revenue was Rs.7155 crore versus Rs.10846 crore in the prior period.
+The company reported EPS of 77.45, beating consensus estimates of 109.66.
+Analysts set a target price of Rs.2199.20 with a accumulate rating.
+Quarterly revenue was Rs.9761 crore versus Rs.4859 crore in the prior period.
+Investors rotated into energy stocks as inflation cooled to 5.2%.
+Quarterly revenue was Rs.41539 crore versus Rs.33936 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5786
+
+Trading volume reached 4,291,853 shares, up 10.2% from the previous session.
+Orion Metals (INFY) closed at 3832.87 (-9.1%) on 2025-06-25.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2599
+
+Quarterly revenue was Rs.15512 crore versus Rs.12405 crore in the prior period.
+Quarterly revenue was Rs.12881 crore versus Rs.57350 crore in the prior period.
+Investors rotated into energy stocks as inflation cooled to 7.0%.
+Trading volume reached 2,480,827 shares, up 21.5% from the previous session.
+Investors rotated into IT stocks as inflation cooled to 4.2%.
+Quarterly revenue was Rs.25923 crore versus Rs.5930 crore in the prior period.
+The company reported EPS of 97.65, beating consensus estimates of 117.40.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8898
+
+Analysts set a target price of Rs.2880.70 with a hold rating.
+Investors rotated into pharma stocks as inflation cooled to 5.7%.
+Analysts set a target price of Rs.2225.82 with a buy rating.
+The company reported EPS of 87.06, beating consensus estimates of 108.94.
+Analysts set a target price of Rs.2704.98 with a hold rating.
+Investors rotated into pharma stocks as inflation cooled to 4.8%.
+Yields on the 10-year benchmark note rose to 7.19 percent.
+Investors rotated into FMCG stocks as inflation cooled to 3.9%.
+Quarterly revenue was Rs.74761 crore versus Rs.54586 crore in the prior period.
+Quarterly revenue was Rs.27909 crore versus Rs.48046 crore in the prior period.
+Quarterly revenue was Rs.17808 crore versus Rs.76168 crore in the prior period.
+The SENSEX index moved gained by 505 points amid liquidity concerns.
+The SENSEX index moved gained by 397 points amid inflation concerns.
+Analysts set a target price of Rs.3235.69 with a sell rating.
+Analysts set a target price of Rs.2801.01 with a sell rating.
+Infotech Ltd (SENSEX) closed at 542.49 (+4.0%) on 2025-11-28.
+Investors rotated into banking stocks as inflation cooled to 6.2%.
+Quarterly revenue was Rs.6963 crore versus Rs.51567 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 4.7%.
+Trading volume reached 614,154 shares, up 3.2% from the previous session.
+Yields on the 10-year benchmark note rose to 6.27 percent.
+Analysts set a target price of Rs.2189.18 with a sell rating.
+Investors rotated into pharma stocks as inflation cooled to 3.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9086
+
+The DOW index moved gained by 300 points amid liquidity concerns.
+Investors rotated into pharma stocks as inflation cooled to 5.5%.
+Investors rotated into banking stocks as inflation cooled to 5.1%.
+Yields on the 10-year benchmark note rose to 7.75 percent.
+The SENSEX index moved fell by 732 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3436
+
+Yields on the 10-year benchmark note rose to 7.72 percent.
+The company reported EPS of 36.87, beating consensus estimates of 111.50.
+Quarterly revenue was Rs.69806 crore versus Rs.78475 crore in the prior period.
+The DOW index moved fell by 236 points amid inflation concerns.
+Trading volume reached 4,542,132 shares, up 33.3% from the previous session.
+Orion Metals (MSFT) closed at 2604.20 (+9.6%) on 2025-05-03.
+Trading volume reached 88,175 shares, up 5.5% from the previous session.
+Analysts set a target price of Rs.2243.94 with a sell rating.
+Analysts set a target price of Rs.1162.25 with a hold rating.
+Quarterly revenue was Rs.72126 crore versus Rs.61129 crore in the prior period.
+Quarterly revenue was Rs.19942 crore versus Rs.44996 crore in the prior period.
+Trading volume reached 1,010,138 shares, up 21.3% from the previous session.
+Delta Energy (AAPL) closed at 3458.67 (+4.8%) on 2026-01-26.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0155
+
+Yields on the 10-year benchmark note rose to 6.77 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0792
+
+Analysts set a target price of Rs.4620.00 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5322
+
+The company reported EPS of 60.01, beating consensus estimates of 38.61.
+Yields on the 10-year benchmark note rose to 7.51 percent.
+Quarterly revenue was Rs.87432 crore versus Rs.34475 crore in the prior period.
+Analysts set a target price of Rs.3585.02 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3466
+
+Zen Pharma (HDFCBANK) closed at 3012.80 (-8.3%) on 2026-01-02.
+Trading volume reached 1,545,297 shares, up 0.8% from the previous session.
+Trading volume reached 4,836,530 shares, up 27.7% from the previous session.
+Yields on the 10-year benchmark note rose to 7.26 percent.
+Analysts set a target price of Rs.2716.51 with a sell rating.
+Yields on the 10-year benchmark note rose to 6.22 percent.
+Quarterly revenue was Rs.60935 crore versus Rs.79154 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.89 percent.
+The NASDAQ index moved fell by 368 points amid currency concerns.
+The company reported EPS of 88.71, beating consensus estimates of 106.45.
+Quarterly revenue was Rs.1004 crore versus Rs.73015 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0181
+
+Trading volume reached 3,204,555 shares, up 11.8% from the previous session.
+Yields on the 10-year benchmark note rose to 6.51 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7545
+
+Analysts set a target price of Rs.1803.40 with a hold rating.
+Yields on the 10-year benchmark note rose to 6.90 percent.
+Apex Bank (SENSEX) closed at 689.88 (+8.7%) on 2024-01-04.
+Yields on the 10-year benchmark note rose to 7.88 percent.
+Analysts set a target price of Rs.3026.71 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7256
+
+The company reported EPS of 93.61, beating consensus estimates of 28.80.
+Trading volume reached 1,183,927 shares, up 28.5% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8669
+
+The company reported EPS of 36.06, beating consensus estimates of 104.92.
+The NASDAQ index moved fell by 627 points amid rate concerns.
+Quarterly revenue was Rs.71712 crore versus Rs.62787 crore in the prior period.
+Analysts set a target price of Rs.1021.16 with a accumulate rating.
+The DOW index moved fell by 654 points amid rate concerns.
+Investors rotated into pharma stocks as inflation cooled to 5.8%.
+Investors rotated into FMCG stocks as inflation cooled to 6.0%.
+The NIFTY50 index moved gained by 346 points amid liquidity concerns.
+The DOW index moved gained by 559 points amid rate concerns.
+Quarterly revenue was Rs.77203 crore versus Rs.27727 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6723
+
+The company reported EPS of 104.00, beating consensus estimates of 42.27.
+The company reported EPS of 48.55, beating consensus estimates of 109.84.
+Analysts set a target price of Rs.1896.92 with a accumulate rating.
+The company reported EPS of 65.59, beating consensus estimates of 50.91.
+Trading volume reached 2,722,287 shares, up 25.4% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2534
+
+The DOW index moved gained by 439 points amid currency concerns.
+Apex Bank (AAPL) closed at 1702.64 (-4.0%) on 2026-11-28.
+Investors rotated into FMCG stocks as inflation cooled to 5.2%.
+Investors rotated into IT stocks as inflation cooled to 3.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7335
+
+Trading volume reached 71,428 shares, up 10.8% from the previous session.
+Analysts set a target price of Rs.1616.88 with a hold rating.
+Trading volume reached 1,456,123 shares, up 16.8% from the previous session.
+Yields on the 10-year benchmark note rose to 6.14 percent.
+Zen Pharma (SENSEX) closed at 1929.39 (+3.1%) on 2024-02-16.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0811
+
+Yields on the 10-year benchmark note rose to 6.33 percent.
+Trading volume reached 139,157 shares, up 5.8% from the previous session.
+Zen Pharma (SENSEX) closed at 3201.45 (-4.7%) on 2024-07-20.
+Zen Pharma (INFY) closed at 3317.29 (+3.6%) on 2026-06-04.
+Trading volume reached 4,205,980 shares, up 21.1% from the previous session.
+The DOW index moved gained by 317 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.98 percent.
+Analysts set a target price of Rs.1272.44 with a buy rating.
+Apex Bank (MSFT) closed at 1568.71 (+7.5%) on 2026-03-27.
+Yields on the 10-year benchmark note rose to 6.64 percent.
+The company reported EPS of 4.08, beating consensus estimates of 38.94.
+Trading volume reached 4,262,987 shares, up 6.2% from the previous session.
+Quarterly revenue was Rs.30305 crore versus Rs.47490 crore in the prior period.
+The SENSEX index moved gained by 656 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8295
+
+Analysts set a target price of Rs.436.35 with a buy rating.
+The company reported EPS of 3.51, beating consensus estimates of 74.83.
+Analysts set a target price of Rs.4706.99 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.16 percent.
+The NASDAQ index moved fell by 224 points amid liquidity concerns.
+Quarterly revenue was Rs.12026 crore versus Rs.16716 crore in the prior period.
+Trading volume reached 855,206 shares, up 39.7% from the previous session.
+Quarterly revenue was Rs.31920 crore versus Rs.65599 crore in the prior period.
+Infotech Ltd (HDFCBANK) closed at 178.11 (+0.2%) on 2025-08-27.
+Infotech Ltd (HDFCBANK) closed at 3389.33 (-6.3%) on 2026-06-28.
+Investors rotated into energy stocks as inflation cooled to 4.1%.
+The NIFTY50 index moved gained by 17 points amid earnings concerns.
+Analysts set a target price of Rs.2802.28 with a sell rating.
+Analysts set a target price of Rs.2453.68 with a buy rating.
+Analysts set a target price of Rs.4573.09 with a sell rating.
+Yields on the 10-year benchmark note rose to 6.52 percent.
+Yields on the 10-year benchmark note rose to 6.20 percent.
+Bharat Motors (TCS) closed at 2950.69 (-0.2%) on 2025-05-14.
+Trading volume reached 3,720,285 shares, up 11.9% from the previous session.
+Quarterly revenue was Rs.59311 crore versus Rs.55107 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.18 percent.
+The company reported EPS of 54.20, beating consensus estimates of 114.21.
+Yields on the 10-year benchmark note rose to 6.36 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4573
+
+Quarterly revenue was Rs.49126 crore versus Rs.85860 crore in the prior period.
+Trading volume reached 1,580,183 shares, up 1.3% from the previous session.
+Trading volume reached 1,822,255 shares, up 32.3% from the previous session.
+Trading volume reached 3,644,207 shares, up 39.2% from the previous session.
+The company reported EPS of 19.38, beating consensus estimates of 91.09.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2248
+
+The company reported EPS of 43.03, beating consensus estimates of 25.05.
+Zen Pharma (AAPL) closed at 1703.85 (-4.9%) on 2025-07-28.
+Analysts set a target price of Rs.1110.82 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2364
+
+Analysts set a target price of Rs.4061.83 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 7.82 percent.
+The NASDAQ index moved gained by 294 points amid liquidity concerns.
+Quarterly revenue was Rs.56015 crore versus Rs.36422 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 3.9%.
+The DOW index moved gained by 663 points amid currency concerns.
+The company reported EPS of 91.03, beating consensus estimates of 70.87.
+Zen Pharma (SENSEX) closed at 2879.83 (+6.6%) on 2025-05-02.
+Trading volume reached 1,425,770 shares, up 22.3% from the previous session.
+Yields on the 10-year benchmark note rose to 7.58 percent.
+Investors rotated into FMCG stocks as inflation cooled to 4.0%.
+Analysts set a target price of Rs.4828.94 with a hold rating.
+Quarterly revenue was Rs.61190 crore versus Rs.23236 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.94 percent.
+Orion Metals (TCS) closed at 3170.65 (-6.0%) on 2024-10-02.
+Trading volume reached 3,603,685 shares, up 31.3% from the previous session.
+Quarterly revenue was Rs.61790 crore versus Rs.23169 crore in the prior period.
+The company reported EPS of 6.46, beating consensus estimates of 58.90.
+Trading volume reached 3,930,448 shares, up 5.3% from the previous session.
+The NIFTY50 index moved fell by 21 points amid liquidity concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4118
+
+Investors rotated into FMCG stocks as inflation cooled to 5.9%.
+Apex Bank (NIFTY50) closed at 1349.93 (-5.0%) on 2025-11-20.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6877
+
+The company reported EPS of 82.09, beating consensus estimates of 53.41.
+Yields on the 10-year benchmark note rose to 7.77 percent.
+Zen Pharma (HDFCBANK) closed at 727.88 (-5.8%) on 2024-01-07.
+The NASDAQ index moved fell by 247 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0570
+
+Orion Metals (NIFTY50) closed at 3817.70 (-2.7%) on 2024-11-04.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8790
+
+Delta Energy (AAPL) closed at 3750.82 (+9.7%) on 2025-11-10.
+Yields on the 10-year benchmark note rose to 6.18 percent.
+The NIFTY50 index moved fell by 553 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 7.19 percent.
+Analysts set a target price of Rs.3089.22 with a sell rating.
+Yields on the 10-year benchmark note rose to 7.00 percent.
+Yields on the 10-year benchmark note rose to 7.33 percent.
+Quarterly revenue was Rs.10025 crore versus Rs.59968 crore in the prior period.
+Analysts set a target price of Rs.1923.63 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5997
+
+Analysts set a target price of Rs.4656.74 with a hold rating.
+Analysts set a target price of Rs.3103.20 with a sell rating.
+Quarterly revenue was Rs.80274 crore versus Rs.13909 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.28 percent.
+Trading volume reached 116,809 shares, up 2.2% from the previous session.
+Quarterly revenue was Rs.26488 crore versus Rs.68085 crore in the prior period.
+Delta Energy (NIFTY50) closed at 151.41 (-7.4%) on 2026-07-28.
+The company reported EPS of 9.27, beating consensus estimates of 95.48.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4732
+
+The SENSEX index moved fell by 626 points amid rate concerns.
+Trading volume reached 4,573,303 shares, up 22.2% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2165
+
+Quarterly revenue was Rs.31528 crore versus Rs.45398 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.29 percent.
+Trading volume reached 3,825,322 shares, up 32.0% from the previous session.
+Investors rotated into FMCG stocks as inflation cooled to 4.5%.
+Trading volume reached 1,956,904 shares, up 39.1% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 6.8%.
+The NIFTY50 index moved gained by 156 points amid currency concerns.
+The DOW index moved gained by 367 points amid currency concerns.
+The company reported EPS of 48.08, beating consensus estimates of 49.03.
+Investors rotated into IT stocks as inflation cooled to 3.6%.
+The NIFTY50 index moved fell by 461 points amid liquidity concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4887
+
+The NASDAQ index moved gained by 759 points amid rate concerns.
+Yields on the 10-year benchmark note rose to 6.10 percent.
+Investors rotated into banking stocks as inflation cooled to 6.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1310
+
+Yields on the 10-year benchmark note rose to 7.87 percent.
+Quarterly revenue was Rs.55980 crore versus Rs.81351 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2162
+
+Investors rotated into pharma stocks as inflation cooled to 7.4%.
+Quarterly revenue was Rs.54785 crore versus Rs.66852 crore in the prior period.
+Analysts set a target price of Rs.2417.29 with a accumulate rating.
+Quarterly revenue was Rs.5744 crore versus Rs.32627 crore in the prior period.
+Trading volume reached 659,167 shares, up 10.4% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4358
+
+Analysts set a target price of Rs.594.14 with a buy rating.
+Investors rotated into FMCG stocks as inflation cooled to 5.4%.
+Quarterly revenue was Rs.10597 crore versus Rs.26705 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.68 percent.
+Yields on the 10-year benchmark note rose to 6.70 percent.
+Delta Energy (SENSEX) closed at 1383.44 (+7.8%) on 2025-09-28.
+Investors rotated into FMCG stocks as inflation cooled to 4.3%.
+Quarterly revenue was Rs.80645 crore versus Rs.70580 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 7.4%.
+Delta Energy (TCS) closed at 2313.50 (-6.7%) on 2025-10-27.
+Quarterly revenue was Rs.5856 crore versus Rs.30300 crore in the prior period.
+Trading volume reached 1,345,244 shares, up 9.9% from the previous session.
+Trading volume reached 735,209 shares, up 14.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5579
+
+Yields on the 10-year benchmark note rose to 7.96 percent.
+Orion Metals (NIFTY50) closed at 1299.62 (+2.7%) on 2026-09-21.
+The DOW index moved gained by 626 points amid currency concerns.
+Investors rotated into IT stocks as inflation cooled to 5.5%.
+The SENSEX index moved gained by 37 points amid rate concerns.
+Quarterly revenue was Rs.40318 crore versus Rs.80122 crore in the prior period.
+Analysts set a target price of Rs.4504.11 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7460
+
+The NASDAQ index moved fell by 386 points amid rate concerns.
+The company reported EPS of 64.76, beating consensus estimates of 104.91.
+Trading volume reached 2,688,465 shares, up 19.2% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 3.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7091
+
+The company reported EPS of 46.96, beating consensus estimates of 87.40.
+Investors rotated into energy stocks as inflation cooled to 4.7%.
+Trading volume reached 1,698,479 shares, up 30.8% from the previous session.
+Yields on the 10-year benchmark note rose to 6.56 percent.
+Quarterly revenue was Rs.64492 crore versus Rs.47434 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4125
+
+Quarterly revenue was Rs.49900 crore versus Rs.7387 crore in the prior period.
+The company reported EPS of 87.57, beating consensus estimates of 117.46.
+Yields on the 10-year benchmark note rose to 7.37 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8144
+
+Trading volume reached 3,707,801 shares, up 19.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4462
+
+Investors rotated into energy stocks as inflation cooled to 5.8%.
+Trading volume reached 614,835 shares, up 15.0% from the previous session.
+Quarterly revenue was Rs.13027 crore versus Rs.13061 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9662
+
+Yields on the 10-year benchmark note rose to 6.76 percent.
+Infotech Ltd (TCS) closed at 1061.30 (+3.1%) on 2024-10-04.
+Quarterly revenue was Rs.25839 crore versus Rs.35577 crore in the prior period.
+The company reported EPS of 107.72, beating consensus estimates of 115.27.
+Yields on the 10-year benchmark note rose to 6.42 percent.
+The company reported EPS of 83.89, beating consensus estimates of 50.49.
+Trading volume reached 4,961,272 shares, up 25.6% from the previous session.
+The SENSEX index moved gained by 495 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4638
+
+Analysts set a target price of Rs.1684.24 with a accumulate rating.
+Analysts set a target price of Rs.1385.10 with a buy rating.
+Orion Metals (TCS) closed at 912.88 (-2.2%) on 2024-01-04.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5472
+
+Trading volume reached 392,440 shares, up 33.0% from the previous session.
+Analysts set a target price of Rs.4257.26 with a hold rating.
+The NASDAQ index moved gained by 319 points amid rate concerns.
+The NIFTY50 index moved gained by 517 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9413
+
+The SENSEX index moved fell by 506 points amid inflation concerns.
+The NASDAQ index moved gained by 183 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 7.62 percent.
+Trading volume reached 3,639,632 shares, up 18.1% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9810
+
+Investors rotated into IT stocks as inflation cooled to 6.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6368
+
+Yields on the 10-year benchmark note rose to 6.82 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7404
+
+Quarterly revenue was Rs.36901 crore versus Rs.62240 crore in the prior period.
+Trading volume reached 1,639,402 shares, up 12.8% from the previous session.
+Yields on the 10-year benchmark note rose to 7.82 percent.
+Quarterly revenue was Rs.5272 crore versus Rs.23475 crore in the prior period.
+The SENSEX index moved gained by 747 points amid currency concerns.
+Trading volume reached 133,922 shares, up 15.2% from the previous session.
+Investors rotated into FMCG stocks as inflation cooled to 3.7%.
+Yields on the 10-year benchmark note rose to 6.06 percent.
+The company reported EPS of 2.29, beating consensus estimates of 33.67.
+Quarterly revenue was Rs.51208 crore versus Rs.30169 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4090
+
+Quarterly revenue was Rs.32054 crore versus Rs.77877 crore in the prior period.
+Analysts set a target price of Rs.3389.98 with a buy rating.
+Orion Metals (AAPL) closed at 776.04 (+5.8%) on 2025-07-04.
+Quarterly revenue was Rs.50971 crore versus Rs.85813 crore in the prior period.
+The DOW index moved fell by 520 points amid rate concerns.
+The SENSEX index moved fell by 145 points amid liquidity concerns.
+Quarterly revenue was Rs.83830 crore versus Rs.68240 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8779
+
+Analysts set a target price of Rs.801.69 with a sell rating.
+Trading volume reached 2,315,113 shares, up 26.7% from the previous session.
+Analysts set a target price of Rs.2022.03 with a sell rating.
+Trading volume reached 931,548 shares, up 5.8% from the previous session.
+Analysts set a target price of Rs.2920.09 with a accumulate rating.
+Zen Pharma (SENSEX) closed at 2906.01 (-4.6%) on 2024-06-04.
+Quarterly revenue was Rs.52329 crore versus Rs.26338 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5876
+
+Quarterly revenue was Rs.28354 crore versus Rs.55925 crore in the prior period.
+The DOW index moved gained by 623 points amid inflation concerns.
+The NASDAQ index moved gained by 308 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4363
+
+Trading volume reached 2,312,173 shares, up 20.7% from the previous session.
+Delta Energy (INFY) closed at 1556.66 (+4.5%) on 2025-08-18.
+The DOW index moved fell by 404 points amid rate concerns.
+The company reported EPS of 69.63, beating consensus estimates of 71.40.
+Quarterly revenue was Rs.56566 crore versus Rs.72334 crore in the prior period.
+Quarterly revenue was Rs.49124 crore versus Rs.8525 crore in the prior period.
+Bharat Motors (AAPL) closed at 2573.69 (-7.6%) on 2024-09-28.
+Delta Energy (MSFT) closed at 628.39 (+0.5%) on 2024-12-28.
+Yields on the 10-year benchmark note rose to 6.03 percent.
+Trading volume reached 2,055,790 shares, up 39.4% from the previous session.
+The NIFTY50 index moved fell by 54 points amid currency concerns.
+The company reported EPS of 68.63, beating consensus estimates of 98.28.
+Trading volume reached 2,613,638 shares, up 15.8% from the previous session.
+Orion Metals (RELIANCE) closed at 132.12 (+3.9%) on 2024-02-10.
+Analysts set a target price of Rs.378.64 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8810
+
+Apex Bank (TCS) closed at 1376.89 (+9.4%) on 2024-06-18.
+Bharat Motors (RELIANCE) closed at 2713.80 (+4.3%) on 2024-06-28.
+Analysts set a target price of Rs.2964.19 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6246
+
+Yields on the 10-year benchmark note rose to 7.56 percent.
+Quarterly revenue was Rs.84855 crore versus Rs.52546 crore in the prior period.
+Analysts set a target price of Rs.4196.13 with a sell rating.
+Trading volume reached 3,335,929 shares, up 14.1% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7461
+
+The company reported EPS of 92.99, beating consensus estimates of 70.96.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2875
+
+Yields on the 10-year benchmark note rose to 6.03 percent.
+Analysts set a target price of Rs.1881.05 with a sell rating.
+The company reported EPS of 87.08, beating consensus estimates of 34.04.
+Analysts set a target price of Rs.4177.41 with a hold rating.
+Bharat Motors (RELIANCE) closed at 3103.90 (-6.5%) on 2026-09-07.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6503
+
+Trading volume reached 3,758,336 shares, up 9.2% from the previous session.
+The company reported EPS of 3.27, beating consensus estimates of 22.61.
+Quarterly revenue was Rs.64918 crore versus Rs.81822 crore in the prior period.
+Quarterly revenue was Rs.88034 crore versus Rs.45581 crore in the prior period.
+Trading volume reached 3,816,376 shares, up 28.0% from the previous session.
+Investors rotated into energy stocks as inflation cooled to 4.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2429
+
+Apex Bank (TCS) closed at 381.15 (-8.2%) on 2024-01-26.
+Quarterly revenue was Rs.73383 crore versus Rs.70045 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.22 percent.
+Trading volume reached 4,067,101 shares, up 4.8% from the previous session.
+Quarterly revenue was Rs.81028 crore versus Rs.11428 crore in the prior period.
+Investors rotated into banking stocks as inflation cooled to 3.0%.
+Yields on the 10-year benchmark note rose to 6.10 percent.
+Trading volume reached 643,482 shares, up 35.6% from the previous session.
+Analysts set a target price of Rs.2779.83 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 6.71 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8993
+
+Investors rotated into pharma stocks as inflation cooled to 4.6%.
+Yields on the 10-year benchmark note rose to 7.50 percent.
+Quarterly revenue was Rs.13403 crore versus Rs.26137 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.02 percent.
+Yields on the 10-year benchmark note rose to 6.06 percent.
+Analysts set a target price of Rs.3340.47 with a hold rating.
+Quarterly revenue was Rs.11969 crore versus Rs.70816 crore in the prior period.
+Trading volume reached 3,512,318 shares, up 14.3% from the previous session.
+The company reported EPS of 36.96, beating consensus estimates of 49.56.
+Analysts set a target price of Rs.4956.43 with a accumulate rating.
+Analysts set a target price of Rs.900.38 with a accumulate rating.
+The NASDAQ index moved gained by 360 points amid earnings concerns.
+The SENSEX index moved gained by 595 points amid liquidity concerns.
+Apex Bank (NIFTY50) closed at 2109.20 (-7.3%) on 2026-01-21.
+Investors rotated into banking stocks as inflation cooled to 6.2%.
+Quarterly revenue was Rs.54474 crore versus Rs.88804 crore in the prior period.
+Trading volume reached 999,984 shares, up 26.8% from the previous session.
+Trading volume reached 2,527,269 shares, up 33.6% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8036
+
+The SENSEX index moved gained by 46 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 7.49 percent.
+Analysts set a target price of Rs.2587.88 with a accumulate rating.
+Investors rotated into pharma stocks as inflation cooled to 3.9%.
+Investors rotated into energy stocks as inflation cooled to 6.0%.
+Yields on the 10-year benchmark note rose to 6.43 percent.
+Investors rotated into banking stocks as inflation cooled to 4.3%.
+The company reported EPS of 5.94, beating consensus estimates of 99.07.
+Investors rotated into banking stocks as inflation cooled to 5.3%.
+Analysts set a target price of Rs.3871.92 with a hold rating.
+The company reported EPS of 36.83, beating consensus estimates of 34.11.
+Analysts set a target price of Rs.2297.62 with a hold rating.
+Yields on the 10-year benchmark note rose to 7.68 percent.
+Investors rotated into energy stocks as inflation cooled to 4.6%.
+The NIFTY50 index moved fell by 668 points amid earnings concerns.
+The company reported EPS of 3.95, beating consensus estimates of 119.95.
+The company reported EPS of 115.42, beating consensus estimates of 94.61.
+Investors rotated into pharma stocks as inflation cooled to 4.8%.
+The company reported EPS of 102.72, beating consensus estimates of 38.21.
+Quarterly revenue was Rs.40913 crore versus Rs.64011 crore in the prior period.
+Trading volume reached 3,007,658 shares, up 39.7% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 3.9%.
+The company reported EPS of 66.70, beating consensus estimates of 45.33.
+Quarterly revenue was Rs.5880 crore versus Rs.7772 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2165
+
+The company reported EPS of 10.92, beating consensus estimates of 86.99.
+The company reported EPS of 106.62, beating consensus estimates of 49.17.
+Yields on the 10-year benchmark note rose to 7.87 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3895
+
+Yields on the 10-year benchmark note rose to 6.25 percent.
+Quarterly revenue was Rs.11818 crore versus Rs.1008 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2546
+
+Bharat Motors (RELIANCE) closed at 170.50 (+9.5%) on 2026-08-28.
+Orion Metals (AAPL) closed at 2840.66 (-1.5%) on 2026-09-13.
+The company reported EPS of 101.00, beating consensus estimates of 52.05.
+Investors rotated into IT stocks as inflation cooled to 6.6%.
+Yields on the 10-year benchmark note rose to 7.53 percent.
+Trading volume reached 789,937 shares, up 38.3% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4603
+
+Investors rotated into FMCG stocks as inflation cooled to 7.1%.
+Apex Bank (TCS) closed at 659.34 (+3.7%) on 2024-07-17.
+Investors rotated into FMCG stocks as inflation cooled to 6.2%.
+Investors rotated into IT stocks as inflation cooled to 6.5%.
+Yields on the 10-year benchmark note rose to 6.08 percent.
+Quarterly revenue was Rs.50513 crore versus Rs.54267 crore in the prior period.
+Analysts set a target price of Rs.2061.20 with a sell rating.
+Delta Energy (HDFCBANK) closed at 3729.01 (-8.2%) on 2025-11-23.
+The company reported EPS of 54.75, beating consensus estimates of 105.03.
+Analysts set a target price of Rs.4172.83 with a accumulate rating.
+The company reported EPS of 91.31, beating consensus estimates of 62.32.
+The company reported EPS of 79.04, beating consensus estimates of 12.67.
+Trading volume reached 410,461 shares, up 4.5% from the previous session.
+The NASDAQ index moved fell by 420 points amid liquidity concerns.
+Analysts set a target price of Rs.4181.04 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6132
+
+Quarterly revenue was Rs.58773 crore versus Rs.83547 crore in the prior period.
+The company reported EPS of 55.48, beating consensus estimates of 74.09.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2336
+
+Trading volume reached 4,861,139 shares, up 32.4% from the previous session.
+The company reported EPS of 32.78, beating consensus estimates of 10.70.
+The NASDAQ index moved fell by 639 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4072
+
+Delta Energy (TCS) closed at 3228.14 (+7.7%) on 2025-06-18.
+Quarterly revenue was Rs.35083 crore versus Rs.82632 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3337
+
+Trading volume reached 927,507 shares, up 20.9% from the previous session.
+Analysts set a target price of Rs.2278.34 with a sell rating.
+Quarterly revenue was Rs.15087 crore versus Rs.24693 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1460
+
+Yields on the 10-year benchmark note rose to 6.56 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4004
+
+Yields on the 10-year benchmark note rose to 7.44 percent.
+Trading volume reached 4,643,123 shares, up 2.9% from the previous session.
+Zen Pharma (RELIANCE) closed at 515.57 (-3.3%) on 2024-02-20.
+Trading volume reached 3,434,679 shares, up 14.5% from the previous session.
+Analysts set a target price of Rs.1028.05 with a accumulate rating.
+Investors rotated into energy stocks as inflation cooled to 4.1%.
+The company reported EPS of 27.32, beating consensus estimates of 39.29.
+Analysts set a target price of Rs.4570.80 with a sell rating.
+Investors rotated into IT stocks as inflation cooled to 3.2%.
+Investors rotated into banking stocks as inflation cooled to 5.6%.
+Trading volume reached 3,447,375 shares, up 31.3% from the previous session.
+Apex Bank (NIFTY50) closed at 620.04 (+2.2%) on 2025-10-06.
+Quarterly revenue was Rs.81342 crore versus Rs.77752 crore in the prior period.
+Analysts set a target price of Rs.542.69 with a accumulate rating.
+The company reported EPS of 1.27, beating consensus estimates of 30.09.
+Investors rotated into energy stocks as inflation cooled to 7.3%.
+Quarterly revenue was Rs.21144 crore versus Rs.41094 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6106
+
+Quarterly revenue was Rs.44864 crore versus Rs.10892 crore in the prior period.
+The NASDAQ index moved fell by 425 points amid liquidity concerns.
+Analysts set a target price of Rs.4841.22 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4808
+
+Investors rotated into banking stocks as inflation cooled to 3.1%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8528
+
+Quarterly revenue was Rs.59477 crore versus Rs.991 crore in the prior period.
+The DOW index moved fell by 319 points amid inflation concerns.
+Analysts set a target price of Rs.3570.57 with a sell rating.
+Investors rotated into pharma stocks as inflation cooled to 3.6%.
+Yields on the 10-year benchmark note rose to 7.56 percent.
+Delta Energy (TCS) closed at 259.55 (+7.5%) on 2026-05-27.
+The company reported EPS of 20.05, beating consensus estimates of 69.24.
+Investors rotated into FMCG stocks as inflation cooled to 3.2%.
+Zen Pharma (SENSEX) closed at 1655.99 (-8.6%) on 2026-05-10.
+Quarterly revenue was Rs.30803 crore versus Rs.75809 crore in the prior period.
+Analysts set a target price of Rs.1458.45 with a hold rating.
+Trading volume reached 414,312 shares, up 5.1% from the previous session.
+Investors rotated into energy stocks as inflation cooled to 6.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8177
+
+Analysts set a target price of Rs.3593.46 with a sell rating.
+Quarterly revenue was Rs.88495 crore versus Rs.88267 crore in the prior period.
+Apex Bank (NIFTY50) closed at 2028.85 (-3.6%) on 2026-07-20.
+Yields on the 10-year benchmark note rose to 6.82 percent.
+The NASDAQ index moved fell by 419 points amid liquidity concerns.
+The NIFTY50 index moved fell by 487 points amid currency concerns.
+The company reported EPS of 62.05, beating consensus estimates of 50.43.
+The DOW index moved fell by 222 points amid inflation concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0585
+
+The company reported EPS of 71.23, beating consensus estimates of 19.73.
+Bharat Motors (HDFCBANK) closed at 2675.91 (+1.4%) on 2025-05-11.
+Investors rotated into pharma stocks as inflation cooled to 4.0%.
+Trading volume reached 4,304,838 shares, up 24.8% from the previous session.
+The company reported EPS of 79.29, beating consensus estimates of 62.48.
+Quarterly revenue was Rs.29009 crore versus Rs.76405 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2182
+
+The company reported EPS of 55.65, beating consensus estimates of 55.71.
+The NIFTY50 index moved gained by 628 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7961
+
+Quarterly revenue was Rs.8808 crore versus Rs.6433 crore in the prior period.
+The company reported EPS of 89.51, beating consensus estimates of 95.19.
+Investors rotated into pharma stocks as inflation cooled to 4.2%.
+Investors rotated into pharma stocks as inflation cooled to 4.1%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2918
+
+Delta Energy (NIFTY50) closed at 1003.67 (-6.8%) on 2024-02-01.
+Yields on the 10-year benchmark note rose to 7.84 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0274
+
+Analysts set a target price of Rs.622.42 with a sell rating.
+The company reported EPS of 27.84, beating consensus estimates of 118.28.
+Zen Pharma (RELIANCE) closed at 1569.67 (+4.0%) on 2025-04-24.
+Quarterly revenue was Rs.86857 crore versus Rs.51358 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.17 percent.
+Trading volume reached 3,035,093 shares, up 19.5% from the previous session.
+The NIFTY50 index moved fell by 646 points amid rate concerns.
+Yields on the 10-year benchmark note rose to 7.66 percent.
+Yields on the 10-year benchmark note rose to 6.73 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9757
+
+Quarterly revenue was Rs.63505 crore versus Rs.50884 crore in the prior period.
+The company reported EPS of 64.27, beating consensus estimates of 106.32.
+Analysts set a target price of Rs.3831.89 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9440
+
+The NIFTY50 index moved gained by 338 points amid liquidity concerns.
+Zen Pharma (MSFT) closed at 2767.98 (+0.2%) on 2026-05-13.
+The company reported EPS of 98.03, beating consensus estimates of 30.96.
+Yields on the 10-year benchmark note rose to 6.09 percent.
+Quarterly revenue was Rs.5653 crore versus Rs.62327 crore in the prior period.
+Investors rotated into IT stocks as inflation cooled to 3.7%.
+The company reported EPS of 21.16, beating consensus estimates of 82.96.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5187
+
+Orion Metals (TCS) closed at 61.14 (+9.0%) on 2026-05-22.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1689
+
+Yields on the 10-year benchmark note rose to 7.89 percent.
+Investors rotated into banking stocks as inflation cooled to 4.3%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9879
+
+Apex Bank (NIFTY50) closed at 439.93 (-7.1%) on 2024-02-11.
+Investors rotated into pharma stocks as inflation cooled to 4.4%.
+Quarterly revenue was Rs.3104 crore versus Rs.33887 crore in the prior period.
+Trading volume reached 4,737,239 shares, up 16.3% from the previous session.
+Analysts set a target price of Rs.530.04 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5130
+
+The company reported EPS of 8.91, beating consensus estimates of 80.76.
+Investors rotated into energy stocks as inflation cooled to 6.4%.
+The company reported EPS of 56.36, beating consensus estimates of 83.75.
+Investors rotated into pharma stocks as inflation cooled to 4.3%.
+Investors rotated into pharma stocks as inflation cooled to 5.3%.
+Analysts set a target price of Rs.290.82 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8424
+
+Analysts set a target price of Rs.1034.66 with a accumulate rating.
+Bharat Motors (MSFT) closed at 3071.67 (+9.5%) on 2026-07-11.
+Investors rotated into pharma stocks as inflation cooled to 4.2%.
+The company reported EPS of 52.79, beating consensus estimates of 48.92.
+Analysts set a target price of Rs.1686.83 with a accumulate rating.
+Trading volume reached 2,058,468 shares, up 16.1% from the previous session.
+Quarterly revenue was Rs.60519 crore versus Rs.79863 crore in the prior period.
+Trading volume reached 1,949,537 shares, up 23.6% from the previous session.
+Quarterly revenue was Rs.73798 crore versus Rs.17005 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 5.2%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1357
+
+Zen Pharma (SENSEX) closed at 664.74 (-6.2%) on 2025-03-12.
+Investors rotated into energy stocks as inflation cooled to 4.2%.
+Bharat Motors (SENSEX) closed at 344.40 (-5.1%) on 2025-01-11.
+Quarterly revenue was Rs.49400 crore versus Rs.88613 crore in the prior period.
+Delta Energy (AAPL) closed at 2783.95 (+7.7%) on 2026-07-16.
+Yields on the 10-year benchmark note rose to 7.11 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9039
+
+The company reported EPS of 75.11, beating consensus estimates of 72.56.
+Yields on the 10-year benchmark note rose to 6.70 percent.
+The company reported EPS of 89.35, beating consensus estimates of 108.11.
+The NIFTY50 index moved fell by 291 points amid rate concerns.
+Bharat Motors (RELIANCE) closed at 1070.83 (-7.6%) on 2025-03-15.
+The company reported EPS of 102.24, beating consensus estimates of 1.49.
+Quarterly revenue was Rs.68269 crore versus Rs.63974 crore in the prior period.
+Trading volume reached 668,695 shares, up 18.4% from the previous session.
+Yields on the 10-year benchmark note rose to 7.84 percent.
+Yields on the 10-year benchmark note rose to 7.68 percent.
+Analysts set a target price of Rs.4352.28 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4131
+
+Investors rotated into IT stocks as inflation cooled to 3.6%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0872
+
+Apex Bank (RELIANCE) closed at 2252.52 (-4.9%) on 2024-07-14.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2570
+
+Quarterly revenue was Rs.77046 crore versus Rs.5939 crore in the prior period.
+Trading volume reached 774,796 shares, up 31.7% from the previous session.
+Yields on the 10-year benchmark note rose to 6.49 percent.
+Analysts set a target price of Rs.3203.15 with a accumulate rating.
+Zen Pharma (INFY) closed at 891.21 (+5.3%) on 2026-10-16.
+Zen Pharma (INFY) closed at 1384.12 (+9.0%) on 2026-10-24.
+Trading volume reached 3,627,455 shares, up 20.0% from the previous session.
+The company reported EPS of 4.30, beating consensus estimates of 49.80.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8881
+
+Bharat Motors (AAPL) closed at 2790.55 (+2.4%) on 2026-08-03.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7661
+
+Analysts set a target price of Rs.2505.91 with a sell rating.
+Trading volume reached 1,134,104 shares, up 22.6% from the previous session.
+The company reported EPS of 37.94, beating consensus estimates of 104.90.
+Investors rotated into banking stocks as inflation cooled to 6.7%.
+Analysts set a target price of Rs.1244.40 with a buy rating.
+The company reported EPS of 49.09, beating consensus estimates of 10.82.
+Analysts set a target price of Rs.2194.84 with a sell rating.
+The NASDAQ index moved gained by 583 points amid liquidity concerns.
+The DOW index moved gained by 585 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7165
+
+Analysts set a target price of Rs.3638.67 with a hold rating.
+The NASDAQ index moved fell by 779 points amid liquidity concerns.
+The DOW index moved gained by 800 points amid liquidity concerns.
+Quarterly revenue was Rs.76521 crore versus Rs.65443 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.70 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2523
+
+The company reported EPS of 65.35, beating consensus estimates of 109.11.
+Analysts set a target price of Rs.2163.35 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1994
+
+The NIFTY50 index moved fell by 276 points amid inflation concerns.
+Analysts set a target price of Rs.537.70 with a hold rating.
+Quarterly revenue was Rs.4078 crore versus Rs.26505 crore in the prior period.
+The DOW index moved gained by 611 points amid currency concerns.
+The company reported EPS of 83.33, beating consensus estimates of 31.52.
+Trading volume reached 2,567,526 shares, up 32.5% from the previous session.
+The NIFTY50 index moved fell by 22 points amid earnings concerns.
+The DOW index moved fell by 745 points amid currency concerns.
+Yields on the 10-year benchmark note rose to 7.77 percent.
+Investors rotated into FMCG stocks as inflation cooled to 6.9%.
+Infotech Ltd (AAPL) closed at 1976.18 (-5.7%) on 2024-07-04.
+Trading volume reached 3,856,102 shares, up 0.3% from the previous session.
+The NIFTY50 index moved gained by 639 points amid inflation concerns.
+The NIFTY50 index moved fell by 24 points amid currency concerns.
+Yields on the 10-year benchmark note rose to 7.87 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0505
+
+Trading volume reached 3,757,598 shares, up 39.9% from the previous session.
+Quarterly revenue was Rs.51479 crore versus Rs.87440 crore in the prior period.
+Investors rotated into FMCG stocks as inflation cooled to 7.4%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5971
+
+Analysts set a target price of Rs.832.30 with a accumulate rating.
+Analysts set a target price of Rs.1629.75 with a hold rating.
+The DOW index moved gained by 570 points amid rate concerns.
+Yields on the 10-year benchmark note rose to 6.65 percent.
+Yields on the 10-year benchmark note rose to 6.74 percent.
+Yields on the 10-year benchmark note rose to 6.84 percent.
+Yields on the 10-year benchmark note rose to 6.80 percent.
+Yields on the 10-year benchmark note rose to 6.06 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6133
+
+Investors rotated into banking stocks as inflation cooled to 5.7%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3351
+
+Apex Bank (MSFT) closed at 181.87 (+0.2%) on 2026-09-14.
+The company reported EPS of 34.62, beating consensus estimates of 90.27.
+Trading volume reached 2,792,962 shares, up 15.6% from the previous session.
+Investors rotated into FMCG stocks as inflation cooled to 6.7%.
+Yields on the 10-year benchmark note rose to 7.01 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3398
+
+Trading volume reached 3,865,033 shares, up 17.3% from the previous session.
+The company reported EPS of 72.46, beating consensus estimates of 26.18.
+Bharat Motors (INFY) closed at 1296.83 (+0.1%) on 2024-03-19.
+Yields on the 10-year benchmark note rose to 6.88 percent.
+Investors rotated into FMCG stocks as inflation cooled to 4.0%.
+The NIFTY50 index moved gained by 228 points amid earnings concerns.
+The NASDAQ index moved gained by 85 points amid currency concerns.
+Quarterly revenue was Rs.18280 crore versus Rs.8307 crore in the prior period.
+The NASDAQ index moved gained by 377 points amid rate concerns.
+Zen Pharma (NIFTY50) closed at 3367.35 (-8.7%) on 2026-02-23.
+The company reported EPS of 58.71, beating consensus estimates of 17.43.
+Apex Bank (INFY) closed at 1844.49 (-8.5%) on 2026-08-14.
+Trading volume reached 1,096,133 shares, up 24.4% from the previous session.
+Yields on the 10-year benchmark note rose to 7.37 percent.
+Investors rotated into FMCG stocks as inflation cooled to 4.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6405
+
+The company reported EPS of 2.49, beating consensus estimates of 73.71.
+Quarterly revenue was Rs.14787 crore versus Rs.36828 crore in the prior period.
+Analysts set a target price of Rs.554.37 with a sell rating.
+Quarterly revenue was Rs.44080 crore versus Rs.47898 crore in the prior period.
+Analysts set a target price of Rs.431.28 with a sell rating.
+Quarterly revenue was Rs.6301 crore versus Rs.70266 crore in the prior period.
+The SENSEX index moved gained by 415 points amid earnings concerns.
+Infotech Ltd (HDFCBANK) closed at 3691.80 (-3.6%) on 2026-10-13.
+Trading volume reached 2,539,399 shares, up 24.0% from the previous session.
+The SENSEX index moved fell by 521 points amid inflation concerns.
+Analysts set a target price of Rs.4008.02 with a sell rating.
+The company reported EPS of 25.90, beating consensus estimates of 102.84.
+Investors rotated into IT stocks as inflation cooled to 7.0%.
+Analysts set a target price of Rs.651.08 with a accumulate rating.
+Investors rotated into FMCG stocks as inflation cooled to 4.1%.
+Analysts set a target price of Rs.2195.58 with a sell rating.
+Investors rotated into pharma stocks as inflation cooled to 6.9%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8500
+
+Analysts set a target price of Rs.3130.53 with a buy rating.
+Trading volume reached 3,209,585 shares, up 18.2% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3512
+
+The NIFTY50 index moved gained by 382 points amid earnings concerns.
+Analysts set a target price of Rs.1107.45 with a hold rating.
+Yields on the 10-year benchmark note rose to 6.77 percent.
+Yields on the 10-year benchmark note rose to 7.62 percent.
+The company reported EPS of 38.12, beating consensus estimates of 27.63.
+The company reported EPS of 14.94, beating consensus estimates of 49.15.
+Bharat Motors (SENSEX) closed at 875.68 (-9.6%) on 2025-02-12.
+Yields on the 10-year benchmark note rose to 6.53 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9099
+
+Trading volume reached 4,353,187 shares, up 10.6% from the previous session.
+Infotech Ltd (HDFCBANK) closed at 1043.86 (-8.8%) on 2025-11-12.
+Apex Bank (SENSEX) closed at 1369.77 (-7.5%) on 2024-08-03.
+Trading volume reached 386,397 shares, up 25.2% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 6.9%.
+Investors rotated into pharma stocks as inflation cooled to 7.5%.
+The company reported EPS of 19.49, beating consensus estimates of 100.09.
+Yields on the 10-year benchmark note rose to 6.55 percent.
+Quarterly revenue was Rs.3382 crore versus Rs.38800 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0567
+
+The NASDAQ index moved gained by 735 points amid currency concerns.
+The company reported EPS of 104.23, beating consensus estimates of 12.27.
+The NASDAQ index moved fell by 320 points amid currency concerns.
+Orion Metals (HDFCBANK) closed at 1188.02 (+7.1%) on 2024-04-11.
+Quarterly revenue was Rs.49272 crore versus Rs.75790 crore in the prior period.
+Investors rotated into banking stocks as inflation cooled to 3.9%.
+Yields on the 10-year benchmark note rose to 7.97 percent.
+Analysts set a target price of Rs.1761.03 with a accumulate rating.
+The DOW index moved fell by 434 points amid liquidity concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8224
+
+The company reported EPS of 80.35, beating consensus estimates of 50.72.
+Infotech Ltd (INFY) closed at 1518.63 (+7.6%) on 2024-10-03.
+Investors rotated into FMCG stocks as inflation cooled to 3.4%.
+Investors rotated into pharma stocks as inflation cooled to 6.8%.
+Analysts set a target price of Rs.2273.77 with a accumulate rating.
+Analysts set a target price of Rs.150.16 with a hold rating.
+Yields on the 10-year benchmark note rose to 6.10 percent.
+Trading volume reached 2,775,744 shares, up 13.2% from the previous session.
+The company reported EPS of 32.04, beating consensus estimates of 116.19.
+Trading volume reached 3,834,476 shares, up 28.6% from the previous session.
+The company reported EPS of 85.29, beating consensus estimates of 60.33.
+Investors rotated into FMCG stocks as inflation cooled to 6.7%.
+Bharat Motors (SENSEX) closed at 124.84 (-1.8%) on 2026-10-14.
+Bharat Motors (MSFT) closed at 1635.74 (+5.8%) on 2025-06-26.
+The company reported EPS of 55.10, beating consensus estimates of 17.09.
+Delta Energy (INFY) closed at 495.30 (+0.1%) on 2025-12-28.
+Analysts set a target price of Rs.2695.65 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.7835
+
+Analysts set a target price of Rs.2910.33 with a hold rating.
+The SENSEX index moved gained by 436 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5421
+
+Trading volume reached 1,432,850 shares, up 22.1% from the previous session.
+The company reported EPS of 86.67, beating consensus estimates of 107.15.
+The NASDAQ index moved fell by 750 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.05 percent.
+The SENSEX index moved gained by 456 points amid inflation concerns.
+Quarterly revenue was Rs.77658 crore versus Rs.61336 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0183
+
+Analysts set a target price of Rs.4340.07 with a buy rating.
+Quarterly revenue was Rs.62481 crore versus Rs.25290 crore in the prior period.
+The company reported EPS of 7.86, beating consensus estimates of 45.91.
+The NIFTY50 index moved gained by 227 points amid liquidity concerns.
+The company reported EPS of 79.90, beating consensus estimates of 24.04.
+Quarterly revenue was Rs.74904 crore versus Rs.85830 crore in the prior period.
+The NASDAQ index moved fell by 221 points amid liquidity concerns.
+Delta Energy (INFY) closed at 1830.29 (+3.5%) on 2025-03-20.
+Trading volume reached 2,936,011 shares, up 11.2% from the previous session.
+Yields on the 10-year benchmark note rose to 6.38 percent.
+Yields on the 10-year benchmark note rose to 7.39 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6731
+
+The NASDAQ index moved fell by 493 points amid currency concerns.
+Quarterly revenue was Rs.44796 crore versus Rs.52844 crore in the prior period.
+Analysts set a target price of Rs.2804.43 with a sell rating.
+Quarterly revenue was Rs.15298 crore versus Rs.38536 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7094
+
+Yields on the 10-year benchmark note rose to 7.04 percent.
+Quarterly revenue was Rs.41416 crore versus Rs.36297 crore in the prior period.
+Quarterly revenue was Rs.33360 crore versus Rs.2121 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5062
+
+Trading volume reached 4,959,635 shares, up 30.1% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 4.3%.
+Quarterly revenue was Rs.23815 crore versus Rs.64121 crore in the prior period.
+Analysts set a target price of Rs.4434.73 with a buy rating.
+Analysts set a target price of Rs.3564.83 with a buy rating.
+Trading volume reached 2,739,275 shares, up 36.5% from the previous session.
+Quarterly revenue was Rs.9323 crore versus Rs.46508 crore in the prior period.
+The company reported EPS of 59.20, beating consensus estimates of 59.85.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7323
+
+Investors rotated into banking stocks as inflation cooled to 7.3%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8063
+
+Investors rotated into pharma stocks as inflation cooled to 6.5%.
+Trading volume reached 383,564 shares, up 5.2% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0356
+
+Yields on the 10-year benchmark note rose to 7.29 percent.
+Trading volume reached 1,681,662 shares, up 5.0% from the previous session.
+Quarterly revenue was Rs.50015 crore versus Rs.10560 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 4.4%.
+Yields on the 10-year benchmark note rose to 7.75 percent.
+The SENSEX index moved fell by 795 points amid liquidity concerns.
+Investors rotated into FMCG stocks as inflation cooled to 6.2%.
+Investors rotated into IT stocks as inflation cooled to 6.5%.
+The NASDAQ index moved fell by 575 points amid earnings concerns.
+Yields on the 10-year benchmark note rose to 6.93 percent.
+Investors rotated into IT stocks as inflation cooled to 3.5%.
+Analysts set a target price of Rs.574.80 with a buy rating.
+Investors rotated into pharma stocks as inflation cooled to 3.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1837
+
+Infotech Ltd (NIFTY50) closed at 95.74 (+1.1%) on 2026-07-21.
+Analysts set a target price of Rs.3605.57 with a accumulate rating.
+The company reported EPS of 16.46, beating consensus estimates of 42.01.
+The company reported EPS of 94.71, beating consensus estimates of 98.78.
+Investors rotated into energy stocks as inflation cooled to 4.3%.
+Investors rotated into pharma stocks as inflation cooled to 6.6%.
+Analysts set a target price of Rs.2861.96 with a sell rating.
+Bharat Motors (INFY) closed at 281.93 (+8.2%) on 2026-11-23.
+Trading volume reached 1,463,751 shares, up 18.0% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5428
+
+Quarterly revenue was Rs.13916 crore versus Rs.61011 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6733
+
+Yields on the 10-year benchmark note rose to 7.05 percent.
+Investors rotated into IT stocks as inflation cooled to 6.7%.
+Bharat Motors (NIFTY50) closed at 55.59 (+4.4%) on 2024-02-09.
+Investors rotated into IT stocks as inflation cooled to 7.4%.
+Analysts set a target price of Rs.3230.62 with a buy rating.
+Investors rotated into FMCG stocks as inflation cooled to 6.2%.
+The NIFTY50 index moved fell by 454 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 6.88 percent.
+Yields on the 10-year benchmark note rose to 7.36 percent.
+Yields on the 10-year benchmark note rose to 7.39 percent.
+The company reported EPS of 75.17, beating consensus estimates of 78.55.
+The SENSEX index moved gained by 274 points amid earnings concerns.
+The company reported EPS of 14.58, beating consensus estimates of 44.02.
+Delta Energy (INFY) closed at 3161.30 (-1.2%) on 2024-03-23.
+Infotech Ltd (TCS) closed at 3612.40 (+2.7%) on 2024-11-13.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0033
+
+Infotech Ltd (AAPL) closed at 2019.94 (-9.3%) on 2024-05-26.
+Yields on the 10-year benchmark note rose to 7.52 percent.
+The company reported EPS of 16.79, beating consensus estimates of 85.79.
+Quarterly revenue was Rs.1380 crore versus Rs.38441 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.50 percent.
+Yields on the 10-year benchmark note rose to 6.58 percent.
+Investors rotated into energy stocks as inflation cooled to 6.5%.
+Delta Energy (RELIANCE) closed at 1255.90 (-8.5%) on 2025-04-19.
+The NASDAQ index moved gained by 361 points amid inflation concerns.
+The company reported EPS of 109.71, beating consensus estimates of 52.13.
+Yields on the 10-year benchmark note rose to 6.61 percent.
+Analysts set a target price of Rs.2866.49 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5733
+
+The company reported EPS of 46.23, beating consensus estimates of 99.24.
+The NASDAQ index moved fell by 47 points amid rate concerns.
+The company reported EPS of 89.60, beating consensus estimates of 25.88.
+Investors rotated into energy stocks as inflation cooled to 5.8%.
+Yields on the 10-year benchmark note rose to 6.81 percent.
+Analysts set a target price of Rs.4435.04 with a hold rating.
+Quarterly revenue was Rs.79624 crore versus Rs.6188 crore in the prior period.
+Trading volume reached 42,340 shares, up 28.7% from the previous session.
+Quarterly revenue was Rs.82977 crore versus Rs.20193 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 4.3%.
+Yields on the 10-year benchmark note rose to 7.58 percent.
+The SENSEX index moved fell by 331 points amid currency concerns.
+Orion Metals (TCS) closed at 1818.43 (+3.2%) on 2024-10-27.
+The company reported EPS of 9.76, beating consensus estimates of 94.91.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5583
+
+The company reported EPS of 16.40, beating consensus estimates of 31.61.
+Apex Bank (TCS) closed at 2653.96 (-6.5%) on 2025-07-15.
+Trading volume reached 3,593,392 shares, up 6.7% from the previous session.
+The company reported EPS of 23.50, beating consensus estimates of 80.80.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2931
+
+Trading volume reached 2,290,351 shares, up 38.9% from the previous session.
+Yields on the 10-year benchmark note rose to 6.54 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6652
+
+Analysts set a target price of Rs.1989.22 with a buy rating.
+Analysts set a target price of Rs.322.96 with a hold rating.
+Analysts set a target price of Rs.3315.18 with a buy rating.
+Trading volume reached 501,424 shares, up 35.9% from the previous session.
+Trading volume reached 1,728,785 shares, up 6.8% from the previous session.
+Analysts set a target price of Rs.647.35 with a sell rating.
+Orion Metals (MSFT) closed at 1633.52 (+5.0%) on 2024-07-15.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6578
+
+Trading volume reached 518,757 shares, up 26.6% from the previous session.
+Trading volume reached 208,780 shares, up 26.1% from the previous session.
+Delta Energy (RELIANCE) closed at 1795.37 (+4.5%) on 2026-08-08.
+Yields on the 10-year benchmark note rose to 7.34 percent.
+Investors rotated into IT stocks as inflation cooled to 5.6%.
+The NIFTY50 index moved fell by 608 points amid liquidity concerns.
+Investors rotated into FMCG stocks as inflation cooled to 7.1%.
+Quarterly revenue was Rs.81685 crore versus Rs.80150 crore in the prior period.
+Analysts set a target price of Rs.1406.18 with a sell rating.
+Yields on the 10-year benchmark note rose to 6.54 percent.
+The DOW index moved fell by 226 points amid earnings concerns.
+Trading volume reached 4,020,184 shares, up 25.7% from the previous session.
+Trading volume reached 3,259,706 shares, up 11.6% from the previous session.
+Analysts set a target price of Rs.468.94 with a hold rating.
+Quarterly revenue was Rs.39803 crore versus Rs.31775 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.26 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5455
+
+Investors rotated into FMCG stocks as inflation cooled to 4.9%.
+Analysts set a target price of Rs.4267.29 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.8651
+
+The DOW index moved fell by 183 points amid currency concerns.
+Investors rotated into IT stocks as inflation cooled to 3.2%.
+Trading volume reached 4,636,641 shares, up 25.3% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 4.6%.
+The company reported EPS of 111.22, beating consensus estimates of 92.93.
+The company reported EPS of 96.75, beating consensus estimates of 92.86.
+Trading volume reached 2,268,254 shares, up 1.6% from the previous session.
+Trading volume reached 3,156,701 shares, up 28.2% from the previous session.
+Infotech Ltd (INFY) closed at 605.91 (-4.0%) on 2024-04-09.
+Infotech Ltd (MSFT) closed at 1949.80 (-8.0%) on 2025-01-08.
+Analysts set a target price of Rs.4656.02 with a sell rating.
+Trading volume reached 914,951 shares, up 36.1% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2365
+
+Quarterly revenue was Rs.86329 crore versus Rs.68660 crore in the prior period.
+The SENSEX index moved fell by 119 points amid liquidity concerns.
+Apex Bank (INFY) closed at 3308.96 (-9.1%) on 2025-03-22.
+The NIFTY50 index moved fell by 777 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2592
+
+Trading volume reached 387,923 shares, up 5.1% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2834
+
+The company reported EPS of 102.15, beating consensus estimates of 5.63.
+Investors rotated into IT stocks as inflation cooled to 7.3%.
+Yields on the 10-year benchmark note rose to 6.09 percent.
+Trading volume reached 3,494,007 shares, up 39.4% from the previous session.
+Yields on the 10-year benchmark note rose to 7.51 percent.
+The SENSEX index moved fell by 408 points amid rate concerns.
+Delta Energy (NIFTY50) closed at 855.01 (+1.1%) on 2026-02-19.
+Investors rotated into banking stocks as inflation cooled to 5.1%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5048
+
+Trading volume reached 982,540 shares, up 22.3% from the previous session.
+The company reported EPS of 56.26, beating consensus estimates of 95.52.
+Yields on the 10-year benchmark note rose to 6.35 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5502
+
+The company reported EPS of 99.74, beating consensus estimates of 70.05.
+Infotech Ltd (RELIANCE) closed at 2818.98 (-7.7%) on 2025-03-10.
+Investors rotated into pharma stocks as inflation cooled to 6.2%.
+Apex Bank (HDFCBANK) closed at 2269.50 (+2.6%) on 2025-04-22.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4736
+
+Orion Metals (INFY) closed at 2397.63 (+7.1%) on 2026-08-17.
+Yields on the 10-year benchmark note rose to 7.10 percent.
+Yields on the 10-year benchmark note rose to 7.16 percent.
+Investors rotated into FMCG stocks as inflation cooled to 5.2%.
+Apex Bank (NIFTY50) closed at 2158.51 (-0.6%) on 2024-06-07.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9717
+
+The NIFTY50 index moved fell by 36 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 6.25 percent.
+The company reported EPS of 99.17, beating consensus estimates of 37.96.
+Quarterly revenue was Rs.69127 crore versus Rs.76159 crore in the prior period.
+Trading volume reached 81,500 shares, up 7.3% from the previous session.
+The DOW index moved fell by 67 points amid currency concerns.
+Analysts set a target price of Rs.1125.15 with a buy rating.
+Quarterly revenue was Rs.34416 crore versus Rs.48143 crore in the prior period.
+Quarterly revenue was Rs.48380 crore versus Rs.14161 crore in the prior period.
+Trading volume reached 2,184,133 shares, up 17.4% from the previous session.
+Trading volume reached 3,802,240 shares, up 2.2% from the previous session.
+Yields on the 10-year benchmark note rose to 6.76 percent.
+Quarterly revenue was Rs.58682 crore versus Rs.24803 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5884
+
+Quarterly revenue was Rs.76491 crore versus Rs.33360 crore in the prior period.
+Analysts set a target price of Rs.2212.35 with a hold rating.
+The NASDAQ index moved fell by 71 points amid liquidity concerns.
+Quarterly revenue was Rs.61688 crore versus Rs.87581 crore in the prior period.
+Quarterly revenue was Rs.65984 crore versus Rs.37368 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9015
+
+The NASDAQ index moved fell by 335 points amid liquidity concerns.
+The DOW index moved gained by 775 points amid liquidity concerns.
+The DOW index moved fell by 568 points amid inflation concerns.
+Analysts set a target price of Rs.3121.07 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0818
+
+Analysts set a target price of Rs.936.45 with a hold rating.
+The NIFTY50 index moved fell by 461 points amid rate concerns.
+Quarterly revenue was Rs.6506 crore versus Rs.22570 crore in the prior period.
+Analysts set a target price of Rs.3713.15 with a buy rating.
+Quarterly revenue was Rs.14368 crore versus Rs.44354 crore in the prior period.
+Trading volume reached 3,000,914 shares, up 15.8% from the previous session.
+Analysts set a target price of Rs.3860.69 with a sell rating.
+Quarterly revenue was Rs.18421 crore versus Rs.52394 crore in the prior period.
+Analysts set a target price of Rs.1317.62 with a hold rating.
+Analysts set a target price of Rs.4048.39 with a sell rating.
+The company reported EPS of 72.58, beating consensus estimates of 44.07.
+Yields on the 10-year benchmark note rose to 7.77 percent.
+Orion Metals (RELIANCE) closed at 3230.21 (-8.9%) on 2026-11-26.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9359
+
+The company reported EPS of 20.37, beating consensus estimates of 59.12.
+Trading volume reached 3,912,374 shares, up 28.6% from the previous session.
+Yields on the 10-year benchmark note rose to 6.48 percent.
+Apex Bank (SENSEX) closed at 677.68 (-4.1%) on 2026-03-06.
+Investors rotated into banking stocks as inflation cooled to 4.6%.
+Orion Metals (SENSEX) closed at 1865.38 (-5.5%) on 2024-12-13.
+The NIFTY50 index moved fell by 458 points amid earnings concerns.
+Bharat Motors (MSFT) closed at 1973.97 (-7.1%) on 2025-07-05.
+Trading volume reached 3,288,108 shares, up 27.8% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4853
+
+Investors rotated into energy stocks as inflation cooled to 7.4%.
+The company reported EPS of 22.82, beating consensus estimates of 27.22.
+Yields on the 10-year benchmark note rose to 6.75 percent.
+Trading volume reached 3,358,463 shares, up 9.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.6007
+
+Investors rotated into banking stocks as inflation cooled to 3.5%.
+Yields on the 10-year benchmark note rose to 7.55 percent.
+The NASDAQ index moved fell by 54 points amid rate concerns.
+Investors rotated into FMCG stocks as inflation cooled to 6.8%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4434
+
+Delta Energy (TCS) closed at 1398.03 (-6.4%) on 2026-11-14.
+Trading volume reached 442,638 shares, up 18.3% from the previous session.
+The NASDAQ index moved gained by 772 points amid liquidity concerns.
+Trading volume reached 1,219,368 shares, up 35.0% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9924
+
+Trading volume reached 1,004,637 shares, up 20.2% from the previous session.
+Analysts set a target price of Rs.712.42 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0830
+
+Quarterly revenue was Rs.16591 crore versus Rs.70285 crore in the prior period.
+Quarterly revenue was Rs.2823 crore versus Rs.18000 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5661
+
+Analysts set a target price of Rs.2483.13 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9969
+
+Analysts set a target price of Rs.3789.38 with a hold rating.
+Quarterly revenue was Rs.47962 crore versus Rs.58945 crore in the prior period.
+Trading volume reached 1,489,297 shares, up 32.5% from the previous session.
+Analysts set a target price of Rs.2678.50 with a hold rating.
+Investors rotated into IT stocks as inflation cooled to 6.2%.
+Investors rotated into FMCG stocks as inflation cooled to 7.2%.
+Investors rotated into IT stocks as inflation cooled to 4.4%.
+The company reported EPS of 58.31, beating consensus estimates of 22.42.
+Trading volume reached 1,312,654 shares, up 29.7% from the previous session.
+Analysts set a target price of Rs.4015.91 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9980
+
+Investors rotated into energy stocks as inflation cooled to 3.5%.
+Trading volume reached 1,221,381 shares, up 35.4% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 6.0%.
+Analysts set a target price of Rs.4350.69 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2123
+
+Yields on the 10-year benchmark note rose to 7.48 percent.
+Investors rotated into energy stocks as inflation cooled to 3.4%.
+Yields on the 10-year benchmark note rose to 6.94 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1309
+
+Trading volume reached 3,480,166 shares, up 30.1% from the previous session.
+The company reported EPS of 43.14, beating consensus estimates of 17.67.
+Analysts set a target price of Rs.2120.56 with a accumulate rating.
+Apex Bank (SENSEX) closed at 1298.56 (+7.3%) on 2025-01-24.
+Trading volume reached 3,270,333 shares, up 30.5% from the previous session.
+Analysts set a target price of Rs.102.54 with a hold rating.
+Trading volume reached 2,272,250 shares, up 14.3% from the previous session.
+The company reported EPS of 36.28, beating consensus estimates of 89.83.
+Trading volume reached 1,998,126 shares, up 17.6% from the previous session.
+The SENSEX index moved gained by 139 points amid liquidity concerns.
+Trading volume reached 1,975,391 shares, up 10.0% from the previous session.
+Analysts set a target price of Rs.2568.47 with a buy rating.
+Quarterly revenue was Rs.76658 crore versus Rs.84546 crore in the prior period.
+Orion Metals (HDFCBANK) closed at 1145.89 (+3.6%) on 2024-08-23.
+Quarterly revenue was Rs.66019 crore versus Rs.16368 crore in the prior period.
+The NASDAQ index moved fell by 738 points amid liquidity concerns.
+The company reported EPS of 29.46, beating consensus estimates of 54.26.
+The company reported EPS of 51.42, beating consensus estimates of 23.47.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1185
+
+Analysts set a target price of Rs.4678.11 with a sell rating.
+The company reported EPS of 25.74, beating consensus estimates of 58.39.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9574
+
+Trading volume reached 4,397,216 shares, up 26.9% from the previous session.
+The NIFTY50 index moved gained by 53 points amid rate concerns.
+Zen Pharma (HDFCBANK) closed at 2514.07 (-3.3%) on 2026-06-24.
+Analysts set a target price of Rs.4372.64 with a sell rating.
+Orion Metals (NIFTY50) closed at 2008.47 (-1.7%) on 2025-02-10.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2040
+
+Yields on the 10-year benchmark note rose to 6.77 percent.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7322
+
+Analysts set a target price of Rs.4646.62 with a accumulate rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8075
+
+Analysts set a target price of Rs.529.06 with a sell rating.
+Quarterly revenue was Rs.61174 crore versus Rs.73599 crore in the prior period.
+Quarterly revenue was Rs.57720 crore versus Rs.34779 crore in the prior period.
+The NIFTY50 index moved gained by 714 points amid earnings concerns.
+The company reported EPS of 4.40, beating consensus estimates of 79.84.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5660
+
+Quarterly revenue was Rs.56801 crore versus Rs.58036 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 6.2%.
+Bharat Motors (NIFTY50) closed at 2614.08 (-8.9%) on 2026-09-07.
+Analysts set a target price of Rs.1469.78 with a buy rating.
+The company reported EPS of 69.79, beating consensus estimates of 10.59.
+Analysts set a target price of Rs.2805.75 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5841
+
+Analysts set a target price of Rs.2532.46 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.05 percent.
+Apex Bank (AAPL) closed at 2430.95 (+9.4%) on 2024-01-11.
+Quarterly revenue was Rs.18218 crore versus Rs.75852 crore in the prior period.
+Trading volume reached 491,762 shares, up 19.1% from the previous session.
+Analysts set a target price of Rs.2514.90 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5791
+
+The SENSEX index moved gained by 252 points amid currency concerns.
+The company reported EPS of 27.59, beating consensus estimates of 14.48.
+Delta Energy (MSFT) closed at 2779.84 (+1.2%) on 2026-05-11.
+Analysts set a target price of Rs.1392.29 with a hold rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1716
+
+Yields on the 10-year benchmark note rose to 6.26 percent.
+Investors rotated into IT stocks as inflation cooled to 3.7%.
+Trading volume reached 3,448,214 shares, up 16.2% from the previous session.
+Zen Pharma (AAPL) closed at 3576.48 (+6.4%) on 2024-08-13.
+Investors rotated into FMCG stocks as inflation cooled to 6.7%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4182
+
+The NIFTY50 index moved fell by 135 points amid inflation concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1491
+
+Trading volume reached 2,844,846 shares, up 24.6% from the previous session.
+Trading volume reached 2,425,857 shares, up 4.2% from the previous session.
+Yields on the 10-year benchmark note rose to 7.53 percent.
+The company reported EPS of 72.56, beating consensus estimates of 4.61.
+Analysts set a target price of Rs.4568.49 with a buy rating.
+The company reported EPS of 89.05, beating consensus estimates of 72.96.
+The DOW index moved gained by 191 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9201
+
+The SENSEX index moved fell by 93 points amid earnings concerns.
+Investors rotated into banking stocks as inflation cooled to 3.1%.
+Apex Bank (TCS) closed at 3590.71 (-2.6%) on 2025-11-17.
+Zen Pharma (SENSEX) closed at 2002.76 (-7.9%) on 2026-10-08.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5213
+
+The NASDAQ index moved gained by 202 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.4586
+
+Quarterly revenue was Rs.75934 crore versus Rs.40399 crore in the prior period.
+The NIFTY50 index moved gained by 538 points amid currency concerns.
+Analysts set a target price of Rs.1194.33 with a hold rating.
+Investors rotated into FMCG stocks as inflation cooled to 7.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8610
+
+Trading volume reached 2,703,810 shares, up 35.4% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 4.2%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0247
+
+The NIFTY50 index moved fell by 561 points amid rate concerns.
+Trading volume reached 2,822,604 shares, up 28.7% from the previous session.
+Quarterly revenue was Rs.42550 crore versus Rs.1964 crore in the prior period.
+Investors rotated into IT stocks as inflation cooled to 3.5%.
+Investors rotated into energy stocks as inflation cooled to 4.6%.
+Infotech Ltd (AAPL) closed at 3563.37 (+0.4%) on 2025-12-14.
+Quarterly revenue was Rs.62171 crore versus Rs.79462 crore in the prior period.
+Zen Pharma (INFY) closed at 2426.57 (+3.1%) on 2024-06-01.
+The DOW index moved gained by 421 points amid currency concerns.
+Quarterly revenue was Rs.32229 crore versus Rs.58687 crore in the prior period.
+The NASDAQ index moved fell by 788 points amid currency concerns.
+Investors rotated into energy stocks as inflation cooled to 3.6%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0765
+
+Investors rotated into banking stocks as inflation cooled to 3.5%.
+Investors rotated into pharma stocks as inflation cooled to 6.5%.
+Investors rotated into FMCG stocks as inflation cooled to 4.4%.
+Quarterly revenue was Rs.44623 crore versus Rs.44648 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8094
+
+The company reported EPS of 39.57, beating consensus estimates of 61.15.
+Quarterly revenue was Rs.57539 crore versus Rs.89805 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9210
+
+Yields on the 10-year benchmark note rose to 7.89 percent.
+Investors rotated into pharma stocks as inflation cooled to 6.7%.
+Quarterly revenue was Rs.37030 crore versus Rs.82225 crore in the prior period.
+Trading volume reached 4,960,314 shares, up 14.0% from the previous session.
+Apex Bank (NIFTY50) closed at 3936.26 (-6.7%) on 2026-10-09.
+Investors rotated into IT stocks as inflation cooled to 7.3%.
+Analysts set a target price of Rs.2033.42 with a sell rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.6571
+
+Yields on the 10-year benchmark note rose to 6.37 percent.
+The NIFTY50 index moved gained by 590 points amid liquidity concerns.
+Trading volume reached 4,297,898 shares, up 12.2% from the previous session.
+The DOW index moved fell by 248 points amid rate concerns.
+The SENSEX index moved fell by 173 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8311
+
+The company reported EPS of 38.24, beating consensus estimates of 29.47.
+Yields on the 10-year benchmark note rose to 6.30 percent.
+Quarterly revenue was Rs.14869 crore versus Rs.64990 crore in the prior period.
+The NASDAQ index moved fell by 372 points amid earnings concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.4020
+
+Trading volume reached 1,916,987 shares, up 17.6% from the previous session.
+Investors rotated into banking stocks as inflation cooled to 4.9%.
+Quarterly revenue was Rs.60660 crore versus Rs.11449 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1024
+
+Investors rotated into banking stocks as inflation cooled to 4.3%.
+Trading volume reached 2,362,066 shares, up 31.4% from the previous session.
+Trading volume reached 3,407,425 shares, up 31.9% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0182
+
+Delta Energy (RELIANCE) closed at 2884.85 (+7.3%) on 2025-12-08.
+The company reported EPS of 104.83, beating consensus estimates of 43.47.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1216
+
+Investors rotated into FMCG stocks as inflation cooled to 4.0%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9884
+
+Yields on the 10-year benchmark note rose to 6.93 percent.
+Analysts set a target price of Rs.1904.81 with a hold rating.
+The company reported EPS of 39.40, beating consensus estimates of 0.82.
+Quarterly revenue was Rs.61856 crore versus Rs.11067 crore in the prior period.
+The NIFTY50 index moved fell by 740 points amid inflation concerns.
+Yields on the 10-year benchmark note rose to 7.62 percent.
+The NASDAQ index moved gained by 558 points amid liquidity concerns.
+Trading volume reached 4,490,437 shares, up 18.0% from the previous session.
+Quarterly revenue was Rs.87192 crore versus Rs.75210 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.94 percent.
+Quarterly revenue was Rs.61335 crore versus Rs.66034 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.01 percent.
+Orion Metals (RELIANCE) closed at 1509.47 (-5.4%) on 2025-07-11.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1152
+
+Analysts set a target price of Rs.2910.22 with a accumulate rating.
+Yields on the 10-year benchmark note rose to 6.05 percent.
+Investors rotated into banking stocks as inflation cooled to 5.8%.
+The DOW index moved fell by 618 points amid inflation concerns.
+Investors rotated into FMCG stocks as inflation cooled to 6.1%.
+The company reported EPS of 119.28, beating consensus estimates of 19.86.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3324
+
+The DOW index moved fell by 697 points amid liquidity concerns.
+Trading volume reached 4,703,932 shares, up 36.6% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.5364
+
+The company reported EPS of 94.09, beating consensus estimates of 68.20.
+The company reported EPS of 103.53, beating consensus estimates of 78.27.
+The company reported EPS of 7.56, beating consensus estimates of 64.10.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.3379
+
+Trading volume reached 3,482,023 shares, up 13.6% from the previous session.
+Investors rotated into IT stocks as inflation cooled to 4.2%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3115
+
+The company reported EPS of 33.87, beating consensus estimates of 77.38.
+Investors rotated into IT stocks as inflation cooled to 5.5%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.0986
+
+The SENSEX index moved gained by 602 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8396
+
+Quarterly revenue was Rs.69809 crore versus Rs.34715 crore in the prior period.
+Investors rotated into energy stocks as inflation cooled to 3.9%.
+The NASDAQ index moved gained by 662 points amid inflation concerns.
+Investors rotated into banking stocks as inflation cooled to 4.9%.
+Apex Bank (AAPL) closed at 1058.57 (-4.9%) on 2025-09-20.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0384
+
+The company reported EPS of 2.63, beating consensus estimates of 50.62.
+Quarterly revenue was Rs.43949 crore versus Rs.29844 crore in the prior period.
+Yields on the 10-year benchmark note rose to 7.54 percent.
+Investors rotated into banking stocks as inflation cooled to 3.8%.
+Quarterly revenue was Rs.25984 crore versus Rs.12145 crore in the prior period.
+The DOW index moved fell by 685 points amid currency concerns.
+The DOW index moved fell by 70 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.9621
+
+The company reported EPS of 32.80, beating consensus estimates of 33.02.
+The company reported EPS of 10.49, beating consensus estimates of 7.51.
+Quarterly revenue was Rs.64100 crore versus Rs.83923 crore in the prior period.
+The company reported EPS of 45.65, beating consensus estimates of 42.52.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.2078
+
+Analysts set a target price of Rs.3406.19 with a buy rating.
+Trading volume reached 4,734,340 shares, up 21.6% from the previous session.
+Yields on the 10-year benchmark note rose to 6.03 percent.
+The SENSEX index moved gained by 557 points amid rate concerns.
+The company reported EPS of 78.61, beating consensus estimates of 73.54.
+Zen Pharma (SENSEX) closed at 2396.86 (+3.0%) on 2026-05-10.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7307
+
+The DOW index moved gained by 545 points amid liquidity concerns.
+Trading volume reached 2,148,635 shares, up 25.0% from the previous session.
+Infotech Ltd (TCS) closed at 379.88 (+0.7%) on 2026-07-03.
+The company reported EPS of 90.35, beating consensus estimates of 83.83.
+Quarterly revenue was Rs.36971 crore versus Rs.34063 crore in the prior period.
+The SENSEX index moved fell by 170 points amid inflation concerns.
+Quarterly revenue was Rs.22229 crore versus Rs.72813 crore in the prior period.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.7865
+
+Quarterly revenue was Rs.46021 crore versus Rs.68862 crore in the prior period.
+Analysts set a target price of Rs.505.21 with a sell rating.
+Analysts set a target price of Rs.1258.21 with a sell rating.
+The NASDAQ index moved gained by 473 points amid liquidity concerns.
+Analysts set a target price of Rs.378.72 with a buy rating.
+Trading volume reached 133,393 shares, up 12.3% from the previous session.
+Delta Energy (INFY) closed at 2622.80 (-6.5%) on 2025-03-11.
+Yields on the 10-year benchmark note rose to 7.32 percent.
+Investors rotated into banking stocks as inflation cooled to 5.3%.
+Analysts set a target price of Rs.695.49 with a buy rating.
+Analysts set a target price of Rs.742.61 with a hold rating.
+Quarterly revenue was Rs.3685 crore versus Rs.34803 crore in the prior period.
+The SENSEX index moved gained by 416 points amid currency concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1935
+
+Zen Pharma (NIFTY50) closed at 2483.72 (+0.9%) on 2026-04-27.
+Analysts set a target price of Rs.4873.26 with a buy rating.
+The SENSEX index moved fell by 66 points amid liquidity concerns.
+Delta Energy (TCS) closed at 2660.69 (+5.1%) on 2025-08-09.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.3798
+
+Analysts set a target price of Rs.4349.51 with a accumulate rating.
+Bharat Motors (RELIANCE) closed at 58.65 (+3.7%) on 2025-02-20.
+Investors rotated into energy stocks as inflation cooled to 6.5%.
+Quarterly revenue was Rs.37764 crore versus Rs.64448 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 3.6%.
+Quarterly revenue was Rs.42888 crore versus Rs.7930 crore in the prior period.
+Investors rotated into pharma stocks as inflation cooled to 4.2%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2233
+
+Investors rotated into energy stocks as inflation cooled to 5.9%.
+Yields on the 10-year benchmark note rose to 7.84 percent.
+Trading volume reached 908,155 shares, up 10.1% from the previous session.
+Yields on the 10-year benchmark note rose to 7.78 percent.
+Trading volume reached 116,551 shares, up 33.8% from the previous session.
+Trading volume reached 2,070,939 shares, up 4.7% from the previous session.
+Investors rotated into pharma stocks as inflation cooled to 4.8%.
+The SENSEX index moved fell by 163 points amid rate concerns.
+Trading volume reached 4,418,478 shares, up 39.8% from the previous session.
+Quarterly revenue was Rs.27366 crore versus Rs.33967 crore in the prior period.
+Analysts set a target price of Rs.3221.73 with a buy rating.
+The company reported EPS of 113.79, beating consensus estimates of 96.87.
+Trading volume reached 1,131,527 shares, up 30.5% from the previous session.
+Zen Pharma (MSFT) closed at 2635.40 (+4.0%) on 2025-07-09.
+The SENSEX index moved gained by 44 points amid liquidity concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.0218
+
+Trading volume reached 3,511,814 shares, up 19.3% from the previous session.
+The company reported EPS of 50.90, beating consensus estimates of 62.23.
+Yields on the 10-year benchmark note rose to 6.55 percent.
+Trading volume reached 2,590,089 shares, up 20.2% from the previous session.
+Analysts set a target price of Rs.2097.43 with a buy rating.
+Yields on the 10-year benchmark note rose to 7.13 percent.
+Yields on the 10-year benchmark note rose to 7.28 percent.
+Quarterly revenue was Rs.54375 crore versus Rs.27805 crore in the prior period.
+Quarterly revenue was Rs.81072 crore versus Rs.78302 crore in the prior period.
+Quarterly revenue was Rs.48326 crore versus Rs.42356 crore in the prior period.
+The company reported EPS of 96.59, beating consensus estimates of 103.45.
+Quarterly revenue was Rs.28408 crore versus Rs.30665 crore in the prior period.
+Quarterly revenue was Rs.77677 crore versus Rs.57547 crore in the prior period.
+Infotech Ltd (HDFCBANK) closed at 2575.73 (-2.0%) on 2024-05-17.
+Analysts set a target price of Rs.1718.76 with a sell rating.
+Yields on the 10-year benchmark note rose to 7.91 percent.
+Analysts set a target price of Rs.1636.68 with a sell rating.
+Trading volume reached 4,589,351 shares, up 20.9% from the previous session.
+Yields on the 10-year benchmark note rose to 6.92 percent.
+Quarterly revenue was Rs.62792 crore versus Rs.36841 crore in the prior period.
+Quarterly revenue was Rs.85981 crore versus Rs.85268 crore in the prior period.
+Quarterly revenue was Rs.52196 crore versus Rs.32590 crore in the prior period.
+Analysts set a target price of Rs.2626.99 with a accumulate rating.
+Analysts set a target price of Rs.633.79 with a sell rating.
+Quarterly revenue was Rs.47016 crore versus Rs.52848 crore in the prior period.
+Trading volume reached 4,039,676 shares, up 18.0% from the previous session.
+Yields on the 10-year benchmark note rose to 6.16 percent.
+Investors rotated into energy stocks as inflation cooled to 5.0%.
+Trading volume reached 2,859,194 shares, up 35.1% from the previous session.
+Yields on the 10-year benchmark note rose to 7.74 percent.
+Quarterly revenue was Rs.17688 crore versus Rs.8293 crore in the prior period.
+The company reported EPS of 7.81, beating consensus estimates of 118.78.
+Apex Bank (SENSEX) closed at 1009.60 (-8.7%) on 2025-11-07.
+The company reported EPS of 69.61, beating consensus estimates of 42.46.
+Investors rotated into pharma stocks as inflation cooled to 4.8%.
+Zen Pharma (INFY) closed at 3482.97 (-1.6%) on 2025-11-24.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.1595
+
+Infotech Ltd (SENSEX) closed at 1398.54 (+9.7%) on 2024-01-09.
+Quarterly revenue was Rs.13769 crore versus Rs.75755 crore in the prior period.
+Yields on the 10-year benchmark note rose to 6.73 percent.
+Analysts set a target price of Rs.4946.93 with a buy rating.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2444
+
+Trading volume reached 3,204,212 shares, up 2.0% from the previous session.
+Quarterly revenue was Rs.87099 crore versus Rs.34213 crore in the prior period.
+The company reported EPS of 117.27, beating consensus estimates of 100.10.
+Analysts set a target price of Rs.1647.50 with a hold rating.
+Bharat Motors (NIFTY50) closed at 3814.20 (+4.7%) on 2025-05-15.
+The company reported EPS of 101.23, beating consensus estimates of 76.65.
+The DOW index moved gained by 336 points amid rate concerns.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.9682
+
+Investors rotated into pharma stocks as inflation cooled to 4.9%.
+Trading volume reached 2,885,549 shares, up 7.0% from the previous session.
+Analysts set a target price of Rs.589.26 with a buy rating.
+Yields on the 10-year benchmark note rose to 6.18 percent.
+Bharat Motors (MSFT) closed at 1317.61 (-6.9%) on 2025-07-02.
+Investors rotated into banking stocks as inflation cooled to 3.6%.
+Trading volume reached 3,177,765 shares, up 5.7% from the previous session.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.5371
+
+Investors rotated into energy stocks as inflation cooled to 5.7%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.2586
+
+Investors rotated into FMCG stocks as inflation cooled to 7.3%.
+Yields on the 10-year benchmark note rose to 7.83 percent.
+The DOW index moved fell by 726 points amid rate concerns.
+Analysts set a target price of Rs.2844.26 with a buy rating.
+The company reported EPS of 96.35, beating consensus estimates of 105.42.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + -0.1953
+
+The NASDAQ index moved fell by 339 points amid earnings concerns.
+Zen Pharma (AAPL) closed at 2693.05 (+1.2%) on 2026-09-17.
+Quarterly revenue was Rs.22789 crore versus Rs.22297 crore in the prior period.
+Infotech Ltd (RELIANCE) closed at 1844.65 (-1.4%) on 2026-03-27.
+Investors rotated into banking stocks as inflation cooled to 5.9%.
+The SENSEX index moved fell by 28 points amid currency concerns.
+The company reported EPS of 74.11, beating consensus estimates of 14.96.
+Investors rotated into energy stocks as inflation cooled to 6.6%.
+def metric(xs):
+    mu = sum(xs) / len(xs)
+    return mu / (sum(abs(x - mu) for x in xs) / len(xs)) + 0.8069
+
