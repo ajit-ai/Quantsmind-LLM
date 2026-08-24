@@ -8,7 +8,7 @@ Legend: [x] done · [~] partially done / verify pending · [ ] not started
 ## PHASE 0 — Foundations (Weeks 1–2) — ~90%
 
 - [x] 0.1 Repo scaffold, configs, .gitignore, branch flow
-- [x] 0.2 Strategy locked: B2B2C finance vertical, open-base extension (ADR-000)
+- [x] 0.2 Strategy locked: **from-scratch sovereign Indian LLM** (ADR-0003 FINAL; supersedes interim open-base ADR-000). Ladder: 300M pilot → 1.5B Quantsmind-Bharat → 7B when funded. Open models = benchmark rivals only
 - [x] 0.3 Transformer implementation (RMSNorm/RoPE/GQA/SwiGLU)
 - [x] 0.4 Pretrain loop: cosine LR, checkpoint/resume, NaN watchdog
 - [x] 0.5 Tokenizer trainer + round-trip sanity tests
