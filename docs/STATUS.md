@@ -35,7 +35,7 @@ Exit when: CI green on GitHub + 0.10/0.11 closed.
 - [~] 1.1 Corpus pipeline built & verified (downloaders, chunking, quality, PII, dedup, stats)
 - [~] 1.1b Corpus v0 built: 9,311 chunks / ~10M tokens (wiki-en 2000 docs, wiki-hi 500, Gutenberg econ) — scale-up to 12B tokens pending
 - [x] 1.2 Tokenizer v0 trained: 49,152 BPE, round-trip OK, ~10M tokens encoded (tokenizer/qm_bpe_v0.json)
-- [~] 1.3 Data card v0 published (data/DATA_CARD_v0.md); fuzzy dedup + decontamination before 12B build
+- [~] 1.3 Data card v0 published (data/DATA_CARD_v0.md); fuzzy dedup (MinHash-LSH) + eval-decontamination now live in pipeline — re-verify before 12B build
 - [~] 1.4 India-finance eval set: 26/500 seed items, schema + loader tested
 - [~] 1.5 LR probes + 1.6 pilot: FIXED notebook re-imported, **Run All executed on Kaggle** (experiments/pilot_run_001.md) — awaiting completion + artifacts
 - [ ] 1.7 Eval battery on pilot + benchmark rivals (harness ready: evaluation/evaluate_pilot.py)
