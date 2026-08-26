@@ -1,8 +1,12 @@
 # Quantsmind-LLM
 
-A finance & trading vertical LLM platform for **B2B2C** distribution — a white-label
-"Investor Copilot" (grounded Q&A, doc intelligence, tool-verified arithmetic) built by
-adapting an Apache-2.0 open base model for Indian-first, world-ready finance.
+> **⏸️ STATUS: PAUSED** — fully preserved at Phase 1 (85%), ₹0 spent, zero recurring costs.
+> See [docs/PAUSED.md](docs/PAUSED.md) for the exact resume playbook.
+
+A from-scratch, sovereign-weights Indian LLM project (finance & trading vertical,
+B2B2C distribution) — own architecture, own tokenizer, own training engine, own data
+pipeline. Prototype-first: local training on founder hardware, scale when ready
+(ADR-0003).
 
 - **Status**: Phase 0 — Foundations (see [ROADMAP](docs/ROADMAP.md))
 - **Design**: [DESIGN_ARCHITECTURE.md](docs/DESIGN_ARCHITECTURE.md) (ADR-000: open-base extension strategy)
