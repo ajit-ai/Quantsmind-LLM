@@ -2,7 +2,7 @@ import argparse
 import json
 from pathlib import Path
 
-from data.filters import ExactDedup, quality_check, scrub_pii
+from data.filters import Decontaminator, ExactDedup, MinHashDedup, quality_check, scrub_pii
 
 
 def iter_docs(raw_dir: Path):
@@ -48,6 +48,9 @@ def main():
     p.add_argument("--out", default="data/corpus_v0.jsonl")
     p.add_argument("--stats", default="data/corpus_v0.stats.json")
     p.add_argument("--chunk-chars", type=int, default=6000)
+    p.add_argument("--no-fuzzy", action="store_true")
+    p.add_argument("--no-decontam", action="store_true")
+    p.add_argument("--eval-seed", default="evaluation/india_finance/seed_v0.jsonl")
     args = p.parse_args()
 
     raw_dir = Path(args.raw_dir)
@@ -55,11 +58,25 @@ def main():
     out.parent.mkdir(parents=True, exist_ok=True)
 
     dedup = ExactDedup()
+    fuzzy = None if args.no_fuzzy else MinHashDedup()
+    decon = None
+    if not args.no_decontam and Path(args.eval_seed).exists():
+        forbidden = []
+        for line in Path(args.eval_seed).read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line:
+                row = json.loads(line)
+                forbidden.append(row["question"])
+                forbidden.append(row["reference"])
+        decon = Decontaminator(forbidden)
+
     stats = {
         "seen": 0,
         "kept": 0,
         "rejected_quality": 0,
         "rejected_dup": 0,
+        "rejected_fuzzy": 0,
+        "rejected_contaminated": 0,
         "chunks_emitted": 0,
         "by_source": {},
     }
@@ -74,6 +91,12 @@ def main():
                     continue
                 if not dedup.add(piece):
                     stats["rejected_dup"] += 1
+                    continue
+                if fuzzy is not None and not fuzzy.add(piece):
+                    stats["rejected_fuzzy"] += 1
+                    continue
+                if decon is not None and decon.is_contaminated(piece):
+                    stats["rejected_contaminated"] += 1
                     continue
                 clean = scrub_pii(piece)
                 f.write(

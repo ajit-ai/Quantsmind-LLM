@@ -1,11 +1,13 @@
 {
   "seen": 2503,
-  "kept": 9311,
+  "kept": 9308,
   "rejected_quality": 1113,
   "rejected_dup": 0,
-  "chunks_emitted": 9311,
+  "rejected_fuzzy": 3,
+  "rejected_contaminated": 0,
+  "chunks_emitted": 9308,
   "by_source": {
-    "gutenberg": 537,
+    "gutenberg": 534,
     "wikipedia-en": 8764,
     "wikipedia-hi": 10
   }
