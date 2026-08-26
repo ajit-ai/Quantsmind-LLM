@@ -23,8 +23,7 @@ def build_rope(seq_len: int, head_dim: int, theta: float, device, dtype):
     )
     t = torch.arange(seq_len, device=device, dtype=torch.float32)
     freqs = torch.outer(t, inv_freq)
-    emb = torch.cat((freqs, freqs), dim=-1)
-    return emb.cos().to(dtype), emb.sin().to(dtype)
+    return freqs.cos().to(dtype), freqs.sin().to(dtype)
 
 
 def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
@@ -101,6 +100,12 @@ class QMModel(nn.Module):
         self.lm_head = nn.Linear(d, cfg["vocab_size"], bias=False)
         if cfg.get("tie_embeddings", False):
             self.lm_head.weight = self.tok_emb.weight
+        self.apply(self._init_weights)
+
+    @staticmethod
+    def _init_weights(m: nn.Module):
+        if isinstance(m, (nn.Linear, nn.Embedding)):
+            nn.init.normal_(m.weight, mean=0.0, std=0.02)
 
     def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
         b, t = idx.shape

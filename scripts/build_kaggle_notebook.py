@@ -45,8 +45,7 @@ def rope_cache(T, hd, theta, dev, dt):
     inv = 1.0 / (theta ** (torch.arange(0, hd, 2, device=dev, dtype=torch.float32) / hd))
     t = torch.arange(T, device=dev, dtype=torch.float32)
     f = torch.outer(t, inv)
-    e = torch.cat((f, f), -1)
-    return e.cos().to(dt), e.sin().to(dt)
+    return f.cos().to(dt), f.sin().to(dt)
 
 def apply_rope(x, cos, sin):
     h = x.shape[-1] // 2
@@ -98,6 +97,9 @@ class QMModel(nn.Module):
         self.norm = RMSNorm(c["d_model"], c["norm_eps"])
         self.head = nn.Linear(c["d_model"], c["vocab_size"], bias=False)
         self.head.weight = self.emb.weight
+        for m in self.modules():
+            if isinstance(m, (nn.Linear, nn.Embedding)):
+                nn.init.normal_(m.weight, mean=0.0, std=0.02)
     def forward(self, idx, targets=None):
         b, t = idx.shape
         hd = self.c["d_model"] // self.c["n_heads"]
