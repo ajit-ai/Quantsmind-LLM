@@ -37,8 +37,7 @@ Exit when: CI green on GitHub + 0.10/0.11 closed.
 - [x] 1.2 Tokenizer v0 trained: 49,152 BPE, round-trip OK, ~10M tokens encoded (tokenizer/qm_bpe_v0.json)
 - [~] 1.3 Data card v0 published (data/DATA_CARD_v0.md); fuzzy dedup + decontamination before 12B build
 - [~] 1.4 India-finance eval set: 26/500 seed items, schema + loader tested
-- [ ] 1.5 LR probes (Kaggle free GPU tier)
-- [ ] 1.6 300M pilot pretrain (Kaggle free GPU tier, patient mode)
+- [~] 1.5 LR probes + 1.6 pilot: Kaggle notebook + guide ready (scripts/kaggle_pilot.ipynb, scripts/KAGGLE_PILOT_GUIDE.md) — awaiting user run
 - [ ] 1.7 Eval battery on pilot + benchmark rivals
 
 **Rs.0 spent to date.**
