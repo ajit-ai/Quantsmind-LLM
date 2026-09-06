@@ -75,7 +75,7 @@ def main():
     print(f"device={device}")
 
     data_cfg = cfg["data"]
-    tokens_path = args.tokens or os.path.join("data", "tokens.bin")
+    tokens_path = args.tokens or os.path.join("data", "corpus_v0.tokens.bin")
     dataset = TokenDataset(tokens_path, seed=cfg.get("run", {}).get("seed", 42))
 
     model = QMModel(flatten_model_cfg(cfg)).to(device)
