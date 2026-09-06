@@ -1,31 +1,61 @@
 # Quantsmind-LLM
 
-> **⏸️ STATUS: PAUSED** — fully preserved at Phase 1 (85%), ₹0 spent, zero recurring costs.
-> See [docs/PAUSED.md](docs/PAUSED.md) for the exact resume playbook.
+> **India's own from-scratch LLM — trained on your machine, owned by you, ₹0 forever.**
 
-A from-scratch, sovereign-weights Indian LLM project (finance & trading vertical,
-B2B2C distribution) — own architecture, own tokenizer, own training engine, own data
-pipeline. Prototype-first: local training on founder hardware, scale when ready
-(ADR-0003).
+A sovereign-weights Indian LLM project: own architecture, own tokenizer, own training
+engine, own data pipeline. Same Transformer family as Llama (RMSNorm/RoPE/GQA/SwiGLU),
+trained from scratch on Indian finance data.
 
-- **Status**: Phase 0 — Foundations (see [ROADMAP](docs/ROADMAP.md))
-- **Design**: [DESIGN_ARCHITECTURE.md](docs/DESIGN_ARCHITECTURE.md) (ADR-000: open-base extension strategy)
-- **License**: see [LICENSE](LICENSE)
+**Status:** Local prototype ready — train your own LLM on your own hardware tonight.
+
+---
+
+## Quick start — train your own LLM (₹0)
+
+```bash
+git clone https://github.com/ajit-ai/Quantsmind-LLM.git
+cd Quantsmind-LLM
+pip install -r requirements.txt
+
+# Train your own LLM (~11M params, 2-5 hours on CPU, ₹0)
+python -m training.pretrain --config configs/train/local_15m.yaml --out-dir runs/local_15m
+
+# Chat with your own trained model
+python -m serving.local_inference --ckpt runs/local_15m/checkpoint_last.pt
+# Open http://localhost:7860
+```
 
 ## What this repo contains
 
 | Path | Purpose |
 |---|---|
-| `configs/` | Model / training-stage / corpus-mix YAML configs (+ tiny CI smoke configs) |
-| `tokenizer/` | Byte-BPE trainer + sanity tests (draft-model & data tooling) |
-| `data/` | Sample-corpus generator, encode-to-tokens pipeline |
-| `training/` | Transformer implementation (`model.py`) + pretrain loop with checkpoint/resume & watchdogs — powers the draft model and future from-scratch option; CPT/SFT/DPO land in Phase 2 |
-| `evaluation/` | Eval harness config skeleton + `promotion.yaml` release gate |
-| `safety/` | Red-team suites, guardrail policies (Phase 2+) |
-| `serving/` | Gateway, RAG service, vLLM workers (Phase 3) |
-| `infra/` | Cluster provisioning |
-| `scripts/` | End-to-end CPU smoke pipeline used by CI |
-| `tests/` | pytest unit tests |
+| `training/model.py` | From-scratch Transformer: RMSNorm / RoPE / GQA / SwiGLU — same family as Llama |
+| `training/pretrain.py` | Training engine: cosine LR, checkpoint/resume, NaN watchdog |
+| `training/data.py` | Token dataset loader (memmap, uint16) |
+| `tokenizer/` | Own BPE trainer + 49k tokenizer (no HuggingFace dependency) |
+| `data/` | Corpus pipeline: downloaders, chunking, PII scrub, MinHash fuzzy dedup, eval decontamination |
+| `evaluation/` | Eval harness: held-out PPL + India-finance seed scoring + promotion gates |
+| `serving/` | Local inference server (own weights → text → Gradio UI) |
+| `configs/model/` | Model configs: local_15m, pilot_300m, prod_1p5b, scale_7b |
+| `configs/train/` | Training configs: local_15m, pilot, smoke CI |
+| `tests/` | 46 passing unit tests |
+| `.github/workflows/` | CI on every push |
+
+## Architecture
+
+```
+Input tokens → [Token Embedding + RoPE] → 6× Transformer Blocks → [RMSNorm] → [LM Head] → Output logits
+
+Each Transformer Block:
+  ├── RMSNorm → Multi-Head Attention (GQA) → Residual
+  └── RMSNorm → SwiGLU FFN → Residual
+```
+
+| Config | Params | Hardware | Time |
+|---|---|---|---|
+| `local_15m` | ~11M | CPU / MX150 | 2-5 hours |
+| `pilot_300m` | ~300M | 8×A100 | 1-2 days |
+| `prod_1p5b` | 1.5B | 32×A100 | 1-2 weeks |
 
 ## Branching & releases
 
@@ -34,48 +64,30 @@ pipeline. Prototype-first: local training on founder hardware, scale when ready
 - Feature branches: `feat/<topic>` → PR to `develop`
 - Project rule: **every phase ends with a develop → main merge**
 
-## Quick start (local)
+## Running tests
 
 ```bash
-git clone https://github.com/ajit-ai/Quantsmind-LLM.git
-cd Quantsmind-LLM
-python -m pip install -r requirements.txt   # torch required for training tests
-python -m pytest tests -q                    # unit tests
-bash scripts/smoke_pipeline.sh               # end-to-end CPU smoke run (Linux/macOS)
-# Windows PowerShell:
-powershell -File scripts/smoke_pipeline.ps1
+python -m pytest tests -q   # should pass 46 tests
 ```
 
-## Chat UI (type a prompt → financial knowledge)
+## Data residency (India-first)
 
-```bash
-python -m serving.app          # opens http://localhost:7860
-```
-
-- **Default: demo mode** — canned finance explainers, no external model, nothing leaves your machine.
-- **Phase 3: your own model.** Quantsmind's trained model will be served via vLLM
-  (OpenAI-compatible API) and the UI plugs into it directly:
-
-```powershell
-$env:QM_API_BASE = "http://localhost:8000/v1"   # YOUR Quantsmind vLLM server
-$env:QM_API_KEY  = "local-dev"
-$env:QM_MODEL    = "quantsmind-1.5b"
-python -m serving.app
-```
-
-> **Note:** Quantsmind does NOT depend on any third-party model. The variables above are
-> a generic socket — for quick UI testing you *may* point it at any OpenAI-compatible
-> backend, but the product target is Quantsmind's own from-scratch model (see
-> `docs/DESIGN_ARCHITECTURE.md`). Nothing in training/data/tokenizer uses external models.
-
-Every answer carries the mandatory *"not investment advice"* disclaimer.
-
-### India data residency (default ON)
-
-Prompts are blocked from leaving your controlled network unless you explicitly override:
+Prompts are blocked from leaving your controlled network by default:
 
 ```powershell
 $env:QM_STRICT_RESIDENCY = "0"   # conscious override; default is "1" (private/India-only)
 ```
 
-Policy: localhost / private-network / India-hosted endpoints only (see `docs/adr/0002-india-data-residency.md`).
+See [docs/adr/0002-india-data-residency.md](docs/adr/0002-india-data-residency.md).
+
+## Docs
+
+- [ROADMAP](docs/ROADMAP.md) — development roadmap (Phase 0–6)
+- [STATUS](docs/STATUS.md) — execution status tracker
+- [DESIGN_ARCHITECTURE](docs/DESIGN_ARCHITECTURE.md) — full design doc
+- [COMPETITIVE_ANALYSIS](docs/COMPETITIVE_ANALYSIS.md) — India market evaluation
+- [ADR-0003](docs/adr/0003-from-scratch-sovereign.md) — from-scratch sovereign pretrain decision
+
+## License
+
+See [LICENSE](LICENSE).
