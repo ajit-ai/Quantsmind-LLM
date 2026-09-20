@@ -5,3 +5,4 @@ pyyaml>=6.0
 pytest>=8.0
 gradio>=4.44
 openai>=1.40
+pillow>=10.0

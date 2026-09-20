@@ -94,11 +94,26 @@ Exit when: production SLOs met; partner sign-off.
 ROADMAP Phase A. **M1 NOT promoted — this is architecture evidence only.**
 
 - [x] A1 Vision branch archive + design review (docs/ROADMAP.md · docs/DESIGN_ARCHITECTURE.md)
-- [~] A2 VisionEncoder fit — from-scratch ViT (patch16 · 112×112 → 50 tokens · learned pos_emb) — unit tests green (`tests/test_vision.py`)
-- [~] A3 Text↔Vision MM architecture fit — ViT → projector → QM decoder, MM attention mask, 49156-token vocab (4 specials appended), M0 text bit-identical after warm-start — unit tests green (`tests/test_multimodal.py` · `tests/test_m0_compat.py`)
-- [ ] A3 final report + six evidence checks pending on real `local_15m` checkpoint run
+- [x] A2 VisionEncoder fit — from-scratch ViT (patch16 · 112×112 → 50 tokens · learned pos_emb) — unit tests green (`tests/test_vision.py`)
+- [x] A3 Text↔Vision MM architecture fit — ViT → projector → QM decoder, MM attention mask, 49156-token vocab (4 specials appended), M0 text bit-identical after warm-start — unit tests green (`tests/test_multimodal.py` · `tests/test_m0_compat.py`)
+- [x] A3 final report: 500-step CPU fit-check on real `local_15m` checkpoint — initial 10.747 ≈ ln(49156), final 0.2821 (< 8.0 target), grad norms non-zero/finite, conditioning probe 0.578, elapsed 1411 s @ ~345 tok/s (1 thread)
+- [x] M1.1 committed: `feat(mm): complete M1.1 multimodal fit-check` (`4da502e`)
 
 Reserved MM ids: 49152=IMG_START, 49153=IMG_END, 49154=CAPTION_START, 49155=TEXT_EOS; image-token vocab boundary 51200 (documented only, never allocated).
+
+## M1.2 — Real-Data Preparation (infrastructure only, no training run)
+
+- [x] 1 Data structure `data/mm_m1/{train,val,test}` + `MANIFEST.json` schema template + `DATA_CARD.rst`; image files gitignored, nothing auto-downloaded
+- [x] 2 Provenance-aware manifest parser (`training/mm_manifest.py`): required source, honest null for unknown license/attribution/url, split/field validation
+- [x] 3 Real image loader (`RealImageDataset` in `training/image_data.py`): MANIFEST → image file → RGB → deterministic resize/crop → M1 tensor → caption tokens; synthetic `ImageTextDataset` path preserved
+- [x] 4 Deterministic preprocessing (no augmentation): RGB, cover-resize, center crop, [0,1] tensor, optional normalization
+- [x] 5 Hermetic dataset tests (`tests/test_mm_manifest.py` · `tests/test_mm_real_data.py`): parsing, splits, loading, RGB, dims, captions, determinism, missing image, malformed manifest; tiny tmp fixtures only
+- [x] 6 `configs/train/mm_m1_local.yaml` (explicit real-data config; `mm_fit_check.yaml` untouched)
+- [x] 7 M0 checkpoint consumers preserved (training/pretrain.py · serving/local_inference.py · evaluation/evaluate_pilot.py); `metadata` is additive only
+- [x] 8 Reproducibility metadata in checkpoints: config, seed, manifest hash, step, optimizer/model state, git commit (no network)
+- [x] 9 Sphinx/RST docs added (`docs/source/index.rst` · `mm_m1.rst` · `conf.py`); M1 not promoted stated explicitly
+- [x] 10 M1 promotion gate untouched (evaluation/promotion.yaml · ROADMAP); synthetic 10.747→0.2821 is NOT M1 evidence
+- [ ] M1.2 commit pending (proposed boundary: the M1.2 delta above)
 
 ---
 

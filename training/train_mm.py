@@ -1,6 +1,7 @@
 import argparse
 import math
 import os
+import subprocess
 import time
 from pathlib import Path
 
@@ -11,7 +12,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 import torch
 import yaml
 
-from training.image_data import ImageTextDataset
+from training.image_data import ImageTextDataset, RealImageDataset
 from training.multimodal import QMMultimodal, load_text_state, probe_conditioning
 from training.pretrain import load_yaml, lr_at
 
@@ -24,11 +25,24 @@ def grad_norm(module) -> float:
     return math.sqrt(total)
 
 
+def git_commit() -> str:
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10
+        )
+        return out.stdout.strip() if out.returncode == 0 else "unknown"
+    except Exception:
+        return "unknown"
+
+
 def main():
-    p = argparse.ArgumentParser(description="Quantsmind M1.1 multimodal fit-check")
+    p = argparse.ArgumentParser(description="Quantsmind multimodal fit-check (M1.1 synthetic / M1.2 real-data)")
     p.add_argument("--config", required=True)
     p.add_argument("--out-dir", default="runs/mm_fit_check")
     p.add_argument("--data", default=None, help=".npz from scripts/synth_images.py")
+    p.add_argument("--manifest", default=None, help="MANIFEST.json for the M1.2 real-image pipeline")
+    p.add_argument("--split", default="train", help="manifest split to train on (default: train)")
+    p.add_argument("--image-size", type=int, default=None, help="override image resolution")
     p.add_argument("--init-ckpt", default=None, help="M0 text checkpoint to warm-start from")
     p.add_argument("--max-steps", type=int, default=None)
     p.add_argument("--seed", type=int, default=None)
@@ -52,7 +66,25 @@ def main():
 
     data_path = args.data or cfg.get("data", {}).get("synthetic_path", "runs/mm_synth/data.npz")
     tokenizer_path = cfg.get("data", {}).get("tokenizer", "tokenizer/qm_bpe_v0.json")
-    ds = ImageTextDataset(data_path, tokenizer_path=tokenizer_path, seed=seed)
+    manifest_path = args.manifest or cfg.get("data", {}).get("train_manifest")
+    preprocessing_version = cfg.get("image", {}).get("preprocessing_version", "mm1_v1")
+    image_size = args.image_size or vision_cfg.get("image_size", 112)
+    if args.manifest or manifest_path:
+        split = (args.split or cfg.get("data", {}).get("train_split") or "train")
+        ds = RealImageDataset(
+            manifest_path,
+            split=split,
+            tokenizer_path=tokenizer_path,
+            image_size=image_size,
+            normalize=cfg.get("image", {}).get("normalize"),
+            seed=seed,
+        )
+        data_kind = f"manifest:{Path(manifest_path).name}:{split}"
+    else:
+        if image_size != vision_cfg.get("image_size", 112):
+            raise ValueError("--image-size requires --manifest (synthetic data is fixed at config resolution)")
+        ds = ImageTextDataset(data_path, tokenizer_path=tokenizer_path, seed=seed)
+        data_kind = f"synthetic:{Path(data_path).name}"
 
     model = QMMultimodal(text_cfg, vision_cfg).to(device)
     init_ckpt = args.init_ckpt
@@ -160,6 +192,28 @@ def main():
         "config": cfg,
         "cfg": text_cfg,
     }
+    meta = {
+        "kind": data_kind,
+        "seed": seed,
+        "preprocessing_version": preprocessing_version,
+        "image_size": image_size,
+        "max_steps": total_steps,
+        "torch_version": torch.__version__,
+        "code_commit": git_commit(),
+        "manifest": None,
+    }
+    if isinstance(ds, RealImageDataset):
+        meta["manifest"] = {
+            "path": str(ds.manifest.path),
+            "sha256": ds.manifest.sha256(),
+            "samples": len(ds.samples),
+            "split": ds.split,
+        }
+        print(
+            f"manifest identity: sha256={meta['manifest']['sha256'][:12]} samples={len(ds.samples)} "
+            f"split={ds.split}"
+        )
+    ckpt["metadata"] = meta  # additive: existing keys are untouched
     ckpt_path = out_dir / "checkpoint_last.pt"
     torch.save(ckpt, ckpt_path)
     print(f"saved {ckpt_path}")
