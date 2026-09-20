@@ -1,5 +1,10 @@
 # Quantsmind-LLM — Execution Status Tracker
 
+> **Direction update (2026-09-19):** project is now a **general multimodal (image ↔ text)
+> model family** — finance is the first vertical, not the whole product. Track against the new
+> [ROADMAP](ROADMAP.md) (Phases A–G) and [SCOPE_AND_PRINCIPLES](SCOPE_AND_PRINCIPLES.md).
+> Phases 0–6 below are the legacy text-only plan, kept for continuity until it is re-mapped.
+
 Living document. Update at every phase end; phase completion requires develop→main merge.
 Legend: [x] done · [~] partially done / verify pending · [ ] not started
 
@@ -81,6 +86,19 @@ Exit when: production SLOs met; partner sign-off.
 - [ ] 5.2 Hindi/Hinglish strengthening
 - [ ] 5.3 Draft-model scale-up; context extension experiments
 - [ ] 5.4 Wave-2 gate: corpus + eval suite + anchor customer all present
+
+---
+
+## M1.1 — Multimodal Architecture Fit-Check (synthetic, hermetic, CPU)
+
+ROADMAP Phase A. **M1 NOT promoted — this is architecture evidence only.**
+
+- [x] A1 Vision branch archive + design review (docs/ROADMAP.md · docs/DESIGN_ARCHITECTURE.md)
+- [~] A2 VisionEncoder fit — from-scratch ViT (patch16 · 112×112 → 50 tokens · learned pos_emb) — unit tests green (`tests/test_vision.py`)
+- [~] A3 Text↔Vision MM architecture fit — ViT → projector → QM decoder, MM attention mask, 49156-token vocab (4 specials appended), M0 text bit-identical after warm-start — unit tests green (`tests/test_multimodal.py` · `tests/test_m0_compat.py`)
+- [ ] A3 final report + six evidence checks pending on real `local_15m` checkpoint run
+
+Reserved MM ids: 49152=IMG_START, 49153=IMG_END, 49154=CAPTION_START, 49155=TEXT_EOS; image-token vocab boundary 51200 (documented only, never allocated).
 
 ---
 

@@ -38,8 +38,12 @@ python -m serving.local_inference --ckpt runs/local_15m/checkpoint_last.pt
 | `serving/` | Local inference server (own weights → text → Gradio UI) |
 | `configs/model/` | Model configs: local_15m, pilot_300m, prod_1p5b, scale_7b |
 | `configs/train/` | Training configs: local_15m, pilot, smoke CI |
-| `tests/` | 46 passing unit tests |
-| `.github/workflows/` | CI on every push |
+| `tests/` | Unit tests (46 M0 + 19 M1.1) |
+| `.github/workflows/` | CI on every push (incl. hermetic M1.1 MM smoke) |
+| `training/vision.py` | Multimodal M1.1: from-scratch ViT encoder (patch 16, 112×112) |
+| `training/multimodal.py` | Multimodal M1.1: ViT → projector → QM decoder, MM attention mask |
+| `training/train_mm.py` | Multimodal M1.1: architecture fit-check training loop (CPU, synthetic data) |
+| `scripts/synth_images.py` | Multimodal M1.1: deterministic synthetic image/caption generator |
 
 ## Architecture
 
@@ -67,8 +71,24 @@ Each Transformer Block:
 ## Running tests
 
 ```bash
-python -m pytest tests -q   # should pass 46 tests
+python -m pytest tests -q   # 46 M0 tests + 19 M1.1 multimodal tests
 ```
+
+## Experimental: M1.1 multimodal fit-check (CPU, synthetic)
+
+Architecture evidence only — no real image corpus, no image generation yet. Runs on
+fully synthetic, hermetic image/caption pairs:
+
+```bash
+python scripts/synth_images.py --out runs/mm_synth/data.npz --n 256
+python -m training.train_mm --config configs/train/mm_fit_check.yaml \
+  --out-dir runs/mm_fit_check --init-ckpt runs/local_15m/checkpoint_last.pt
+```
+
+The loop verifies forward/mask shapes, ViT+projector gradients flow, synthetic data
+memorization, image-conditioning changes next-token distributions, and that the M0
+text model remains bit-identical after warm-start. See [STATUS](docs/STATUS.md) and
+[ROADMAP](docs/ROADMAP.md) phase A3.
 
 ## Data residency (India-first)
 
@@ -82,7 +102,8 @@ See [docs/adr/0002-india-data-residency.md](docs/adr/0002-india-data-residency.m
 
 ## Docs
 
-- [ROADMAP](docs/ROADMAP.md) — development roadmap (Phase 0–6)
+- [ROADMAP](docs/ROADMAP.md) — multimodal development roadmap (Phases A–G, milestones M0–M7)
+- [SCOPE_AND_PRINCIPLES](docs/SCOPE_AND_PRINCIPLES.md) — what we build and the rules it follows
 - [STATUS](docs/STATUS.md) — execution status tracker
 - [DESIGN_ARCHITECTURE](docs/DESIGN_ARCHITECTURE.md) — full design doc
 - [COMPETITIVE_ANALYSIS](docs/COMPETITIVE_ANALYSIS.md) — India market evaluation

@@ -47,7 +47,9 @@ class Attention(nn.Module):
         self.wv = nn.Linear(d_model, n_kv_heads * self.head_dim, bias=False)
         self.wo = nn.Linear(n_heads * self.head_dim, d_model, bias=False)
 
-    def forward(self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+    def forward(
+        self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, attn_mask: torch.Tensor | None = None
+    ) -> torch.Tensor:
         b, t, _ = x.shape
         q = self.wq(x).view(b, t, self.n_heads, self.head_dim).transpose(1, 2)
         k = self.wk(x).view(b, t, self.n_kv_heads, self.head_dim).transpose(1, 2)
@@ -58,7 +60,10 @@ class Attention(nn.Module):
         if rep > 1:
             k = k.repeat_interleave(rep, dim=1)
             v = v.repeat_interleave(rep, dim=1)
-        out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
+        if attn_mask is not None:
+            out = F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask)
+        else:
+            out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
         out = out.transpose(1, 2).contiguous().view(b, t, -1)
         return self.wo(out)
 
@@ -83,8 +88,10 @@ class Block(nn.Module):
         self.ffn_norm = RMSNorm(d, cfg.get("norm_eps", 1e-5))
         self.ffn = SwiGLU(d, cfg["ffn_dim"])
 
-    def forward(self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
-        x = x + self.attn(self.attn_norm(x), cos, sin)
+    def forward(
+        self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, attn_mask: torch.Tensor | None = None
+    ) -> torch.Tensor:
+        x = x + self.attn(self.attn_norm(x), cos, sin, attn_mask)
         x = x + self.ffn(self.ffn_norm(x))
         return x
 
@@ -108,15 +115,25 @@ class QMModel(nn.Module):
             nn.init.normal_(m.weight, mean=0.0, std=0.02)
 
     def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
-        b, t = idx.shape
+        return self.decode(self.embed(idx), targets=targets)
+
+    def embed(self, idx: torch.Tensor) -> torch.Tensor:
+        return self.tok_emb(idx)
+
+    def decode(
+        self,
+        x: torch.Tensor,
+        targets: torch.Tensor | None = None,
+        attn_mask: torch.Tensor | None = None,
+    ):
+        b, t, _ = x.shape
         d = self.cfg["d_model"]
         head_dim = d // self.cfg["n_heads"]
         theta = self.cfg.get("rope_theta", 10000.0)
         dtype = self.tok_emb.weight.dtype
-        cos, sin = build_rope(t, head_dim, theta, idx.device, dtype)
-        x = self.tok_emb(idx)
+        cos, sin = build_rope(t, head_dim, theta, x.device, dtype)
         for blk in self.blocks:
-            x = blk(x, cos, sin)
+            x = blk(x, cos, sin, attn_mask)
         x = self.norm(x)
         logits = self.lm_head(x)
         loss = None
@@ -125,6 +142,14 @@ class QMModel(nn.Module):
                 logits.view(-1, logits.size(-1)).float(), targets.reshape(-1)
             )
         return logits, loss
+
+    def forward_embeds(
+        self,
+        embeds: torch.Tensor,
+        targets: torch.Tensor | None = None,
+        attn_mask: torch.Tensor | None = None,
+    ):
+        return self.decode(embeds, targets=targets, attn_mask=attn_mask)
 
     def num_params(self, non_embedding: bool = True) -> int:
         n = sum(p.numel() for p in self.parameters())
