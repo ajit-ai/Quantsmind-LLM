@@ -1,0 +1,15 @@
+{
+  "seen": 144,
+  "kept": 77,
+  "rejected_quality": 9,
+  "rejected_dup": 67,
+  "rejected_fuzzy": 0,
+  "rejected_minified": 3,
+  "rejected_syntax": 0,
+  "chunks_emitted": 77,
+  "by_language": {
+    "python": 68,
+    "javascript": 9
+  },
+  "by_source": {}
+}

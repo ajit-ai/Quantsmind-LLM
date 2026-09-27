@@ -1,0 +1,26 @@
+{
+  "vocab_size": 5822,
+  "samples": [
+    {
+      "text": "AAPL closed at 187.43 (+1.2%) on 2026-08-21.",
+      "n_tokens": 18,
+      "roundtrip_ok": true
+    },
+    {
+      "text": "The NIFTY50 index fell 245 points amid rate concerns.",
+      "n_tokens": 11,
+      "roundtrip_ok": true
+    },
+    {
+      "text": "Revenue was \u20b91,234 crore vs \u20b9987 crore last quarter.",
+      "n_tokens": 14,
+      "roundtrip_ok": true
+    },
+    {
+      "text": "def sharpe_ratio(returns): return returns.mean() / returns.std()",
+      "n_tokens": 18,
+      "roundtrip_ok": true
+    }
+  ],
+  "all_roundtrip_ok": true
+}
