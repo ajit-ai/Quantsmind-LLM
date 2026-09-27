@@ -1,0 +1,15 @@
+# Quantsmind-LLM code model config — ~30M params
+# Sized for: single GPU / CPU, Python + JS/TS code tasks
+# Same architecture family as Llama (RMSNorm/RoPE/GQA/SwiGLU)
+model:
+  name: qm-code-30m
+  vocab_size: 32768
+  d_model: 256
+  n_layers: 8
+  n_heads: 8
+  n_kv_heads: 4
+  ffn_dim: 1024
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

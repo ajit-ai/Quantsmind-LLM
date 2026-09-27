@@ -1,27 +1,43 @@
-# Quantsmind-LLM
+# Quantsmind Coder — Corporate Coding LLM
 
-> **India's own from-scratch LLM — trained on your machine, owned by you, ₹0 forever.**
+> **Your own from-scratch coding LLM — trained on your code, owned by you.**
 
-A sovereign-weights Indian LLM project: own architecture, own tokenizer, own training
+A sovereign-weights coding LLM project: own architecture, own tokenizer, own training
 engine, own data pipeline. Same Transformer family as Llama (RMSNorm/RoPE/GQA/SwiGLU),
-trained from scratch on Indian finance data.
+trained from scratch on Python + JavaScript/TypeScript code.
 
-**Status:** Local prototype ready — train your own LLM on your own hardware tonight.
+**Status:** Local prototype ready — train your own coding LLM on your own hardware tonight.
 
 ---
 
-## Quick start — train your own LLM (₹0)
+## Quick start — train your own coding LLM
 
 ```bash
 git clone https://github.com/ajit-ai/Quantsmind-LLM.git
 cd Quantsmind-LLM
 pip install -r requirements.txt
 
-# Train your own LLM (~11M params, 2-5 hours on CPU, ₹0)
-python -m training.pretrain --config configs/train/local_15m.yaml --out-dir runs/local_15m
+# 1. Build code corpus (public GitHub, permissive licenses)
+python -m data.build_code_corpus --out data/code_corpus_v0.jsonl
 
-# Chat with your own trained model
-python -m serving.local_inference --ckpt runs/local_15m/checkpoint_last.pt
+# 2. Train code tokenizer
+python -m tokenizer.train_tokenizer --input data/code_corpus_v0.jsonl \
+  --out tokenizer/qm_code_bpe_v0.json --vocab-size 32768
+
+# 3. Encode corpus to tokens
+python -m data.encode_dataset --corpus data/code_corpus_v0.jsonl \
+  --tokenizer tokenizer/qm_code_bpe_v0.json --out data/code_corpus_v0.tokens.bin
+
+# 4. Pretrain (~30M params, 3-6 hours on CPU, ₹0)
+python -m training.pretrain --config configs/train/code_local.yaml --out-dir runs/code_30m
+
+# 5. SFT on code tasks
+python -m training.sft --config configs/train/code_local.yaml \
+  --sft-data data/code_sft_v0.jsonl --out-dir runs/code_sft \
+  --init-ckpt runs/code_30m/checkpoint_last.pt
+
+# 6. Chat with your coding assistant
+python -m serving.code_chat --ckpt runs/code_sft/checkpoint_last.pt
 # Open http://localhost:7860
 ```
 
@@ -29,107 +45,96 @@ python -m serving.local_inference --ckpt runs/local_15m/checkpoint_last.pt
 
 | Path | Purpose |
 |---|---|
-| `training/model.py` | From-scratch Transformer: RMSNorm / RoPE / GQA / SwiGLU — same family as Llama |
+| `training/model.py` | From-scratch Transformer: RMSNorm / RoPE / GQA / SwiGLU |
 | `training/pretrain.py` | Training engine: cosine LR, checkpoint/resume, NaN watchdog |
+| `training/sft.py` | SFT training loop with loss masking on assistant tokens |
 | `training/data.py` | Token dataset loader (memmap, uint16) |
-| `tokenizer/` | Own BPE trainer + 49k tokenizer (no HuggingFace dependency) |
-| `data/` | Corpus pipeline: downloaders, chunking, PII scrub, MinHash fuzzy dedup, eval decontamination |
-| `evaluation/` | Eval harness: held-out PPL + India-finance seed scoring + promotion gates |
-| `serving/` | Local inference server (own weights → text → Gradio UI) |
-| `configs/model/` | Model configs: local_15m, pilot_300m, prod_1p5b, scale_7b |
-| `configs/train/` | Training configs: local_15m, pilot, smoke CI |
-| `tests/` | Unit tests (46 M0 + 19 M1.1 + 20 M1.2) |
-| `.github/workflows/` | CI on every push (incl. hermetic M1.1 MM smoke) |
-| `training/vision.py` | Multimodal M1.1: from-scratch ViT encoder (patch 16, 112×112) |
-| `training/multimodal.py` | Multimodal M1.1: ViT → projector → QM decoder, MM attention mask |
-| `training/train_mm.py` | Multimodal fit-check loop (synthetic M1.1 / real-data M1.2 via manifest) |
-| `training/mm_manifest.py` | Multimodal M1.2: provenance-aware MANIFEST.json parser |
-| `training/image_data.py` | Image datasets: synthetic `ImageTextDataset` + real `RealImageDataset` |
-| `scripts/synth_images.py` | Multimodal M1.1: deterministic synthetic image/caption generator |
-| `data/mm_m1/` | Multimodal M1.2: real-data structure (manifest schema, data card; no images committed) |
+| `tokenizer/` | Own BPE trainer + code tokenizer (32k vocab) |
+| `data/build_code_corpus.py` | Code corpus: GitHub download, license filter, dedup, encode |
+| `data/build_code_sft.py` | SFT pair generator (code gen, explanation, review, refactor) |
+| `data/ingest_internal.py` | Internal corporate repo ingestion with secret scanning |
+| `evaluation/eval_code.py` | HumanEval + MBPP + code perplexity evaluation |
+| `evaluation/promotion.yaml` | Promotion gate rules for code benchmarks |
+| `serving/code_chat.py` | Code chat UI (Gradio, syntax highlighting) |
+| `serving/completion_server.py` | REST API for IDE code completion (FastAPI) |
+| `serving/review_server.py` | REST API for automated code review (FastAPI) |
+| `serving/local_inference.py` | Local model loading + text generation |
+| `configs/model/` | Model configs: code_30m, local_15m, pilot_300m |
+| `configs/train/` | Training configs: code_local, corporate_ft, local_15m |
+| `tests/` | Unit tests (model, tokenizer, SFT, eval, serving) |
+| `.github/workflows/` | CI on every push |
 
 ## Architecture
 
 ```
-Input tokens → [Token Embedding + RoPE] → 6× Transformer Blocks → [RMSNorm] → [LM Head] → Output logits
+Input tokens → [Token Embedding + RoPE] → 8× Transformer Blocks → [RMSNorm] → [LM Head] → Output logits
 
 Each Transformer Block:
   ├── RMSNorm → Multi-Head Attention (GQA) → Residual
   └── RMSNorm → SwiGLU FFN → Residual
 ```
 
-| Config | Params | Hardware | Time |
-|---|---|---|---|
-| `local_15m` | ~11M | CPU / MX150 | 2-5 hours |
-| `pilot_300m` | ~300M | 8×A100 | 1-2 days |
-| `prod_1p5b` | 1.5B | 32×A100 | 1-2 weeks |
+| Config | Params | Vocab | Seq Len | Use Case |
+|---|---|---|---|---|
+| `code_30m` | ~30M | 32,768 | 2048 | Python + JS/TS code |
+| `local_15m` | ~11M | 49,152 | 512 | General text (legacy) |
+| `pilot_300m` | ~300M | 49,152 | 4096 | Scale-up target |
 
-## Branching & releases
+## Serving
 
-- `main` — protected; tagged releases only (merge via release PR from `develop`)
-- `develop` — integration branch; all work lands here first
-- Feature branches: `feat/<topic>` → PR to `develop`
-- Project rule: **every phase ends with a develop → main merge**
+### Code Chat UI
+```bash
+python -m serving.code_chat --ckpt runs/code_sft/checkpoint_last.pt --port 7860
+```
+- Conversational coding assistant
+- Python + JavaScript/TypeScript specialist
+- Syntax highlighting, code context upload
 
-## Running tests
+### Completion API (IDE integration)
+```bash
+python -m serving.completion_server --port 8000
+# POST /complete {prefix, suffix, language, max_tokens}
+```
+- Inline code suggestions
+- Fill-in-the-middle support
+- Top-k completions with scores
+
+### Review API (CI/CD integration)
+```bash
+python -m serving.review_server --port 8001
+# POST /review {code, language, context}
+```
+- Bug detection, security scanning
+- Performance suggestions
+- Structured JSON output
+
+## Corporate Fine-Tuning
 
 ```bash
-python -m pytest tests -q   # 46 M0 + 19 M1.1 + 20 M1.2 tests
+# Ingest internal codebase
+python -m data.ingest_internal --repo /path/to/internal/repo \
+  --repo-name myproject --out data/internal_corpus_v0.jsonl --scan-secrets
+
+# Fine-tune on internal code
+python -m training.pretrain --config configs/train/corporate_ft.yaml \
+  --out-dir runs/corporate_ft --tokens data/internal_corpus_v0.tokens.bin
 ```
 
-## Experimental: M1.1 multimodal fit-check (CPU, synthetic)
+## Data Sources
 
-Architecture evidence only — no real image corpus, no image generation yet. Runs on
-fully synthetic, hermetic image/caption pairs:
-
-```bash
-python scripts/synth_images.py --out runs/mm_synth/data.npz --n 256
-python -m training.train_mm --config configs/train/mm_fit_check.yaml \
-  --out-dir runs/mm_fit_check --init-ckpt runs/local_15m/checkpoint_last.pt
-```
-
-The loop verifies forward/mask shapes, ViT+projector gradients flow, synthetic data
-memorization, image-conditioning changes next-token distributions, and that the M0
-text model remains bit-identical after warm-start. See [STATUS](docs/STATUS.md) and
-[ROADMAP](docs/ROADMAP.md) phase A3.
-
-## Experimental: M1.2 real-data pipeline (no training run)
-
-Infrastructure for real image/caption data. **M1 is not promoted** — this is
-preparation only, no large training run and no claim of M1 completion.
-
-```bash
-# Real-data drive is manifest -> image -> RGB -> resize/crop -> M1 tensor -> caption
-python scripts/synth_images.py --out runs/mm_synth/data.npz --n 256   # synthetic path unchanged
-# To exercise the real-data pipeline with real images, populate data/mm_m1/
-# (train|val|test + MANIFEST.json per data/mm_m1/DATA_CARD.rst), then:
-python -m training.train_mm --config configs/train/mm_m1_local.yaml \
-  --out-dir runs/mm_m1_local --manifest data/mm_m1/MANIFEST.json --max-steps 3
-```
-
-Manifest/loader/schema: `training/mm_manifest.py`, `training/image_data.py`,
-`data/mm_m1/MANIFEST.json`, `data/mm_m1/DATA_CARD.rst`. Images are never
-committed and never auto-downloaded. RST docs: `docs/source/mm_m1.rst`.
-
-## Data residency (India-first)
-
-Prompts are blocked from leaving your controlled network by default:
-
-```powershell
-$env:QM_STRICT_RESIDENCY = "0"   # conscious override; default is "1" (private/India-only)
-```
-
-See [docs/adr/0002-india-data-residency.md](docs/adr/0002-india-data-residency.md).
+| Source | License | Languages |
+|---|---|---|
+| GitHub public repos | MIT, Apache-2.0, BSD | Python, JS, TS |
+| Python stdlib | PSF | Python |
+| npm packages | MIT, ISC | JS, TS |
+| Internal repos | Corporate | All |
 
 ## Docs
 
-- [ROADMAP](docs/ROADMAP.md) — multimodal development roadmap (Phases A–G, milestones M0–M7)
-- [SCOPE_AND_PRINCIPLES](docs/SCOPE_AND_PRINCIPLES.md) — what we build and the rules it follows
+- [CODE_LLM_STRATEGY](docs/CODE_LLM_STRATEGY.md) — corporate coding LLM strategy
+- [ROADMAP](docs/ROADMAP.md) — development roadmap
 - [STATUS](docs/STATUS.md) — execution status tracker
 - [DESIGN_ARCHITECTURE](docs/DESIGN_ARCHITECTURE.md) — full design doc
-- [COMPETITIVE_ANALYSIS](docs/COMPETITIVE_ANALYSIS.md) — India market evaluation
-- [ADR-0003](docs/adr/0003-from-scratch-sovereign.md) — from-scratch sovereign pretrain decision
-- Sphinx/RST docs: `docs/source/` (`index.rst`, `mm_m1.rst`)
 
 ## License
 
