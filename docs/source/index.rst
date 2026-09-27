@@ -1,8 +1,11 @@
 QuantsMind-LLM
-=============
+==============
 
 India's own from-scratch sovereign LLM — multimodal (image <-> text) model family,
 finance as first vertical.
+
+Published from ``docs/source`` RST via GitHub Pages on every ``main`` merge.
+Rule book: ``docs/RULEBOOK.md``. Owner / sole contributor: ``ajit-ai``.
 
 .. toctree::
    :maxdepth: 2

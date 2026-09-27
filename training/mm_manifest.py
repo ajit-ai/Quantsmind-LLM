@@ -1,6 +1,8 @@
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 
 SPLITS = ("train", "val", "test")
@@ -8,7 +10,36 @@ REQUIRED_SAMPLE_FIELDS = ("sample_id", "split", "image_path", "caption", "source
 
 # Fields that may appear when known. None/NULL means genuinely unknown —
 # the loader never invents provenance or licensing values.
-OPTIONAL_SAMPLE_FIELDS = ("source_url", "license", "attribution", "width", "height")
+OPTIONAL_SAMPLE_FIELDS = (
+    "source_url",
+    "license",
+    "attribution",
+    "width",
+    "height",
+    # Real-data provenance (M1 real-run preparation):
+    "checksum",  # hex sha256 of the image file bytes (as recorded)
+    "acquisition_date",  # ISO-8601 date (YYYY-MM-DD) of acquisition
+    "license_ref",  # URL / citation / registry id evidencing `license`
+)
+
+_SHA256_HEX = re.compile(r"^[0-9a-f]{64}$")
+_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def valid_sha256_hex(value: str) -> bool:
+    """True when ``value`` looks like a 64-char lowercase hex sha256."""
+    return bool(_SHA256_HEX.match(value))
+
+
+def valid_iso_date(value: str) -> bool:
+    """True when ``value`` is a real ISO-8601 calendar date (YYYY-MM-DD)."""
+    if not _ISO_DATE.match(value):
+        return False
+    try:
+        date.fromisoformat(value)
+        return True
+    except ValueError:
+        return False
 
 
 @dataclass
@@ -23,7 +54,10 @@ class SampleRecord:
     attribution: str | None = None
     width: int | None = None
     height: int | None = None
-    preprocessing_version: str = "mm1_v1"
+    preprocessing_version: str = "mm1_v2"
+    checksum: str | None = None
+    acquisition_date: str | None = None
+    license_ref: str | None = None
 
     def resolved_path(self, manifest_dir: Path) -> Path:
         p = Path(self.image_path)
@@ -99,6 +133,29 @@ def load_manifest(manifest_path: str | Path) -> Manifest:
             raise ValueError(f"malformed manifest: sample #{i} 'width' must be a positive integer")
         if height is not None and (not isinstance(height, int) or height <= 0):
             raise ValueError(f"malformed manifest: sample #{i} 'height' must be a positive integer")
+
+        checksum = s.get("checksum")
+        if checksum is not None:
+            if not isinstance(checksum, str) or not valid_sha256_hex(checksum):
+                raise ValueError(
+                    f"malformed manifest: sample #{i} 'checksum' must be a 64-char lowercase hex sha256"
+                )
+            checksum = checksum.lower()
+
+        acquisition_date = s.get("acquisition_date")
+        if acquisition_date is not None:
+            if not isinstance(acquisition_date, str) or not valid_iso_date(acquisition_date):
+                raise ValueError(
+                    f"malformed manifest: sample #{i} 'acquisition_date' must be an ISO-8601 "
+                    "date (YYYY-MM-DD)"
+                )
+
+        license_ref = s.get("license_ref")
+        if license_ref is not None and (not isinstance(license_ref, str) or not license_ref):
+            raise ValueError(
+                f"malformed manifest: sample #{i} 'license_ref' must be a non-empty string"
+            )
+
         samples.append(
             SampleRecord(
                 sample_id=s["sample_id"],
@@ -111,14 +168,17 @@ def load_manifest(manifest_path: str | Path) -> Manifest:
                 attribution=s.get("attribution"),
                 width=width,
                 height=height,
-                preprocessing_version=s.get("preprocessing_version", "mm1_v1"),
+                preprocessing_version=s.get("preprocessing_version", "mm1_v2"),
+                checksum=checksum,
+                acquisition_date=acquisition_date,
+                license_ref=license_ref,
             )
         )
 
     return Manifest(
         path=path,
         schema_version=raw["schema_version"],
-        preprocessing_version=raw.get("preprocessing_version", "mm1_v1"),
+        preprocessing_version=raw.get("preprocessing_version", "mm1_v2"),
         dataset_name=str(dataset.get("name", "")),
         samples=samples,
     )

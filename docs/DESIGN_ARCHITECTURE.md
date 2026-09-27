@@ -1,13 +1,16 @@
 # Quantsmind-LLM — Design Architecture
 
-> **Decision record (ADR-0003, FINAL — supersedes the interim open-base plan)**:
-> Quantsmind-LLM is a **finance/trading vertical LLM platform** targeting **B2B2C**
-> distribution, with a **from-scratch, sovereign-weights Indian LLM** as the product core:
+> **Decision record (ADR-0003, FINAL — supersedes the interim open-base plan; extended by
+> [SCOPE_AND_PRINCIPLES](SCOPE_AND_PRINCIPLES.md) to multimodal)**:
+> Quantsmind is a **general multimodal (image ↔ text) foundation** built as a
+> **from-scratch, sovereign-weights Indian model family**, targeting **B2B2C** distribution,
+> with finance/trading as the first application vertical:
 > **300M pilot → 1.5B "Quantsmind-Bharat" production → 7B when funded.**
 > Founder decision: weight ownership and the "born-in-India, owned-weights" story are the
-> mission. Open models (Qwen/Llama/Mistral) may appear in evaluation **as benchmark rivals
-> to beat — never as the product core.** Accepted trade: raw capability below GPT-4-class
-> on open-ended knowledge, compensated by RAG + tool-grounding + domain focus.
+> mission. Open models (Qwen/Llama/Mistral/Qwen-VL/SD-class) may appear in evaluation
+> **as benchmark rivals to beat — never as the product core.** Accepted trade: raw capability
+> below GPT-4-class on open-ended knowledge, compensated by RAG + tool-grounding + domain focus.
+> Roadmap: [ROADMAP](ROADMAP.md) · Scope/rules: [SCOPE_AND_PRINCIPLES](SCOPE_AND_PRINCIPLES.md).
 
 ---
 
@@ -15,10 +18,11 @@
 
 | Item | Decision |
 |---|---|
-| Vertical | Finance & Trading (single-vertical focus; other industries deferred) |
+| Vertical | Multi-domain **general foundation**; finance & trading = first application vertical (other verticals later) |
 | Customer model | **B2B2C**: partners = brokers / wealth platforms / fintechs; their retail end-users consume via partner apps |
-| Product shape | White-label "Investor Copilot": OpenAI-compatible API + embed SDK, partner-scoped RAG |
+| Product shape | White-label multimodal copilot: OpenAI-compatible API + embed SDK, partner-scoped RAG |
 | Base strategy | **From-scratch pretrain**: 300M pilot → 1.5B production → 7B when funded |
+| Modalities | **Image → Text** (v1) · Text → Text (v0) · **Text → Image** (v2) — one shared AR decoder |
 | Model ownership | 100% sovereign weights — architecture, tokenizer, data, training all in-repo |
 | Open models | Benchmark rivals in eval harness only; never the product core |
 | Market | India-first (₹, NSE/BSE/SEBI conventions), world-ready corpus mix (~70/30) |
@@ -26,7 +30,7 @@
 | Serving economics | AWQ-int4 1.5B on single consumer/A100-class GPU — very low B2B2C cost per message |
 | License posture | All weights, data ledger, and serving stack are project-owned from birth |
 
-**Non-goals (v1):** general-purpose chatbot market, real-time alpha signals, unlicensed personalized advice, multimodal, other industry verticals (see ROADMAP Wave-2+).
+**Non-goals (v1):** general-purpose chatbot market (finance-first vertical), real-time alpha signals, unlicensed personalized advice, video/audio/3D generation, other industry verticals (see ROADMAP Wave-2+). Multimodal image↔text is now **a core goal** (ROADMAP Phase A–B).
 
 ## 1.1 B2B2C value proposition
 

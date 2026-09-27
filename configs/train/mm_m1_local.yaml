@@ -7,12 +7,16 @@ run:
   vision_config: configs/vision/vision_m1.yaml
   seed: 42
   init_ckpt: runs/local_15m/checkpoint_last.pt
+  # M1.3 correction: the text backbone is a shared asset and stays frozen during
+  # caption-only MM training (ViT + projector trainable). Unfrozen full-backbone
+  # fine-tuning on the 32-pair corpus destroyed held-out text modeling (M1 issue #1).
+  freeze_text_backbone: true
 
 data:
   # Provenance-aware manifests (see data/mm_m1/DATA_CARD.rst).
-  train_manifest: data/mm_m1/MANIFEST.json
-  val_manifest: data/mm_m1/MANIFEST.json
-  test_manifest: data/mm_m1/MANIFEST.json
+  train_manifest: data/mm_m1/MANIFEST_v2.json
+  val_manifest: data/mm_m1/MANIFEST_v2.json
+  test_manifest: data/mm_m1/MANIFEST_v2.json
   train_split: train
   val_split: val
   test_split: test
@@ -20,7 +24,7 @@ data:
 
 image:
   resolution: 112
-  preprocessing_version: mm1_v1
+  preprocessing_version: mm1_v2
   normalize: null  # per-channel {"mean": [..], "std": [..]} in [0,1] space, optional
 
 sequence:
