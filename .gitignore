@@ -6,12 +6,13 @@ __pycache__/
 venv/
 
 # Training artifacts — NEVER commit weights/checkpoints
-*.bin
 *.safetensors
 *.pt
 *.ckpt
 checkpoints/
 runs/
+data/code_corpus_v0.tokens.bin
+data/internal_corpus_v0.tokens.bin
 
 # Data artifacts (versioned via DVC instead)
 data/raw/
