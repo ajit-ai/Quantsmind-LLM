@@ -34,6 +34,11 @@ jobs:
       - name: Resume-from-checkpoint check
         run: python -m training.pretrain --config configs/train/smoke_toy.yaml --out-dir runs/smoke --tokens runs/smoke/tokens.bin --resume --max-steps 40
 
+      - name: M1.1 multimodal hermetic smoke (tiny CPU)
+        run: |
+          python scripts/synth_images.py --out runs/mm_synth/data.npz --n 8
+          python -m training.train_mm --config configs/train/mm_fit_check.yaml --out-dir runs/mm_smoke --max-steps 3
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

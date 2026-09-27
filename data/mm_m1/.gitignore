@@ -1,0 +1,12 @@
+# Image files and any derived per-split artifacts are never committed.
+train/*
+val/*
+test/*
+!train/.gitkeep
+!val/.gitkeep
+!test/.gitkeep
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.bmp

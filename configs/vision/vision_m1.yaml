@@ -1,0 +1,13 @@
+# VisionEncoder (ViT) config for M1.1 fit-check.
+# 112x112 / patch 16 => 49 patches + 1 CLS = 50 image tokens; output (B, 50, d_model).
+vision:
+  name: qm-vision-m1
+  image_size: 112
+  patch_size: 16
+  in_channels: 3
+  d_model: 128
+  n_layers: 6
+  n_heads: 4
+  n_kv_heads: 4
+  ffn_dim: 512
+  norm_eps: 1.0e-5

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "preprocessing_version": "mm1_v1",
+  "dataset": {
+    "name": "mm_m1",
+    "description": "Real image/caption pairs for the M1.2 pipeline. Template manifest: samples list is empty. Real provenance/licensing must be recorded in samples, never invented.",
+    "splits": ["train", "val", "test"],
+    "image_resolution": [112, 112],
+    "source_summary": null,
+    "license_summary": null
+  },
+  "samples": []
+}

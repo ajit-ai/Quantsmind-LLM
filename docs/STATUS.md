@@ -1,86 +1,85 @@
-# Quantsmind-LLM — Execution Status Tracker
+# Quantsmind Coder — Execution Status Tracker
+
+> **Direction update (2026-09-27):** project pivoted to a **coding LLM** for corporate use.
+> Python + JavaScript/TypeScript specialist, 15–100M params, all use cases (completion, chat, review).
+> See [CODE_LLM_STRATEGY](CODE_LLM_STRATEGY.md) for full strategy.
 
 Living document. Update at every phase end; phase completion requires develop→main merge.
 Legend: [x] done · [~] partially done / verify pending · [ ] not started
 
 ---
 
-## PHASE 0 — Foundations (Weeks 1–2) — ~90%
+## CODE LLM PIVOT — Implementation Status
 
-- [x] 0.1 Repo scaffold, configs, .gitignore, branch flow
-- [x] 0.2 Strategy locked: **from-scratch sovereign Indian LLM** (ADR-0003 FINAL; supersedes interim open-base ADR-000). Ladder: 300M pilot → 1.5B Quantsmind-Bharat → 7B when funded. Open models = benchmark rivals only
-- [x] 0.3 Transformer implementation (RMSNorm/RoPE/GQA/SwiGLU)
-- [x] 0.4 Pretrain loop: cosine LR, checkpoint/resume, NaN watchdog
-- [x] 0.5 Tokenizer trainer + round-trip sanity tests
-- [x] 0.6 Data tools: corpus generator, encode-to-tokens pipeline
-- [x] 0.7 Unit tests + CPU smoke pipeline scripts
-- [~] 0.8 GitHub Actions CI pushed — verify first run green on GitHub
-- [x] 0.9 Promotion gate rules (evaluation/promotion.yaml)
-- [ ] 0.10 Lint config (ruff) in CI
-- [ ] 0.11 Formalize docs/adr/0001 files
+### Step 1: Code Tokenizer — ✅ COMPLETE
 
-### Preview track (pulled forward from Phase 3)
+- [x] Code tokenizer config (`configs/tokenizer/code_bpe.yaml`)
+- [x] Code-specific special tokens (FIM, repo, file, language)
+- [x] Tests (`tests/test_code_tokenizer.py`)
 
-- [x] P0.a Finance chat UI (Gradio) — prompt → financial knowledge, disclaimer enforced
-- [x] P0.b Pluggable OpenAI-compatible backend (works with Ollama/vLLM/OpenRouter today)
-- [x] P0.c UI E2E verified on user machine (Gradio 6.25; demo mode confirmed 2026-08-24)
-- [ ] P0.d Optional: connect real backend (Ollama qwen2.5) and verify grounded answers
-- [x] P0.e India data-residency guard + SEBI-aware prompt (ADR-0002)
-- [x] P0.f Competitive analysis vs India market (docs/COMPETITIVE_ANALYSIS.md) — strategy: sell engine, not app; RA partnership required; ~2-quarter window
+### Step 2: Code Model Config — ✅ COMPLETE
 
-Exit when: CI green on GitHub + 0.10/0.11 closed.
+- [x] `configs/model/code_30m.yaml` — d_model=256, n_layers=8, n_heads=8, n_kv_heads=4, seq_len=2048
+- [x] ~30M params (within 15–100M target)
 
-## PHASE 1 — Data v0 + 300M Pilot (Weeks 2–6) — ~55%
+### Step 3: Code Corpus Pipeline — ✅ COMPLETE
 
-- [~] 1.1 Corpus pipeline built & verified (downloaders, chunking, quality, PII, dedup, stats)
-- [~] 1.1b Corpus v0 built: 9,311 chunks / ~10M tokens (wiki-en 2000 docs, wiki-hi 500, Gutenberg econ) — scale-up to 12B tokens pending
-- [x] 1.2 Tokenizer v0 trained: 49,152 BPE, round-trip OK, ~10M tokens encoded (tokenizer/qm_bpe_v0.json)
-- [~] 1.3 Data card v0 published (data/DATA_CARD_v0.md); fuzzy dedup (MinHash-LSH) + eval-decontamination now live in pipeline — re-verify before 12B build
-- [~] 1.4 India-finance eval set: 26/500 seed items, schema + loader tested
-- [~] 1.5 LR probes + 1.6 pilot: FIXED notebook re-imported, **Run All executed on Kaggle** (experiments/pilot_run_001.md) — awaiting completion + artifacts
-- [ ] 1.7 Eval battery on pilot + benchmark rivals (harness ready: evaluation/evaluate_pilot.py)
+- [x] `data/build_code_corpus.py` — GitHub API download, license filter, language detect, quality filter, dedup, chunk
+- [x] Supports Python, JavaScript, TypeScript
+- [x] Permissive license filter (MIT, Apache-2.0, BSD, ISC)
+- [x] Syntax validation for Python
 
-**Rs.0 spent to date.**
+### Step 4: Code Pretraining Config — ✅ COMPLETE
 
-## PHASE 2 — Finance Adaptation (Weeks 4–8) — 0%
+- [x] `configs/train/code_local.yaml` — seq_len=2048, max_steps=10000, 65k tokens/step
 
-- [ ] 2.1 Real data ingestion + license/provenance ledger
-- [ ] 2.2 CPT mix v1 (~10B tokens) + decontamination audit
-- [ ] 2.3 LR probes → CPT run (full-FT or LoRA ladder)
-- [ ] 2.4 SFT mixture build (50–150k pairs incl. calculator traces) + train
-- [ ] 2.5 DPO pair generation + train
-- [ ] 2.6 Safety pass: advisory-boundary refusals + red-team round 1
-- [ ] 2.7 Exact-match arithmetic eval suite (hard-fail gate)
-- [ ] 2.8 Pass promotion.yaml gate vs base
+### Step 5: SFT Training Loop — ✅ COMPLETE
 
-Exit when: finance scores up, arithmetic 100% via-tool, refusal >=95%, forgetting <=2%.
+- [x] `training/sft.py` — instruction-response training with loss masking
+- [x] `data/build_code_sft.py` — SFT pair generator (code gen, explanation, review, refactor)
+- [x] Tests (`tests/test_sft.py`)
 
-## PHASE 3 — B2B2C Product Layer (Weeks 8–10) — 0%
+### Step 6: Code Evaluation — ✅ COMPLETE
 
-- [ ] 3.1 API gateway: tenant router, partner keys, quotas, billing hooks, SSE
-- [ ] 3.2 RAG service: hybrid retrieval + market-snapshot context packer
-- [ ] 3.3 Guardrails: injection filter, PII redaction, disclaimer injector
-- [ ] 3.4 vLLM serving pool (AWQ-int4) + K8s manifests
-- [ ] 3.5 Speculative decoding with self-trained ~150M draft model
-- [ ] 3.6 Immutable per-message audit log + OTel dashboards
+- [x] `evaluation/eval_code.py` — HumanEval + MBPP + code perplexity
+- [x] Updated `evaluation/promotion.yaml` — code benchmarks + security gates
+- [x] Tests (`tests/test_eval_code.py`)
 
-Exit when: partner-key request -> grounded disclaimed tool-verified answer E2E; load-tested 2x peak.
+### Step 7: Code Serving — ✅ COMPLETE
 
-## PHASE 4 — Pilot Launch (Weeks 10–12) — 0%
+- [x] `serving/code_chat.py` — Gradio UI with syntax highlighting, language selector
+- [x] `serving/completion_server.py` — REST API for IDE completion (FastAPI)
+- [x] `serving/review_server.py` — REST API for code review (FastAPI)
+- [x] Tests (`tests/test_code_serving.py`)
 
-- [ ] 4.1 Sign pilot B2B partner + contracted success criteria
-- [ ] 4.2 Shadow-mode week -> canary 5% -> ramp
-- [ ] 4.3 Weekly eval reports; feedback capture loop live
-- [ ] 4.4 Model card + eval report; go/no-go review
+### Step 8: Corporate Fine-Tune Pipeline — ✅ COMPLETE
 
-Exit when: production SLOs met; partner sign-off.
+- [x] `data/ingest_internal.py` — internal repo ingestion with secret scanning
+- [x] `configs/train/corporate_ft.yaml` — continued pretrain + SFT config
+- [x] Tests (`tests/test_internal_ingest.py`)
 
-## PHASE 5 — Compound & Wave-2 Decision (Q2) — 0%
+### Step 9: Documentation — ✅ COMPLETE
 
-- [ ] 5.1 Data flywheel -> monthly SFT/DPO refresh cadence
-- [ ] 5.2 Hindi/Hinglish strengthening
-- [ ] 5.3 Draft-model scale-up; context extension experiments
-- [ ] 5.4 Wave-2 gate: corpus + eval suite + anchor customer all present
+- [x] `README.md` — updated for coding LLM
+- [x] `docs/CODE_LLM_STRATEGY.md` — full corporate strategy
+- [x] `docs/STATUS.md` — this file
+
+### Step 10: Dependencies — ✅ COMPLETE
+
+- [x] `requirements.txt` — added fastapi, uvicorn, pydantic
+
+---
+
+## Parked: Multimodal (No Active Development)
+
+| Component | Status |
+|---|---|
+| `training/vision.py` | Parked — maintain as-is |
+| `training/multimodal.py` | Parked — maintain as-is |
+| `training/train_mm.py` | Parked — maintain as-is |
+| `evaluation/eval_caption.py` | Parked — maintain as-is |
+| `evaluation/eval_vqa.py` | Parked — maintain as-is |
+| `evaluation/india_finance/` | Parked — maintain as-is |
 
 ---
 
@@ -88,9 +87,25 @@ Exit when: production SLOs met; partner sign-off.
 
 | Milestone | Target | Status |
 |---|---|---|
-| M0 Pipeline proven | wk 2 | IN PROGRESS (CI verification left) |
-| M1 Champion base chosen | wk 4 | PENDING |
-| M2 Finance-adapted model passes gate | wk 8 | PENDING |
-| M3 Product demo E2E | wk 10 | PENDING |
-| M4 Production pilot live | wk 12 | PENDING |
-| M5 Refresh cadence + Wave-2 gate | Q2 | PENDING |
+| Code tokenizer + corpus pipeline | Week 1 | ✅ COMPLETE |
+| Code model config + pretrain config | Week 1 | ✅ COMPLETE |
+| SFT training loop + data builder | Week 2 | ✅ COMPLETE |
+| Code evaluation harness | Week 2 | ✅ COMPLETE |
+| Code serving (chat + completion + review) | Week 3 | ✅ COMPLETE |
+| Corporate fine-tune pipeline | Week 3 | ✅ COMPLETE |
+| Documentation + tests | Week 3 | ✅ COMPLETE |
+| **First training run** | Week 4 | 🔲 PENDING |
+| **Corporate deployment** | Week 6 | 🔲 PENDING |
+
+---
+
+## Next Actions
+
+1. **Run tests:** `python -m pytest tests -q`
+2. **Build code corpus:** `python -m data.build_code_corpus --max-repos 10`
+3. **Train tokenizer:** `python -m tokenizer.train_tokenizer --input data/code_corpus_v0.jsonl --out tokenizer/qm_code_bpe_v0.json --vocab-size 32768`
+4. **Pretrain:** `python -m training.pretrain --config configs/train/code_local.yaml --out-dir runs/code_30m`
+5. **Generate SFT data:** `python -m data.build_code_sft --corpus data/code_corpus_v0.jsonl`
+6. **SFT:** `python -m training.sft --config configs/train/code_local.yaml --sft-data data/code_sft_v0.jsonl --init-ckpt runs/code_30m/checkpoint_last.pt`
+7. **Evaluate:** `python -m evaluation.eval_code --ckpt runs/code_sft/checkpoint_last.pt`
+8. **Deploy:** `python -m serving.code_chat --ckpt runs/code_sft/checkpoint_last.pt`
