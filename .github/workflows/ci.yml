@@ -5,8 +5,27 @@ on:
     branches: [develop, main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Solo-contributor guard
+        # Private Free repos cannot enforce branch protection server-side,
+        # so CI is the gate: only ajit-ai may push; all others fail fast.
+        if: github.event_name == 'push'
+        run: |
+          if [ "${{ github.actor }}" != "ajit-ai" ]; then
+            echo "Blocked: sole contributor is ajit-ai (see docs/RULEBOOK.md)."
+            exit 1
+          fi
+
   unit-and-smoke:
+    needs: guard
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -39,6 +58,59 @@ jobs:
           python scripts/synth_images.py --out runs/mm_synth/data.npz --n 8
           python -m training.train_mm --config configs/train/mm_fit_check.yaml --out-dir runs/mm_smoke --max-steps 3
 
+      - name: Code LLM — tokenizer round-trip check
+        run: |
+          python -c "
+          from tokenizer.train_tokenizer import train_tokenizer, sanity_report
+          import tempfile, os
+          samples = ['def foo(x):\\n    return x * 2', 'const bar = (x) => x + 1']
+          with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+              f.write('\\n'.join(samples * 50))
+              f.flush()
+              tok = train_tokenizer(f.name, f.name + '.json', vocab_size=500)
+              report = sanity_report(tok, samples)
+              assert report['all_roundtrip_ok'], 'tokenizer round-trip failed'
+              print(f'code tokenizer OK: vocab={report[\"vocab_size\"]}')
+              os.unlink(f.name)
+              os.unlink(f.name + '.json')
+          "
+
+      - name: Code LLM — model config validation
+        run: |
+          python -c "
+          import yaml
+          cfg = yaml.safe_load(open('configs/model/code_30m.yaml'))['model']
+          assert cfg['d_model'] == 256
+          assert cfg['n_layers'] == 8
+          assert cfg['vocab_size'] == 32768
+          assert cfg['n_heads'] % cfg['n_kv_heads'] == 0
+          print('code_30m config OK')
+          "
+
+      - name: Code LLM — SFT dataset validation
+        run: |
+          python -c "
+          import json, tempfile
+          from training.sft import SFTPairDataset, collate_sft
+          samples = [
+              {'instruction': 'Write add function', 'response': 'def add(a, b): return a + b'},
+              {'instruction': 'Explain decorators', 'response': 'Decorators wrap functions'},
+          ]
+          with tempfile.NamedTemporaryFile(mode='w', suffix='.jsonl', delete=False) as f:
+              for s in samples:
+                  f.write(json.dumps(s) + '\\n')
+              f.flush()
+              ds = SFTPairDataset(f.name, None)
+              assert len(ds) == 2
+              print(f'SFT dataset OK: {len(ds)} pairs')
+          "
+
+      - name: Code LLM — eval harness import check
+        run: python -c "from evaluation.eval_code import HUMANEVAL_PROBLEMS, MBPP_PROBLEMS; print(f'eval OK: {len(HUMANEVAL_PROBLEMS)} HumanEval + {len(MBPP_PROBLEMS)} MBPP problems')"
+
+      - name: Code LLM — serving module import check
+        run: python -c "from serving.code_chat import format_prompt; print('code_chat OK')"
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,3 +118,4 @@ jobs:
           path: |
             runs/smoke/tokenizer.report.json
             runs/smoke/tokens.meta.json
+

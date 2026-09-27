@@ -14,9 +14,15 @@ def preprocess_image(img, size: int = 112, normalize: dict | None = None) -> np.
     Steps: RGB conversion -> cover-resize (LANCZOS) -> center crop to ``size`` ->
     float32 (size, size, 3) tensor in [0, 1]. ``normalize`` optionally applies
     per-channel (mean, std) in [0,1] space. No augmentation, no randomness.
-    """
-    from PIL import Image
 
+    EXIF orientation is corrected first (``ImageOps.exif_transpose``), so images
+    carrying an orientation flag (e.g. portrait phone photos) are processed
+    upright, matching what the validator decodes and what authors intended.
+    Images without EXIF orientation pass through pixel-identical.
+    """
+    from PIL import Image, ImageOps
+
+    img = ImageOps.exif_transpose(img)
     img = img.convert("RGB")
     w, h = img.size
     scale = max(size / w, size / h)
@@ -106,6 +112,7 @@ class RealImageDataset:
         image_size: int = 112,
         normalize: dict | None = None,
         seed: int = 42,
+        max_caption_len: int | None = None,
     ):
         self.manifest = load_manifest(manifest_path)
         self.root = self.manifest.path.parent
@@ -123,7 +130,15 @@ class RealImageDataset:
             assert all(i < TEXT_VOCAB_LIMIT for i in ids), (
                 f"caption of sample {record.sample_id} encodes to a special/reserved id"
             )
-        self.max_caption_len = max((len(x) for x in self.ids), default=0)
+        if max_caption_len is not None:
+            if not isinstance(max_caption_len, int) or max_caption_len <= 0:
+                raise ValueError(
+                    f"max_caption_len must be a positive int, got {max_caption_len!r}"
+                )
+            self.ids = [ids[:max_caption_len] for ids in self.ids]
+            self.max_caption_len = max_caption_len
+        else:
+            self.max_caption_len = max((len(x) for x in self.ids), default=0)
         self.rng = np.random.default_rng(seed)
 
     def __len__(self) -> int:

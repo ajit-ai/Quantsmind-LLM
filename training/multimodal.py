@@ -148,6 +148,22 @@ class QMMultimodal(nn.Module):
         ) + sum(p.numel() for p in self.projector.parameters())
 
 
+def freeze_text_backbone(model: QMMultimodal) -> list[str]:
+    """Freeze the shared text backbone for caption-only MM training.
+
+    Sets ``requires_grad=False`` on every ``model.text`` parameter so the
+    backbone (a shared asset also serving text-only use) cannot be rewired by
+    small caption corpora. Vision encoder and projector stay trainable.
+    Returns the frozen parameter names (``text.*``). The optimizer must be
+    constructed afterwards over ``requires_grad`` parameters only.
+    """
+    frozen = []
+    for name, param in model.text.named_parameters():
+        param.requires_grad_(False)
+        frozen.append(f"text.{name}")
+    return frozen
+
+
 def load_text_state(model, ckpt_path: str, strict: bool = False) -> list[str]:
     """Load an M0 text-only checkpoint into a QMMultimodal's text backbone.
 

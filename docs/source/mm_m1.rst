@@ -54,7 +54,7 @@ checkpoint, on 256 synthetic pairs:
 * initial loss ``10.747`` ~= ``ln(49156)`` (uniform-loss baseline ``~10.80``)
 * final loss ``0.2821`` (target ``< 8.0``) — synthetic memorization achieved
 * ViT and Projector gradients non-zero and finite throughout
-* conditioning probe: max |logit diff| ``~0.578`` — the image changes next-token
+* conditioning probe: max logit diff ``~0.578`` — the image changes next-token
   distributions
 * CPU wall-clock ``~1411 s`` for 500 steps at ``~345 tok/s`` (1 thread)
 * 9,513,216 params total (text 7,768,192 + vision 1,679,488 + projector 65,536)
@@ -98,12 +98,37 @@ Dataset structure
    data/mm_m1/
        MANIFEST.json      # provenance-aware sample index (schema version 1)
        DATA_CARD.rst      # data card
+       ACQUISITION.rst    # acquisition & provenance procedure (real-data gate)
        train/             # split directories; image files are never committed
        val/
        test/
 
 Real images are not committed; ``data/mm_m1/.gitignore`` keeps them out. Nothing is
 downloaded automatically.
+
+Acquisition & provenance procedure
+----------------------------------
+``data/mm_m1/ACQUISITION.rst`` defines the real-data admission contract:
+required image/caption fields, dataset identity, source URL or acquisition
+reference, license plus license evidence, acquisition date, image checksums,
+split policy, duplicate handling, file-naming rules, transformation recording,
+and the strict rejection of records with incomplete provenance.  Synthetic
+hermetic pairs (``scripts/synth_images.py`` / ``.npz`` path) can never be
+represented as licensed real training data: the strict validator rejects them,
+so ``MANIFEST.json`` stays an empty template until a human performs a
+documented acquisition.
+
+Manifest validation
+-------------------
+``python -m training.validate_manifest --manifest data/mm_m1/MANIFEST.json --tokenizer tokenizer/qm_bpe_v0.json``
+
+reuses ``training/mm_manifest.load_manifest`` for schema/provenance parsing and
+adds file-level checks: image existence and readability, split/sample
+bookkeeping, duplicate ids/paths/content, per-image checksum consistency,
+caption encoding (with ``--tokenizer``), and deterministic hashing (raw
+``sha256`` plus a canonical content digest).  ``--require-complete-provenance``
+rejects any sample missing license/acquisition-date/image-checksum — the gate
+licensed real training data must pass (exit code 1 = invalid).
 
 Manifest format
 ---------------
@@ -115,6 +140,9 @@ splits, image resolution), ``samples``. Each sample:
 * ``caption`` (required)
 * ``source`` (required)
 * ``source_url``, ``license``, ``attribution``, ``width``, ``height`` (optional)
+* ``checksum`` (optional hex sha256), ``acquisition_date`` (optional ISO date),
+  ``license_ref`` (optional license evidence) — required by the strict
+  real-data admission gate
 * ``preprocessing_version``
 
 Parser: ``training/mm_manifest.py`` — ``load_manifest`` validates required fields

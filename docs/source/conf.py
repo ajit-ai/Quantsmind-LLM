@@ -1,5 +1,6 @@
-# Minimal local Sphinx configuration for Quantsmind-LLM documentation.
-# Not a GitHub Pages configuration; nothing is published externally.
+# Sphinx configuration for Quantsmind-LLM documentation.
+# Source: docs/source/*.rst -> HTML published to GitHub Pages (gh-pages branch).
+# See docs/RULEBOOK.md section 4.
 
 import os
 import sys
@@ -22,3 +23,6 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 master_doc = "index"
 language = "en"
 pygments_style = "sphinx"
+
+html_theme = "sphinx_rtd_theme"
+

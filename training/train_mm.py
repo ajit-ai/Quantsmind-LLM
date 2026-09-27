@@ -13,7 +13,7 @@ import torch
 import yaml
 
 from training.image_data import ImageTextDataset, RealImageDataset
-from training.multimodal import QMMultimodal, load_text_state, probe_conditioning
+from training.multimodal import QMMultimodal, freeze_text_backbone, load_text_state, probe_conditioning
 from training.pretrain import load_yaml, lr_at
 
 
@@ -35,7 +35,7 @@ def git_commit() -> str:
         return "unknown"
 
 
-def main():
+def build_arg_parser():
     p = argparse.ArgumentParser(description="Quantsmind multimodal fit-check (M1.1 synthetic / M1.2 real-data)")
     p.add_argument("--config", required=True)
     p.add_argument("--out-dir", default="runs/mm_fit_check")
@@ -46,6 +46,48 @@ def main():
     p.add_argument("--init-ckpt", default=None, help="M0 text checkpoint to warm-start from")
     p.add_argument("--max-steps", type=int, default=None)
     p.add_argument("--seed", type=int, default=None)
+    p.add_argument("--resume-from", default=None,
+                   help="mid-run checkpoint (checkpoint_N.pt) to resume model+optimizer state from; "
+                        "training continues at its recorded step (takes precedence over --init-ckpt)")
+    p.add_argument("--ckpt-every", type=int, default=None,
+                   help="save checkpoint_N.pt every N steps (default: training.checkpoint_every_steps)")
+    p.add_argument("--total-steps", type=int, default=None,
+                   help="schedule horizon for the LR schedule (default: --max-steps); "
+                        "set explicitly when a run is split into resumed chunks")
+    return p
+
+
+def save_mm_checkpoint(path, model, optim, step, cfg, text_cfg, meta):
+    """Persist a mid-run checkpoint resumable via ``load_mm_resume``."""
+    ckpt = {
+        "model": model.state_dict(),
+        "optimizer": optim.state_dict(),
+        "step": step,
+        # Compatibility: pretrain.save_checkpoint stores the training config under
+        # "config" (local_inference reads ckpt["config"]["run"]["model_config"]) and
+        # evaluate_pilot reads ckpt["cfg"] as a flat model config. Preserve both.
+        "config": cfg,
+        "cfg": text_cfg,
+        "metadata": meta,
+    }
+    torch.save(ckpt, path)
+    return path
+
+
+def load_mm_resume(path, model, optim):
+    """Load model+optimizer state saved by ``save_mm_checkpoint``.
+
+    Returns ``(ckpt, step)`` where ``step`` is the number of completed steps
+    (i.e. training should continue at ``step``).
+    """
+    ckpt = torch.load(path, map_location="cpu", weights_only=False)
+    model.load_state_dict(ckpt["model"])
+    optim.load_state_dict(ckpt["optimizer"])
+    return ckpt, int(ckpt.get("step", 0))
+
+
+def main():
+    p = build_arg_parser()
     args = p.parse_args()
 
     cfg = load_yaml(args.config)
@@ -67,7 +109,7 @@ def main():
     data_path = args.data or cfg.get("data", {}).get("synthetic_path", "runs/mm_synth/data.npz")
     tokenizer_path = cfg.get("data", {}).get("tokenizer", "tokenizer/qm_bpe_v0.json")
     manifest_path = args.manifest or cfg.get("data", {}).get("train_manifest")
-    preprocessing_version = cfg.get("image", {}).get("preprocessing_version", "mm1_v1")
+    preprocessing_version = cfg.get("image", {}).get("preprocessing_version", "mm1_v2")
     image_size = args.image_size or vision_cfg.get("image_size", 112)
     if args.manifest or manifest_path:
         split = (args.split or cfg.get("data", {}).get("train_split") or "train")
@@ -78,6 +120,7 @@ def main():
             image_size=image_size,
             normalize=cfg.get("image", {}).get("normalize"),
             seed=seed,
+            max_caption_len=cfg.get("sequence", {}).get("max_caption_len"),
         )
         data_kind = f"manifest:{Path(manifest_path).name}:{split}"
     else:
@@ -95,7 +138,6 @@ def main():
         print(f"text warm-start: {init_ckpt} (new/ignored params: {len(new_params)})")
     else:
         print("text init: random (no M0 checkpoint available)")
-
     n_text = model.text.num_params(non_embedding=False)
     n_vision = model.vision.num_params()
     n_proj = sum(x.numel() for x in model.projector.parameters())
@@ -105,8 +147,22 @@ def main():
     )
 
     opt_cfg = cfg["optimizer"]
+    freeze_text = bool(cfg.get("run", {}).get("freeze_text_backbone", False))
+    if freeze_text:
+        frozen = freeze_text_backbone(model)
+        assert frozen, "freeze_text_backbone froze no parameters"
+        assert all(not p.requires_grad for p in model.text.parameters())
+        assert any(p.requires_grad for p in model.vision.parameters())
+        assert any(p.requires_grad for p in model.projector.parameters())
+        print(f"frozen text backbone: {len(frozen)} params (ViT + projector trainable)")
+    trainable = [p for p in model.parameters() if p.requires_grad]
+    if freeze_text:
+        frozen_ids = {id(p) for p in model.text.parameters()}
+        assert not any(id(p) in frozen_ids for p in trainable), (
+            "frozen text-backbone parameter present in optimizer set"
+        )
     optim = torch.optim.AdamW(
-        model.parameters(),
+        trainable,
         lr=opt_cfg["lr_peak"],
         betas=(opt_cfg.get("beta1", 0.9), opt_cfg.get("beta2", 0.95)),
         weight_decay=opt_cfg.get("weight_decay", 0.1),
@@ -116,20 +172,29 @@ def main():
     micro_bs = batch_cfg["micro_batch_size"]
     accum = batch_cfg.get("grad_accum_steps", 1)
     total_steps = args.max_steps or cfg["training"]["max_steps"]
+    sched_total = args.total_steps or total_steps
     log_every = cfg["training"].get("log_every_steps", 25)
     nan_every = cfg.get("watchdog", {}).get("nan_check_every_steps", 25)
+    ckpt_every = args.ckpt_every or cfg["training"].get("checkpoint_every_steps", total_steps)
     grad_clip = opt_cfg.get("grad_clip")
     seq_tokens = 3 + model.image_tokens + ds.max_caption_len + 1  # +1 caption slot for EOS target
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    start_step = 0
+    if args.resume_from:
+        _, start_step = load_mm_resume(args.resume_from, model, optim)
+        print(f"resumed: {args.resume_from} (continuing at step {start_step})")
+        if start_step >= total_steps:
+            raise ValueError(f"resume step {start_step} >= total steps {total_steps}")
+
     model.train()
     t0 = time.time()
     ema_loss = None
     vit_norms, proj_norms, losses, lrs = [], [], [], []
-    for step in range(total_steps):
-        lr = lr_at(step, total_steps, opt_cfg["lr_peak"], opt_cfg.get("warmup_steps", 0), opt_cfg.get("min_lr_ratio", 0.1))
+    for step in range(start_step, total_steps):
+        lr = lr_at(step, sched_total, opt_cfg["lr_peak"], opt_cfg.get("warmup_steps", 0), opt_cfg.get("min_lr_ratio", 0.1))
         for g in optim.param_groups:
             g["lr"] = lr
 
@@ -151,6 +216,11 @@ def main():
         optim.step()
         losses.append(loss_val)
         lrs.append(lr)
+        steps_done = step + 1
+        if ckpt_every > 0 and steps_done % ckpt_every == 0 and steps_done < total_steps:
+            ckpt_step_path = out_dir / f"checkpoint_{steps_done}.pt"
+            save_mm_checkpoint(ckpt_step_path, model, optim, steps_done, cfg, text_cfg, None)
+            print(f"saved {ckpt_step_path}", flush=True)
         if step % nan_every == 0:
             vit_norms.append(grad_norm(model.vision))
             proj_norms.append(grad_norm(model.projector))
@@ -182,16 +252,6 @@ def main():
     diff, arg_a, arg_b = probe_conditioning(model, imgs[0], imgs[1], cap_ids.to(device))
     print(f"conditioning probe: max|logit diff|={diff:.6f} argmax_a={arg_a} argmax_b={arg_b}")
 
-    ckpt = {
-        "model": model.state_dict(),
-        "optimizer": optim.state_dict(),
-        "step": total_steps,
-        # Compatibility: pretrain.save_checkpoint stores the training config under
-        # "config" (local_inference reads ckpt["config"]["run"]["model_config"]) and
-        # evaluate_pilot reads ckpt["cfg"] as a flat model config. Preserve both.
-        "config": cfg,
-        "cfg": text_cfg,
-    }
     meta = {
         "kind": data_kind,
         "seed": seed,
@@ -213,9 +273,8 @@ def main():
             f"manifest identity: sha256={meta['manifest']['sha256'][:12]} samples={len(ds.samples)} "
             f"split={ds.split}"
         )
-    ckpt["metadata"] = meta  # additive: existing keys are untouched
     ckpt_path = out_dir / "checkpoint_last.pt"
-    torch.save(ckpt, ckpt_path)
+    save_mm_checkpoint(ckpt_path, model, optim, total_steps, cfg, text_cfg, meta)
     print(f"saved {ckpt_path}")
 
     print(
