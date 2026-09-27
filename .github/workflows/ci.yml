@@ -106,7 +106,8 @@ jobs:
           "
 
       - name: Code LLM — eval harness import check
-        run: python -c "from evaluation.eval_code import HUMANEVAL_PROBLEMS, MBPP_PROBLEMS; print(f'eval OK: {len(HUMANEVAL_PROBLEMS)} HumanEval + {len(MBPP_PROBLEMS)} MBPP problems')"
+        run: |
+          python -c "from evaluation.eval_code import HUMANEVAL_PROBLEMS, MBPP_PROBLEMS; print('eval OK: %d HumanEval + %d MBPP problems' % (len(HUMANEVAL_PROBLEMS), len(MBPP_PROBLEMS)))"
 
       - name: Code LLM — serving module import check
         run: python -c "from serving.code_chat import format_prompt; print('code_chat OK')"
