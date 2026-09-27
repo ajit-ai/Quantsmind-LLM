@@ -17,20 +17,22 @@ def load_qm_checkpoint(path: str, device: str):
     from training.model import QMModel
 
     ckpt = torch.load(path, map_location="cpu", weights_only=False)
-    cfg = ckpt["cfg"]
-    model_cfg = {
-        "vocab_size": cfg["vocab_size"],
-        "d_model": cfg["d_model"],
-        "n_layers": cfg["n_layers"],
-        "n_heads": cfg["n_heads"],
-        "n_kv_heads": cfg["n_kv_heads"],
-        "ffn_dim": cfg["ffn_dim"],
-        "rope_theta": cfg.get("rope_theta", 10000.0),
-        "norm_eps": cfg.get("norm_eps", 1e-5),
-    }
+    raw_cfg = ckpt.get("cfg") or ckpt.get("config", {})
+    if "model" in raw_cfg and isinstance(raw_cfg["model"], dict):
+        model_cfg = raw_cfg["model"]
+    elif "vocab_size" in raw_cfg:
+        model_cfg = raw_cfg
+    else:
+        import yaml
+        model_path = raw_cfg.get("run", {}).get("model_config", "configs/model/code_30m.yaml")
+        with open(model_path) as f:
+            model_cfg = yaml.safe_load(f)["model"]
+    model_cfg = dict(model_cfg)
+    model_cfg.setdefault("rope_theta", 10000.0)
+    model_cfg.setdefault("norm_eps", 1e-5)
     model = QMModel(model_cfg)
     model.load_state_dict(ckpt["model"])
-    return model.to(device).eval(), cfg
+    return model.to(device).eval(), model_cfg
 
 
 @torch.no_grad()
