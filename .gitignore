@@ -31,3 +31,7 @@ secrets/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Local docs build — keep RST/HTML output local only, never commit
+docs/_build/
+.pytest_cache/
