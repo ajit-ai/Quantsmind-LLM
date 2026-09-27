@@ -1,0 +1,39 @@
+run:
+  name: qm-code-sft-smoke
+  model_config: configs/model/code_tiny.yaml
+  seed: 42
+
+data:
+  dataset_tag: code-sft-v0
+  seq_len: 512
+
+optimizer:
+  type: adamw
+  lr_peak: 5.0e-5
+  lr_schedule: cosine
+  warmup_steps: 5
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+precision:
+  dtype: float32
+  grad_accum_steps: 1
+
+batch:
+  micro_batch_size: 2
+  global_tokens_per_step: 1024
+
+training:
+  max_steps: 50
+  checkpoint_every_steps: 25
+  keep_checkpoints: 2
+  log_every_steps: 10
+
+watchdog:
+  nan_check_every_steps: 10
+
+logging:
+  tracker: none
