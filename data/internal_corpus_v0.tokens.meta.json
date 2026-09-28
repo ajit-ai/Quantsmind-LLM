@@ -1,0 +1,6 @@
+{
+  "vocab_size": 5822,
+  "num_tokens": 2126,
+  "dtype": "uint16",
+  "corpus": "data\\internal_corpus_v0.jsonl"
+}

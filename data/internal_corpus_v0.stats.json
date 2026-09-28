@@ -1,0 +1,13 @@
+{
+  "seen": 5,
+  "kept": 5,
+  "rejected_quality": 0,
+  "rejected_dup": 0,
+  "rejected_fuzzy": 0,
+  "chunks_emitted": 5,
+  "by_language": {
+    "python": 5
+  },
+  "secrets_found": 0,
+  "files_with_secrets": []
+}

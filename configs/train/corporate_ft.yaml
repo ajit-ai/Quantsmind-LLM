@@ -3,7 +3,7 @@
 # Phase 2: SFT on internal code review/QA pairs
 run:
   name: qm-code-corporate-v0
-  model_config: configs/model/code_30m.yaml
+  model_config: configs/model/code_tiny.yaml
   seed: 42
 
 data:
