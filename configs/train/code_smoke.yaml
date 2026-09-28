@@ -1,6 +1,6 @@
 run:
   name: qm-code-smoke
-  model_config: configs/model/code_30m.yaml
+  model_config: configs/model/code_tiny.yaml
   seed: 42
 
 data:
