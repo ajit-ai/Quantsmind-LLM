@@ -79,6 +79,12 @@ def main(argv=None) -> int:
         help="the surfaces the checkpoint is qualified on",
     )
     parser.add_argument("--prompt-contract", default="qm.plain_instruction/1")
+    parser.add_argument(
+        "--budget",
+        type=int,
+        default=None,
+        help="generation budget in tokens; validated against the context window",
+    )
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--out", default=None)
@@ -142,6 +148,32 @@ def main(argv=None) -> int:
         max_new_tokens_cap=max(64, args.max_new_tokens),
         device=args.device,
     )
+    if args.budget:
+        from evaluation.python_eval.budget import validate_budget
+
+        context_length = int(model_cfg.get("max_seq_len", 512))
+        longest_prompt = 0
+        for case in cases:
+            prompt_tokens = len(
+                tokenizer.encode(case["prompt"], add_special_tokens=False).ids
+            )
+            longest_prompt = max(longest_prompt, prompt_tokens)
+        try:
+            validate_budget(longest_prompt, args.budget, context_length)
+        except Exception as exc:
+            print(f"REFUSED: {exc}")
+            return 2
+        generator.max_new_tokens_cap = args.budget
+        identity["generation"]["max_new_tokens"] = args.budget
+        identity["generation"]["context_length"] = context_length
+        identity["generation"]["longest_prompt_tokens"] = longest_prompt
+        # The requested budget is the experiment's budget: it replaces the
+        # per-case default so the study measures one variable.
+        cases = [
+            {**case, "budget": {**case["budget"], "max_new_tokens": args.budget}}
+            for case in cases
+        ]
+        print(f"budget validated: {longest_prompt} + {args.budget} <= {context_length}")
     report = evaluate(
         cases,
         generator,

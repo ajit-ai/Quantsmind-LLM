@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 
 from data.python_v1.benchmarks import load_benchmark_records, load_registry
+from data.python_v1.decision_register import ROADMAP_DECISIONS as _DECISION_STATUS
 from data.python_v1.registry import load_contract
 
 DECISION_REGISTER = {
@@ -70,6 +71,8 @@ def assess(contract_path) -> dict:
                 ),
             }
 
+    eligible = len(approved)
+    blocked = len(denied)
     return {
         "schema": "quantsmind.corpus_readiness/1",
         "contract": str(contract_path),
@@ -77,13 +80,21 @@ def assess(contract_path) -> dict:
         "dataset_class": contract.get("dataset_class", "production"),
         "sources": {
             "declared": len(sources),
-            "approved": len(approved),
+            "approved": eligible,
             "approved_ids": approved,
-            "denied": len(denied),
+            "denied": blocked,
             "denied_ids": denied,
             "provenance_complete": provenance_complete,
             "license_metadata_complete": license_complete,
         },
+        "eligible_training_sources": eligible,
+        "blocked_or_rejected_candidates": blocked,
+        "missing_decisions": sorted(
+            identifier
+            for identifier, entry in _DECISION_STATUS.items()
+            if entry["status"] in ("unresolved", "empty", "open", "blocked",
+                                   "partially addressed")
+        ),
         "eligible_training_records": 0 if not approved else None,
         "contamination_registry": benchmarks,
         "split_readiness": "unknown: no corpus has been built",

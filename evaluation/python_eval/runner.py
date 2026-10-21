@@ -16,6 +16,12 @@ import time
 from pathlib import Path
 
 from evaluation.python_eval import REPORT_SCHEMA_VERSION
+from evaluation.python_eval.budget import (
+    classify_completion,
+    classify_termination,
+    repetition_metrics,
+    repeated_line_ratio,
+)
 from evaluation.python_eval.metrics import aggregate
 from evaluation.python_eval.sandbox import default_policy, execute_python
 from evaluation.python_eval.surfaces import assemble_program, check_contract, surface_of
@@ -110,6 +116,28 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
     functional = None
     failure_category = None
     empty_output = not (raw or "").strip()
+    token_ids = result.get("token_ids") or []
+    termination = classify_termination(
+        finish_reason=finish_reason,
+        generated_tokens=len(token_ids),
+        budget=max_new_tokens,
+        empty=empty_output,
+    )
+    repetition = repetition_metrics(token_ids)
+    repetition["repeated_line_ratio"] = repeated_line_ratio(raw or "")
+    complete_program = False
+    if syntax_ok:
+        try:
+            compile(code, "<completion>", "exec")
+            complete_program = True
+        except (SyntaxError, ValueError):
+            complete_program = False
+    quality = classify_completion(
+        text=raw or "",
+        token_ids=token_ids,
+        parseable=bool(syntax_ok),
+        complete_program=complete_program,
+    )
     if empty_output:
         failure_category = "empty_output"
     elif not syntax_ok:
@@ -157,6 +185,10 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
         and failure_category is None,
         "tokens_generated": tokens,
         "finish_reason": finish_reason,
+        "termination": termination,
+        "quality": quality,
+        "repetition": repetition,
+        "complete_program": complete_program,
         "refused": bool(refusal),
         "timed_out": finish_reason == "timeout",
         "truncated": finish_reason == "length",
