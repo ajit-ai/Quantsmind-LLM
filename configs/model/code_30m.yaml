@@ -1,6 +1,24 @@
 # Quantsmind-LLM code model config — ~30M params
 # Sized for: single GPU / CPU, Python + JS/TS code tasks
 # Same architecture family as Llama (RMSNorm/RoPE/GQA/SwiGLU)
+#
+# ------------------------------------------------------------------ M3 NOTE
+# ORPHAN CONFIG - VOCABULARY MISMATCH, NOT USED BY M3.
+#
+# `vocab_size: 32768` below matches NEITHER tokenizer in this repository:
+#   tokenizer/qm_bpe_v0.json       vocab 49152  (wider than this model)
+#   tokenizer/qm_code_bpe_v0.json  vocab  5822  (82% of these rows unused)
+#
+# Training on artifacts from either tokenizer needs a deliberate override;
+# neither works as-is. The actual parameter count of this config is
+# 16,257,280 (not 30M) - see docs/VERSIONING.md.
+#
+# Values are deliberately UNCHANGED: docs/VERSIONING.md records that config
+# filenames and values were preserved for experiment reproducibility. The
+# mismatch is documented here and isolated in `configs/model/code_m3_9m.yaml`,
+# which is this same architecture with the vocabulary corrected to 5822
+# (9,359,104 parameters). `tests/test_m3_model_config.py` asserts M3 training
+# never resolves to this vocabulary.
 model:
   name: qm-code-30m
   vocab_size: 32768

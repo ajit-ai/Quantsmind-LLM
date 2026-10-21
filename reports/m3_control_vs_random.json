@@ -1,0 +1,23 @@
+{
+  "uniform_random_baseline_loss": 8.66939926147461,
+  "random_init_loss": 8.655683517456055,
+  "random_init_perplexity": 5742.692853000174,
+  "trained_loss": 4.061402797698975,
+  "trained_perplexity": 58.055694377946985,
+  "checkpoint": "runs/m3_base/checkpoint_best.pt",
+  "checkpoint_step": 400,
+  "windows": [
+    958,
+    958,
+    958,
+    958,
+    958,
+    958,
+    958,
+    958
+  ],
+  "n_windows": 8,
+  "seq_len": 512,
+  "batches": 8,
+  "improvement_nats": 4.59428071975708
+}

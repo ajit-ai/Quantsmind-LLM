@@ -161,7 +161,33 @@ def main():
     p.add_argument("--github-token", default=os.environ.get("GITHUB_TOKEN"))
     p.add_argument("--languages", nargs="+", default=["python", "javascript", "typescript"])
     p.add_argument("--no-github", action="store_true", help="Skip GitHub fetch, only process local files")
+    p.add_argument(
+        "--i-understand-this-bypasses-the-licence-gate",
+        action="store_true",
+        help=(
+            "Allow the unlicensed GitHub search path. This ingest cannot satisfy "
+            "the mandatory licence gate and its output must never be published."
+        ),
+    )
     args = p.parse_args()
+
+    # B4 (licence enforcement): this builder discovers repositories through the
+    # GitHub *search* API, so it has no pinned revision and no licence evidence.
+    # That is exactly what the gate in data/build_code_corpus_v1.py forbids, and
+    # a second entry point that can emit a dataset is a way around it. The
+    # search path is therefore closed unless the operator opts in explicitly.
+    if not args.no_github and not args.i_understand_this_bypasses_the_licence_gate:
+        raise SystemExit(
+            "Refusing to run the GitHub search ingest.\n"
+            "  This path discovers repositories via the search API, so it has no\n"
+            "  pinned revision and no licence verification evidence. A dataset\n"
+            "  built this way cannot satisfy the mandatory licence gate.\n"
+            "  Use: python -m data.build_code_corpus_v1\n"
+            "  (approved sources in configs/data/approved_code_sources.yaml,\n"
+            "   verified by data/verify_licenses.py)\n"
+            "To reproduce legacy behaviour, pass "
+            "--i-understand-this-bypasses-the-licence-gate."
+        )
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

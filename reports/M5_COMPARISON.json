@@ -1,0 +1,919 @@
+{
+  "schema": "quantsmind.m5_comparison/1",
+  "generated_at": "2026-10-19T01:38:50+00:00",
+  "benchmark": {
+    "path": "evaluation/m5_benchmark.jsonl",
+    "benchmark_id": "m5-benchmark-v1",
+    "manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+    "examples": 26,
+    "scorable": 9,
+    "requires_human_review": 17,
+    "by_task": {
+      "code_generation": 6,
+      "instruction_following": 1,
+      "structured_output": 2,
+      "code_explanation": 1,
+      "sql_generation": 2,
+      "code_completion": 14
+    },
+    "leakage_overlaps": 0
+  },
+  "same_benchmark_across_runs": true,
+  "benchmark_hashes_observed": [
+    "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87"
+  ],
+  "runs": [
+    {
+      "directory": "runs\\m5\\m3_base",
+      "run_id": "m5-m3-base",
+      "status": "complete",
+      "evaluated": true,
+      "blocked_reason": null,
+      "benchmark_manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+      "scoring_version": "quantsmind.m5_scoring/1",
+      "model": {
+        "adapter": "qm_ckpt",
+        "model_id": "runs/m3_base/checkpoint_best.pt",
+        "family": "quantsmind_llama",
+        "tokenizer_id": "tokenizer/qm_code_bpe_v0.json",
+        "checkpoint_path": "runs/m3_base/checkpoint_best.pt",
+        "artifact_sha256": "56365457e5ffb28061d4d98772e2d0457857e95df7db3ae4738321fd262cd078",
+        "revision": null,
+        "parameters": 2853280,
+        "context_length": 512,
+        "vocab_size": 5822,
+        "parameters_source": "measured from the loaded state_dict",
+        "license_id": null,
+        "license_verified": false,
+        "load_seconds": 6.125,
+        "artifact_bytes": 34311773,
+        "peak_rss_bytes": null,
+        "extra": {
+          "checkpoint_step": 400,
+          "tokens_processed": 1638400,
+          "val_loss": 4.061402797698975,
+          "interrupted_run": false,
+          "device": "cpu"
+        }
+      },
+      "generation_config": {
+        "strategy": "greedy",
+        "max_new_tokens": 96,
+        "temperature": 0.8,
+        "top_k": 50,
+        "top_p": 0.95,
+        "seed": 11,
+        "note": "greedy by default so sampling noise cannot decide a before/after comparison"
+      },
+      "examples_total": 26,
+      "examples_evaluated": 26,
+      "elapsed_seconds": 88.08,
+      "environment": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 249262080,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205125259264,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 310681600
+      },
+      "git": {
+        "commit": "4a5a144a62149ea3f43b5a973f0b7c7a4d93fd03",
+        "dirty_tree": true,
+        "note": null
+      },
+      "errors": [],
+      "summary": {
+        "compliance": {
+          "numerator": 3,
+          "denominator": 6,
+          "rate": 0.5,
+          "excluded_unscorable": 21,
+          "status_counts": {
+            "NOT_TESTABLE": 21,
+            "NON_COMPLIANT": 2,
+            "COMPLIANT": 1
+          },
+          "preliminary": true,
+          "note": "denominator below 10: preliminary, not a strong result"
+        },
+        "functional": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 20,
+          "status_counts": {
+            "NOT_TESTABLE": 20
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "human_review": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 26,
+          "status_counts": {
+            "REQUIRES_HUMAN_REVIEW": 26
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "structured": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NOT_TESTABLE": 2
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "syntax": {
+          "numerator": 1,
+          "denominator": 20,
+          "rate": 0.05,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NO_EXECUTABLE_CODE": 19,
+            "not_checked": 2,
+            "SYNTAX_VALID": 1
+          },
+          "preliminary": false,
+          "note": ""
+        }
+      },
+      "by_task": {
+        "code_completion": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "NOT_TESTABLE": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "NOT_TESTABLE": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 1,
+            "denominator": 14,
+            "rate": 0.071429,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NO_EXECUTABLE_CODE": 13,
+              "SYNTAX_VALID": 1
+            },
+            "preliminary": false,
+            "note": ""
+          }
+        },
+        "code_explanation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "NOT_TESTABLE": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "code_generation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "NOT_TESTABLE": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "NOT_TESTABLE": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NO_EXECUTABLE_CODE": 6
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          }
+        },
+        "instruction_following": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 2,
+            "rate": 0.0,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NON_COMPLIANT": 1
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "sql_generation": {
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "not_checked": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "structured_output": {
+          "compliance": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NON_COMPLIANT": 1,
+              "COMPLIANT": 1
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "structured": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "NOT_TESTABLE": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        }
+      },
+      "count_verification": {
+        "checked": true,
+        "raw_rows": 26,
+        "rows_with_metrics": 26,
+        "rows_with_empty_metrics": 0,
+        "reported_examples_evaluated": 26,
+        "consistent": true
+      }
+    },
+    {
+      "directory": "runs\\m5\\m4_tuned",
+      "run_id": "m5-m4-tuned",
+      "status": "complete",
+      "evaluated": true,
+      "blocked_reason": null,
+      "benchmark_manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+      "scoring_version": "quantsmind.m5_scoring/1",
+      "model": {
+        "adapter": "qm_ckpt",
+        "model_id": "runs/m4_sft/checkpoint_best.pt",
+        "family": "quantsmind_llama",
+        "tokenizer_id": "tokenizer/qm_code_bpe_v0.json",
+        "checkpoint_path": "runs/m4_sft/checkpoint_best.pt",
+        "artifact_sha256": "2bd86e2b9cd211bc6501f7719243102e69544ac6eb5755a2a06639a925968769",
+        "revision": null,
+        "parameters": 2853280,
+        "context_length": 512,
+        "vocab_size": 5822,
+        "parameters_source": "measured from the loaded state_dict",
+        "license_id": null,
+        "license_verified": false,
+        "load_seconds": 4.759,
+        "artifact_bytes": 34311773,
+        "peak_rss_bytes": null,
+        "extra": {
+          "checkpoint_step": 120,
+          "tokens_processed": 491520,
+          "val_loss": 4.909584224224091,
+          "interrupted_run": false,
+          "device": "cpu"
+        }
+      },
+      "generation_config": {
+        "strategy": "greedy",
+        "max_new_tokens": 96,
+        "temperature": 0.8,
+        "top_k": 50,
+        "top_p": 0.95,
+        "seed": 11,
+        "note": "greedy by default so sampling noise cannot decide a before/after comparison"
+      },
+      "examples_total": 26,
+      "examples_evaluated": 26,
+      "elapsed_seconds": 60.32,
+      "environment": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 228560896,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205129682944,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 300937216
+      },
+      "git": {
+        "commit": "4a5a144a62149ea3f43b5a973f0b7c7a4d93fd03",
+        "dirty_tree": true,
+        "note": null
+      },
+      "errors": [],
+      "summary": {
+        "compliance": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667,
+          "excluded_unscorable": 21,
+          "status_counts": {
+            "NOT_TESTABLE": 21,
+            "NON_COMPLIANT": 2,
+            "COMPLIANT": 1
+          },
+          "preliminary": true,
+          "note": "denominator below 10: preliminary, not a strong result"
+        },
+        "functional": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 20,
+          "status_counts": {
+            "NOT_TESTABLE": 20
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "human_review": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 26,
+          "status_counts": {
+            "REQUIRES_HUMAN_REVIEW": 26
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "structured": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NOT_TESTABLE": 2
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "syntax": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NO_EXECUTABLE_CODE": 20,
+            "not_checked": 2
+          },
+          "preliminary": false,
+          "note": ""
+        }
+      },
+      "by_task": {
+        "code_completion": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "NOT_TESTABLE": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "NOT_TESTABLE": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 14,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 14
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 14,
+            "rate": 0.0,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NO_EXECUTABLE_CODE": 14
+            },
+            "preliminary": false,
+            "note": ""
+          }
+        },
+        "code_explanation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "NOT_TESTABLE": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "code_generation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "NOT_TESTABLE": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "NOT_TESTABLE": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 6,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 6
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NO_EXECUTABLE_CODE": 6
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          }
+        },
+        "instruction_following": {
+          "compliance": {
+            "numerator": 1,
+            "denominator": 2,
+            "rate": 0.5,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NON_COMPLIANT": 1
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 1,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 1
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "sql_generation": {
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "not_checked": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        },
+        "structured_output": {
+          "compliance": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75,
+            "excluded_unscorable": 0,
+            "status_counts": {
+              "NON_COMPLIANT": 1,
+              "COMPLIANT": 1
+            },
+            "preliminary": true,
+            "note": "denominator below 10: preliminary, not a strong result"
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "REQUIRES_HUMAN_REVIEW": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          },
+          "structured": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "excluded_unscorable": 2,
+            "status_counts": {
+              "NOT_TESTABLE": 2
+            },
+            "preliminary": false,
+            "note": "no eligible examples; no score is defined"
+          }
+        }
+      },
+      "count_verification": {
+        "checked": true,
+        "raw_rows": 26,
+        "rows_with_metrics": 26,
+        "rows_with_empty_metrics": 0,
+        "reported_examples_evaluated": 26,
+        "consistent": true
+      }
+    },
+    {
+      "directory": "runs\\m5\\qwen25_coder_1p5b",
+      "run_id": "m5-blocked-Qwen2.5-Coder-1",
+      "status": "blocked",
+      "evaluated": false,
+      "blocked_reason": "no local weights for 'Qwen/Qwen2.5-Coder-1.5B-Instruct' and download is not permitted by this run (allow_download=False); nothing was fetched",
+      "benchmark_manifest_hash": null,
+      "scoring_version": null,
+      "model": {},
+      "generation_config": null,
+      "examples_total": null,
+      "examples_evaluated": null,
+      "elapsed_seconds": null,
+      "environment": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 561176576,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205129666560,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 246263808
+      },
+      "git": {
+        "commit": "4a5a144a62149ea3f43b5a973f0b7c7a4d93fd03",
+        "dirty_tree": true,
+        "note": null
+      },
+      "errors": [],
+      "summary": null,
+      "by_task": null,
+      "count_verification": {
+        "checked": false,
+        "reason": "no results file"
+      }
+    }
+  ],
+  "runs_evaluated": [
+    "m5-m3-base",
+    "m5-m4-tuned"
+  ],
+  "runs_not_evaluated": [
+    {
+      "run_id": "m5-blocked-Qwen2.5-Coder-1",
+      "status": "blocked",
+      "reason": "no local weights for 'Qwen/Qwen2.5-Coder-1.5B-Instruct' and download is not permitted by this run (allow_download=False); nothing was fetched"
+    }
+  ],
+  "scorecard": {
+    "compliance": {
+      "m5-m3-base": {
+        "numerator": 3,
+        "denominator": 6,
+        "rate": 0.5,
+        "excluded_unscorable": 21,
+        "status_counts": {
+          "NOT_TESTABLE": 21,
+          "NON_COMPLIANT": 2,
+          "COMPLIANT": 1
+        },
+        "preliminary": true,
+        "note": "denominator below 10: preliminary, not a strong result"
+      },
+      "m5-m4-tuned": {
+        "numerator": 4,
+        "denominator": 6,
+        "rate": 0.666667,
+        "excluded_unscorable": 21,
+        "status_counts": {
+          "NOT_TESTABLE": 21,
+          "NON_COMPLIANT": 2,
+          "COMPLIANT": 1
+        },
+        "preliminary": true,
+        "note": "denominator below 10: preliminary, not a strong result"
+      }
+    },
+    "functional": {
+      "m5-m3-base": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 20,
+        "status_counts": {
+          "NOT_TESTABLE": 20
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      },
+      "m5-m4-tuned": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 20,
+        "status_counts": {
+          "NOT_TESTABLE": 20
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      }
+    },
+    "human_review": {
+      "m5-m3-base": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 26,
+        "status_counts": {
+          "REQUIRES_HUMAN_REVIEW": 26
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      },
+      "m5-m4-tuned": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 26,
+        "status_counts": {
+          "REQUIRES_HUMAN_REVIEW": 26
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      }
+    },
+    "structured": {
+      "m5-m3-base": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 2,
+        "status_counts": {
+          "NOT_TESTABLE": 2
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      },
+      "m5-m4-tuned": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "excluded_unscorable": 2,
+        "status_counts": {
+          "NOT_TESTABLE": 2
+        },
+        "preliminary": false,
+        "note": "no eligible examples; no score is defined"
+      }
+    },
+    "syntax": {
+      "m5-m3-base": {
+        "numerator": 1,
+        "denominator": 20,
+        "rate": 0.05,
+        "excluded_unscorable": 2,
+        "status_counts": {
+          "NO_EXECUTABLE_CODE": 19,
+          "not_checked": 2,
+          "SYNTAX_VALID": 1
+        },
+        "preliminary": false,
+        "note": ""
+      },
+      "m5-m4-tuned": {
+        "numerator": 0,
+        "denominator": 20,
+        "rate": 0.0,
+        "excluded_unscorable": 2,
+        "status_counts": {
+          "NO_EXECUTABLE_CODE": 20,
+          "not_checked": 2
+        },
+        "preliminary": false,
+        "note": ""
+      }
+    }
+  },
+  "composite_score": null,
+  "composite_note": "No weighted aggregate is produced. Blending syntax, functional and compliance would hide the finding that matters here: a model can comply with a format instruction while emitting no code at all."
+}

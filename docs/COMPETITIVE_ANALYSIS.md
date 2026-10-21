@@ -21,7 +21,7 @@ Living document. Re-verify quarterly; sources noted inline. Feeds ROADMAP strate
 ```
                     India-hosted / sovereign
                             ▲
-        Sarvam ●            │            ● Quantsmind
+        Sarvam ●            │            ● Taksh
         (general BFSI)      │        (finance-tuned, OWNED weights,
                             │         B2B2C white-label, tool-verified math)
   ChatGPT ●                 │
@@ -48,7 +48,7 @@ white-label B2B2C distribution + tool-grounded arithmetic.
   sandbox, DPDP Act): prompt logging, audit trails, explainability, India data residency,
   model inventory with owners.
 
-**Quantsmind architecture already ships**: immutable per-message audit logs, advisory
+**Taksh architecture already ships**: immutable per-message audit logs, advisory
 refusal boundaries + SEBI-RIA disclaimers, residency guard (ADR-0002), promotion gate
 with eval reports, per-tenant kill switches (planned Phase 3). Competitors wrapping
 foreign APIs must retrofit all of this.

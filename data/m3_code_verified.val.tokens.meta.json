@@ -1,0 +1,15 @@
+{
+  "schema": "quantsmind.token_stream/1",
+  "generated_at": "2026-10-18T11:00:56+00:00",
+  "vocab_size": 5822,
+  "num_tokens": 340077,
+  "num_documents": 63,
+  "dtype": "uint16",
+  "corpus": "data\\m3_code_verified.val.jsonl",
+  "corpus_sha256": "e8eb213482dc5e54b72a0543edec9dc13bf289fba103c65f7ba0294c453dc29d",
+  "tokenizer": "tokenizer/qm_code_bpe_v0.json",
+  "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+  "document_separator": "<eos>",
+  "dataset_schema_validated": true,
+  "purpose": "M3 val split; derived from the licence-gated M3 dataset"
+}

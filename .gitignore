@@ -4,6 +4,8 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
+build/
+dist/
 
 # Training artifacts — NEVER commit weights/checkpoints
 *.safetensors
@@ -11,12 +13,17 @@ venv/
 *.ckpt
 checkpoints/
 runs/
-data/code_corpus_v0.tokens.bin
-data/internal_corpus_v0.tokens.bin
 
 # Data artifacts (versioned via DVC instead)
 data/raw/
 data/shards/
+data/m7/
+data/releases/
+data/*.jsonl
+data/*.stale
+data/*.tokens.bin
+data/*.chk
+evaluation/*.jsonl
 *.arrow
 *.parquet
 

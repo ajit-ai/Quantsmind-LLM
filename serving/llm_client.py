@@ -21,7 +21,7 @@ class LLMConfig:
 
 
 SYSTEM_PROMPT = (
-    "You are Quantsmind, an India-focused financial knowledge assistant.\n"
+    "You are Taksh, an India-focused financial knowledge assistant.\n"
     "- Use Indian market conventions: Rupees (Rs.), lakh/crore, NSE/BSE, and SEBI/RBI regulatory context.\n"
     "- Prefer Indian instruments in examples (NSE/BSE stocks, mutual funds, PPF, ELSS, NPS, sovereign gold bonds).\n"
     "- Show formulas and worked numeric examples using Indian conventions.\n"
@@ -33,7 +33,7 @@ SYSTEM_PROMPT = (
 
 DISCLAIMER = (
     "\n\n---\n"
-    "*Educational information only — not investment advice. Quantsmind is not a "
+    "*Educational information only — not investment advice. Taksh is not a "
     "SEBI-registered investment adviser (RIA); consult a SEBI-registered adviser for personal decisions.*"
 )
 
@@ -137,7 +137,7 @@ def demo_stream(message: str):
             break
     if body is None:
         body = (
-            "**Quantsmind demo mode** — no LLM backend configured.\n\n"
+            "**Taksh demo mode** — no LLM backend configured.\n\n"
             "Set these environment variables to connect any OpenAI-compatible model:\n"
             "`QM_API_BASE`, `QM_API_KEY`, `QM_MODEL`\n\n"
             "Try asking about: P/E ratio, CAGR, SIP."

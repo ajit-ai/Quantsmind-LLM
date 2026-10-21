@@ -1,4 +1,4 @@
-# Quantsmind-LLM — Rule Book (Binding)
+# Taksh — Rule Book (Binding)
 
 > Owner / sole contributor: **ajit-ai**. No other contributor is added.
 > Every phase ends with `develop -> main` merge + docs publish + CI/CD green.
@@ -57,7 +57,7 @@
 ## 5. CI/CD — must be green
 
 - Workflow `.github/workflows/ci.yml` on `push: [develop, main]` + `pull_request`:
-  1. `pytest tests -q` (143 tests)
+  1. `pytest tests -q` (183 tests collected, 2026-10-14)
   2. `import serving.app`
   3. `scripts/smoke_pipeline.sh` tiny CPU train
   4. resume-from-checkpoint check

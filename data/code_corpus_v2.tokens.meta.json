@@ -1,0 +1,20 @@
+{
+  "schema": "quantsmind.token_stream/1",
+  "dataset_schema": "quantsmind.dataset/1",
+  "dataset_schema_validated": true,
+  "vocab_size": 5822,
+  "num_tokens": 2239771,
+  "num_documents": 437,
+  "dtype": "uint16",
+  "corpus": "data\\code_corpus_v2.jsonl",
+  "corpus_sha256": "c02a6223f985e67b5d03661a55b761bed827da9a5cc8dcd5229cbfd8016bc08e",
+  "tokenizer": "tokenizer/qm_code_bpe_v0.json",
+  "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+  "generated_at": "2026-10-18T09:48:37+00:00",
+  "max_tokens": null,
+  "representation": "flat stream of uint16/uint32 token ids with document separators; not pre-packed sequences. training.data.TokenDataset samples random windows of length seq_len from this stream.",
+  "document_separator": "<eos>",
+  "document_separator_id": 2,
+  "separator_policy": "<eos> inserted between consecutive documents; never leading, never duplicated, never trailing",
+  "oversized_document_policy": "documents longer than seq_len are written whole and span consecutive training windows; they are never truncated"
+}

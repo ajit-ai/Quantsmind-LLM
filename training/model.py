@@ -96,9 +96,43 @@ class Block(nn.Module):
         return x
 
 
+# Numeric model-config fields. YAML 1.1 does not parse bare `1e-5` as a float,
+# so a hand-written `norm_eps: 1e-5` arrives here as the string "1e-5" and fails
+# deep inside RMSNorm with `Tensor + str`. Coercing here turns that into an
+# explicit, actionable error at construction time.
+_NUMERIC_CFG_FIELDS = (
+    "vocab_size", "d_model", "n_layers", "n_heads", "n_kv_heads", "ffn_dim",
+    "max_seq_len", "rope_theta", "norm_eps",
+)
+_INT_CFG_FIELDS = ("vocab_size", "d_model", "n_layers", "n_heads", "n_kv_heads",
+                   "ffn_dim", "max_seq_len")
+
+
+def _coerce_numeric_cfg(cfg: dict) -> dict:
+    cfg = dict(cfg)
+    for field in _NUMERIC_CFG_FIELDS:
+        if field not in cfg:
+            continue
+        value = cfg[field]
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            try:
+                value = float(value)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"model config field {field!r} is {value!r}, which is not a "
+                    "number. YAML parses a bare '1e-5' as a string, not a float; "
+                    "write it as 1.0e-05 or 0.00001."
+                ) from exc
+            if field in _INT_CFG_FIELDS:
+                value = int(value)
+        cfg[field] = value
+    return cfg
+
+
 class QMModel(nn.Module):
     def __init__(self, cfg: dict):
         super().__init__()
+        cfg = _coerce_numeric_cfg(cfg)
         self.cfg = dict(cfg)
         d = cfg["d_model"]
         self.tok_emb = nn.Embedding(cfg["vocab_size"], d)

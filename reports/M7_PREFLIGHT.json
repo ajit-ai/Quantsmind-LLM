@@ -1,0 +1,136 @@
+{
+  "schema": "quantsmind.m3_preflight/1",
+  "generated_at": "2026-10-20T09:30:09+00:00",
+  "verdict": "FEASIBLE",
+  "headline": "Configuration fits with the required safety margin.",
+  "config": "configs\\train\\pretrain_m7.yaml",
+  "model_config": "configs\\model\\code_m3_9m.yaml",
+  "override_acknowledged": false,
+  "override_note": "--override acknowledges resource warnings only; it cannot clear a BLOCKED gate",
+  "gates": [
+    {
+      "gate": "train_artifact_present",
+      "ok": true,
+      "detail": "data\\m7\\pretrain.train.tokens.bin found",
+      "remedy": null
+    },
+    {
+      "gate": "val_artifact_present",
+      "ok": true,
+      "detail": "data\\m7\\pretrain.val.tokens.bin found",
+      "remedy": null
+    },
+    {
+      "gate": "licence_evidence_present",
+      "ok": true,
+      "detail": "verified sources=7, withheld records=162, unreviewed_allowed=False",
+      "remedy": null
+    },
+    {
+      "gate": "tokenizer_present",
+      "ok": true,
+      "detail": "tokenizer/qm_code_bpe_v0.json vocab=5822",
+      "remedy": null
+    },
+    {
+      "gate": "vocab_matches_model",
+      "ok": true,
+      "detail": "model vocab_size=5822, tokenizer vocab=5822",
+      "remedy": null
+    },
+    {
+      "gate": "token_artifact_compatible",
+      "ok": true,
+      "detail": "artifact agrees with tokenizer",
+      "remedy": null
+    }
+  ],
+  "hard_gate_failures": [],
+  "model": {
+    "params": 9359104,
+    "non_embedding_params": 9359104,
+    "vocab_size": 5822,
+    "d_model": 256,
+    "n_layers": 8,
+    "max_seq_len": 512
+  },
+  "system": {
+    "python": "3.14.7",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "logical_cpus": 8,
+    "memory": {
+      "total_bytes": 4199780352,
+      "available_bytes": 450048000,
+      "kind": "measured"
+    },
+    "disk": {
+      "path": ".",
+      "total_bytes": 578812899328,
+      "free_bytes": 204808175616,
+      "kind": "measured"
+    },
+    "torch": {
+      "torch_version": "2.13.0+cpu",
+      "cuda_available": false,
+      "cuda_device_count": 0,
+      "mps_available": false,
+      "torch_threads": 4,
+      "cuda_device_name": null,
+      "cuda_total_memory_bytes": null,
+      "cuda_kind": "absent"
+    }
+  },
+  "data": {
+    "train_tokens_path": "data\\m7\\pretrain.train.tokens.bin",
+    "train_tokens": 1165217,
+    "val_tokens_path": "data\\m7\\pretrain.val.tokens.bin",
+    "val_tokens": 142340,
+    "seq_len": 512,
+    "epochs_estimate": 1.0545675183249128
+  },
+  "schedule": {
+    "max_steps": 300,
+    "micro_batch_size": 1,
+    "grad_accum_steps": 8,
+    "tokens_per_step": 4096,
+    "total_tokens": 1228800
+  },
+  "memory_estimate": {
+    "kind": "estimated",
+    "params": 9359104,
+    "param_dtype_bytes": 4,
+    "weights_plus_grads_bytes": 74872832,
+    "optimizer_moments_bytes": 74872832,
+    "total_steady_state_bytes": 149745664,
+    "activation_bytes": 67108864,
+    "total_bytes": 216854528,
+    "basis": "weights + grads + AdamW exp_avg/exp_avg_sq at param dtype, plus stored forward activations (4*d_model + 3*ffn_dim) per token per layer"
+  },
+  "memory_required_bytes": 309600256,
+  "memory_required_basis": "measured (peak RSS delta over real optimizer steps)",
+  "memory_budget_bytes": 315033600,
+  "memory_total_budget_bytes": 2939846246,
+  "host_memory_pressure": false,
+  "memory_margin_basis": "compared against currently-available RAM when possible, else against total RAM; availability moves with other programs",
+  "safety_margin": 0.3,
+  "probe": {
+    "kind": "measured",
+    "steps": 3,
+    "elapsed_seconds": 24.46261559999948,
+    "tokens_per_step": 4096,
+    "tokens_per_second": 502.31750361152143,
+    "peak_rss_bytes": 660078592,
+    "rss_before_bytes": 350478336,
+    "rss_delta_bytes": 309600256,
+    "first_loss": 8.699789643287659,
+    "last_loss": 8.25046181678772,
+    "losses_finite": true,
+    "device": "cpu"
+  },
+  "runtime_estimate_seconds": 2446.261559999948,
+  "runtime_basis": "measured throughput x planned tokens",
+  "warnings": [
+    "no CUDA device present: training is CPU-only on this host"
+  ],
+  "suggestions": []
+}

@@ -44,6 +44,21 @@ jobs:
       - name: Unit tests
         run: python -m pytest tests -q
 
+      - name: Install release tooling
+        run: pip install build twine sphinx sphinx-rtd-theme
+
+      - name: Version consistency
+        run: python scripts/check_version_consistency.py
+
+      - name: Release build, install and docs check
+        run: python scripts/prepare_release.py --skip-tests --skip-serving --evidence-dir "$RUNNER_TEMP/release-evidence"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-evidence
+          path: ${{ runner.temp }}/release-evidence
+
       - name: UI module import check
         run: python -c "import serving.app"
 
@@ -111,6 +126,33 @@ jobs:
 
       - name: Code LLM — serving module import check
         run: python -c "from serving.code_chat import format_prompt; print('code_chat OK')"
+
+      - name: OpenAI-compatible API route check
+        run: |
+          python -c "
+          from serving.openai_server import app
+          routes = sorted(r.path for r in app.routes if hasattr(r, 'path'))
+          assert '/v1/models' in routes, routes
+          assert '/v1/chat/completions' in routes, routes
+          assert '/load' not in routes, 'must not expose request-driven checkpoint loading'
+          print('openai_server OK:', routes)
+          "
+
+      - name: Legacy servers expose no request-triggered checkpoint loading
+        run: |
+          python -c "
+          from serving.completion_server import app as cs
+          from serving.review_server import app as rs
+          for name, a in (('completion_server', cs), ('review_server', rs)):
+              routes = sorted(r.path for r in a.routes if hasattr(r, 'path'))
+              assert '/load' not in routes, f'{name} still exposes /load: {routes}'
+              print(f'{name} OK: {routes}')
+          from serving.server_security import resolve_bind_host
+          import pytest
+          with pytest.raises(SystemExit):
+              resolve_bind_host('0.0.0.0', allow_remote=False)
+          print('loopback default enforced')
+          "
 
       - uses: actions/upload-artifact@v4
         if: always()

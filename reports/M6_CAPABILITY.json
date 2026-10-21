@@ -1,0 +1,2475 @@
+{
+  "schema": "quantsmind.m6_report/1",
+  "generated_at": "2026-10-20T07:05:19+00:00",
+  "value_kinds": {
+    "MEASURED": "read from a run's persisted results",
+    "DERIVED": "computed from measured values",
+    "ESTIMATE": "arithmetic, labelled as such",
+    "UNAVAILABLE": "no evidence exists",
+    "HUMAN_JUDGMENT": "a stated opinion, not evidence",
+    "RECOMMENDATION": "the decision this report argues for"
+  },
+  "same_benchmark_across_runs": true,
+  "benchmark_hashes": [
+    "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87"
+  ],
+  "runs": [
+    {
+      "directory": "runs\\m6\\m3_base",
+      "run_id": "m6-m3-base",
+      "candidate_id": "quantsmind/m3-base",
+      "status": "complete",
+      "evaluated": true,
+      "blocked_reason": null,
+      "task_head": "causal_lm",
+      "runtime": "sovereign_checkpoint",
+      "revision": null,
+      "license_id": "project-owned",
+      "artifact_sha256": "56365457e5ffb28061d4d98772e2d0457857e95df7db3ae4738321fd262cd078",
+      "model": {
+        "adapter": "sovereign_checkpoint",
+        "model_id": "quantsmind/m3_base",
+        "family": "causal_lm",
+        "tokenizer_id": "project BPE (qm_code_bpe_v0) unless overridden",
+        "checkpoint_path": "runs/m3_base/checkpoint_best.pt",
+        "artifact_sha256": "56365457e5ffb28061d4d98772e2d0457857e95df7db3ae4738321fd262cd078",
+        "revision": null,
+        "parameters": 2853280,
+        "context_length": null,
+        "vocab_size": null,
+        "parameters_source": "runtime",
+        "license_id": "project-owned",
+        "license_verified": true,
+        "load_seconds": null,
+        "artifact_bytes": null,
+        "peak_rss_bytes": null,
+        "extra": {
+          "task_head": "causal_lm",
+          "hosted_api_used": false
+        }
+      },
+      "benchmark_manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+      "examples_total": 26,
+      "examples_evaluated": 26,
+      "elapsed_seconds": 86.11,
+      "generation_config": {
+        "strategy": "greedy",
+        "max_new_tokens": 96,
+        "temperature": 0.0,
+        "top_k": 0,
+        "top_p": 1.0,
+        "seed": 11,
+        "note": "greedy by default so sampling noise cannot decide a before/after comparison"
+      },
+      "summary": {
+        "compliance": {
+          "numerator": 3,
+          "denominator": 6,
+          "rate": 0.5,
+          "excluded_unscorable": 21,
+          "status_counts": {
+            "NOT_TESTABLE": 21,
+            "NON_COMPLIANT": 2,
+            "COMPLIANT": 1
+          },
+          "preliminary": true,
+          "note": "denominator below 10: preliminary, not a strong result"
+        },
+        "functional": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 20,
+          "status_counts": {
+            "NOT_TESTABLE": 20
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "human_review": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 26,
+          "status_counts": {
+            "REQUIRES_HUMAN_REVIEW": 26
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "structured": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NOT_TESTABLE": 2
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "syntax": {
+          "numerator": 1,
+          "denominator": 20,
+          "rate": 0.05,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NO_EXECUTABLE_CODE": 19,
+            "not_checked": 2,
+            "SYNTAX_VALID": 1
+          },
+          "preliminary": false,
+          "note": ""
+        }
+      },
+      "by_task": {
+        "code_completion": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 1,
+            "denominator": 14,
+            "rate": 0.071429
+          }
+        },
+        "code_explanation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "code_generation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0
+          }
+        },
+        "instruction_following": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 2,
+            "rate": 0.0
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "sql_generation": {
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "structured_output": {
+          "compliance": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "structured": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        }
+      },
+      "leakage_overlaps": 0,
+      "compliance_evidence": {
+        "examples_with_checklist": 3,
+        "substantive_passes": 0,
+        "vacuous_passes": 3,
+        "rules_seen": [
+          "no_fences",
+          "non_empty"
+        ],
+        "note": "a pass is vacuous when the rule is non_empty/no_fences or the output is shorter than a stub; only substantive passes can support level 5"
+      },
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 1,
+              "denominator": 14,
+              "rate": 0.071429
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "hosted_api_used": false,
+      "resource": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 234938368,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205123956736,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 285466624
+      }
+    },
+    {
+      "directory": "runs\\m6\\m4_tuned",
+      "run_id": "m6-m4-tuned",
+      "candidate_id": "quantsmind/m4-tuned",
+      "status": "complete",
+      "evaluated": true,
+      "blocked_reason": null,
+      "task_head": "causal_lm",
+      "runtime": "sovereign_checkpoint",
+      "revision": null,
+      "license_id": "project-owned",
+      "artifact_sha256": "2bd86e2b9cd211bc6501f7719243102e69544ac6eb5755a2a06639a925968769",
+      "model": {
+        "adapter": "sovereign_checkpoint",
+        "model_id": "quantsmind/m4_sft",
+        "family": "causal_lm",
+        "tokenizer_id": "project BPE (qm_code_bpe_v0) unless overridden",
+        "checkpoint_path": "runs/m4_sft/checkpoint_best.pt",
+        "artifact_sha256": "2bd86e2b9cd211bc6501f7719243102e69544ac6eb5755a2a06639a925968769",
+        "revision": null,
+        "parameters": 2853280,
+        "context_length": null,
+        "vocab_size": null,
+        "parameters_source": "runtime",
+        "license_id": "project-owned",
+        "license_verified": true,
+        "load_seconds": null,
+        "artifact_bytes": null,
+        "peak_rss_bytes": null,
+        "extra": {
+          "task_head": "causal_lm",
+          "hosted_api_used": false
+        }
+      },
+      "benchmark_manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+      "examples_total": 26,
+      "examples_evaluated": 26,
+      "elapsed_seconds": 98.77,
+      "generation_config": {
+        "strategy": "greedy",
+        "max_new_tokens": 96,
+        "temperature": 0.0,
+        "top_k": 0,
+        "top_p": 1.0,
+        "seed": 11,
+        "note": "greedy by default so sampling noise cannot decide a before/after comparison"
+      },
+      "summary": {
+        "compliance": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667,
+          "excluded_unscorable": 21,
+          "status_counts": {
+            "NOT_TESTABLE": 21,
+            "NON_COMPLIANT": 2,
+            "COMPLIANT": 1
+          },
+          "preliminary": true,
+          "note": "denominator below 10: preliminary, not a strong result"
+        },
+        "functional": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 20,
+          "status_counts": {
+            "NOT_TESTABLE": 20
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "human_review": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 26,
+          "status_counts": {
+            "REQUIRES_HUMAN_REVIEW": 26
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "structured": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NOT_TESTABLE": 2
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "syntax": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NO_EXECUTABLE_CODE": 20,
+            "not_checked": 2
+          },
+          "preliminary": false,
+          "note": ""
+        }
+      },
+      "by_task": {
+        "code_completion": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 14,
+            "rate": 0.0
+          }
+        },
+        "code_explanation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "code_generation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0
+          }
+        },
+        "instruction_following": {
+          "compliance": {
+            "numerator": 1,
+            "denominator": 2,
+            "rate": 0.5
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "sql_generation": {
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "structured_output": {
+          "compliance": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "structured": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        }
+      },
+      "leakage_overlaps": 0,
+      "compliance_evidence": {
+        "examples_with_checklist": 3,
+        "substantive_passes": 0,
+        "vacuous_passes": 4,
+        "rules_seen": [
+          "max_lines",
+          "no_fences",
+          "non_empty"
+        ],
+        "note": "a pass is vacuous when the rule is non_empty/no_fences or the output is shorter than a stub; only substantive passes can support level 5"
+      },
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "hosted_api_used": false,
+      "resource": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 581943296,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205124034560,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 283955200
+      }
+    },
+    {
+      "directory": "runs\\m6\\minilm_external",
+      "run_id": "m6-minilm-external",
+      "candidate_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "status": "complete",
+      "evaluated": true,
+      "blocked_reason": null,
+      "task_head": "embedding",
+      "runtime": "huggingface_local",
+      "revision": null,
+      "license_id": "Apache-2.0",
+      "artifact_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+      "model": {
+        "adapter": "huggingface_local",
+        "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "family": "embedding",
+        "tokenizer_id": "auto from snapshot",
+        "checkpoint_path": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2\\snapshots\\1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "artifact_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+        "revision": null,
+        "parameters": 22713216,
+        "context_length": 512,
+        "vocab_size": 30522,
+        "parameters_source": "runtime",
+        "license_id": "Apache-2.0",
+        "license_verified": true,
+        "load_seconds": null,
+        "artifact_bytes": null,
+        "peak_rss_bytes": null,
+        "extra": {
+          "task_head": "embedding",
+          "hosted_api_used": false
+        }
+      },
+      "benchmark_manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+      "examples_total": 26,
+      "examples_evaluated": 26,
+      "elapsed_seconds": 4.98,
+      "generation_config": {
+        "strategy": "greedy",
+        "max_new_tokens": 96,
+        "temperature": 0.0,
+        "top_k": 0,
+        "top_p": 1.0,
+        "seed": 11,
+        "note": "greedy by default so sampling noise cannot decide a before/after comparison"
+      },
+      "summary": {
+        "compliance": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667,
+          "excluded_unscorable": 21,
+          "status_counts": {
+            "NOT_TESTABLE": 21,
+            "NON_COMPLIANT": 2,
+            "COMPLIANT": 1
+          },
+          "preliminary": true,
+          "note": "denominator below 10: preliminary, not a strong result"
+        },
+        "functional": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 20,
+          "status_counts": {
+            "NOT_TESTABLE": 20
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "human_review": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 26,
+          "status_counts": {
+            "REQUIRES_HUMAN_REVIEW": 26
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "structured": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NOT_TESTABLE": 2
+          },
+          "preliminary": false,
+          "note": "no eligible examples; no score is defined"
+        },
+        "syntax": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0,
+          "excluded_unscorable": 2,
+          "status_counts": {
+            "NO_EXECUTABLE_CODE": 20,
+            "not_checked": 2
+          },
+          "preliminary": false,
+          "note": ""
+        }
+      },
+      "by_task": {
+        "code_completion": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 14,
+            "rate": 0.0
+          }
+        },
+        "code_explanation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "code_generation": {
+          "compliance": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "functional": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0
+          }
+        },
+        "instruction_following": {
+          "compliance": {
+            "numerator": 1,
+            "denominator": 2,
+            "rate": 0.5
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "sql_generation": {
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "syntax": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "structured_output": {
+          "compliance": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "human_review": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "structured": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        }
+      },
+      "leakage_overlaps": 0,
+      "compliance_evidence": {
+        "examples_with_checklist": 3,
+        "substantive_passes": 1,
+        "vacuous_passes": 3,
+        "rules_seen": [
+          "max_lines",
+          "no_fences",
+          "non_empty"
+        ],
+        "note": "a pass is vacuous when the rule is non_empty/no_fences or the output is shorter than a stub; only substantive passes can support level 5"
+      },
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "hosted_api_used": false,
+      "resource": {
+        "platform": "Windows-11-10.0.26300-SP0",
+        "python": "3.14.7",
+        "torch": {
+          "torch_version": "2.13.0+cpu",
+          "cuda_available": false,
+          "cuda_device_count": 0,
+          "mps_available": false,
+          "torch_threads": 4,
+          "cuda_device_name": null,
+          "cuda_total_memory_bytes": null,
+          "cuda_kind": "absent"
+        },
+        "memory": {
+          "total_bytes": 4199780352,
+          "available_bytes": 84606976,
+          "kind": "measured"
+        },
+        "disk": {
+          "path": ".",
+          "total_bytes": 578812899328,
+          "free_bytes": 205123887104,
+          "kind": "measured"
+        },
+        "peak_rss_bytes": 369577984
+      }
+    }
+  ],
+  "runs_evaluated": [
+    "m6-m3-base",
+    "m6-m4-tuned",
+    "m6-minilm-external"
+  ],
+  "runs_not_evaluated": [],
+  "capability": {
+    "m6-m3-base": {
+      "candidate_id": "quantsmind/m3-base",
+      "task_head": "causal_lm",
+      "is_practical_coding_candidate": true,
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 1,
+              "denominator": 14,
+              "rate": 0.071429
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "evidence": {
+        "highest_level": 3,
+        "highest_name": "SYNTAX_CAPABILITY_DEMONSTRATED",
+        "reached": [
+          1,
+          2,
+          3
+        ],
+        "levels": [
+          {
+            "level": 1,
+            "name": "RUNTIME_WORKS",
+            "requires": "the runtime loaded the model and produced a response without error"
+          },
+          {
+            "level": 2,
+            "name": "GENERATION_WORKS",
+            "requires": "generation produced non-empty output on at least one benchmark example"
+          },
+          {
+            "level": 3,
+            "name": "SYNTAX_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output parsed as valid Python and the denominator is reported"
+          },
+          {
+            "level": 4,
+            "name": "FUNCTIONAL_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output passed a trusted functional oracle; denominator > 0"
+          },
+          {
+            "level": 5,
+            "name": "INSTRUCTION_FOLLOWING_DEMONSTRATED",
+            "requires": "instruction-compliance numerator > 0 with a stated denominator"
+          },
+          {
+            "level": 6,
+            "name": "USEFUL_CODING_CAPABILITY_SUPPORTED",
+            "requires": "functional numerator > 0 across MULTIPLE independent examples on a benchmark large enough to be non-anecdotal"
+          },
+          {
+            "level": 7,
+            "name": "PRODUCT_READINESS_ESTABLISHED",
+            "requires": "human acceptance plus independent technical review"
+          }
+        ],
+        "preliminary": true,
+        "note": "level 5 not claimed: all 3 compliance passes are vacuous (3 rule hits on stub or non_empty/no_fences answers), which is a formatting artifact rather than instruction following"
+      }
+    },
+    "m6-m4-tuned": {
+      "candidate_id": "quantsmind/m4-tuned",
+      "task_head": "causal_lm",
+      "is_practical_coding_candidate": true,
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "evidence": {
+        "highest_level": 2,
+        "highest_name": "GENERATION_WORKS",
+        "reached": [
+          1,
+          2
+        ],
+        "levels": [
+          {
+            "level": 1,
+            "name": "RUNTIME_WORKS",
+            "requires": "the runtime loaded the model and produced a response without error"
+          },
+          {
+            "level": 2,
+            "name": "GENERATION_WORKS",
+            "requires": "generation produced non-empty output on at least one benchmark example"
+          },
+          {
+            "level": 3,
+            "name": "SYNTAX_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output parsed as valid Python and the denominator is reported"
+          },
+          {
+            "level": 4,
+            "name": "FUNCTIONAL_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output passed a trusted functional oracle; denominator > 0"
+          },
+          {
+            "level": 5,
+            "name": "INSTRUCTION_FOLLOWING_DEMONSTRATED",
+            "requires": "instruction-compliance numerator > 0 with a stated denominator"
+          },
+          {
+            "level": 6,
+            "name": "USEFUL_CODING_CAPABILITY_SUPPORTED",
+            "requires": "functional numerator > 0 across MULTIPLE independent examples on a benchmark large enough to be non-anecdotal"
+          },
+          {
+            "level": 7,
+            "name": "PRODUCT_READINESS_ESTABLISHED",
+            "requires": "human acceptance plus independent technical review"
+          }
+        ],
+        "preliminary": true,
+        "note": "level 5 not claimed: all 4 compliance passes are vacuous (4 rule hits on stub or non_empty/no_fences answers), which is a formatting artifact rather than instruction following"
+      }
+    },
+    "m6-minilm-external": {
+      "candidate_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "task_head": "embedding",
+      "is_practical_coding_candidate": false,
+      "categories": [
+        {
+          "category": "code_generation",
+          "eligible_examples": 6,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "code_completion",
+          "eligible_examples": 14,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            },
+            "functional": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "debugging",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "refactoring",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "code_explanation",
+          "eligible_examples": 0,
+          "metrics": {
+            "compliance": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "unit_test_generation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "documentation",
+          "eligible_examples": 0,
+          "metrics": {},
+          "status": "UNAVAILABLE",
+          "note": "no eligible examples in the frozen M5 benchmark"
+        },
+        {
+          "category": "sql",
+          "eligible_examples": 0,
+          "metrics": {
+            "syntax": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "UNAVAILABLE",
+          "note": "no scorable examples (all human review)"
+        },
+        {
+          "category": "structured_output",
+          "eligible_examples": 2,
+          "metrics": {
+            "structured": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "compliance": {
+              "numerator": 3,
+              "denominator": 4,
+              "rate": 0.75
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        },
+        {
+          "category": "instruction_compliance",
+          "eligible_examples": 1,
+          "metrics": {
+            "compliance": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            },
+            "human_review": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "status": "SCORED",
+          "note": "scores are preliminary; denominator is small"
+        }
+      ],
+      "evidence": {
+        "highest_level": 2,
+        "highest_name": "GENERATION_WORKS",
+        "reached": [
+          1,
+          2,
+          5
+        ],
+        "levels": [
+          {
+            "level": 1,
+            "name": "RUNTIME_WORKS",
+            "requires": "the runtime loaded the model and produced a response without error"
+          },
+          {
+            "level": 2,
+            "name": "GENERATION_WORKS",
+            "requires": "generation produced non-empty output on at least one benchmark example"
+          },
+          {
+            "level": 3,
+            "name": "SYNTAX_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output parsed as valid Python and the denominator is reported"
+          },
+          {
+            "level": 4,
+            "name": "FUNCTIONAL_CAPABILITY_DEMONSTRATED",
+            "requires": "at least one output passed a trusted functional oracle; denominator > 0"
+          },
+          {
+            "level": 5,
+            "name": "INSTRUCTION_FOLLOWING_DEMONSTRATED",
+            "requires": "instruction-compliance numerator > 0 with a stated denominator"
+          },
+          {
+            "level": 6,
+            "name": "USEFUL_CODING_CAPABILITY_SUPPORTED",
+            "requires": "functional numerator > 0 across MULTIPLE independent examples on a benchmark large enough to be non-anecdotal"
+          },
+          {
+            "level": 7,
+            "name": "PRODUCT_READINESS_ESTABLISHED",
+            "requires": "human acceptance plus independent technical review"
+          }
+        ],
+        "preliminary": true,
+        "note": "task head embedding cannot follow a coding instruction; syntax or compliance hits are formatting artifacts, not capability"
+      }
+    }
+  },
+  "inventory": {
+    "schema": "quantsmind.m6_inventory/1",
+    "generated_at": "2026-10-20T07:04:56+00:00",
+    "machine": {
+      "measured": true,
+      "total_ram_gib": 3.911,
+      "available_ram_gib": 0.99,
+      "disk_free_gib": 190.945,
+      "peak_rss_mib": 77.1,
+      "torch": {
+        "torch_version": "2.13.0+cpu",
+        "cuda_available": false,
+        "cuda_device_count": 0,
+        "mps_available": false,
+        "torch_threads": 4,
+        "cuda_device_name": null,
+        "cuda_total_memory_bytes": null,
+        "cuda_kind": "absent"
+      }
+    },
+    "download_authorised": false,
+    "discovery_method": "read-only scan of the Hugging Face cache; no network access, no model code executed",
+    "candidates": [
+      {
+        "candidate_id": "microsoft/Phi-3-mini-4k-instruct",
+        "publisher": "Microsoft",
+        "source_repository": "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct",
+        "revision": "0a67737cc96d2554230f90338b163bc6380a2a85",
+        "architecture": "Phi3ForCausalLM",
+        "parameters": 3800000000,
+        "weight_format": null,
+        "quantization": null,
+        "tokenizer_requirement": "Llama SentencePiece tokenizer (tokenizer.model)",
+        "prompt_template": "Phi-3 chat format using <|user|>/<|assistant|>",
+        "license_id": "MIT",
+        "license_source": "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct/raw/main/LICENSE",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PARTIAL",
+        "local_available": false,
+        "local_path": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub\\models--microsoft--Phi-3-mini-4k-instruct\\snapshots\\0a67737cc96d2554230f90338b163bc6380a2a85",
+        "artifact_bytes": 0,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 11110612736,
+        "est_disk_gib": 9.078,
+        "measured_requirements": {},
+        "intended_use_restrictions": "MIT. No use restriction beyond attribution. Note the model card warns against using the 4k variant for production.",
+        "task_head": "causal_lm",
+        "evaluation_status": "BLOCKED",
+        "blocking_reason": "incomplete snapshot: missing shards: ['model-00001-of-00002.safetensors', 'model-00002-of-00002.safetensors']; no weight file present",
+        "remaining_uncertainties": [],
+        "artifact_mib": 0.0,
+        "est_ram_gib": 10.348
+      },
+      {
+        "candidate_id": "google-bert/bert-base-uncased",
+        "publisher": "Google",
+        "source_repository": "https://huggingface.co/google-bert/bert-base-uncased",
+        "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+        "architecture": "BertForMaskedLM",
+        "parameters": 109482240,
+        "weight_format": "safetensors",
+        "quantization": null,
+        "tokenizer_requirement": "WordPiece uncased, vocab.txt",
+        "prompt_template": "NOT a generative model. Requires a [MASK] token; cannot accept a free-form instruction.",
+        "license_id": "Apache-2.0",
+        "license_source": "https://huggingface.co/google-bert/bert-base-uncased/raw/main/LICENSE",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PRESENT",
+        "local_available": true,
+        "local_path": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub\\models--bert-base-uncased\\snapshots\\86b5e0934494bd15c9632b12f734a8a67f723594",
+        "artifact_bytes": 440449768,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 566285568,
+        "est_disk_gib": 2.408,
+        "measured_requirements": {},
+        "intended_use_restrictions": "Apache-2.0. No restriction.",
+        "task_head": "masked_lm",
+        "evaluation_status": "NOT_EVALUATED",
+        "blocking_reason": null,
+        "remaining_uncertainties": [
+          "task head is masked_lm, which cannot answer a free-form coding instruction; not a practical coding candidate"
+        ],
+        "artifact_mib": 420.0,
+        "est_ram_gib": 0.527
+      },
+      {
+        "candidate_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "publisher": "sentence-transformers",
+        "source_repository": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "architecture": "BertModel (MiniLM, 6 layers)",
+        "parameters": 22713216,
+        "weight_format": "safetensors",
+        "quantization": null,
+        "tokenizer_requirement": "WordPiece uncased, vocab.txt",
+        "prompt_template": "NOT a generative model. Produces 384-dimension embeddings.",
+        "license_id": "Apache-2.0",
+        "license_source": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/raw/main/README.md",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PRESENT",
+        "local_available": true,
+        "local_path": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2\\snapshots\\1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "artifact_bytes": 90868376,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 118284672,
+        "est_disk_gib": 2.085,
+        "measured_requirements": {},
+        "intended_use_restrictions": "Apache-2.0. No restriction.",
+        "task_head": "embedding",
+        "evaluation_status": "NOT_EVALUATED",
+        "blocking_reason": null,
+        "remaining_uncertainties": [
+          "task head is embedding, which cannot answer a free-form coding instruction; not a practical coding candidate"
+        ],
+        "artifact_mib": 86.7,
+        "est_ram_gib": 0.11
+      },
+      {
+        "candidate_id": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+        "publisher": "Alibaba Cloud (Qwen team)",
+        "source_repository": "https://huggingface.co/Qwen/Qwen2.5-Coder-1.5B-Instruct",
+        "revision": null,
+        "architecture": "Qwen2ForCausalLM",
+        "parameters": 1543714304,
+        "weight_format": null,
+        "quantization": null,
+        "tokenizer_requirement": "byte-level BPE via tokenizer.json",
+        "prompt_template": "ChatML with <|im_start|>/<|im_end|> and a system message; applying this template to a model with a different tokenizer would silently change prompt semantics.",
+        "license_id": "Apache-2.0",
+        "license_source": "https://huggingface.co/Qwen/Qwen2.5-Coder-1.5B-Instruct/blob/main/LICENSE",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "NOT_PRESENT",
+        "local_available": false,
+        "local_path": null,
+        "artifact_bytes": 0,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 4329047808,
+        "est_disk_gib": 4.875,
+        "measured_requirements": {},
+        "intended_use_restrictions": "Apache-2.0. No restriction.",
+        "task_head": "causal_lm",
+        "evaluation_status": "NOT_PRESENT",
+        "blocking_reason": "no local artifact; downloading weights requires explicit authorisation and is not performed by M6",
+        "remaining_uncertainties": [
+          "capability on the M5 benchmark is entirely unmeasured"
+        ],
+        "artifact_mib": 0.0,
+        "est_ram_gib": 4.032
+      },
+      {
+        "candidate_id": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+        "publisher": "Alibaba Cloud (Qwen team)",
+        "source_repository": "https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct",
+        "revision": null,
+        "architecture": "Qwen2ForCausalLM",
+        "parameters": 494032768,
+        "weight_format": null,
+        "quantization": null,
+        "tokenizer_requirement": "byte-level BPE via tokenizer.json",
+        "prompt_template": "ChatML <|im_start|>/<|im_end|> with a system message",
+        "license_id": "Apache-2.0",
+        "license_source": "https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "NOT_PRESENT",
+        "local_available": false,
+        "local_path": null,
+        "artifact_bytes": 0,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 1637735104,
+        "est_disk_gib": 2.92,
+        "measured_requirements": {},
+        "intended_use_restrictions": "Apache-2.0. No restriction.",
+        "task_head": "causal_lm",
+        "evaluation_status": "NOT_PRESENT",
+        "blocking_reason": "no local artifact; downloading weights requires explicit authorisation and is not performed by M6",
+        "remaining_uncertainties": [
+          "capability on the M5 benchmark is entirely unmeasured"
+        ],
+        "artifact_mib": 0.0,
+        "est_ram_gib": 1.525
+      },
+      {
+        "candidate_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+        "publisher": "Alibaba Cloud (Qwen team)",
+        "source_repository": "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct",
+        "revision": null,
+        "architecture": "Qwen2ForCausalLM",
+        "parameters": 7615616512,
+        "weight_format": null,
+        "quantization": null,
+        "tokenizer_requirement": "byte-level BPE via tokenizer.json",
+        "prompt_template": "ChatML <|im_start|>/<|im_end|> with a system message",
+        "license_id": "Apache-2.0",
+        "license_source": "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PARTIAL",
+        "local_available": false,
+        "local_path": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub\\models--Qwen--Qwen2.5-Coder-7B-Instruct",
+        "artifact_bytes": 0,
+        "runtime_compatible": true,
+        "runtime_reason": "transformers 5.16.1",
+        "est_ram_bytes": 26555234048,
+        "est_disk_gib": 16.185,
+        "measured_requirements": {},
+        "intended_use_restrictions": "Apache-2.0. No restriction.",
+        "task_head": "causal_lm",
+        "evaluation_status": "BLOCKED",
+        "blocking_reason": "incomplete snapshot: no weight file present; no config.json present",
+        "remaining_uncertainties": [],
+        "artifact_mib": 0.0,
+        "est_ram_gib": 24.731
+      }
+    ],
+    "sovereign_checkpoints": [
+      {
+        "candidate_id": "quantsmind/m3-base",
+        "publisher": "QuantsMind-LLM (this repository)",
+        "source_repository": "local repository artifact",
+        "revision": null,
+        "architecture": "GPT-style decoder (project implementation)",
+        "parameters": 2853280,
+        "weight_format": "pytorch .pt",
+        "quantization": null,
+        "tokenizer_requirement": null,
+        "prompt_template": null,
+        "license_id": "project-owned",
+        "license_source": "data/licence_verification.json (corpus provenance)",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PRESENT",
+        "local_available": true,
+        "local_path": "runs/m3_base/checkpoint_best.pt",
+        "artifact_bytes": 34311773,
+        "runtime_compatible": true,
+        "runtime_reason": "project checkpoint loader (training.checkpoint)",
+        "est_ram_bytes": null,
+        "est_disk_gib": null,
+        "measured_requirements": {},
+        "intended_use_restrictions": null,
+        "task_head": "causal_lm",
+        "evaluation_status": "NOT_EVALUATED",
+        "blocking_reason": null,
+        "remaining_uncertainties": [],
+        "artifact_mib": 32.7,
+        "est_ram_gib": null
+      },
+      {
+        "candidate_id": "quantsmind/m4-tuned",
+        "publisher": "QuantsMind-LLM (this repository)",
+        "source_repository": "local repository artifact",
+        "revision": null,
+        "architecture": "GPT-style decoder (project implementation)",
+        "parameters": 2853280,
+        "weight_format": "pytorch .pt",
+        "quantization": null,
+        "tokenizer_requirement": null,
+        "prompt_template": null,
+        "license_id": "project-owned",
+        "license_source": "data/licence_verification.json (corpus provenance)",
+        "license_verified": true,
+        "tokenizer_license_id": null,
+        "acquisition_status": "PRESENT",
+        "local_available": true,
+        "local_path": "runs/m4_sft/checkpoint_best.pt",
+        "artifact_bytes": 34311773,
+        "runtime_compatible": true,
+        "runtime_reason": "project checkpoint loader (training.checkpoint)",
+        "est_ram_bytes": null,
+        "est_disk_gib": null,
+        "measured_requirements": {},
+        "intended_use_restrictions": null,
+        "task_head": "causal_lm",
+        "evaluation_status": "NOT_EVALUATED",
+        "blocking_reason": null,
+        "remaining_uncertainties": [],
+        "artifact_mib": 32.7,
+        "est_ram_gib": null
+      }
+    ],
+    "cache_root": "C:\\Users\\Lenovo\\.cache\\huggingface\\hub",
+    "summary": {
+      "total": 6,
+      "evaluated": 0,
+      "blocked": 2,
+      "not_present": 2,
+      "not_evaluated": 2,
+      "eligible_causal_lm": []
+    }
+  },
+  "sovereign": {
+    "schema": "quantsmind.m6_sovereign/1",
+    "generated_at": "2026-10-20T07:05:18+00:00",
+    "training_performed": false,
+    "training_authorised": false,
+    "machine": {
+      "measured": true,
+      "total_ram_gib": 3.911,
+      "available_ram_gib": 0.186,
+      "disk_free_gib": 190.945,
+      "peak_rss_mib": 1134.3,
+      "torch": {
+        "torch_version": "2.13.0+cpu",
+        "cuda_available": false,
+        "cuda_device_count": 0,
+        "mps_available": false,
+        "torch_threads": 4,
+        "cuda_device_name": null,
+        "cuda_total_memory_bytes": null,
+        "cuda_kind": "absent"
+      }
+    },
+    "established": [
+      "a working from-scratch pretraining and SFT pipeline exists and has produced loadable checkpoints",
+      "the pipeline is licence-gated: only sources in licence_verification.json verified_ids enter training",
+      "the CPU-only host can train a ~2.85M-parameter model, and a ~9.36M-parameter configuration was preflight-measured at ~207 MiB peak RSS",
+      "the corpus comprises only licence-verified Python library source"
+    ],
+    "not_demonstrated": [
+      "any useful coding capability (see the M6 capability report)",
+      "functional correctness on any benchmark example",
+      "instruction following above chance on the M5 benchmark",
+      "that the corpus can teach any task beyond next-token prediction",
+      "that a larger model would help, absent data for those tasks"
+    ],
+    "data": {
+      "manifest_present": true,
+      "train_records": 193,
+      "train_repositories": [
+        "pallets/click",
+        "pallets/flask",
+        "pytest-dev/pytest",
+        "tiangolo/fastapi",
+        "urllib3/urllib3"
+      ],
+      "train_tokens": 1165217,
+      "train_licenses": {
+        "BSD-3-Clause": 40,
+        "MIT": 153
+      },
+      "val_records": 63,
+      "val_tokens": 340077,
+      "verified_sources": [
+        "aio-libs-aiohttp",
+        "pallets-click",
+        "pallets-flask",
+        "psf-requests",
+        "pytest-dev-pytest",
+        "tiangolo-fastapi",
+        "urllib3-urllib3"
+      ],
+      "withheld_sources": {
+        "psf-black": 27,
+        "pypa-setuptools": 135
+      },
+      "holdout": {
+        "split": "test",
+        "emitted": false,
+        "reason": "The test split is withheld from M3 on purpose. Its licence composition is unresolved (psf-black), and tuning against it would spend the only data reserved for final measurement."
+      },
+      "task_coverage": [
+        {
+          "task": "code_completion",
+          "coverage": "PARTIAL",
+          "basis": "the corpus is Python library source, so completion-style supervision exists implicitly through next-token prediction"
+        },
+        {
+          "task": "code_generation",
+          "coverage": "ABSENT",
+          "basis": "no instruction->code pairs; the corpus is raw source, not prompts"
+        },
+        {
+          "task": "debugging",
+          "coverage": "ABSENT",
+          "basis": "no failing-code/patch pairs anywhere in the corpus"
+        },
+        {
+          "task": "refactoring",
+          "coverage": "ABSENT",
+          "basis": "no before/after refactor pairs"
+        },
+        {
+          "task": "unit_test_generation",
+          "coverage": "ABSENT",
+          "basis": "tests appear as source text, never as instruction->test pairs"
+        },
+        {
+          "task": "code_explanation",
+          "coverage": "ABSENT",
+          "basis": "no natural-language explanation targets"
+        },
+        {
+          "task": "documentation",
+          "coverage": "ABSENT",
+          "basis": "docstrings exist inside files but no docstring-generation supervision"
+        },
+        {
+          "task": "sql",
+          "coverage": "ABSENT",
+          "basis": "the verified corpus contains no SQL"
+        },
+        {
+          "task": "architecture",
+          "coverage": "ABSENT",
+          "basis": "no design or architecture material"
+        },
+        {
+          "task": "devops_infrastructure",
+          "coverage": "ABSENT",
+          "basis": "no CI, Docker or infra configuration"
+        },
+        {
+          "task": "instruction_following",
+          "coverage": "ABSENT",
+          "basis": "absent by construction; M4 attempted to synthesise it from code and produced an instruction/completion mismatch"
+        },
+        {
+          "task": "structured_output",
+          "coverage": "ABSENT",
+          "basis": "no schema-constrained examples"
+        }
+      ],
+      "coverage_summary": {
+        "partial": 1,
+        "absent": 11,
+        "total": 12
+      },
+      "disablement_note": "The verified corpus is Python library source only. It supports next-token prediction, which is why M3 reached a low loss, but it contains no supervision for debugging, refactoring, test generation, explanation, documentation, SQL or architecture. A low loss on this corpus cannot become coding capability on those tasks without new data."
+    },
+    "scales": [
+      {
+        "scale_id": "A-baseline",
+        "name": "Existing 2.85M research baseline",
+        "parameters": 2853280,
+        "estimated_steady_state_mib": 68.5,
+        "tokens_for_20x_parameters": 57065600,
+        "fits_total_ram": true,
+        "fits_available_ram": true,
+        "fits_host": true,
+        "measured_peak_mib": null,
+        "note": "reproducibility baseline; already trained, keep unchanged",
+        "status": "ESTIMATE"
+      },
+      {
+        "scale_id": "B-existing-9m",
+        "name": "Existing 9.36M config",
+        "parameters": 9359104,
+        "estimated_steady_state_mib": 206.8,
+        "tokens_for_20x_parameters": 187182080,
+        "fits_total_ram": true,
+        "fits_available_ram": true,
+        "fits_host": true,
+        "measured_peak_mib": 207.0,
+        "note": "already authored and preflight-measured; untrained",
+        "status": "ESTIMATE"
+      },
+      {
+        "scale_id": "C-modest-30m",
+        "name": "Modest 30M proposal",
+        "parameters": 23870592,
+        "estimated_steady_state_mib": 484.2,
+        "tokens_for_20x_parameters": 477411840,
+        "fits_total_ram": true,
+        "fits_available_ram": true,
+        "fits_host": true,
+        "measured_peak_mib": null,
+        "note": "smallest scale that could plausibly generalise across tasks",
+        "status": "ESTIMATE"
+      },
+      {
+        "scale_id": "D-125m",
+        "name": "125M proposal",
+        "parameters": 79987968,
+        "estimated_steady_state_mib": 1436.5,
+        "tokens_for_20x_parameters": 1599759360,
+        "fits_total_ram": true,
+        "fits_available_ram": false,
+        "fits_host": false,
+        "measured_peak_mib": null,
+        "note": "GPT-2-small class; requires compute this host does not have",
+        "status": "ESTIMATE"
+      },
+      {
+        "scale_id": "E-350m",
+        "name": "350M proposal",
+        "parameters": 276544512,
+        "estimated_steady_state_mib": 4807.7,
+        "tokens_for_20x_parameters": 5530890240,
+        "fits_total_ram": false,
+        "fits_available_ram": false,
+        "fits_host": false,
+        "measured_peak_mib": null,
+        "note": "only defensible with a GPU and a matured dataset",
+        "status": "ESTIMATE"
+      }
+    ],
+    "compute_gap": {
+      "total_ram_gib": 3.911,
+      "available_ram_gib": 0.195,
+      "cuda_available": false,
+      "largest_proposal_fitting_host": "C-modest-30m",
+      "note": "Steady-state figures cover weights, gradients, AdamW moments and stored activations; they exclude tokenizer buffers and the OS. 'fits_available_ram' is the binding test on a shared machine: this host reports only a fraction of a GiB free, so even proposals that fit installed RAM cannot start while other work is running. Any scale beyond the largest fitting proposal needs hardware this host does not have."
+    },
+    "validation_gates": [
+      "G1 data: each target task has licence-verified supervision with an isolated holdout that shares no repository or content hash",
+      "G2 preflight: training.preflight passes with a measured probe, not an estimate, on the actual training host",
+      "G3 evaluation: a frozen benchmark exists BEFORE training starts and covers the tasks being claimed",
+      "G4 capability: functional pass rate rises above the M3/M4 baseline on a benchmark large enough to be non-anecdotal",
+      "G5 regression: general-code behaviour does not degrade"
+    ],
+    "recommended_next_experiment": {
+      "scale": "B-existing-9m",
+      "rationale": "It is the largest configuration already authored and preflight-measured on this host, so it isolates the data question from the compute question. Scaling the model before fixing the data would repeat the M4 error of adding capacity without adding supervision.",
+      "preconditions": [
+        "licence-verified instruction data for at least code_generation, debugging and unit_test_generation",
+        "a frozen benchmark covering those tasks, versioned separately from the M5 benchmark",
+        "preflight re-run on the exact training host"
+      ],
+      "out_of_scope": [
+        "any scale above the largest host-fitting proposal",
+        "instruction tuning before pretraining data exists",
+        "reusing the M4 synthetic instruction construction unchanged"
+      ]
+    },
+    "authorisation_required": [
+      "explicit human authorisation to start a training run",
+      "confirmation that new data has passed the licence gate",
+      "confirmation that a frozen benchmark predates the run"
+    ]
+  },
+  "composite_score": null,
+  "composite_note": "No composite score is produced. M4 is more compliant than M3 while producing less parseable Python, and an embedding model 'scored' 4/6 compliance purely from bracket formatting. A weighted average would turn both facts into a number that hides them.",
+  "strategy": {
+    "recommendation": "INSUFFICIENT_EVIDENCE",
+    "confidence": "no practical coding candidate was evaluated at all; the hybrid recommendation remains provisional",
+    "provisional": true,
+    "options": {
+      "A_sovereign": {
+        "assessment": "The pipeline, licensing gate and checkpoints are real, but no coding capability has been demonstrated. Sovereign runs produced no functional passes.",
+        "advocate": "long-term independence and weight control",
+        "blocker": "data for every target task beyond code completion",
+        "status": "NOT_SUPPORTED"
+      },
+      "B_practical_open_weight": {
+        "assessment": "No practical coding candidate could be run: Qwen weights are absent, Phi-3 is a partial download, and the CPU-only host is memory-bound.",
+        "advocate": "faster path to real coding capability",
+        "blocker": "no local coding-capable weights within the licence and memory boundary",
+        "status": "BLOCKED"
+      },
+      "C_hybrid": {
+        "assessment": "Keep the sovereign checkpoints as a research track and use a separately validated open-weight model as the practical layer. That layer is not yet validated, so the hybrid split is a plan, not a result.",
+        "status": "PROVISIONAL"
+      }
+    },
+    "prevented_by": []
+  },
+  "limitations": [
+    "The frozen benchmark is 26 examples; every rate is preliminary.",
+    "17 examples require human review and are never scored as failures.",
+    "7 examples share source documents with training material.",
+    "Functional scoring produced 0/0 for every model: no model generated executable code on any scorable example, so functional capability is untested rather than measured as zero.",
+    "No model was evaluated on a category the benchmark does not cover (debugging, refactoring, unit tests, documentation, architecture, SQL). Those categories are UNAVAILABLE, not zero.",
+    "The only external model that could load is an embedding head; it cannot follow a coding instruction and its scores are artifacts.",
+    "No practical coding-capable model could be obtained within the licence and memory boundary, so the central M6 question remains unanswered."
+  ]
+}

@@ -1,0 +1,410 @@
+{
+  "archives": {
+    "sdist": {
+      "forbidden": [],
+      "license_members": [
+        "taksh-1.0.0/LICENSE"
+      ],
+      "local_path_findings": [],
+      "members": 223,
+      "metadata": {
+        "\"max_tokens\"": "64,\"temperature\":0.2,\"stream\":false}'",
+        "\"messages\"": "[{\"role\":\"system\",\"content\":\"You are terse.\"},",
+        "# -> http": "//127.0.0.1:8002",
+        "# 5. SFT on code tasks  -- BLOCKED": "the shipped SFT corpus is quarantined",
+        "# NOTE": "the corpus currently committed in data/ was NOT produced by this command.",
+        "# Open http": "//localhost:7860",
+        "# Or install the code as a package (the wheel does not contain weights or data)": "",
+        "**Model identifier": "** `qm-code-tiny` (read from `configs/model/code_tiny.yaml` via the",
+        "**Rejected with a structured 400** rather than silently ignored": "`stream: true`,",
+        "**Status (2026-10-20)": "** local prototype. The pipeline runs end to end on CPU; **no model",
+        "- **Optional bearer auth": "** set `QM_API_KEY` and send `Authorization: Bearer <key>`.",
+        "- Checkpoints vary in context and vocab. Verified-compatible pairs": "",
+        "- Note": "the Gradio UIs still launch with `server_name=\"0.0.0.0\"` \u2014 use `--host localhost`",
+        "-H 'Content-Type": "application/json' \\",
+        "-d '{\"model\"": "\"qm-code-tiny\",",
+        "Author": "Ajit Kumar",
+        "Classifier": "Development Status :: 4 - Beta",
+        "Description-Content-Type": "text/markdown",
+        "Dynamic": "license-file",
+        "Each Transformer Block": "",
+        "Errors use the OpenAI envelope `{\"error\"": "{\"message\",\"type\",\"param\",\"code\"}}` and never",
+        "Keywords": "llm,coding,from-scratch,sovereign",
+        "License-Expression": "Apache-2.0",
+        "License-File": "LICENSE",
+        "Metadata-Version": "2.4",
+        "Model config filenames are also misleading": "`code_30m.yaml` is 16.3M, `local_15m.yaml` is",
+        "Name": "taksh",
+        "Prepare and verify a release without publishing": "",
+        "Project-URL": "Repository, https://github.com/ajit-ai/Quantsmind-LLM",
+        "Provides-Extra": "dev",
+        "Requires-Dist": "torch<3,>=2.2",
+        "Requires-Python": ">=3.10",
+        "Shared startup flags (`serving/server_security.py`)": "",
+        "Summary": "Taksh: a sovereign, from-scratch coding LLM research release",
+        "Supported": "`model`, `messages` (`system`/`user`/`assistant`), `max_tokens`,",
+        "Taksh (formerly Quantsmind-LLM) is a sovereign-weights coding LLM project": "own architecture, own tokenizer, own training",
+        "The M7 experiment demonstrated **no useful code generation**": "0/40 locked",
+        "This repo separates four things that are easy to conflate. As of 2026-10-14": "",
+        "Version": "1.0.0",
+        "`runs/code_pretrain_tiny` is the recommended default": "pretrain-only, so it is not",
+        "`stream": "false`, `user`.",
+        "actually true": "",
+        "curl -X POST http": "//127.0.0.1:8002/v1/chat/completions \\",
+        "curl http": "//127.0.0.1:8002/v1/models",
+        "git clone https": "//github.com/ajit-ai/Quantsmind-LLM.git",
+        "latency grows with context. Measured": "~0.24 s for a 24-token completion.",
+        "model capable": "",
+        "reported a negative result": "0/40 locked syntax-valid generations, 0/8 functional",
+        "tokens of this repository's own source. Measured behaviour": "predictive entropy",
+        "{\"role\"": "\"user\",\"content\":\"Write a Python function that adds two numbers.\"}],",
+        "| Code corpus \"public GitHub\" | **77 chunks, all `source": "local:*` \u2014 this repo's own files**, 68 py / 9 js / **0 ts** | `data/code_corpus_v0.jsonl` |",
+        "| Held-out code perplexity | **Measured, with a caveat.** At the checkpoint's real context (`seq_len=512`, the value `code_tiny.yaml` declares) the split *is* scorable": "**nll 4.6942, ppl 109.31** over 1 window of the 1,003-token tail. At `seq_len=2048` \u2014 the value `code_local.yaml` advertises \u2014 it is genuinely unmeasurable (1,003 < 2,049). **This is not a capability number:** the split is drawn from the same 100,244-token corpus the model was trained on, and it is a single window, so it carries very high variance. |",
+        "| HumanEval | **unmeasured.** `HUMANEVAL_PROBLEMS` is a 5-problem smoke subset of 164. Reports stamp `status": "\"unmeasured\"`, `promotion_eligible: false`. |",
+        "| This repository's own source | Project Apache-2.0 | Python, JS | **Yes** \u2014 all 77 chunks, `source": "local:*` |",
+        "| `QM_API_KEY` | unset | When set, `Authorization": "Bearer <key>` is required on every request |",
+        "| `configs/model/` | Model configs": "code_30m, local_15m, pilot_300m |",
+        "| `configs/train/` | Training configs": "code_local, corporate_ft, local_15m |",
+        "| `data/build_code_corpus.py` | Code corpus": "GitHub download, license filter, dedup, encode |",
+        "| `training/model.py` | From-scratch Transformer": "RMSNorm / RoPE / GQA / SwiGLU |",
+        "| `training/pretrain.py` | Training engine": "cosine LR, checkpoint/resume, NaN watchdog |"
+      },
+      "notice_members": [
+        "taksh-1.0.0/NOTICE"
+      ]
+    },
+    "wheel": {
+      "forbidden": [],
+      "license_members": [
+        "taksh-1.0.0.dist-info/licenses/LICENSE"
+      ],
+      "local_path_findings": [],
+      "members": 105,
+      "metadata": {
+        "\"max_tokens\"": "64,\"temperature\":0.2,\"stream\":false}'",
+        "\"messages\"": "[{\"role\":\"system\",\"content\":\"You are terse.\"},",
+        "# -> http": "//127.0.0.1:8002",
+        "# 5. SFT on code tasks  -- BLOCKED": "the shipped SFT corpus is quarantined",
+        "# NOTE": "the corpus currently committed in data/ was NOT produced by this command.",
+        "# Open http": "//localhost:7860",
+        "# Or install the code as a package (the wheel does not contain weights or data)": "",
+        "**Model identifier": "** `qm-code-tiny` (read from `configs/model/code_tiny.yaml` via the",
+        "**Rejected with a structured 400** rather than silently ignored": "`stream: true`,",
+        "**Status (2026-10-20)": "** local prototype. The pipeline runs end to end on CPU; **no model",
+        "- **Optional bearer auth": "** set `QM_API_KEY` and send `Authorization: Bearer <key>`.",
+        "- Checkpoints vary in context and vocab. Verified-compatible pairs": "",
+        "- Note": "the Gradio UIs still launch with `server_name=\"0.0.0.0\"` \u2014 use `--host localhost`",
+        "-H 'Content-Type": "application/json' \\",
+        "-d '{\"model\"": "\"qm-code-tiny\",",
+        "Author": "Ajit Kumar",
+        "Classifier": "Development Status :: 4 - Beta",
+        "Description-Content-Type": "text/markdown",
+        "Dynamic": "license-file",
+        "Each Transformer Block": "",
+        "Errors use the OpenAI envelope `{\"error\"": "{\"message\",\"type\",\"param\",\"code\"}}` and never",
+        "Keywords": "llm,coding,from-scratch,sovereign",
+        "License-Expression": "Apache-2.0",
+        "License-File": "LICENSE",
+        "Metadata-Version": "2.4",
+        "Model config filenames are also misleading": "`code_30m.yaml` is 16.3M, `local_15m.yaml` is",
+        "Name": "taksh",
+        "Prepare and verify a release without publishing": "",
+        "Project-URL": "Repository, https://github.com/ajit-ai/Quantsmind-LLM",
+        "Provides-Extra": "dev",
+        "Requires-Dist": "torch<3,>=2.2",
+        "Requires-Python": ">=3.10",
+        "Shared startup flags (`serving/server_security.py`)": "",
+        "Summary": "Taksh: a sovereign, from-scratch coding LLM research release",
+        "Supported": "`model`, `messages` (`system`/`user`/`assistant`), `max_tokens`,",
+        "Taksh (formerly Quantsmind-LLM) is a sovereign-weights coding LLM project": "own architecture, own tokenizer, own training",
+        "The M7 experiment demonstrated **no useful code generation**": "0/40 locked",
+        "This repo separates four things that are easy to conflate. As of 2026-10-14": "",
+        "Version": "1.0.0",
+        "`runs/code_pretrain_tiny` is the recommended default": "pretrain-only, so it is not",
+        "`stream": "false`, `user`.",
+        "actually true": "",
+        "curl -X POST http": "//127.0.0.1:8002/v1/chat/completions \\",
+        "curl http": "//127.0.0.1:8002/v1/models",
+        "git clone https": "//github.com/ajit-ai/Quantsmind-LLM.git",
+        "latency grows with context. Measured": "~0.24 s for a 24-token completion.",
+        "model capable": "",
+        "reported a negative result": "0/40 locked syntax-valid generations, 0/8 functional",
+        "tokens of this repository's own source. Measured behaviour": "predictive entropy",
+        "{\"role\"": "\"user\",\"content\":\"Write a Python function that adds two numbers.\"}],",
+        "| Code corpus \"public GitHub\" | **77 chunks, all `source": "local:*` \u2014 this repo's own files**, 68 py / 9 js / **0 ts** | `data/code_corpus_v0.jsonl` |",
+        "| Held-out code perplexity | **Measured, with a caveat.** At the checkpoint's real context (`seq_len=512`, the value `code_tiny.yaml` declares) the split *is* scorable": "**nll 4.6942, ppl 109.31** over 1 window of the 1,003-token tail. At `seq_len=2048` \u2014 the value `code_local.yaml` advertises \u2014 it is genuinely unmeasurable (1,003 < 2,049). **This is not a capability number:** the split is drawn from the same 100,244-token corpus the model was trained on, and it is a single window, so it carries very high variance. |",
+        "| HumanEval | **unmeasured.** `HUMANEVAL_PROBLEMS` is a 5-problem smoke subset of 164. Reports stamp `status": "\"unmeasured\"`, `promotion_eligible: false`. |",
+        "| This repository's own source | Project Apache-2.0 | Python, JS | **Yes** \u2014 all 77 chunks, `source": "local:*` |",
+        "| `QM_API_KEY` | unset | When set, `Authorization": "Bearer <key>` is required on every request |",
+        "| `configs/model/` | Model configs": "code_30m, local_15m, pilot_300m |",
+        "| `configs/train/` | Training configs": "code_local, corporate_ft, local_15m |",
+        "| `data/build_code_corpus.py` | Code corpus": "GitHub download, license filter, dedup, encode |",
+        "| `training/model.py` | From-scratch Transformer": "RMSNorm / RoPE / GQA / SwiGLU |",
+        "| `training/pretrain.py` | Training engine": "cosine LR, checkpoint/resume, NaN watchdog |"
+      },
+      "notice_members": [
+        "taksh-1.0.0.dist-info/licenses/NOTICE"
+      ]
+    }
+  },
+  "artifacts": {
+    "sdist": {
+      "bytes": 418840,
+      "filename": "taksh-1.0.0.tar.gz",
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\dist\\taksh-1.0.0.tar.gz",
+      "sha256": "341225b9cf0f08ce5accef5f843e24009bc12d54395ce383643294c2f1d15a28"
+    },
+    "wheel": {
+      "bytes": 336332,
+      "filename": "taksh-1.0.0-py3-none-any.whl",
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\dist\\taksh-1.0.0-py3-none-any.whl",
+      "sha256": "047ad9278dfc95cb8b6eff9b21299dd7cd7ecfe83ea117dc26e237617955d8c9"
+    }
+  },
+  "failures": [],
+  "generated_at": "2026-10-21T02:35:52+00:00",
+  "git_at_end": {
+    "branch": "develop",
+    "commit": "4a5a144",
+    "dirty_entries": 214,
+    "tags": []
+  },
+  "git_at_start": {
+    "branch": "develop",
+    "commit": "4a5a144",
+    "dirty_entries": 214,
+    "tags": []
+  },
+  "metadata_problems": [],
+  "platform": "win32",
+  "publication": "NOT PERFORMED BY THIS SCRIPT",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "release_status": "final",
+  "schema": "taksh.release_evidence/1",
+  "skipped": [],
+  "steps": [
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "F:\\Codes\\Git\\Quantsmind-LLM\\scripts\\check_version_consistency.py"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 0.78,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Version consistency: PASS\n  authoritative: taksh.__version__ = 1.0.0\n  release status: final\n  checked root: F:\\Codes\\Git\\Quantsmind-LLM\n",
+      "step": "version-consistency"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "build",
+        "--outdir",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build",
+        "F:\\Codes\\Git\\Quantsmind-LLM"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 55.62,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "* Creating isolated environment: venv+pip...\n* Installing packages in isolated environment:\n  - setuptools>=77\n  - wheel\n* Getting build dependencies for sdist...\n* Installed build dependency versions:\n  - setuptools==84.2.1\n  - wheel==0.48.0\n* Building sdist...\n* Building wheel from sdist\n* Creating isolated environment: venv+pip...\n* Installing packages in isolated environment:\n  - setuptools>=77\n  - wheel\n* Getting build dependencies for wheel...\n* Installed build dependency versions:\n  - setuptools==84.2.1\n  - wheel==0.48.0\n* Building wheel...\n",
+      "stdout_tail": "ters.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\ingest_internal.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\instruction_schema.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncreating build\\bdist.win-amd64\\wheel\\data\\internal_demo\ncopying build\\lib\\data\\internal_demo\\api.py -> build\\bdist.win-amd64\\wheel\\.\\data\\internal_demo\ncopying build\\lib\\data\\internal_demo\\auth.py -> build\\bdist.win-amd64\\wheel\\.\\data\\internal_demo\ncopying build\\lib\\data\\internal_demo\\config.py -> build\\bdist.win-amd64\\wheel\\.\\data\\internal_demo\ncopying build\\lib\\data\\internal_demo\\models.py -> build\\bdist.win-amd64\\wheel\\.\\data\\internal_demo\ncopying build\\lib\\data\\internal_demo\\utils.py -> build\\bdist.win-amd64\\wheel\\.\\data\\internal_demo\ncopying build\\lib\\data\\licence_paths.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\m2_gate.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\prepare_m3_dataset.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\prepare_m7_pretrain.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\prepare_sample.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\release.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\schema.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncreating build\\bdist.win-amd64\\wheel\\data\\sources\ncopying build\\lib\\data\\sources\\gutenberg.py -> build\\bdist.win-amd64\\wheel\\.\\data\\sources\ncopying build\\lib\\data\\sources\\wikipedia.py -> build\\bdist.win-amd64\\wheel\\.\\data\\sources\ncopying build\\lib\\data\\sources\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\data\\sources\ncopying build\\lib\\data\\verify_licenses.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncopying build\\lib\\data\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\data\ncreating build\\bdist.win-amd64\\wheel\\evaluation\ncopying build\\lib\\evaluation\\code_check.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\evaluate_pilot.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\eval_caption.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\eval_code.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\eval_text.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\eval_vqa.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\generate.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\holdout.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\human_eval.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\load_eval.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\loss_sanity.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m4_evaluate.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m4_eval_set.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_adapters.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_build_benchmark.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_candidates.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_leakage.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_report.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_runner.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_schema.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m5_scorers.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_capability.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_cli.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_evaluate.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_inventory.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_licensing.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_report.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_resources.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_runtime.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m6_sovereign.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m7_combine.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m7_evaluate.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m7_gates.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\m7_oracles.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\mm_checkpoint.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\run_manifest.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncopying build\\lib\\evaluation\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\evaluation\ncreating build\\bdist.win-amd64\\wheel\\serving\ncopying build\\lib\\serving\\app.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\code_chat.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\completion_server.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\llm_client.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\local_inference.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\openai_server.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\review_server.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\server_security.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncopying build\\lib\\serving\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\serving\ncreating build\\bdist.win-amd64\\wheel\\taksh\ncopying build\\lib\\taksh\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\taksh\ncreating build\\bdist.win-amd64\\wheel\\tokenizer\ncopying build\\lib\\tokenizer\\train_tokenizer.py -> build\\bdist.win-amd64\\wheel\\.\\tokenizer\ncreating build\\bdist.win-amd64\\wheel\\training\ncopying build\\lib\\training\\chat_template.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\checkpoint.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\data.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\document_separator.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\generate.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\image_data.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\instruction_format.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\loss_log.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\manifest.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\mm_manifest.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\model.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\multimodal.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\preflight.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\pretrain.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\sft.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\sft_dataset.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\sft_train.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\train_mm.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\validate_manifest.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\validation.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\vision.py -> build\\bdist.win-amd64\\wheel\\.\\training\ncopying build\\lib\\training\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\training\nrunning install_egg_info\nCopying taksh.egg-info to build\\bdist.win-amd64\\wheel\\.\\taksh-1.0.0-py3.14.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\taksh-1.0.0.dist-info\\WHEEL\ncreating 'C:\\\\Users\\\\Lenovo\\\\AppData\\\\Local\\\\Temp\\\\taksh-release-k6hga43k\\\\build\\\\.tmp-szob96km\\\\taksh-1.0.0-py3-none-any.whl' and adding 'build\\\\bdist.win-amd64\\\\wheel' to it\nadding 'data/__init__.py'\nadding 'data/build_code_corpus.py'\nadding 'data/build_code_corpus_v1.py'\nadding 'data/build_code_sft.py'\nadding 'data/build_corpus.py'\nadding 'data/build_instruction_dataset.py'\nadding 'data/build_m7_dataset.py'\nadding 'data/contamination_audit.py'\nadding 'data/encode_dataset.py'\nadding 'data/filters.py'\nadding 'data/ingest_internal.py'\nadding 'data/instruction_schema.py'\nadding 'data/licence_paths.py'\nadding 'data/m2_gate.py'\nadding 'data/prepare_m3_dataset.py'\nadding 'data/prepare_m7_pretrain.py'\nadding 'data/prepare_sample.py'\nadding 'data/release.py'\nadding 'data/schema.py'\nadding 'data/verify_licenses.py'\nadding 'data/internal_demo/api.py'\nadding 'data/internal_demo/auth.py'\nadding 'data/internal_demo/config.py'\nadding 'data/internal_demo/models.py'\nadding 'data/internal_demo/utils.py'\nadding 'data/sources/__init__.py'\nadding 'data/sources/gutenberg.py'\nadding 'data/sources/wikipedia.py'\nadding 'evaluation/__init__.py'\nadding 'evaluation/code_check.py'\nadding 'evaluation/eval_caption.py'\nadding 'evaluation/eval_code.py'\nadding 'evaluation/eval_text.py'\nadding 'evaluation/eval_vqa.py'\nadding 'evaluation/evaluate_pilot.py'\nadding 'evaluation/generate.py'\nadding 'evaluation/holdout.py'\nadding 'evaluation/human_eval.py'\nadding 'evaluation/load_eval.py'\nadding 'evaluation/loss_sanity.py'\nadding 'evaluation/m4_eval_set.py'\nadding 'evaluation/m4_evaluate.py'\nadding 'evaluation/m5_adapters.py'\nadding 'evaluation/m5_build_benchmark.py'\nadding 'evaluation/m5_candidates.py'\nadding 'evaluation/m5_leakage.py'\nadding 'evaluation/m5_report.py'\nadding 'evaluation/m5_runner.py'\nadding 'evaluation/m5_schema.py'\nadding 'evaluation/m5_scorers.py'\nadding 'evaluation/m6_capability.py'\nadding 'evaluation/m6_cli.py'\nadding 'evaluation/m6_evaluate.py'\nadding 'evaluation/m6_inventory.py'\nadding 'evaluation/m6_licensing.py'\nadding 'evaluation/m6_report.py'\nadding 'evaluation/m6_resources.py'\nadding 'evaluation/m6_runtime.py'\nadding 'evaluation/m6_sovereign.py'\nadding 'evaluation/m7_combine.py'\nadding 'evaluation/m7_evaluate.py'\nadding 'evaluation/m7_gates.py'\nadding 'evaluation/m7_oracles.py'\nadding 'evaluation/mm_checkpoint.py'\nadding 'evaluation/run_manifest.py'\nadding 'serving/__init__.py'\nadding 'serving/app.py'\nadding 'serving/code_chat.py'\nadding 'serving/completion_server.py'\nadding 'serving/llm_client.py'\nadding 'serving/local_inference.py'\nadding 'serving/openai_server.py'\nadding 'serving/review_server.py'\nadding 'serving/server_security.py'\nadding 'taksh/__init__.py'\nadding 'taksh-1.0.0.dist-info/licenses/LICENSE'\nadding 'taksh-1.0.0.dist-info/licenses/NOTICE'\nadding 'tokenizer/train_tokenizer.py'\nadding 'training/__init__.py'\nadding 'training/chat_template.py'\nadding 'training/checkpoint.py'\nadding 'training/data.py'\nadding 'training/document_separator.py'\nadding 'training/generate.py'\nadding 'training/image_data.py'\nadding 'training/instruction_format.py'\nadding 'training/loss_log.py'\nadding 'training/manifest.py'\nadding 'training/mm_manifest.py'\nadding 'training/model.py'\nadding 'training/multimodal.py'\nadding 'training/preflight.py'\nadding 'training/pretrain.py'\nadding 'training/sft.py'\nadding 'training/sft_dataset.py'\nadding 'training/sft_train.py'\nadding 'training/train_mm.py'\nadding 'training/validate_manifest.py'\nadding 'training/validation.py'\nadding 'training/vision.py'\nadding 'taksh-1.0.0.dist-info/METADATA'\nadding 'taksh-1.0.0.dist-info/WHEEL'\nadding 'taksh-1.0.0.dist-info/entry_points.txt'\nadding 'taksh-1.0.0.dist-info/top_level.txt'\nadding 'taksh-1.0.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built taksh-1.0.0.tar.gz and taksh-1.0.0-py3-none-any.whl\n",
+      "step": "build-sdist-wheel"
+    },
+    {
+      "command": [],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 0.0,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "metadata, licence and archive exclusions validated",
+      "step": "archive-metadata"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "twine",
+        "check",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3-none-any.whl",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0.tar.gz"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 3.02,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Checking \nC:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3\n-none-any.whl: PASSED\nChecking \nC:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0.tar\n.gz: PASSED\n",
+      "step": "twine-check"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "venv",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-clean"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 20.85,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "",
+      "step": "create-clean-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-clean\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3-none-any.whl"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 6.87,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Processing C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3-none-any.whl\nInstalling collected packages: taksh\nSuccessfully installed taksh-1.0.0\n",
+      "step": "install-clean-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-clean\\Scripts\\python.exe",
+        "-c",
+        "import importlib.metadata as m, taksh; assert m.version('taksh') == taksh.__version__ == '1.0.0'; assert 'site-packages' in taksh.__file__, taksh.__file__; print(taksh.__version__, taksh.__file__)"
+      ],
+      "cwd": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k",
+      "duration_seconds": 0.45,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "1.0.0 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-clean\\Lib\\site-packages\\taksh\\__init__.py\n",
+      "step": "installed-version-clean-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-clean\\Scripts\\taksh.exe",
+        "--version"
+      ],
+      "cwd": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k",
+      "duration_seconds": 0.76,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Taksh 1.0.0 (final)\n",
+      "step": "installed-cli-clean-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "venv",
+        "--system-site-packages",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-system"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 21.38,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "",
+      "step": "create-system-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-system\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3-none-any.whl"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 7.01,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Processing C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\build\\taksh-1.0.0-py3-none-any.whl\nInstalling collected packages: taksh\nSuccessfully installed taksh-1.0.0\n",
+      "step": "install-system-venv"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-system\\Scripts\\taksh-openai.exe",
+        "--help"
+      ],
+      "cwd": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k",
+      "duration_seconds": 21.25,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "usage: python.exe C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-system\\Scripts\\taksh-openai\n       [-h] --ckpt CKPT [--tokenizer TOKENIZER] [--host HOST] [--port PORT]\n       [--allow-remote]\n\nTaksh OpenAI-compatible local API\n\noptions:\n  -h, --help            show this help message and exit\n  --ckpt CKPT           checkpoint path, loaded at startup\n  --tokenizer TOKENIZER\n  --host HOST           default is loopback only\n  --port PORT\n  --allow-remote        bind a non-loopback interface; only safe behind auth\n                        and a firewall\n",
+      "step": "installed-openai-cli-help"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\venv-system\\Scripts\\python.exe",
+        "F:\\Codes\\Git\\Quantsmind-LLM\\scripts\\verify_installed_release.py",
+        "--repo",
+        "F:\\Codes\\Git\\Quantsmind-LLM",
+        "--expect-version",
+        "1.0.0",
+        "--json-out",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\installed-serving.json"
+      ],
+      "cwd": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k",
+      "duration_seconds": 16.13,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "WARNING: refusing weights_only=True for F:\\Codes\\Git\\Quantsmind-LLM\\runs\\m7_sft\\checkpoint_best.pt (UnpicklingError); falling back to weights_only=False. This executes pickle data, so the path MUST come from trusted startup configuration, never from a request.\n",
+      "stdout_tail": "loaded checkpoint step=120 params=9,359,104\nloaded model_id=qm-code-m3-9m step=120 params=9,359,104 vocab(model)=5822 vocab(tokenizer)=5822 context=512 device=cpu\n{\n  \"capability_note\": \"HTTP success only; not evidence of correct or useful output.\",\n  \"completion_status\": 200,\n  \"completion_text\": \"    This is not\",\n  \"completion_tokens\": 4,\n  \"health\": {\n    \"context_window\": 512,\n    \"model_id\": \"qm-code-m3-9m\",\n    \"model_loaded\": true,\n    \"status\": \"ok\",\n    \"version\": \"1.0.0\"\n  },\n  \"health_status\": 200,\n  \"model_id\": \"qm-code-m3-9m\",\n  \"models_status\": 200,\n  \"package_path\": \"C:\\\\Users\\\\Lenovo\\\\AppData\\\\Local\\\\Temp\\\\taksh-release-k6hga43k\\\\venv-system\\\\Lib\\\\site-packages\\\\taksh\\\\__init__.py\",\n  \"release_status\": \"final\",\n  \"serving_checked\": true,\n  \"serving_path\": \"C:\\\\Users\\\\Lenovo\\\\AppData\\\\Local\\\\Temp\\\\taksh-release-k6hga43k\\\\venv-system\\\\Lib\\\\site-packages\\\\serving\\\\__init__.py\",\n  \"version\": \"1.0.0\"\n}\n",
+      "step": "installed-serving"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "--basetemp",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\pytest"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 234.0,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "........................................................................ [  7%]\n........................................................................ [ 15%]\n........................................................................ [ 23%]\n........................................................................ [ 31%]\n........................................................................ [ 39%]\n........................................................................ [ 47%]\n........................................................................ [ 55%]\n........................................................................ [ 63%]\n........................................................................ [ 71%]\n........................................................................ [ 78%]\n........................................................................ [ 86%]\n........................................................................ [ 94%]\n................................................                         [100%]\n912 passed in 220.59s (0:03:40)\n",
+      "step": "pytest"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-m",
+        "sphinx",
+        "-W",
+        "-b",
+        "html",
+        "F:\\Codes\\Git\\Quantsmind-LLM\\docs\\source",
+        "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\docs-html"
+      ],
+      "cwd": "F:\\Codes\\Git\\Quantsmind-LLM",
+      "duration_seconds": 15.46,
+      "required": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "\u001b[01mRunning Sphinx v7.4.7\u001b[39;49;00m\n\u001b[01mloading translations [en]... \u001b[39;49;00mdone\n\u001b[01mmaking output directory... \u001b[39;49;00mdone\n\u001b[01mbuilding [mo]: \u001b[39;49;00mtargets for 0 po files that are out of date\n\u001b[01mwriting output... \u001b[39;49;00m\n\u001b[01mbuilding [html]: \u001b[39;49;00mtargets for 19 source files that are out of date\n\u001b[01mupdating environment: \u001b[39;49;00m[new config] 19 added, 0 changed, 0 removed\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[  5%] \u001b[35mindex\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 11%] \u001b[35mmm_m1\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 16%] \u001b[35mreleases/M7_RELEASE_READINESS\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 21%] \u001b[35mreleases/index\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 26%] \u001b[35mroadmap/M2_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 32%] \u001b[35mroadmap/M2_RELEASE_AND_GATE\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 37%] \u001b[35mroadmap/M3_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 42%] \u001b[35mroadmap/M4_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 47%] \u001b[35mroadmap/M4_OPEN_WEIGHT_STUDY\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 53%] \u001b[35mroadmap/M5_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 58%] \u001b[35mroadmap/M6_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 63%] \u001b[35mroadmap/M7_EXPERIMENT_PLAN\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 68%] \u001b[35mroadmap/M7_EXPERIMENT_REPORT\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 74%] \u001b[35mroadmap/M7_MANUAL_VERIFICATION\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 79%] \u001b[35mroadmap/M7_REPRODUCIBILITY\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 84%] \u001b[35mroadmap/M7_SOVEREIGN_CAPABILITY_EXPERIMENT\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 89%] \u001b[35mtesting/M2_4_DATASET_SCHEMA_TEST_PLAN\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[ 95%] \u001b[35mtesting/M2_4_DATASET_SCHEMA_TEST_REPORT\u001b[39;49;00m\n\u001b[2K\u001b[01mreading sources... \u001b[39;49;00m[100%] \u001b[35mtesting/index\u001b[39;49;00m\n\n\u001b[01mlooking for now-outdated files... \u001b[39;49;00mnone found\n\u001b[01mpickling environment... \u001b[39;49;00mdone\n\u001b[01mchecking consistency... \u001b[39;49;00mdone\n\u001b[01mpreparing documents... \u001b[39;49;00mdone\n\u001b[01mcopying assets... \u001b[39;49;00m\n\u001b[01mcopying static files... \u001b[39;49;00mdone\n\u001b[01mcopying extra files... \u001b[39;49;00mdone\n\u001b[01mcopying assets: \u001b[39;49;00mdone\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[  5%] \u001b[32mindex\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 11%] \u001b[32mmm_m1\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 16%] \u001b[32mreleases/M7_RELEASE_READINESS\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 21%] \u001b[32mreleases/index\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 26%] \u001b[32mroadmap/M2_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 32%] \u001b[32mroadmap/M2_RELEASE_AND_GATE\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 37%] \u001b[32mroadmap/M3_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 42%] \u001b[32mroadmap/M4_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 47%] \u001b[32mroadmap/M4_OPEN_WEIGHT_STUDY\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 53%] \u001b[32mroadmap/M5_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 58%] \u001b[32mroadmap/M6_EXECUTION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 63%] \u001b[32mroadmap/M7_EXPERIMENT_PLAN\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 68%] \u001b[32mroadmap/M7_EXPERIMENT_REPORT\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 74%] \u001b[32mroadmap/M7_MANUAL_VERIFICATION\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 79%] \u001b[32mroadmap/M7_REPRODUCIBILITY\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 84%] \u001b[32mroadmap/M7_SOVEREIGN_CAPABILITY_EXPERIMENT\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 89%] \u001b[32mtesting/M2_4_DATASET_SCHEMA_TEST_PLAN\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[ 95%] \u001b[32mtesting/M2_4_DATASET_SCHEMA_TEST_REPORT\u001b[39;49;00m\n\u001b[2K\u001b[01mwriting output... \u001b[39;49;00m[100%] \u001b[32mtesting/index\u001b[39;49;00m\n\n\u001b[01mgenerating indices... \u001b[39;49;00mgenindex done\n\u001b[01mhighlighting module code... \u001b[39;49;00m\n\u001b[01mwriting additional pages... \u001b[39;49;00msearch done\n\u001b[01mdumping search index in English (code: en)... \u001b[39;49;00mdone\n\u001b[01mdumping object inventory... \u001b[39;49;00mdone\n\u001b[01mbuild succeeded.\u001b[39;49;00m\n\nThe HTML pages are in C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k\\docs-html.\n",
+      "step": "sphinx"
+    }
+  ],
+  "verdict": "RELEASE GATES PASSED",
+  "version": "1.0.0",
+  "work_dir": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\taksh-release-k6hga43k"
+}

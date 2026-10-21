@@ -1,11 +1,30 @@
-# Quantsmind-LLM — Design Architecture
+# Taksh-LLM — Design Architecture
+
+> **Correction notice (2026-10-14).** This document is a forward-looking design. The
+> ladder figures below do not match the configs they name:
+> `pilot_300m.yaml` = **113,145,408** params, `prod_1p5b.yaml` = **1,315,014,656**,
+> `scale_7b.yaml` = **6,073,618,432**. "300M pilot" throughout means the 113M-named
+> config. **Nothing in this ladder has been trained**: the only text pretrain ran **10
+> steps** (`local_15m`, 7,767,680 params) and the only code pretrain ran **200 steps**
+> (`code_30m.yaml`, 16,257,280 params).
+>
+> | Ladder rung | Config | Actual params | Trained? |
+> |---|---|---|---|
+> | Local text proto | `local_15m.yaml` | 7,767,680 | 10 steps |
+> | Code proto | `code_30m.yaml` | 16,257,280 | 200 steps |
+> | Pilot | `pilot_300m.yaml` | **113,145,408** | no |
+> | Production | `prod_1p5b.yaml` | **1,315,014,656** | no |
+> | Flagship | `scale_7b.yaml` | **6,073,618,432** | no |
+>
+> The "49k BPE" tokenizer claim is **correct** for the general tokenizer
+> (`tokenizer/qm_bpe_v0.json`). The code tokenizer realises **5,822**.
 
 > **Decision record (ADR-0003, FINAL — supersedes the interim open-base plan; extended by
 > [SCOPE_AND_PRINCIPLES](SCOPE_AND_PRINCIPLES.md) to multimodal)**:
-> Quantsmind is a **general multimodal (image ↔ text) foundation** built as a
+> Taksh is a **general multimodal (image ↔ text) foundation** built as a
 > **from-scratch, sovereign-weights Indian model family**, targeting **B2B2C** distribution,
 > with finance/trading as the first application vertical:
-> **300M pilot → 1.5B "Quantsmind-Bharat" production → 7B when funded.**
+> **300M pilot → 1.5B "Taksh-Bharat" production → 7B when funded.**
 > Founder decision: weight ownership and the "born-in-India, owned-weights" story are the
 > mission. Open models (Qwen/Llama/Mistral/Qwen-VL/SD-class) may appear in evaluation
 > **as benchmark rivals to beat — never as the product core.** Accepted trade: raw capability
@@ -36,7 +55,7 @@
 
 > "Finance-literate, arithmetic-grounded, deployable-in-partner-environment copilot at commodity-GPU economics."
 
-| Partner pain | Quantsmind answer |
+| Partner pain | Taksh answer |
 |---|---|
 | Support/advisor teams flooded with repetitive investor questions | Grounded Q&A over partner holdings + market snapshot |
 | Analyst hours burned on reports/transcripts/circulars | Doc intelligence: summarize, extract guidance/risk, quarter-compare |
@@ -56,7 +75,7 @@
             ▼
 ┌───────────────────────────────────────────────────────────────────────┐
 │ PRE-TRAINING PLATFORM                                                  │
-│ tokenizer (49k BPE) → 300M pilot (12B tok) → 1.5B Quantsmind-Bharat    │
+│ tokenizer (49k BPE) → 300M pilot (12B tok) → 1.5B Taksh-Bharat    │
 │   (60B tok, India-finance-weighted) → mid-train tail → long-ctx ext    │
 │ open models run through the same eval harness as benchmark rivals only │
 └───────────┬───────────────────────────────────────────────────────────┘
@@ -93,7 +112,7 @@
 | Run | Params | Tokens | Corpus | Compute (A100-class) | Est. cost* |
 |---|---|---|---|---|---|
 | Pilot | 300M | 12B | India-weighted general v0 | 8 GPUs × 1–2 days | < ₹10K |
-| **Production** | **1.5B "Quantsmind-Bharat"** | **60B** | general + India-finance tail | 32 GPUs × ~1.5 days | **₹3–5 lakh** |
+| **Production** | **1.5B "Taksh-Bharat"** | **60B** | general + India-finance tail | 32 GPUs × ~1.5 days | **₹3–5 lakh** |
 | Flagship (funded) | 7B | 200B+ | full mix + long-ctx | 64+ GPUs × ~2 wks | ₹30–60 lakh |
 
 *\*cloud rental estimates; configs already in `configs/model/`.*
@@ -206,7 +225,7 @@ quantsmind-llm/
 | Area | Choice | Alternative considered |
 |---|---|---|
 | Base vs scratch | **From-scratch sovereign pretrain (ADR-0003, FINAL)** | Open-base extension (interim ADR-000, superseded) |
-| Pretrain ladder | 300M pilot → 1.5B Quantsmind-Bharat → 7B when funded | Single big run (no pipeline proof) |
+| Pretrain ladder | 300M pilot → 1.5B Taksh-Bharat → 7B when funded | Single big run (no pipeline proof) |
 | Open models | Benchmark rivals in eval only | Product core (rejected: ownership mission) |
 | Alignment | SFT + DPO | PPO-RLHF (ops-heavy) |
 | Numerics | Tool-bus calculator mandate | Free-token arithmetic |

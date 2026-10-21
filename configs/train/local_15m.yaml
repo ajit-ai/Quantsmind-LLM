@@ -23,16 +23,15 @@ optimizer:
 
 precision:
   dtype: float32
-  grad_accum_steps: 4
+  # grad_accum_steps moved to `batch` (B4): the copy here was never read.
 
 batch:
   micro_batch_size: 8
-  global_tokens_per_step: 16384   # 8 × 512 × 4 accum = 16k tokens/step
+  grad_accum_steps: 4      # 8 x 512 x 4 = 16384 tokens/step
 
 training:
   max_steps: 5000
   checkpoint_every_steps: 500
-  keep_checkpoints: 3
   log_every_steps: 50
 
 watchdog:

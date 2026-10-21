@@ -1,0 +1,20 @@
+{
+  "schema": "quantsmind.m7_authorization/1",
+  "generated_at": "2026-10-20T09:30:10+00:00",
+  "authorized": true,
+  "inputs": {
+    "protocol_sha256": "1313462407d84b828dfb472f9142e1d542288efc500d78dd65a6437204aa6ee5",
+    "dataset_manifest_sha256": "6ab67eddffa32adae1db71490d9e65f578f79e3397767b4bad49800504fc75da",
+    "pretrain_config_sha256": "df1c4bf011c7553eccb9c319ed9a0ac24ee955c761df0ffaf3f9259e1a6b4f30",
+    "sft_config_sha256": "0c0839fb3b5f9f29b162f0c6ebf8e1bd164bb2eebc2fea0267256fcd5e692007",
+    "gates": {
+      "A": true,
+      "B": true,
+      "C": true,
+      "D": true
+    }
+  },
+  "token": "cc43cf66b867a900c0d6db86465749e6c864761928b322682c0aaa7e71d05e95",
+  "problems": [],
+  "note": "This is a content-addressed authorization record, not a cryptographic signature. It binds the dataset, protocol, configs, and gate results."
+}
