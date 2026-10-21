@@ -68,15 +68,17 @@ def resolve_model_config(ckpt):
 
 
 def load_model(checkpoint_path: str, device: str):
+    from training.checkpoint import load_model_weights
     from training.model import QMModel
 
     ckpt = torch_load_checkpoint(checkpoint_path)
     model_cfg = resolve_model_config(ckpt)
 
     model = QMModel(model_cfg)
-    model.load_state_dict(ckpt["model"])
+    report = load_model_weights(model, ckpt["model"], source=str(checkpoint_path))
     step = ckpt.get("step", "?")
-    print(f"loaded checkpoint step={step} params={model.num_params():,}")
+    print(f"loaded checkpoint step={step} params={model.num_params():,} "
+          f"tensors={len(report.loaded)}")
     return model.to(device).eval(), model_cfg
 
 

@@ -182,9 +182,10 @@ def test_system_and_user_roles_reach_the_prompt(client):
     assert "add two numbers" in prompt
 
 
-def test_assistant_turn_preserved_in_history_order(client):
+def test_legacy_contract_refuses_multi_turn(client):
+    """v1 cannot express roles, so it must refuse instead of emitting delimiters."""
     c, captured = client
-    c.post(
+    r = c.post(
         "/v1/chat/completions",
         json={
             "messages": [
@@ -194,8 +195,36 @@ def test_assistant_turn_preserved_in_history_order(client):
             ]
         },
     )
+    assert r.status_code == 400
+    assert "legacy contract" in r.json()["error"]["message"]
+    assert "prompt" not in captured
+
+
+def test_v2_assistant_turn_preserved_in_history_order(client, monkeypatch):
+    from training.tokenizer_contract import build_contract_tokenizer
+
+    c, captured = client
+    monkeypatch.setattr(
+        openai_server.state,
+        "tokenizer",
+        build_contract_tokenizer("tokenizer/qm_code_bpe_v0.json"),
+        raising=False,
+    )
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        },
+    )
+    assert r.status_code == 200
     prompt = captured["prompt"]
     assert prompt.index("first") < prompt.index("second") < prompt.index("third")
+    assert "<|assistant|>second<|end_of_turn|>" in prompt
+    assert prompt.endswith("<|assistant|>")
 
 
 def test_unsupported_role_rejected(client):

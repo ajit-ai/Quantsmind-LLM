@@ -45,8 +45,8 @@ from pydantic import BaseModel, Field
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from taksh import __version__
-from serving.code_chat import CODE_SYSTEM_PROMPT, format_prompt
-from serving.local_inference import generate_ids
+from training.chat_template import SYSTEM_PROMPT, render_chat
+from serving.local_inference import generate_ids, torch_load_checkpoint
 from serving.server_security import (
     add_standard_args,
     api_key_from_env,
@@ -83,6 +83,7 @@ class State:
     checkpoint_step = None
     ckpt_path = None
     api_key = None
+    contract_id = None
 
 
 state = State()
@@ -180,6 +181,7 @@ async def list_models():
                     "context_window": state.model_cfg.get("max_seq_len"),
                     "vocab_size": state.model_cfg.get("vocab_size"),
                     "n_params_non_embedding": state.model.num_params(),
+                    "prompt_contract": state.contract_id,
                 },
             }
         ],
@@ -193,36 +195,19 @@ async def health():
         "version": __version__,
         "model_loaded": state.model is not None,
         "model_id": state.model_id,
+        "prompt_contract": state.contract_id,
         "context_window": (state.model_cfg or {}).get("max_seq_len"),
     }
 
 
 def build_prompt(messages):
-    """Convert OpenAI chat messages into this model's prompt format.
+    """Render through the canonical contract-aware renderer.
 
-    Reuses ``serving.code_chat.format_prompt`` (already covered by
-    tests/test_code_serving.py) for the single user-turn case and extends it for
-    multi-turn histories, which ``format_prompt`` does not model.
+    v1.1.0 removed the hand-built legacy "<|system|>..." string: the markers were
+    never tokens, so multi-turn input silently became byte fragments. The
+    renderer now refuses shapes the loaded contract cannot express.
     """
-    system_parts = [m.content for m in messages if m.role == "system"]
-    turns = [m for m in messages if m.role in ("user", "assistant")]
-
-    if not turns:
-        raise ValueError("messages must contain at least one user or assistant turn")
-
-    # Only delegate to format_prompt when there is no caller-supplied system prompt.
-    # format_prompt hardcodes CODE_SYSTEM_PROMPT, so delegating unconditionally
-    # would silently discard the caller's system message.
-    if len(turns) == 1 and turns[0].role == "user" and not system_parts:
-        return format_prompt(turns[0].content, "python")
-
-    system = "\n".join(system_parts) if system_parts else CODE_SYSTEM_PROMPT
-    parts = [f"<|system|>{system}\n"]
-    for turn in turns:
-        tag = "<|user|>" if turn.role == "user" else "<|assistant|>"
-        parts.append(f"{tag}\n{turn.content}\n")
-    parts.append("<|assistant|>\n")
-    return "".join(parts)
+    return render_chat(state.tokenizer, messages, default_system=SYSTEM_PROMPT)
 
 
 @app.post("/v1/chat/completions")
@@ -344,6 +329,26 @@ def load_state(ckpt: str, tokenizer: str) -> None:
         step = torch.load(ckpt, map_location="cpu", weights_only=False).get("step")
     except Exception:  # pragma: no cover - metadata only, never fatal
         step = None
+
+    # v1.1.0: the served contract is a property of the checkpoint, not of the
+    # server's mood. A /2 checkpoint must match the tokenizer exactly; a legacy
+    # /1 file is explicitly identified as qm.plain_instruction/1 and warned about.
+    from training.checkpoint_schema import SCHEMA_V2, verify_against
+    from training.tokenizer_contract import CONTRACT_V1, detect_contract
+
+    metadata = torch_load_checkpoint(ckpt)
+    if metadata.get("schema") == SCHEMA_V2:
+        state.contract_id = detect_contract(tok)
+        verify_against(
+            metadata["provenance"], tokenizer=tok, contract_id=state.contract_id
+        )
+    else:
+        state.contract_id = CONTRACT_V1
+        print(
+            "WARNING: checkpoint has no provenance contract (schema /1); serving "
+            f"under the documented legacy contract {CONTRACT_V1}. Do not treat "
+            "this as a v2 artifact."
+        )
 
     state.model = model
     state.model_cfg = model_cfg
