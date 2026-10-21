@@ -1,11 +1,12 @@
 # Taksh - Versioning & Phase Matrix
 
-> **M7 release target (2026-10-20).** Current repository/package metadata is
-> `1.0.0`, the Apache-2.0 release for the completed M7 experiment. Publication
-> is a separately authorised step recorded in the release-readiness report. The
-> experiment was originally documented under the interim target `0.7.0`; that
-> label is historical and was never released. The model and serving tracks below
-> are unchanged; M7 is an experiment, not a Track 1 model promotion. See
+> **M7 release target (2026-10-21).** Current repository/package metadata is
+> `1.0.0`, the Apache-2.0 release for the completed M7 experiment. The `v1.0.0`
+> Git tag and GitHub source release were published on 2026-10-21; the PyPI upload
+> is blocked on registry credentials. The experiment was originally documented
+> under the interim target `0.7.0`; that label is historical and was never
+> released. The model and serving tracks below are unchanged; M7 is an
+> experiment, not a Track 1 model promotion. See
 > `docs/source/releases/M7_RELEASE_READINESS.rst`.
 
 ## Repository/package version policy

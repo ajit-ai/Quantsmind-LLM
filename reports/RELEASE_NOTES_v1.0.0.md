@@ -19,8 +19,12 @@ Apache-2.0 source release for the completed M7 sovereign capability experiment.
 
 ## Install
 
+PyPI publication is currently blocked on registry credentials, so the package
+is not yet available from PyPI. Install the wheel attached to this GitHub
+release, or build from the source archive:
+
 ```bash
-pip install taksh==1.0.0
+pip install taksh-1.0.0-py3-none-any.whl
 taksh --version
 ```
 

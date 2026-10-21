@@ -36,7 +36,7 @@ layers and six acceptance states are defined in the M2 execution record
 | M4 | **Instruction / Conversational Tuning** - SFT and instruction following | **IMPLEMENTED, NEGATIVE CAPABILITY RESULT** - see the M4 execution record; no functional code evidence |
 | M5 | **Evaluation and Capability Validation** - human + automated evaluation, coding benchmarks, robustness, safety, regression | **INSUFFICIENT_EVIDENCE** - see the M5 execution record |
 | M6 | **Local Capability Validation** - local candidate acquisition and evaluation under the sovereign boundary | **INSUFFICIENT_EVIDENCE** - published M6 record; serving code predates it and is not an M6 acceptance |
-| M7 | **Final packaging and public release** - package and close the completed M7 sovereign capability experiment at v1.0.0 | **RELEASE APPROVED; PUBLICATION AUTHORIZED** - capability is negative (0/40 locked syntax, 0/8 functional, evidence level 0); packaging, clean-install and serving evidence are in `docs/source/releases/M7_RELEASE_READINESS.rst`; publication follows explicit owner authorization and passing release gates |
+| M7 | **Final packaging and public release** - package and close the completed M7 sovereign capability experiment at v1.0.0 | **RELEASE PUBLISHED** - capability is negative (0/40 locked syntax, 0/8 functional, evidence level 0); v1.0.0 Git tag and GitHub release published 2026-10-21; PyPI upload blocked on credentials; packaging, clean-install and serving evidence are in `docs/source/releases/M7_RELEASE_READINESS.rst` |
 
 > **Milestone scope reconciliation (2026-10-20).** The published M6 record is
 > *Local Capability Validation*, not serving acceptance. Serving code existed from

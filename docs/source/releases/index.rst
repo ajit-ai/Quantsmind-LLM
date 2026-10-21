@@ -4,11 +4,12 @@ Releases
 Release and milestone-gate records live here in RST.
 
 The current package/release target is ``v1.0.0``, the Apache-2.0 source release.
-Publication follows explicit owner authorization and a passing release-gate run.
-The earlier M7 experiment used ``v0.7.0`` as an interim documentation target and
-was never released. Model weights and training datasets remain private.
+The Git tag and GitHub release were published on 2026-10-21. The PyPI upload is
+blocked on registry credentials; no package-index release exists. The earlier
+M7 experiment used ``v0.7.0`` as an interim documentation target and was never
+released. Model weights and training datasets remain private.
 
-What exists is a verified research release prepared for publication:
+What exists is a published research source release:
 
 * **M2** — dataset release artifacts and the readiness gate, which reports
   ``M2 BLOCKED``. See :doc:`../roadmap/M2_RELEASE_AND_GATE`.

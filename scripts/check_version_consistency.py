@@ -143,7 +143,7 @@ def check(root: Path = REPO_ROOT, *, check_cli: bool = True) -> tuple[list[str],
         "docs/source/releases/M7_RELEASE_READINESS.rst",
         (f"`v{version}`", f"`taksh=={version}`", "PUBLICATION AUTHORIZED"),
     )
-    _require(errors, root, "docs/ROADMAP.md", (f"at v{version}", "PUBLICATION AUTHORIZED"))
+    _require(errors, root, "docs/ROADMAP.md", (f"at v{version}", "RELEASE PUBLISHED"))
     _forbid(errors, root, "docs/ROADMAP.md", ("M8 | **Release",))
     _require(errors, root, "docs/STATUS.md", (f"**v{version}**",))
     _require(errors, root, "CHANGELOG.md", (f"## [{version}]",))

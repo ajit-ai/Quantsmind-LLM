@@ -1,10 +1,11 @@
 # Taksh - Execution Status Tracker
 
-> **M7 status (2026-10-20).** The M7 Sovereign Capability Experiment completed with a
+> **M7 status (2026-10-21).** The M7 Sovereign Capability Experiment completed with a
 > negative capability result: 0/40 locked syntax-valid generations, 0/8 functional
 > probes, evidence level 0. The final packaging target is **v1.0.0** (Apache-2.0
-> source release); publication follows explicit owner authorization and passing
-> release gates. See `docs/source/releases/M7_RELEASE_READINESS.rst` and
+> source release). The Git tag and GitHub release are published; the PyPI upload
+> is blocked on registry credentials. See
+> `docs/source/releases/M7_RELEASE_READINESS.rst` and
 > `docs/source/roadmap/M7_EXPERIMENT_REPORT.rst`.
 
 > **Roadmap authority (2026-10-18).** The single authoritative execution roadmap is

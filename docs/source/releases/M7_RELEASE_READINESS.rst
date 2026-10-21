@@ -50,9 +50,12 @@ and must not be presented as a production or capability release.
    * - Model weights and data release
      - WITHHELD
      - no release licence for weights; M2 remains ``BLOCKED``
-   * - Git tag, package publication, GitHub release
-     - AUTHORIZED
-     - explicit owner authorization; executed only after the release-gate run
+   * - Git tag and GitHub release
+     - COMPLETE
+     - ``v1.0.0`` tag and GitHub release published from the verified commit
+   * - PyPI package publication
+     - BLOCKED
+     - upload returned HTTP 403; registry credentials need owner resolution
 
 Scope and version reconciliation
 --------------------------------
@@ -296,10 +299,21 @@ working tree. Release preparation added the package metadata, version module,
 licence notice, release tests, naming updates and documentation directly to the
 working tree without rewriting history.
 
-The release commit, ``v1.0.0`` tag, GitHub release and any package-registry
-publication are created only from the verified release commit after the final
-gate run. Their exact identifiers and artifact hashes are recorded in the final
-release report and `reports/release-evidence/`.
+The release commit was created on branch ``develop`` after the final gate run,
+then tagged and published without rewriting history:
+
+* release commit: ``a156892dfa230ba45f9bc140f4d7d04844327b75``;
+* annotated tag: ``v1.0.0`` (tag object
+  ``7b4a93dc008e34b72a1735c99d6c0b59a4320e67``) points to the release commit;
+* GitHub release: https://github.com/ajit-ai/Quantsmind-LLM/releases/tag/v1.0.0;
+* release assets: ``taksh-1.0.0-py3-none-any.whl`` and
+  ``taksh-1.0.0.tar.gz``, with the hashes recorded above.
+
+The PyPI upload was attempted after the GitHub release and was rejected with
+HTTP 403 Forbidden. The ``taksh`` project remains absent from PyPI (JSON API
+returns 404). No package-index release exists. Publishing requires a valid PyPI
+owner token with the required 2FA/trusted-publishing configuration; this is an
+unresolved external credential prerequisite, not a source-release defect.
 
 ``reports/M7_AUTHORIZATION.json`` authorises the M7 training inputs. It is not
 itself a publication approval; publication is authorized separately by the
