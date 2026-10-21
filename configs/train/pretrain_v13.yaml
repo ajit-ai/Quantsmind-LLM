@@ -1,0 +1,67 @@
+# Taksh v1.3.0 -- Python-focused pretraining (production shape).
+#
+# This configuration is the *production* path. It trains only on a v1.2.0
+# dataset manifest whose declared class is `production` and whose
+# `corpus_ready` flag is true. The shipped v1.2.0 contract approves zero
+# sources, so the authorization gate refuses this configuration today -- that
+# refusal is the correct behaviour, not a defect.
+#
+# Model rung
+# ----------
+# The S2 rung (`configs/model/code_m3_9m.yaml`, 9,359,104 parameters) is used
+# because the frozen tokenizer has 5,822 ids. The roadmap's S3 rung
+# (16,257,280 parameters) requires a 32,768-wide vocabulary, which is owner
+# decision D6; it is not reachable without a vocabulary change, and v1.3.0
+# does not change vocabularies.
+#
+# Paths are relative so the configuration stays portable: a path is resolved
+# against this file's directory first and against the repository root second.
+schema: quantsmind.train_config/1
+mode: production
+
+run:
+  name: taksh-v13-python-pretrain
+  model_config: configs/model/code_m3_9m.yaml
+  seed: 20261021
+
+data:
+  # Produced by `python -m data.python_v1 --contract data/contracts/python_v1.yaml`.
+  manifest: data/python_v1_out/manifest.json
+  tokenizer: tokenizer/qm_code_bpe_v0.json
+  context_length: 512
+  sequence_policy: document
+  append_eos: true
+  # Packing lets a window attend across document boundaries; it stays off.
+  allow_cross_document: false
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  warmup_steps: 20
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 4
+  shuffle: true
+
+precision:
+  device: cpu
+  dtype: float32
+
+training:
+  max_steps: 300
+  max_tokens: 100000000
+  max_wall_seconds: 86400
+  checkpoint_every_steps: 25
+  eval_every_steps: 25
+  val_batches: 16
+  output_dir: runs/v13_python
+
+limits:
+  max_checkpoints: 3
+  max_output_bytes: 5000000000

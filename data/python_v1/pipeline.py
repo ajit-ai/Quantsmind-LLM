@@ -262,6 +262,17 @@ def build_dataset(contract_path, out_dir, *, dry_run: bool = False) -> dict:
         "truncated": stats["truncated"],
         "truncated_reasons": dict(sorted(stats["truncated_reasons"].items())),
     }
+    # ``dataset_class`` is declared by the contract, never inferred. A
+    # ``synthetic`` build is labelled as such everywhere it is consumed, and
+    # the training authorization gate refuses to promote one to production.
+    dataset_class = contract.get("dataset_class", "production")
+    corpus_ready = bool(
+        dataset_class == "production"
+        and stats["decisions"]
+        and all(d.get("allowed") for d in stats["decisions"])
+        and not stats["truncated"]
+        and splits.get("split_ready")
+    )
     manifest = build_manifest(
         contract=contract,
         contract_fingerprint=contract_fingerprint(contract),
@@ -279,11 +290,14 @@ def build_dataset(contract_path, out_dir, *, dry_run: bool = False) -> dict:
             for d in stats["decisions"]
         },
         notes={
-            "corpus_ready": False,
+            "corpus_class": dataset_class,
+            "synthetic": dataset_class == "synthetic",
+            "corpus_ready": corpus_ready,
             "corpus_readiness_note": (
-                "This build used only the sources approved in the contract. A "
-                "pipeline-qualified build is not a statement that a real-world "
-                "corpus has been approved."
+                "A build is corpus_ready only when every declared source is "
+                "approved, nothing was truncated and the split is ready. A "
+                "synthetic build is never corpus_ready: it is a qualification "
+                "fixture, not a corpus."
             ),
         },
     )
