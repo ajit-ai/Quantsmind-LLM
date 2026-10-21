@@ -188,7 +188,11 @@ def evaluate_authorization(
         reasons.append("revision_mismatch")
     if intended_use is not None:
         approved = manifest.get("approved_uses")
-        if approved is not None and intended_use not in approved:
+        if not approved:
+            # v1.8.0: a missing scope is a refusal, not a licence to use the
+            # source for anything.
+            reasons.append("approved_use_scope_missing")
+        elif intended_use not in approved:
             reasons.append("use_out_of_approved_scope")
     provenance = manifest.get("provenance_evidence") or {}
     if not provenance.get("established"):

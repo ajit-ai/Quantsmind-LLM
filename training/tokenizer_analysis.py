@@ -434,6 +434,80 @@ def migration_plan(tokenizer, metrics: dict) -> dict:
     }
 
 
+def python_fragmentation_report(tokenizer, texts) -> dict:
+    """Python-specific fragmentation measurements for the frozen tokenizer.
+
+    Covers keywords, common identifiers, indentation, punctuation and long
+    identifiers, plus the prompt-token inflation a Python prompt suffers from.
+    The tokenizer is measured, never modified.
+    """
+    import keyword as _keyword
+
+    keywords = sorted(_keyword.kwlist)
+    keyword_costs = {
+        word: len(tokenizer.encode(word, add_special_tokens=False).ids)
+        for word in keywords
+    }
+    identifiers = [
+        "def", "class", "return", "self", "value", "result", "handler",
+        "process", "config", "request", "response", "iterator", "cache",
+        "manager", "factory", "builder", "container", "collection",
+    ]
+    identifier_costs = {
+        name: len(tokenizer.encode(name, add_special_tokens=False).ids)
+        for name in identifiers
+    }
+    indentation = {
+        "one_space": len(tokenizer.encode(" ", add_special_tokens=False).ids),
+        "four_spaces": len(tokenizer.encode("    ", add_special_tokens=False).ids),
+        "tab": len(tokenizer.encode("\t", add_special_tokens=False).ids),
+        "newline": len(tokenizer.encode("\n", add_special_tokens=False).ids),
+    }
+    punctuation = {
+        symbol: len(tokenizer.encode(symbol, add_special_tokens=False).ids)
+        for symbol in ("(", ")", ":", ",", "=", ".", "->", "==", "_")
+    }
+    long_names = [
+        "get_user_by_identifier",
+        "compute_sharding_strategy_for_partition",
+        "transform_configuration_payload",
+    ]
+    long_costs = {
+        name: len(tokenizer.encode(name, add_special_tokens=False).ids)
+        for name in long_names
+    }
+    characters = sum(len(text) for text in texts)
+    tokens = sum(
+        len(tokenizer.encode(text, add_special_tokens=False).ids) for text in texts
+    )
+    return {
+        "samples": len(texts),
+        "characters": characters,
+        "tokens": tokens,
+        "characters_per_token": round(characters / tokens, 4) if tokens else None,
+        "keywords_total": len(keywords),
+        "keywords_single_token": sum(
+            1 for cost in keyword_costs.values() if cost == 1
+        ),
+        "keyword_fragmentation_share": round(
+            1 - (sum(1 for cost in keyword_costs.values() if cost == 1) / len(keywords)),
+            4,
+        ),
+        "identifiers_total": len(identifier_costs),
+        "identifiers_single_token": sum(
+            1 for cost in identifier_costs.values() if cost == 1
+        ),
+        "identifier_fragmentation_share": round(
+            1 - (sum(1 for cost in identifier_costs.values() if cost == 1) / len(identifier_costs)),
+            4,
+        ),
+        "indentation_tokens": indentation,
+        "punctuation_tokens": punctuation,
+        "long_identifier_tokens": long_costs,
+        "unknown_token_id": tokenizer.token_to_id("<unk>"),
+    }
+
+
 def build_report(tokenizer_path, texts, *, label: str = "python source sample") -> dict:
     """Measure the tokenizer and produce the suitability report."""
     from tokenizers import Tokenizer

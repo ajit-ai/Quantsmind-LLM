@@ -143,9 +143,12 @@ def _filter_logits(logits, temperature, top_k, top_p):
         # Remove tokens whose *preceding* cumulative mass already exceeds top_p,
         # always keeping the single most likely token.
         remove = (cumulative - sorted_probs) > top_p
-        remove[0] = False
+        # v1.8.0: the nucleus mask belongs to the vocabulary dimension, and the
+        # most likely token must always survive. Scattering along dimension 0
+        # raised "index out of bounds" for any request with top_p < 1.
+        remove[:, 0] = False
         sorted_probs = sorted_probs.masked_fill(remove, 0.0)
-        probs = torch.zeros_like(probs).scatter_(0, sorted_idx, sorted_probs)
+        probs = torch.zeros_like(probs).scatter_(1, sorted_idx, sorted_probs)
     return probs
 
 
