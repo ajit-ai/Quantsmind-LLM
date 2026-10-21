@@ -1,7 +1,14 @@
-# Quantsmind — Scope & Principles
+# Taksh — Scope & Principles
 
-> **What we are building:** one sovereign, from-scratch, multimodal model family —
-> **Image → Text · Text → Text · Text → Image** — trained on your machine, owned by you.
+> **Scope note (2026-10-14 pivot).** The active product direction is a **sovereign
+> coding LLM** — see [CODE_LLM_STRATEGY.md](CODE_LLM_STRATEGY.md). The multimodal
+> scope described below is **deferred**, not deleted, and is retained as the
+> historical design position. It does not gate current execution.
+> The single authoritative execution roadmap is [ROADMAP.md](ROADMAP.md).
+>
+> **What we are building (as originally scoped):** one sovereign, from-scratch,
+> multimodal model family — **Image → Text · Text → Text · Text → Image** — trained
+> on your machine, owned by you.
 > General-domain foundation; finance/trading is the first application vertical.
 
 ---
@@ -11,7 +18,7 @@
 *India-owned multimodal intelligence: images and text, one model family, zero foreign base,
 ₹0 forever on the local path.*
 
-## 2. What Quantsmind is
+## 2. What Taksh is
 
 - A **from-scratch sovereign model family** (ADR-0003): architecture, tokenizer, data,
   training, and weights are all project-owned and in-repo.
@@ -20,17 +27,17 @@
 - **General domain foundation** with a **finance/trading vertical** as the first specialized
   application (SEBI/RBI-aware guardrails, tool-grounded numerics, India conventions).
 - **₹0-first engineering**: every capability is first proven as a small local prototype on
-  CPU / one consumer GPU (like today's ~11M text prototype) *before* any rented-GPU spend.
+  CPU / one consumer GPU (like today's text prototype, **7,767,680 params**) *before* any rented-GPU spend.
 - **Understanding before generation**: Image→Text v1 → Text→Image v2.
 - **B2B2C product path**: partners distribute a compliant engine via an OpenAI-compatible API.
 
 | Direction | Status | Mechanism |
 |---|---|---|
-| Text → Text | v0 (done, ~11M proto, 46 tests) | QM Transformer decoder |
+| Text → Text | v0 (code COMPLETE, **no capability demonstrated**; 7,767,680-param general proto + 16,257,280-param code config; 183 tests) | QM Transformer decoder |
 | Image → Text | Phase A (v1) | `VisionEncoder` (ViT) → MLP projector → decoder |
 | Text → Image | Phase B (v2) | own VQ-VAE image tokens → shared AR decoder |
 
-## 3. What Quantsmind is NOT (v1–v2)
+## 3. What Taksh is NOT (v1–v2)
 
 - **Not an app business** — we build and license the engine; partners own the customer surface.
 - **Not built on open-model cores** — open models are benchmark rivals in the eval harness only.

@@ -343,7 +343,16 @@ def test_score_items_matches_evaluate_pilot_summarize(tmp_path):
     model = load_checkpoint(save_ckpt(tmp_path, build_text(), TEXT_CFG)).text_model
     rows = score_items(model, list(load_eval_set(seed)), lambda s: tok.encode(s).ids)
     summary = summarize(rows)
-    assert summary == {"overall_mean_nll": summary["overall_mean_nll"], "by_category": summary["by_category"], "n_items": 2}
+
+    # Previously compared the summary against itself for every value but `n_items`,
+    # which passes for any dict. Assert the real values instead.
+    assert summary["n_items"] == 2
+    assert summary["ok"] is True
+    assert summary["overall_mean_nll"] > 0.0
+    assert set(summary["by_category"]) == {r["category"] for r in rows}
+    assert summary["overall_mean_nll"] == pytest.approx(
+        sum(r["nll_per_token"] for r in rows) / 2, abs=1e-4
+    )
 
 
 # ---------------------------------------------------------------- loss sanity

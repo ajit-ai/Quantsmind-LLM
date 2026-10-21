@@ -1,0 +1,240 @@
+{
+  "schema": "quantsmind.m6_sovereign/1",
+  "generated_at": "2026-10-20T07:03:51+00:00",
+  "training_performed": false,
+  "training_authorised": false,
+  "machine": {
+    "measured": true,
+    "total_ram_gib": 3.911,
+    "available_ram_gib": 0.98,
+    "disk_free_gib": 190.945,
+    "peak_rss_mib": 1102.9,
+    "torch": {
+      "torch_version": "2.13.0+cpu",
+      "cuda_available": false,
+      "cuda_device_count": 0,
+      "mps_available": false,
+      "torch_threads": 4,
+      "cuda_device_name": null,
+      "cuda_total_memory_bytes": null,
+      "cuda_kind": "absent"
+    }
+  },
+  "established": [
+    "a working from-scratch pretraining and SFT pipeline exists and has produced loadable checkpoints",
+    "the pipeline is licence-gated: only sources in licence_verification.json verified_ids enter training",
+    "the CPU-only host can train a ~2.85M-parameter model, and a ~9.36M-parameter configuration was preflight-measured at ~207 MiB peak RSS",
+    "the corpus comprises only licence-verified Python library source"
+  ],
+  "not_demonstrated": [
+    "any useful coding capability (see the M6 capability report)",
+    "functional correctness on any benchmark example",
+    "instruction following above chance on the M5 benchmark",
+    "that the corpus can teach any task beyond next-token prediction",
+    "that a larger model would help, absent data for those tasks"
+  ],
+  "data": {
+    "manifest_present": true,
+    "train_records": 193,
+    "train_repositories": [
+      "pallets/click",
+      "pallets/flask",
+      "pytest-dev/pytest",
+      "tiangolo/fastapi",
+      "urllib3/urllib3"
+    ],
+    "train_tokens": 1165217,
+    "train_licenses": {
+      "BSD-3-Clause": 40,
+      "MIT": 153
+    },
+    "val_records": 63,
+    "val_tokens": 340077,
+    "verified_sources": [
+      "aio-libs-aiohttp",
+      "pallets-click",
+      "pallets-flask",
+      "psf-requests",
+      "pytest-dev-pytest",
+      "tiangolo-fastapi",
+      "urllib3-urllib3"
+    ],
+    "withheld_sources": {
+      "psf-black": 27,
+      "pypa-setuptools": 135
+    },
+    "holdout": {
+      "split": "test",
+      "emitted": false,
+      "reason": "The test split is withheld from M3 on purpose. Its licence composition is unresolved (psf-black), and tuning against it would spend the only data reserved for final measurement."
+    },
+    "task_coverage": [
+      {
+        "task": "code_completion",
+        "coverage": "PARTIAL",
+        "basis": "the corpus is Python library source, so completion-style supervision exists implicitly through next-token prediction"
+      },
+      {
+        "task": "code_generation",
+        "coverage": "ABSENT",
+        "basis": "no instruction->code pairs; the corpus is raw source, not prompts"
+      },
+      {
+        "task": "debugging",
+        "coverage": "ABSENT",
+        "basis": "no failing-code/patch pairs anywhere in the corpus"
+      },
+      {
+        "task": "refactoring",
+        "coverage": "ABSENT",
+        "basis": "no before/after refactor pairs"
+      },
+      {
+        "task": "unit_test_generation",
+        "coverage": "ABSENT",
+        "basis": "tests appear as source text, never as instruction->test pairs"
+      },
+      {
+        "task": "code_explanation",
+        "coverage": "ABSENT",
+        "basis": "no natural-language explanation targets"
+      },
+      {
+        "task": "documentation",
+        "coverage": "ABSENT",
+        "basis": "docstrings exist inside files but no docstring-generation supervision"
+      },
+      {
+        "task": "sql",
+        "coverage": "ABSENT",
+        "basis": "the verified corpus contains no SQL"
+      },
+      {
+        "task": "architecture",
+        "coverage": "ABSENT",
+        "basis": "no design or architecture material"
+      },
+      {
+        "task": "devops_infrastructure",
+        "coverage": "ABSENT",
+        "basis": "no CI, Docker or infra configuration"
+      },
+      {
+        "task": "instruction_following",
+        "coverage": "ABSENT",
+        "basis": "absent by construction; M4 attempted to synthesise it from code and produced an instruction/completion mismatch"
+      },
+      {
+        "task": "structured_output",
+        "coverage": "ABSENT",
+        "basis": "no schema-constrained examples"
+      }
+    ],
+    "coverage_summary": {
+      "partial": 1,
+      "absent": 11,
+      "total": 12
+    },
+    "disablement_note": "The verified corpus is Python library source only. It supports next-token prediction, which is why M3 reached a low loss, but it contains no supervision for debugging, refactoring, test generation, explanation, documentation, SQL or architecture. A low loss on this corpus cannot become coding capability on those tasks without new data."
+  },
+  "scales": [
+    {
+      "scale_id": "A-baseline",
+      "name": "Existing 2.85M research baseline",
+      "parameters": 2853280,
+      "estimated_steady_state_mib": 68.5,
+      "tokens_for_20x_parameters": 57065600,
+      "fits_total_ram": true,
+      "fits_available_ram": true,
+      "fits_host": true,
+      "measured_peak_mib": null,
+      "note": "reproducibility baseline; already trained, keep unchanged",
+      "status": "ESTIMATE"
+    },
+    {
+      "scale_id": "B-existing-9m",
+      "name": "Existing 9.36M config",
+      "parameters": 9359104,
+      "estimated_steady_state_mib": 206.8,
+      "tokens_for_20x_parameters": 187182080,
+      "fits_total_ram": true,
+      "fits_available_ram": true,
+      "fits_host": true,
+      "measured_peak_mib": 207.0,
+      "note": "already authored and preflight-measured; untrained",
+      "status": "ESTIMATE"
+    },
+    {
+      "scale_id": "C-modest-30m",
+      "name": "Modest 30M proposal",
+      "parameters": 23870592,
+      "estimated_steady_state_mib": 484.2,
+      "tokens_for_20x_parameters": 477411840,
+      "fits_total_ram": true,
+      "fits_available_ram": false,
+      "fits_host": false,
+      "measured_peak_mib": null,
+      "note": "smallest scale that could plausibly generalise across tasks",
+      "status": "ESTIMATE"
+    },
+    {
+      "scale_id": "D-125m",
+      "name": "125M proposal",
+      "parameters": 79987968,
+      "estimated_steady_state_mib": 1436.5,
+      "tokens_for_20x_parameters": 1599759360,
+      "fits_total_ram": true,
+      "fits_available_ram": false,
+      "fits_host": false,
+      "measured_peak_mib": null,
+      "note": "GPT-2-small class; requires compute this host does not have",
+      "status": "ESTIMATE"
+    },
+    {
+      "scale_id": "E-350m",
+      "name": "350M proposal",
+      "parameters": 276544512,
+      "estimated_steady_state_mib": 4807.7,
+      "tokens_for_20x_parameters": 5530890240,
+      "fits_total_ram": false,
+      "fits_available_ram": false,
+      "fits_host": false,
+      "measured_peak_mib": null,
+      "note": "only defensible with a GPU and a matured dataset",
+      "status": "ESTIMATE"
+    }
+  ],
+  "compute_gap": {
+    "total_ram_gib": 3.911,
+    "available_ram_gib": 0.98,
+    "cuda_available": false,
+    "largest_proposal_fitting_host": "B-existing-9m",
+    "note": "Steady-state figures cover weights, gradients, AdamW moments and stored activations; they exclude tokenizer buffers and the OS. 'fits_available_ram' is the binding test on a shared machine: this host reports only a fraction of a GiB free, so even proposals that fit installed RAM cannot start while other work is running. Any scale beyond the largest fitting proposal needs hardware this host does not have."
+  },
+  "validation_gates": [
+    "G1 data: each target task has licence-verified supervision with an isolated holdout that shares no repository or content hash",
+    "G2 preflight: training.preflight passes with a measured probe, not an estimate, on the actual training host",
+    "G3 evaluation: a frozen benchmark exists BEFORE training starts and covers the tasks being claimed",
+    "G4 capability: functional pass rate rises above the M3/M4 baseline on a benchmark large enough to be non-anecdotal",
+    "G5 regression: general-code behaviour does not degrade"
+  ],
+  "recommended_next_experiment": {
+    "scale": "B-existing-9m",
+    "rationale": "It is the largest configuration already authored and preflight-measured on this host, so it isolates the data question from the compute question. Scaling the model before fixing the data would repeat the M4 error of adding capacity without adding supervision.",
+    "preconditions": [
+      "licence-verified instruction data for at least code_generation, debugging and unit_test_generation",
+      "a frozen benchmark covering those tasks, versioned separately from the M5 benchmark",
+      "preflight re-run on the exact training host"
+    ],
+    "out_of_scope": [
+      "any scale above the largest host-fitting proposal",
+      "instruction tuning before pretraining data exists",
+      "reusing the M4 synthetic instruction construction unchanged"
+    ]
+  },
+  "authorisation_required": [
+    "explicit human authorisation to start a training run",
+    "confirmation that new data has passed the licence gate",
+    "confirmation that a frozen benchmark predates the run"
+  ]
+}

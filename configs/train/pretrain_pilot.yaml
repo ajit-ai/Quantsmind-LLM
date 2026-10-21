@@ -5,10 +5,21 @@ run:
   seed: 42
 
 data:
-  dataset_tag: corpus-v0-general   # DVC tag from data pipeline
+  # Resolves to data/corpus_v0.tokens.bin (the '-' is normalised to '_').
+  # The previous tag was `corpus-v0-general`, which resolved to
+  # data/corpus_v0_general.tokens.bin -- a file no supported pipeline has ever
+  # produced, so the config could not run.
+  #
+  # Regenerate reproducibly from the approved input with:
+  #   python -m data.encode_dataset \
+  #     --corpus data/corpus_v0.txt \
+  #     --tokenizer tokenizer/qm_bpe_v0.json \
+  #     --out data/corpus_v0.tokens.bin
+  #
+  # The shipped artifact records vocab_size 49152, which matches this model's
+  # vocab_size, and its source data/corpus_v0.txt is present.
+  dataset_tag: corpus-v0
   seq_len: 2048
-  pack_documents: true
-  cross_doc_attention_mask: true
 
 optimizer:
   type: adamw
@@ -23,24 +34,24 @@ optimizer:
 
 precision:
   dtype: bfloat16           # autocast; fp32 master weights
-  grad_accum_steps: auto    # fit global batch below
+  # NOTE: grad_accum_steps is read from `batch`, not from here. The previous
+  # `grad_accum_steps: auto` under `precision` was never read by any code path.
 
 batch:
-  global_tokens_per_step: 524288   # ~0.5M tokens/step
-  micro_batch_size: auto
+  micro_batch_size: 1
+  grad_accum_steps: 8       # ~16k tokens/step at seq_len 2048
 
 training:
-  max_tokens: 1.2e10        # ~12B tokens pilot budget
+  # B4: `max_steps` is what the loop reads. The old config defined only
+  # `max_tokens`, so training.pretrain raised KeyError on 'max_steps'.
+  max_steps: 750000         # 750k * 16k tokens ~= 12B token budget
+  max_tokens: 1.2e10        # budget note only; NOT read by the training loop
   checkpoint_every_steps: 1000
-  keep_checkpoints: 3       # ring buffer + milestones
-  eval_every_steps: 500
   log_every_steps: 10
 
 watchdog:
   nan_check_every_steps: 100
-  loss_spike_sigma: 3.0     # trigger rollback playbook
-  spike_action: rollback_skip_halve_lr
 
 logging:
-  tracker: wandb
+  tracker: wandb            # enabled only when QM_WANDB=1
   project: quantsmind-llm

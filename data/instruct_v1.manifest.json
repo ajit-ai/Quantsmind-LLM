@@ -1,0 +1,156 @@
+{
+  "schema": "quantsmind.instruction_dataset/1",
+  "dataset_id": "instruct-v1",
+  "generated_at": "2026-10-18T15:55:18+00:00",
+  "transform": "qm.instruction/1",
+  "source_corpora": {
+    "train": {
+      "path": "data/m3_code_verified.train.jsonl",
+      "sha256": "392e0659ccf2a87100bcd62d01ca0b92dad2f78ff15fd603d74979bb5dff7cbf"
+    },
+    "val": {
+      "path": "data/m3_code_verified.val.jsonl",
+      "sha256": "e8eb213482dc5e54b72a0543edec9dc13bf289fba103c65f7ba0294c453dc29d"
+    }
+  },
+  "licence_report": {
+    "path": "data/licence_verification.json",
+    "sha256": "feff33651a728341d229cebe5d066d54f3a87e84b8035baeceb6c2bc5cd1e8ac"
+  },
+  "verified_sources": [
+    "aio-libs-aiohttp",
+    "pallets-click",
+    "pallets-flask",
+    "psf-requests",
+    "pytest-dev-pytest",
+    "tiangolo-fastapi",
+    "urllib3-urllib3"
+  ],
+  "splits": {
+    "train": {
+      "path": "data\\instruct_v1.train.jsonl",
+      "records": 610,
+      "sha256": "1842f84d0792f41510becc2a435489887a88cf6ba0f22e7c15233696c0e2d65d"
+    },
+    "val": {
+      "path": "data\\instruct_v1.val.jsonl",
+      "records": 21,
+      "sha256": "7991101d302f52e9ff27d0ce4c569826a8752908dfab056e5f1956e0c23c22ff"
+    }
+  },
+  "statistics": {
+    "train": {
+      "total": 610,
+      "by_category": {
+        "coding": 602,
+        "structured_output": 2,
+        "technical": 3,
+        "instruction_following": 3
+      },
+      "by_task": {
+        "code_completion": 316,
+        "documentation": 130,
+        "code_explanation": 156,
+        "json_output": 1,
+        "config_output": 1,
+        "sql": 3,
+        "format_following": 1,
+        "constrained_output": 2
+      },
+      "by_language": {
+        "python": 602,
+        "json": 1,
+        "yaml": 1,
+        "sql": 3
+      },
+      "by_split": {
+        "train": 610
+      },
+      "by_license": {
+        "BSD-3-Clause": 136,
+        "MIT": 466,
+        "CC0-1.0": 8
+      },
+      "by_source": {
+        "pallets-flask": 74,
+        "urllib3-urllib3": 117,
+        "pallets-click": 62,
+        "pytest-dev-pytest": 289,
+        "tiangolo-fastapi": 60,
+        "deterministic-fixture": 8
+      },
+      "distinct_sources": 6
+    },
+    "val": {
+      "total": 21,
+      "by_category": {
+        "coding": 17,
+        "structured_output": 1,
+        "technical": 1,
+        "instruction_following": 2
+      },
+      "by_task": {
+        "documentation": 10,
+        "code_explanation": 7,
+        "config_output": 1,
+        "sql": 1,
+        "format_following": 2
+      },
+      "by_language": {
+        "python": 17,
+        "yaml": 1,
+        "sql": 1
+      },
+      "by_split": {
+        "val": 21
+      },
+      "by_license": {
+        "Apache-2.0": 17,
+        "CC0-1.0": 4
+      },
+      "by_source": {
+        "aio-libs-aiohttp": 17,
+        "deterministic-fixture": 4
+      },
+      "distinct_sources": 2
+    }
+  },
+  "excluded": {
+    "train": {
+      "count": 1,
+      "by_reason": {
+        "duplicate_prompt": 1
+      },
+      "examples": [
+        {
+          "id": "qm-codeexplanation-95a684db518d",
+          "reason": "duplicate_prompt",
+          "detail": [
+            "identical instruction seen already"
+          ]
+        }
+      ]
+    },
+    "val": {
+      "count": 0,
+      "by_reason": {},
+      "examples": []
+    }
+  },
+  "isolation": {
+    "train_records": 610,
+    "val_records": 21,
+    "shared_ids": [],
+    "shared_prompts": [],
+    "shared_examples": [],
+    "ok": true
+  },
+  "not_synthesised": [
+    "debugging",
+    "refactoring",
+    "test_generation",
+    "code_generation (function bodies are not invented)"
+  ],
+  "not_synthesised_reason": "These families require judging what a correct fix or refactor is. Generating them without a verified source would mean inventing technical content, so they are absent rather than fabricated.",
+  "scale_disclosure": "This dataset is derived from ~1.2M tokens of licence-verified source. It is NOT a production-scale instruction corpus, and instruction tuning on it cannot be expected to confer general coding ability."
+}

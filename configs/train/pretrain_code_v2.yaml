@@ -1,0 +1,66 @@
+# Code pre-training config -- M2 dataset readiness (code_corpus-v2).
+#
+# This config exists so training can be *prepared*, not to authorise a run.
+# It has deliberately NOT been used for a real training run; the corpus is far
+# below the milestone's scale target (see the note below).
+#
+# Dataset chain (all machine-checked by `python -m data.m2_gate`):
+#
+#   data/code_corpus_v2.jsonl                  437 records, licence-gated
+#     -> data/releases/code_corpus-v2/         RELEASE.json + CHECKSUMS.sha256
+#     -> data/code_corpus_v2.tokens.bin        2,239,771 uint16 tokens
+#          recorded corpus_sha256 matches the released shard's sha256
+#
+# Regenerate the token artifact from the released shard:
+#   python -m data.encode_dataset \
+#     --corpus data/code_corpus_v2.jsonl \
+#     --tokenizer tokenizer/qm_code_bpe_v0.json \
+#     --out data/code_corpus_v2.tokens.bin --strict
+#
+# SCALE CAVEAT: 2,239,771 tokens is ~2.2% of the 100M-token M2 target. At
+# seq_len 2048 with the batch below, that is ~136 steps per epoch. The budget
+# here is a preparation smoke budget, NOT a recipe for a useful model: the
+# corpus must reach the M2.3 scale target first.
+run:
+  name: qm-code-v2-pretrain
+  # vocab_size 5822 matches tokenizer/qm_code_bpe_v0.json exactly. Note that
+  # configs/model/code_30m.yaml declares vocab_size 32768, which does NOT match
+  # this tokenizer; pairing them would leave 27k unused embedding rows.
+  model_config: configs/model/code_tiny.yaml
+  seed: 42
+
+data:
+  # Resolves to data/code_corpus_v2.tokens.bin ('-' is normalised to '_').
+  dataset_tag: code-corpus-v2
+  seq_len: 2048
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  lr_schedule: cosine
+  warmup_steps: 20
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: float32
+  # grad_accum_steps is read from `batch`, not from here.
+
+batch:
+  micro_batch_size: 1
+  grad_accum_steps: 8       # 1 x 2048 x 8 = 16384 tokens/step
+
+training:
+  # ~136 steps/epoch over the current corpus; 1000 steps is ~7 epochs.
+  max_steps: 1000
+  checkpoint_every_steps: 500
+  log_every_steps: 10
+
+watchdog:
+  nan_check_every_steps: 50
+
+logging:
+  tracker: none

@@ -1,0 +1,67 @@
+{
+  "schema": "quantsmind.m7_outcome/1",
+  "generated_at": "2026-10-20T11:55:04+00:00",
+  "outcome": "TRAINING_COMPLETED_CAPABILITY_NOT_DEMONSTRATED",
+  "evidence_level": 0,
+  "gates": {
+    "F": true,
+    "G": false,
+    "H": true
+  },
+  "locked_generation": {
+    "attempted": 40,
+    "syntax_rate": 0.0,
+    "functional_rate": 0.0,
+    "functional_attempted": 8,
+    "functional_passed": 0,
+    "best_baseline_syntax": 0.0,
+    "best_baseline_functional": 0.0
+  },
+  "common_validation": {
+    "stream": "data/m7/pretrain.val.tokens.bin",
+    "seq_len": 512,
+    "batches": 8,
+    "seed": 1234,
+    "losses": {
+      "untrained": {
+        "status": "ok",
+        "loss": 8.733898162841797,
+        "errors": [],
+        "parameters": 9359104,
+        "checkpoint": "runs/m7_untrained/checkpoint.pt",
+        "checkpoint_sha256": "8d8b1c3e2cb7524b190b94c0bdeb32c6bc7898c8011f9880f06cb3f710b1bfdc"
+      },
+      "m3_base": {
+        "status": "ok",
+        "loss": 4.968508720397949,
+        "errors": [],
+        "parameters": 2853280,
+        "checkpoint": "runs/m3_base/checkpoint_best.pt",
+        "checkpoint_sha256": "56365457e5ffb28061d4d98772e2d0457857e95df7db3ae4738321fd262cd078"
+      },
+      "m4_tuned": {
+        "status": "ok",
+        "loss": 4.921977996826172,
+        "errors": [],
+        "parameters": 2853280,
+        "checkpoint": "runs/m4_sft/checkpoint_best.pt",
+        "checkpoint_sha256": "2bd86e2b9cd211bc6501f7719243102e69544ac6eb5755a2a06639a925968769"
+      },
+      "m7_candidate": {
+        "status": "ok",
+        "loss": 5.947342395782471,
+        "errors": [],
+        "parameters": 9359104,
+        "checkpoint": "runs/m7_sft/checkpoint_best.pt",
+        "checkpoint_sha256": "421c218d626524ffa8266a5f5c5ccb06fa743d3ccf8e75cc036b1047478b4dd9"
+      }
+    }
+  },
+  "limitations": [
+    "baselines were evaluated on locked code_generation only",
+    "6/14 locked completion prompts exceed the 512-token context",
+    "candidate secondary tasks used max_new_tokens=128 (protocol 192)",
+    "no independent human review; evidence level 5 unavailable",
+    "single seed, CPU-only run"
+  ]
+}

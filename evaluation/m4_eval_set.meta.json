@@ -1,0 +1,7 @@
+{
+  "set_id": "m4-eval-v1",
+  "frozen": true,
+  "prompt_hash": "afe14c07f87b0c2f30f6e285f53f9de01c5944581098194648d24474e9ce1eac",
+  "prompt_count": 18,
+  "note": "Authored before any M4 training. Not derived from the instruction training data. Not edited after seeing model output."
+}

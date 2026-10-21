@@ -1,0 +1,54 @@
+{
+  "schema": "quantsmind.m5_candidate_readiness/1",
+  "python": "3.14.7",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "ram_required_bytes": 4294967296,
+  "note": "Readiness only. No model was downloaded, loaded or executed. transformers is present but is not a licence to fetch weights for a model this repository has not verified.",
+  "candidates": [
+    {
+      "model_id": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "family": "qwen",
+      "parameters": 1543714304,
+      "license_id": "Apache-2.0",
+      "license_verified": true,
+      "ready": false,
+      "findings": [
+        {
+          "check": "license",
+          "ok": true,
+          "detail": "Apache-2.0 (verified in the repository licence register)",
+          "blocking": true
+        },
+        {
+          "check": "runtime",
+          "ok": true,
+          "detail": "transformers 5.16.1 importable on this interpreter",
+          "blocking": true
+        },
+        {
+          "check": "weights_local",
+          "ok": false,
+          "detail": "no local weights for Qwen/Qwen2.5-Coder-1.5B-Instruct",
+          "blocking": true
+        },
+        {
+          "check": "download_policy",
+          "ok": false,
+          "detail": "Fetching weights is outside the licence boundary this run operates under; record as blocked rather than fetch.",
+          "blocking": true
+        },
+        {
+          "check": "ram",
+          "ok": false,
+          "detail": "needs ~2.9 GiB for bfloat16 weights plus KV cache; decision to attempt a download is required before memory can be judged",
+          "blocking": true
+        }
+      ],
+      "blockers": [
+        "weights_local",
+        "download_policy",
+        "ram"
+      ]
+    }
+  ]
+}

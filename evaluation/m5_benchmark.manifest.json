@@ -1,0 +1,247 @@
+{
+  "schema": "quantsmind.benchmark/1",
+  "scoring_version": "quantsmind.m5_scoring/1",
+  "benchmark_id": "m5-benchmark-v1",
+  "generated_at": "2026-10-18T17:19:37+00:00",
+  "path": "evaluation\\m5_benchmark.jsonl",
+  "manifest_hash": "52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87",
+  "examples": 26,
+  "scorable": 9,
+  "requires_human_review": 17,
+  "validation": {
+    "path": "evaluation\\m5_benchmark.jsonl",
+    "schema_version": "quantsmind.benchmark/1",
+    "scoring_version": "quantsmind.m5_scoring/1",
+    "total_records": 26,
+    "malformed_lines": [],
+    "accepted": 23,
+    "rejected": 3,
+    "rejections": [
+      {
+        "id": "m5-instructionfollo-9e1d82fc828b",
+        "reason": "schema",
+        "detail": [
+          "checklist must be a list of strings"
+        ]
+      },
+      {
+        "id": "m5-structuredoutput-805cd796f193",
+        "reason": "schema",
+        "detail": [
+          "checklist must be a list of strings"
+        ]
+      },
+      {
+        "id": "m5-structuredoutput-92bc83c845e3",
+        "reason": "schema",
+        "detail": [
+          "checklist must be a list of strings"
+        ]
+      }
+    ],
+    "scorable": 6,
+    "requires_human_review": 17,
+    "human_review_ids": [
+      "m5-codeexplanation-fa50d04c9802",
+      "m5-sqlgeneration-18eee415c308",
+      "m5-sqlgeneration-8d525147b347",
+      "m5-codecompletion-f180646ad947",
+      "m5-codecompletion-87a0cf43f0fe",
+      "m5-codecompletion-6e69f2f75113",
+      "m5-codecompletion-305a9790466f",
+      "m5-codecompletion-0d592eadeb25",
+      "m5-codecompletion-f537068f80e1",
+      "m5-codecompletion-f388ce3a702e",
+      "m5-codecompletion-b3500db9be52",
+      "m5-codecompletion-edbca38e3722",
+      "m5-codecompletion-345c1b645e01",
+      "m5-codecompletion-b499b614da4d",
+      "m5-codecompletion-40f2a5b01500",
+      "m5-codecompletion-5819820a44aa",
+      "m5-codecompletion-20954e3ebb1a"
+    ],
+    "by_task": {
+      "code_generation": 6,
+      "instruction_following": 1,
+      "structured_output": 2,
+      "code_explanation": 1,
+      "sql_generation": 2,
+      "code_completion": 14
+    },
+    "by_split": {
+      "eval": 26
+    },
+    "by_source_group": {
+      "repository_authored": 12,
+      "corpus_derived": 14
+    },
+    "by_language": {
+      "python": 21,
+      "text": 3,
+      "sql": 2
+    },
+    "scorable_examples": 9,
+    "excluded_for_leakage": [
+      {
+        "id": "m5-codegeneration-c7f0b8b490d0",
+        "reason": "cross_version_leakage",
+        "detail": "prompt matches a previously used evaluation prompt"
+      },
+      {
+        "id": "m5-codegeneration-c8733de43cca",
+        "reason": "cross_version_leakage",
+        "detail": "prompt matches a previously used evaluation prompt"
+      },
+      {
+        "id": "m5-instructionfollo-8483ff8e6bb8",
+        "reason": "cross_version_leakage",
+        "detail": "prompt matches a previously used evaluation prompt"
+      },
+      {
+        "id": "m5-instructionfollo-d15dc6b453b5",
+        "reason": "cross_version_leakage",
+        "detail": "prompt matches a previously used evaluation prompt"
+      },
+      {
+        "id": "m5-codeexplanation-fd36aedc85bf",
+        "reason": "cross_version_leakage",
+        "detail": "prompt matches a previously used evaluation prompt"
+      }
+    ]
+  },
+  "leakage": {
+    "benchmark": "evaluation\\m5_benchmark.jsonl",
+    "benchmark_examples": 26,
+    "references": [
+      {
+        "reference": "m3_pretrain_train",
+        "path": "data/m3_code_verified.train.jsonl",
+        "available": true,
+        "reference_records": 193,
+        "text_field": "text",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [
+          "pallets-click",
+          "pallets-flask",
+          "pytest-dev-pytest",
+          "tiangolo-fastapi",
+          "urllib3-urllib3"
+        ],
+        "source_overlap_is_risk_not_contamination": true
+      },
+      {
+        "reference": "m3_pretrain_val",
+        "path": "data/m3_code_verified.val.jsonl",
+        "available": true,
+        "reference_records": 63,
+        "text_field": "text",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [
+          "aio-libs-aiohttp"
+        ],
+        "source_overlap_is_risk_not_contamination": true
+      },
+      {
+        "reference": "m3_raw_corpus",
+        "path": "data/code_corpus_v2.jsonl",
+        "available": true,
+        "reference_records": 437,
+        "text_field": "text",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [
+          "aio-libs-aiohttp",
+          "pallets-click",
+          "pallets-flask",
+          "psf-requests",
+          "pytest-dev-pytest",
+          "tiangolo-fastapi",
+          "urllib3-urllib3"
+        ],
+        "source_overlap_is_risk_not_contamination": true
+      },
+      {
+        "reference": "m4_sft_train",
+        "path": "data/instruct_v1.train.jsonl",
+        "available": true,
+        "reference_records": 610,
+        "text_field": "instruction",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [],
+        "source_overlap_is_risk_not_contamination": true
+      },
+      {
+        "reference": "m4_sft_val",
+        "path": "data/instruct_v1.val.jsonl",
+        "available": true,
+        "reference_records": 21,
+        "text_field": "instruction",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [],
+        "source_overlap_is_risk_not_contamination": true
+      },
+      {
+        "reference": "prior_eval_prompts",
+        "path": "evaluation/m4_eval_set.jsonl",
+        "available": true,
+        "reference_records": 18,
+        "text_field": "prompt",
+        "exact_overlaps": [],
+        "normalised_overlaps": [],
+        "hash_overlaps": [],
+        "overlapping_examples": [],
+        "shared_sources": [],
+        "source_overlap_is_risk_not_contamination": true
+      }
+    ],
+    "total_overlapping_examples": 0,
+    "leaked": false,
+    "near_duplicate_detection": "not implemented; hashing detects exact normalised matches only and is not semantic similarity",
+    "unresolved_risks": [
+      "aio-libs-aiohttp",
+      "pallets-click",
+      "pallets-flask",
+      "psf-requests",
+      "pytest-dev-pytest",
+      "tiangolo-fastapi",
+      "urllib3-urllib3"
+    ]
+  },
+  "licence_sources": {
+    "verified_corpus_sources": [
+      "aio-libs-aiohttp",
+      "pallets-click",
+      "pallets-flask",
+      "psf-requests",
+      "pytest-dev-pytest",
+      "tiangolo-fastapi",
+      "urllib3-urllib3"
+    ],
+    "repository_authored": [
+      "quantsmind-authored"
+    ],
+    "policy": "A corpus example is authorised only by licence_verification.json:verified_ids. A record's own license string is never accepted as authorisation. The single repository-authored source is declared here explicitly."
+  },
+  "authored_sources": {
+    "quantsmind-authored": {
+      "origin": "this repository",
+      "license_id": "CC0-1.0",
+      "redistribution": "permitted (CC0)"
+    }
+  },
+  "excluded_from_automated_scoring": "examples without a trustworthy oracle are counted in requires_human_review and never scored as failures"
+}

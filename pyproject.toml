@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taksh"
+dynamic = ["version"]
+description = "Taksh: a sovereign, from-scratch coding LLM research release"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Ajit Kumar" }]
+keywords = ["llm", "coding", "from-scratch", "sovereign"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.2,<3",
+    "tokenizers>=0.15",
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "gradio>=4.44",
+    "openai>=1.40",
+    "pillow>=10.0",
+    "fastapi>=0.104",
+    "uvicorn>=0.24",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+taksh = "taksh:main"
+taksh-openai = "serving.openai_server:main"
+
+[project.urls]
+Repository = "https://github.com/ajit-ai/Quantsmind-LLM"
+Documentation = "https://ajit-ai.github.io/Quantsmind-LLM/"
+
+[tool.setuptools.dynamic]
+version = { attr = "taksh.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["taksh*", "data*", "evaluation*", "serving*", "tokenizer*", "training*"]
+namespaces = true

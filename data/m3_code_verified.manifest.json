@@ -1,0 +1,93 @@
+{
+  "schema": "quantsmind.m3_dataset/1",
+  "dataset_id": "m3-code-verified",
+  "generated_at": "2026-10-18T11:00:56+00:00",
+  "source_corpus": "data\\code_corpus_v2.jsonl",
+  "source_corpus_sha256": "c02a6223f985e67b5d03661a55b761bed827da9a5cc8dcd5229cbfd8016bc08e",
+  "licence_report": "data/licence_verification.json",
+  "licence_report_sha256": "feff33651a728341d229cebe5d066d54f3a87e84b8035baeceb6c2bc5cd1e8ac",
+  "tokenizer": "tokenizer/qm_code_bpe_v0.json",
+  "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+  "licence_gate": {
+    "verified_sources": [
+      "aio-libs-aiohttp",
+      "pallets-click",
+      "pallets-flask",
+      "psf-requests",
+      "pytest-dev-pytest",
+      "tiangolo-fastapi",
+      "urllib3-urllib3"
+    ],
+    "withheld_sources": {
+      "psf-black": 27,
+      "pypa-setuptools": 135
+    },
+    "withheld_records": 162,
+    "policy": "A source must appear in licence_verification.json:verified_ids. Records from any other source are withheld from training and validation data.",
+    "unreviewed_allowed": false
+  },
+  "splits": {
+    "train": {
+      "split": "train",
+      "records": 193,
+      "jsonl": "data\\m3_code_verified.train.jsonl",
+      "jsonl_sha256": "392e0659ccf2a87100bcd62d01ca0b92dad2f78ff15fd603d74979bb5dff7cbf",
+      "repositories": [
+        "pallets/click",
+        "pallets/flask",
+        "pytest-dev/pytest",
+        "tiangolo/fastapi",
+        "urllib3/urllib3"
+      ],
+      "licenses": {
+        "BSD-3-Clause": 40,
+        "MIT": 153
+      },
+      "token_bytes": 2330434,
+      "token_count": 1165217,
+      "token_meta": "data\\m3_code_verified.train.tokens.meta.json",
+      "token_chain_matches_jsonl": true
+    },
+    "val": {
+      "split": "val",
+      "records": 63,
+      "jsonl": "data\\m3_code_verified.val.jsonl",
+      "jsonl_sha256": "e8eb213482dc5e54b72a0543edec9dc13bf289fba103c65f7ba0294c453dc29d",
+      "repositories": [
+        "aio-libs/aiohttp"
+      ],
+      "licenses": {
+        "Apache-2.0": 63
+      },
+      "token_bytes": 680154,
+      "token_count": 340077,
+      "token_meta": "data\\m3_code_verified.val.tokens.meta.json",
+      "token_chain_matches_jsonl": true
+    }
+  },
+  "isolation": {
+    "train_records": 193,
+    "val_records": 63,
+    "train_repositories": [
+      "pallets/click",
+      "pallets/flask",
+      "pytest-dev/pytest",
+      "tiangolo/fastapi",
+      "urllib3/urllib3"
+    ],
+    "val_repositories": [
+      "aio-libs/aiohttp"
+    ],
+    "shared_repositories": [],
+    "shared_content_sha1": [],
+    "grouping": "source repository (source_group)",
+    "ok": true,
+    "problem": ""
+  },
+  "holdout": {
+    "split": "test",
+    "emitted": false,
+    "reason": "The test split is withheld from M3 on purpose. Its licence composition is unresolved (psf-black), and tuning against it would spend the only data reserved for final measurement."
+  },
+  "reproduce": "python -m data.prepare_m3_dataset --corpus data\\code_corpus_v2.jsonl --licence data/licence_verification.json --tokenizer tokenizer/qm_code_bpe_v0.json --out-prefix data/m3_code_verified --encode"
+}

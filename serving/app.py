@@ -12,7 +12,7 @@ from serving.llm_client import (
     enforce_residency,
 )
 
-TITLE = "Quantsmind — Financial Knowledge Assistant"
+TITLE = "Taksh — Financial Knowledge Assistant"
 DESCRIPTION = (
     "Ask anything about markets, investing, and financial concepts. "
     "India-first answers. Educational only — not investment advice."
@@ -64,7 +64,7 @@ def main():
     port = int(os.environ.get("QM_UI_PORT", "7860"))
     cfg = LLMConfig.from_env()
     mode = f"backend={cfg.model}" if cfg.configured() else "DEMO MODE (no backend configured)"
-    print(f"Starting Quantsmind UI on http://localhost:{port} [{mode}]")
+    print(f"Starting Taksh UI on http://localhost:{port} [{mode}]")
     build_ui().launch(server_name="0.0.0.0", server_port=port)
 
 

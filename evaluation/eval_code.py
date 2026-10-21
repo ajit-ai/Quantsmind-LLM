@@ -27,6 +27,39 @@ MBPP_PROBLEMS = [
     {"task_id": "MBPP/4", "prompt": "Write a function to find the largest number in a list.\n", "test": "def test_find_largest():\n    assert find_largest([1, 2, 3, 4, 5]) == 5\n    assert find_largest([-1, -2, -3]) == -1\n    assert find_largest([42]) == 42\n", "entry_point": "find_largest"},
 ]
 
+# SCOPE OF THE TABLES ABOVE — read before quoting any number they produce.
+#
+# HUMANEVAL_PROBLEMS and MBPP_PROBLEMS are 5-problem hand-transcribed subsets that
+# exist to prove the generation-and-execute harness runs end to end. They are NOT
+# the published benchmarks: HumanEval has 164 problems, and the standard MBPP
+# sanitised split has 500. A pass rate measured over 5 problems carries a
+# granularity of 20 percentage points per problem and is not comparable to the
+# >=20% (HumanEval) and >=25% (MBPP) thresholds in evaluation/promotion.yaml.
+#
+# Therefore every report built from these tables is stamped
+# ``status: "unmeasured"`` and ``promotion_eligible: False``. Only a run against
+# the full published suite may claim a benchmark score. Do not raise these
+# constants to make a gate pass.
+SUBSET_SIZE = {"humaneval": len(HUMANEVAL_PROBLEMS), "mbpp": len(MBPP_PROBLEMS)}
+PUBLISHED_SIZE = {"humaneval": 164, "mbpp": 500}
+
+
+def _unmeasured_subset(suite: str) -> dict:
+    """Provenance stamp for a score computed over the 5-problem subset."""
+    return {
+        "suite": suite,
+        "status": "unmeasured",
+        "problems_evaluated": SUBSET_SIZE[suite],
+        "published_problems": PUBLISHED_SIZE[suite],
+        "promotion_eligible": False,
+        "note": (
+            f"Subset smoke check over {SUBSET_SIZE[suite]} of "
+            f"{PUBLISHED_SIZE[suite]} published problems. Not a benchmark score; "
+            "does not satisfy evaluation/promotion.yaml. No full-suite run has "
+            "been executed in this repository."
+        ),
+    }
+
 
 def generate_completion(model, tokenizer, prompt: str, max_new_tokens: int = 128, device: str = "cpu") -> str:
     model.eval()
@@ -78,9 +111,40 @@ def run_humaneval(model, tokenizer, problems: list, device: str = "cpu", k: int 
     return {"passed": passed, "total": total, "pass_at_k": passed / total if total > 0 else 0, "results": results}
 
 
-def compute_code_perplexity(model, tokens_path: str, seq_len: int = 2048, max_windows: int = 32, device: str = "cpu") -> dict:
+def compute_code_perplexity(
+    model,
+    tokens_path: str,
+    seq_len: int = 2048,
+    max_windows: int = 32,
+    val_fraction: float = 0.01,
+    device: str = "cpu",
+) -> dict:
+    """Held-out NLL / perplexity over non-overlapping windows of the tail split.
+
+    Guards against the silent false pass this used to produce: when the held-out
+    tail was shorter than one window the loop exited with zero losses, the mean
+    stayed 0.0 and `exp(0)` reported a *perfect* perplexity of 1.0. An
+    unmeasurable split now returns ``perplexity: None`` and ``ok: False`` so the
+    promotion gate can never pass on missing evidence.
+    """
     data = np.memmap(tokens_path, dtype=np.uint16, mode="r")
-    split = int(len(data) * 0.99)
+    split = int(len(data) * (1.0 - val_fraction))
+    val_tokens = len(data) - split
+
+    result = {
+        "nll": None,
+        "perplexity": None,
+        "windows": 0,
+        "val_tokens": int(val_tokens),
+        "ok": False,
+    }
+    if val_tokens < seq_len + 1:
+        result["error"] = (
+            f"held-out split has {val_tokens} tokens, need >= {seq_len + 1} "
+            f"for one {seq_len}-token window; corpus too small to score"
+        )
+        return result
+
     losses = []
     for i in range(max_windows):
         off = split + i * seq_len
@@ -90,8 +154,17 @@ def compute_code_perplexity(model, tokens_path: str, seq_len: int = 2048, max_wi
         y = torch.from_numpy(data[off + 1:off + 1 + seq_len].astype(np.int64)).unsqueeze(0).to(device)
         _, loss = model(x, targets=y)
         losses.append(loss.item())
-    avg = sum(losses) / max(1, len(losses))
-    return {"nll": round(avg, 4), "perplexity": round(math.exp(min(20.0, avg)), 2), "windows": len(losses)}
+
+    if not losses:
+        result["error"] = "no held-out window could be scored"
+        return result
+
+    avg = sum(losses) / len(losses)
+    result["nll"] = round(avg, 4)
+    result["perplexity"] = round(math.exp(min(20.0, avg)), 2)
+    result["windows"] = len(losses)
+    result["ok"] = True
+    return result
 
 
 def main():
@@ -116,16 +189,34 @@ def main():
         ppl = compute_code_perplexity(model, args.tokens, device=device)
         report["perplexity"] = ppl
         print(f"perplexity: {ppl}")
+        if not ppl.get("ok"):
+            print("NOTE: perplexity NOT measurable; it is excluded from any gate.")
 
     if "humaneval" in args.benchmarks:
         he = run_humaneval(model, tokenizer, HUMANEVAL_PROBLEMS, device=device, k=args.k)
+        he.update(_unmeasured_subset("humaneval"))
         report["humaneval"] = he
-        print(f"HumanEval pass@{args.k}: {he['passed']}/{he['total']} = {he['pass_at_k']:.2%}")
+        print(
+            f"HumanEval subset smoke check pass@{args.k}: {he['passed']}/{he['total']} "
+            f"= {he['pass_at_k']:.2%} (UNMEASURED - {he['problems_evaluated']} of "
+            f"{he['published_problems']} problems, not a benchmark score)"
+        )
 
     if "mbpp" in args.benchmarks:
         mbpp = run_humaneval(model, tokenizer, MBPP_PROBLEMS, device=device, k=args.k)
+        mbpp.update(_unmeasured_subset("mbpp"))
         report["mbpp"] = mbpp
-        print(f"MBPP pass@{args.k}: {mbpp['passed']}/{mbpp['total']} = {mbpp['pass_at_k']:.2%}")
+        print(
+            f"MBPP subset smoke check pass@{args.k}: {mbpp['passed']}/{mbpp['total']} "
+            f"= {mbpp['pass_at_k']:.2%} (UNMEASURED - {mbpp['problems_evaluated']} of "
+            f"{mbpp['published_problems']} problems, not a benchmark score)"
+        )
+
+    report["benchmark_status"] = {
+        "full_suite_executed": False,
+        "promotion_eligible": False,
+        "note": "No full HumanEval (164) or MBPP (500) run exists in this repository.",
+    }
 
     if args.out:
         Path(args.out).write_text(json.dumps(report, indent=2))

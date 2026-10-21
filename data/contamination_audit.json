@@ -1,0 +1,50 @@
+{
+  "schema": "quantsmind.contamination_audit/1",
+  "generated_at": "2026-10-18T04:09:47+00:00",
+  "corpus": "data/code_corpus_v2.jsonl",
+  "benchmark_provenance": [
+    {
+      "suite": "humaneval",
+      "origin": "evaluation/eval_code.py (in-repo constant)",
+      "problems": 5,
+      "is_published_suite": false,
+      "note": "hand-transcribed subset used to exercise the harness; NOT the published benchmark"
+    },
+    {
+      "suite": "mbpp",
+      "origin": "evaluation/eval_code.py (in-repo constant)",
+      "problems": 5,
+      "is_published_suite": false,
+      "note": "hand-transcribed subset used to exercise the harness; NOT the published benchmark"
+    }
+  ],
+  "published_suite_availability": {
+    "humaneval": {
+      "published_problems": 164,
+      "available": false
+    },
+    "mbpp": {
+      "published_problems": 500,
+      "available": false
+    }
+  },
+  "method": {
+    "exact": "normalised full-text containment (NFKC, lowercase, collapse whitespace)",
+    "ngram": "13-word shingle overlap, any shared shingle is a match",
+    "near_duplicate": "MinHash LSH over 8-word shingles, 64 perms / 16 bands, jaccard >= 0.8",
+    "not_semantic": "Lexical only. Paraphrases, renamed identifiers and reimplemented logic are NOT detected. This is not semantic decontamination."
+  },
+  "status": "no_overlap_detected",
+  "records_checked": 437,
+  "matches": [],
+  "match_counts": {
+    "exact": 0,
+    "ngram": 0,
+    "near_duplicate": 0
+  },
+  "limitations": [
+    "no overlap found against the benchmark subsets present in this repository",
+    "the published suites humaneval (164 problems), mbpp (500 problems) are NOT available here and were not checked; the corpus is therefore not demonstrated to be free of published-benchmark overlap",
+    "lexical matching only: semantic or paraphrased overlap is not detectable by this audit"
+  ]
+}

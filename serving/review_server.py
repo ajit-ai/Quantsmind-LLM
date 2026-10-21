@@ -11,16 +11,28 @@ from pydantic import BaseModel
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from serving.local_inference import load_model
+from serving.server_security import (
+    add_standard_args,
+    api_key_from_env,
+    install_auth,
+    load_trusted_state,
+    resolve_device,
+    serve,
+)
 
-app = FastAPI(title="Quantsmind Coder — Code Review API")
+app = FastAPI(title="Taksh Coder — Code Review API")
 
 _model = None
 _tokenizer = None
 _device = None
 
+# There is deliberately no POST /load. The previous implementation accepted a
+# `ckpt` query parameter and called torch.load(weights_only=False) on it with no
+# authentication while binding 0.0.0.0 -- unauthenticated remote code execution.
+# The checkpoint is now chosen once, on the command line, by the operator.
+
 REVIEW_SYSTEM_PROMPT = (
-    "You are Quantsmind Coder, an expert code reviewer specializing in Python and "
+    "You are Taksh Coder, an expert code reviewer specializing in Python and "
     "JavaScript/TypeScript. Review code for:\n"
     "1. Bugs and logic errors\n"
     "2. Security vulnerabilities (OWASP Top 10)\n"
@@ -111,16 +123,6 @@ def model_review(model, tokenizer, code: str, language: str, device: str) -> str
     return generated[len(prompt):] if generated.startswith(prompt) else generated
 
 
-@app.post("/load")
-async def load(ckpt: str, tokenizer: str = "tokenizer/qm_code_bpe_v0.json"):
-    global _model, _tokenizer, _device
-    _device = "cuda" if torch.cuda.is_available() else "cpu"
-    _model, _ = load_model(ckpt, _device)
-    from tokenizers import Tokenizer
-    _tokenizer = Tokenizer.from_file(tokenizer)
-    return {"status": "loaded", "device": _device}
-
-
 @app.post("/review", response_model=ReviewResponse)
 async def review(request: ReviewRequest):
     if _model is None:
@@ -158,12 +160,18 @@ async def health():
 
 
 def main():
-    import uvicorn
-    p = argparse.ArgumentParser()
-    p.add_argument("--host", default="0.0.0.0")
-    p.add_argument("--port", type=int, default=8001)
+    global _model, _tokenizer, _device
+
+    p = argparse.ArgumentParser(description="Taksh Coder — Code Review API")
+    add_standard_args(p, default_port=8001)
     args = p.parse_args()
-    uvicorn.run(app, host=args.host, port=args.port)
+
+    _device = resolve_device()
+    _model, _model_cfg, _tokenizer = load_trusted_state(args.ckpt, args.tokenizer, _device)
+    print(f"loaded {_model_cfg.get('name')} context={_model_cfg.get('max_seq_len')} device={_device}")
+
+    auth_on = install_auth(app, api_key_from_env())
+    serve(app, p, args, "Code Review API", auth_on)
 
 
 if __name__ == "__main__":

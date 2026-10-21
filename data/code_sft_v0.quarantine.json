@@ -1,0 +1,54 @@
+{
+  "dataset": "data/code_sft_v0.jsonl",
+  "quarantined": true,
+  "date": "2026-10-14",
+  "status": "unusable_for_capability_claims",
+  "reason": "423 of 442 responses are fixed boilerplate identical across every input; the 19 remaining code_generation pairs come from a faulty regex extractor and are malformed. Do not train on this dataset.",
+  "measured": {
+    "total_pairs": 442,
+    "by_task": {
+      "code_generation": 19,
+      "code_explanation": 96,
+      "code_review_bug_security": 77,
+      "code_review_performance": 77,
+      "code_review_style": 77,
+      "refactoring": 96
+    },
+    "content_free_boilerplate_pairs": 423,
+    "genuine_supervision_pairs": 0
+  },
+  "defects": [
+    {
+      "task": "code_explanation",
+      "severity": "critical",
+      "detail": "Response is a fixed 3-line template ('It takes the parameters / It executes the logic / It returns the computed result') emitted identically for all 96 functions. Contains no information about the input function."
+    },
+    {
+      "task": "code_review_*",
+      "severity": "critical",
+      "detail": "All 231 review pairs across 3 variants share a byte-identical response body. No bug, security or performance finding is derived from the submitted code."
+    },
+    {
+      "task": "refactoring",
+      "severity": "critical",
+      "detail": "Response is the ORIGINAL code returned unchanged, prefixed with comments asserting 'Added proper error handling' and 'Added input validation'. Trains the model to claim edits it did not make."
+    },
+    {
+      "task": "code_generation",
+      "severity": "critical",
+      "detail": "Generator regex in data/build_code_sft.py:9 mis-extracts. Observed instruction text is a fragment of the extractor's own pattern, e.g. 'Write a python function based on this description:\\n(?:[^\"]|\"(?!\"\"))*'. Extracted 'functions' also span multiple def statements."
+    }
+  ],
+  "secondary_findings": {
+    "typescript_pairs": 0,
+    "source_corpus": "data/code_corpus_v0.jsonl (77 chunks, all source=local:* from this repository; 68 python / 9 javascript / 0 typescript)",
+    "generation_claim_in_docs": "docs/CODE_LLM_STRATEGY.md:74-84 claims 60,000 pairs distilled from DeepSeek-Coder/CodeLlama. No teacher model was used and no such volume exists."
+  },
+  "remediation_required": [
+    "Rewrite extraction with Python's ast module instead of regex.",
+    "Delete the three boilerplate generators, or replace them with a teacher model / external supervision.",
+    "Stop emitting refactor targets that assert changes not present in the response.",
+    "Regenerate at >=50k pairs from a real code corpus before any SFT run."
+  ],
+  "enforcement": "training/sft.py refuses to train on a dataset with a sibling *.quarantine.json unless --ignore-sft-quarantine is passed."
+}

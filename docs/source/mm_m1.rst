@@ -3,6 +3,16 @@ Multimodal M1 — architecture fit-check and real-data preparation
 
 .. _mm-m1-status:
 
+.. warning::
+
+   **DEFERRED TRACK (2026-10-14 pivot).** The current direction is a sovereign
+   **coding** LLM; see ``docs/CODE_LLM_STRATEGY.md`` and the authoritative
+   ``docs/ROADMAP.md``. This multimodal work is retained for history and possible
+   future reactivation. It does **not** define the current execution path, and the
+   M-numbering below is superseded. Note also that "M1"/"M2" here are the
+   *historical multimodal* milestones and are **not** the current M1 (data, token
+   and training correctness) or M2 (dataset expansion and training readiness).
+
 Status
 ------
 

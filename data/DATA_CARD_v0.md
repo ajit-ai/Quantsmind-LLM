@@ -6,19 +6,20 @@ Created: 2026-08-24 · Pipeline: `data/build_corpus.py` · Tokenizer: `tokenizer
 
 | Field | Value |
 |---|---|
-| Chunks (train-ready) | 9,311 |
-| Tokens (own 49,152-BPE tokenizer) | ~10.0M |
-| Sources | wikipedia-en (8,764 chunks), gutenberg-econ (537), wikipedia-hi (10) |
+| Chunks (train-ready) | 9,308 |
+| Tokens (own 49,152-BPE tokenizer) | 9,993,983 |
+| Sources | wikipedia-en (8,764 chunks), gutenberg-econ (534), wikipedia-hi (10) |
 | Licenses | CC-BY-SA-3.0 (Wikipedia), Public Domain (Gutenberg) |
 | Chunk size | ≤6,000 chars, split at paragraph boundaries |
 | Filters applied | quality (length, alpha-ratio ≥0.6) · exact dedup (SHA-1) · PII scrub (Aadhaar/PAN/phone/email) |
 | Rejections | 1,113 chunks (quality), 0 dups |
 
 ## Known limitations (v0)
-- ~10M tokens is **pilot-probe scale only** — 300M pilot needs ~12B tokens (≈1,200× more)
+- 9,993,983 tokens is **pilot-probe scale only**. The `pilot_300m.yaml` config (actually 113,145,408 params) targets ~12B tokens (≈1,200× more)
 - Hindi underrepresented (Hindi Wikipedia stubs are short) — plan: longer Hindi sources (NCERT texts, Hindi news archives)
-- Exact dedup only; fuzzy MinHash dedup lands before the 12B-token build
-- No decontamination pass yet vs eval sets (required before any training run)
+- Exact dedup plus MinHash-LSH was applied, but LSH registers a signature only under the first unmatched band, so near-duplicate recall is degraded (Open Issue B7)
+- No decontamination pass yet vs eval sets (required before any training run). `docs/PAUSED.md` previously described this corpus as "decontaminated"; that was wrong and has been corrected
+- **No data card exists for the code corpus.** `data/code_corpus_v0.jsonl` (77 chunks, 100,244 tokens) is sourced entirely from this repository's own files and has no licence provenance record
 
 ## Reproduce
 ```powershell

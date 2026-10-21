@@ -1,0 +1,611 @@
+{
+  "schema": "quantsmind.licence_verification/1",
+  "generated_at": "2026-10-18T05:55:21+00:00",
+  "allowed_spdx": [
+    "mit",
+    "apache-2.0",
+    "bsd-3-clause",
+    "bsd-2-clause",
+    "isc"
+  ],
+  "policy_note": "Verification reads the licence file at the pinned commit and compares it with the pinned SPDX id and the allowlist. It does not widen either. Anything needing legal interpretation is reported as needs_human_review rather than approved.",
+  "sources": [
+    {
+      "id": "psf-requests",
+      "repo": "psf/requests",
+      "commit": "611c6162cbc4ac2020a2f91c7cfa4f3abf9bbb60",
+      "pinned_spdx": "Apache-2.0",
+      "metadata_spdx": "apache-2.0",
+      "candidate_paths": [
+        "LICENSE",
+        "NOTICE",
+        "docs/_themes/LICENSE",
+        "ext/LICENSE"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE",
+          "subtree": "",
+          "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b",
+          "bytes": 10142,
+          "detected_spdx": "apache-2.0",
+          "markers": [
+            "apache license",
+            "version 2.0"
+          ]
+        },
+        {
+          "path": "NOTICE",
+          "subtree": "",
+          "sha256": "f5110972dedad2b4e9d314518daf3b7d72d6e02e499acd802181de6f74571dcc",
+          "bytes": 38,
+          "detected_spdx": null,
+          "markers": []
+        },
+        {
+          "path": "docs/_themes/LICENSE",
+          "subtree": "docs/_themes",
+          "sha256": "6afc9d58f919ab52f4806a895a37aefe4d263f8e52278e6a1e87c5d7ec82299c",
+          "bytes": 1861,
+          "detected_spdx": null,
+          "markers": []
+        },
+        {
+          "path": "ext/LICENSE",
+          "subtree": "ext",
+          "sha256": "3172d399cbd8f10609e73fec73d0e0b33eecd3c572a68b0722229d8c7059f725",
+          "bytes": 51,
+          "detected_spdx": null,
+          "markers": []
+        }
+      ],
+      "detected_spdx": "apache-2.0",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "apache-2.0"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain all copyright, patent, trademark and attribution notices",
+        "reproduce a copy of the Apache-2.0 licence with distributions",
+        "state any modifications made",
+        "NOTICE file, if present, must be reproduced"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "pallets-flask",
+      "repo": "pallets/flask",
+      "commit": "d086db856be187255b8ec61ef409357393020f32",
+      "pinned_spdx": "BSD-3-Clause",
+      "metadata_spdx": "bsd-3-clause",
+      "candidate_paths": [
+        "LICENSE.txt",
+        "docs/license.rst",
+        "examples/javascript/LICENSE.txt",
+        "examples/tutorial/LICENSE.txt"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE.txt",
+          "subtree": "",
+          "sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+          "bytes": 1475,
+          "detected_spdx": "bsd-3-clause",
+          "markers": [
+            "redistribution and use in source and binary forms",
+            "neither the name of"
+          ]
+        },
+        {
+          "path": "docs/license.rst",
+          "subtree": "docs",
+          "sha256": "1e07e9c25f2618a040560b70e63f42259eab24e558d0f3532e6163d751cb4eea",
+          "bytes": 98,
+          "detected_spdx": null,
+          "markers": []
+        },
+        {
+          "path": "examples/javascript/LICENSE.txt",
+          "subtree": "examples/javascript",
+          "sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+          "bytes": 1475,
+          "detected_spdx": "bsd-3-clause",
+          "markers": [
+            "redistribution and use in source and binary forms",
+            "neither the name of"
+          ]
+        },
+        {
+          "path": "examples/tutorial/LICENSE.txt",
+          "subtree": "examples/tutorial",
+          "sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+          "bytes": 1475,
+          "detected_spdx": "bsd-3-clause",
+          "markers": [
+            "redistribution and use in source and binary forms",
+            "neither the name of"
+          ]
+        }
+      ],
+      "detected_spdx": "bsd-3-clause",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "bsd-3-clause"
+        ],
+        "examples/javascript": [
+          "bsd-3-clause"
+        ],
+        "examples/tutorial": [
+          "bsd-3-clause"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain the copyright notice, list of conditions and disclaimer",
+        "reproduce the disclaimer in documentation and/or materials"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [
+        {
+          "subtree": "examples/javascript",
+          "excluded": false,
+          "detected_families": [
+            "bsd-3-clause"
+          ],
+          "root_family": "bsd-3-clause",
+          "reason": "nested licence matches repository root",
+          "rule": "matching_family"
+        },
+        {
+          "subtree": "examples/tutorial",
+          "excluded": false,
+          "detected_families": [
+            "bsd-3-clause"
+          ],
+          "root_family": "bsd-3-clause",
+          "reason": "nested licence matches repository root",
+          "rule": "matching_family"
+        }
+      ],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "psf-black",
+      "repo": "psf/black",
+      "commit": "11cff1312bf96e02bce9a467d0b5a2dd65300642",
+      "pinned_spdx": "MIT",
+      "metadata_spdx": "mit",
+      "candidate_paths": [
+        "LICENSE",
+        "docs/license.md",
+        "src/blib2to3/LICENSE"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE",
+          "subtree": "",
+          "sha256": "9c0428f0c3b4779850cf5bd96e11aaa8afc72d4a86d4a36223d7aba2e58d6e00",
+          "bytes": 1080,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        },
+        {
+          "path": "docs/license.md",
+          "subtree": "docs",
+          "sha256": "2ff4913ffefc5475c299790a4c54027e2c61e41d97d47797d78ff4420862d34a",
+          "bytes": 62,
+          "detected_spdx": null,
+          "markers": []
+        },
+        {
+          "path": "src/blib2to3/LICENSE",
+          "subtree": "src/blib2to3",
+          "sha256": "5789881b8aeb9c91f5835f5bb7cabe84a0fecd4bb2be2f54c9e6957a78ec799d",
+          "bytes": 12762,
+          "detected_spdx": "gpl-2.0",
+          "markers": [
+            "gnu general public license",
+            "version 2"
+          ]
+        }
+      ],
+      "detected_spdx": "mit",
+      "result": "verified_with_quarantine",
+      "needs_human_review": true,
+      "notes": [
+        "nested subtrees carry a different licence than the repository root: src/blib2to3=['gpl-2.0']. Corpus records from those subtrees must be quarantined, not labelled with the root licence. A human must confirm."
+      ],
+      "subtree_licences": {
+        "<repository root>": [
+          "mit"
+        ],
+        "src/blib2to3": [
+          "gpl-2.0"
+        ]
+      },
+      "conflicting_subtrees": {
+        "src/blib2to3": [
+          "gpl-2.0"
+        ]
+      },
+      "notice_obligations": [
+        "retain the copyright notice and permission notice"
+      ],
+      "derived_exclusion_paths": [
+        "src/blib2to3/"
+      ],
+      "exclusion_evidence": [
+        {
+          "subtree": "src/blib2to3",
+          "excluded": true,
+          "detected_families": [
+            "gpl-2.0"
+          ],
+          "root_family": "mit",
+          "reason": "nested licence differs from repository root",
+          "rule": "conflicting_family"
+        }
+      ],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "urllib3-urllib3",
+      "repo": "urllib3/urllib3",
+      "commit": "5ebe9bf9f691646dcabdb259ffabfc6108ded5e8",
+      "pinned_spdx": "MIT",
+      "metadata_spdx": "mit",
+      "candidate_paths": [
+        "LICENSE.txt"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE.txt",
+          "subtree": "",
+          "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686",
+          "bytes": 1093,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        }
+      ],
+      "detected_spdx": "mit",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "mit"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain the copyright notice and permission notice"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "pallets-click",
+      "repo": "pallets/click",
+      "commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+      "pinned_spdx": "BSD-3-Clause",
+      "metadata_spdx": "bsd-3-clause",
+      "candidate_paths": [
+        "LICENSE.txt",
+        "docs/license.md"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE.txt",
+          "subtree": "",
+          "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+          "bytes": 1475,
+          "detected_spdx": "bsd-3-clause",
+          "markers": [
+            "redistribution and use in source and binary forms",
+            "neither the name of"
+          ]
+        },
+        {
+          "path": "docs/license.md",
+          "subtree": "docs",
+          "sha256": "b4aa3a8b0dfd4c8cea97ea65b3f19ef54bd280665533478f35c0a5d205a7d341",
+          "bytes": 86,
+          "detected_spdx": null,
+          "markers": []
+        }
+      ],
+      "detected_spdx": "bsd-3-clause",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "bsd-3-clause"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain the copyright notice, list of conditions and disclaimer",
+        "reproduce the disclaimer in documentation and/or materials"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "pytest-dev-pytest",
+      "repo": "pytest-dev/pytest",
+      "commit": "c9c19f8e62c12834ad83193a1869cc82fe9c700e",
+      "pinned_spdx": "MIT",
+      "metadata_spdx": "mit",
+      "candidate_paths": [
+        "LICENSE",
+        "doc/en/license.rst"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE",
+          "subtree": "",
+          "sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b",
+          "bytes": 1091,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        },
+        {
+          "path": "doc/en/license.rst",
+          "subtree": "doc/en",
+          "sha256": "45b6addd843b2ed89f9f8f363f61092db2e3c2461e3f178c3c3793648c3c4e07",
+          "bytes": 1372,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        }
+      ],
+      "detected_spdx": "mit",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "mit"
+        ],
+        "doc/en": [
+          "mit"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain the copyright notice and permission notice"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [
+        {
+          "subtree": "doc/en",
+          "excluded": false,
+          "detected_families": [
+            "mit"
+          ],
+          "root_family": "mit",
+          "reason": "nested licence matches repository root",
+          "rule": "matching_family"
+        }
+      ],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "aio-libs-aiohttp",
+      "repo": "aio-libs/aiohttp",
+      "commit": "f4b1558931abc172d77e8d70869b5a2429ed54f6",
+      "pinned_spdx": "Apache-2.0",
+      "metadata_spdx": "apache-2.0",
+      "candidate_paths": [
+        "LICENSE.txt"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE.txt",
+          "subtree": "",
+          "sha256": "2e4be5fc6c4c72a466fcb665d726e049a6891981fe536c4f04b6366749461d23",
+          "bytes": 11313,
+          "detected_spdx": "apache-2.0",
+          "markers": [
+            "apache license",
+            "version 2.0"
+          ]
+        }
+      ],
+      "detected_spdx": "apache-2.0",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "apache-2.0"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain all copyright, patent, trademark and attribution notices",
+        "reproduce a copy of the Apache-2.0 licence with distributions",
+        "state any modifications made",
+        "NOTICE file, if present, must be reproduced"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "pypa-setuptools",
+      "repo": "pypa/setuptools",
+      "commit": "4e612f9e44ecfad130d0b2a27a2dce0740599b4b",
+      "pinned_spdx": "MIT",
+      "metadata_spdx": "mit",
+      "candidate_paths": [
+        "LICENSE",
+        "setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+        "setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+        "setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE",
+        "setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE",
+        "setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt",
+        "setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE",
+        "setuptools/config/NOTICE",
+        "setuptools/config/_validate_pyproject/NOTICE"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE",
+          "subtree": "",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+          "bytes": 1023,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        },
+        {
+          "path": "setuptools/config/NOTICE",
+          "subtree": "setuptools/config",
+          "sha256": "2dddf08818297a3b89d43d95ff659d8da85741108c9136dfa3a4d856c0623bd8",
+          "bytes": 493,
+          "detected_spdx": null,
+          "markers": []
+        },
+        {
+          "path": "setuptools/config/_validate_pyproject/NOTICE",
+          "subtree": "setuptools/config/_validate_pyproject",
+          "sha256": "09c9bcea95ca086f8bc5bed174e40bc835b297d40fb5f86bbbb570fe0a5581a7",
+          "bytes": 18737,
+          "detected_spdx": "agpl-3.0",
+          "markers": [
+            "gnu affero general public license",
+            "version 3"
+          ]
+        }
+      ],
+      "detected_spdx": "mit",
+      "result": "verified_with_quarantine",
+      "needs_human_review": true,
+      "notes": [
+        "nested subtrees carry a different licence than the repository root: setuptools/config/_validate_pyproject=['agpl-3.0']. Corpus records from those subtrees must be quarantined, not labelled with the root licence. A human must confirm."
+      ],
+      "subtree_licences": {
+        "<repository root>": [
+          "mit"
+        ],
+        "setuptools/config/_validate_pyproject": [
+          "agpl-3.0"
+        ]
+      },
+      "conflicting_subtrees": {
+        "setuptools/config/_validate_pyproject": [
+          "agpl-3.0"
+        ]
+      },
+      "notice_obligations": [
+        "retain the copyright notice and permission notice"
+      ],
+      "derived_exclusion_paths": [
+        "setuptools/config/_validate_pyproject/"
+      ],
+      "exclusion_evidence": [
+        {
+          "subtree": "setuptools/config/_validate_pyproject",
+          "excluded": true,
+          "detected_families": [
+            "agpl-3.0"
+          ],
+          "root_family": "mit",
+          "reason": "nested licence differs from repository root",
+          "rule": "conflicting_family"
+        }
+      ],
+      "policy": "nested-licence-subtree-v1"
+    },
+    {
+      "id": "tiangolo-fastapi",
+      "repo": "tiangolo/fastapi",
+      "commit": "4dda4625bdc19ce5ae946c152298f70d4d4fc5ed",
+      "pinned_spdx": "MIT",
+      "metadata_spdx": "mit",
+      "candidate_paths": [
+        "LICENSE"
+      ],
+      "licence_files": [
+        {
+          "path": "LICENSE",
+          "subtree": "",
+          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e",
+          "bytes": 1086,
+          "detected_spdx": "mit",
+          "markers": [
+            "permission is hereby granted, free of charge"
+          ]
+        }
+      ],
+      "detected_spdx": "mit",
+      "result": "verified",
+      "needs_human_review": false,
+      "notes": [],
+      "subtree_licences": {
+        "<repository root>": [
+          "mit"
+        ]
+      },
+      "conflicting_subtrees": {},
+      "notice_obligations": [
+        "retain the copyright notice and permission notice"
+      ],
+      "derived_exclusion_paths": [],
+      "exclusion_evidence": [],
+      "policy": "nested-licence-subtree-v1"
+    }
+  ],
+  "counts": {
+    "checked": 9,
+    "verified": 7,
+    "rejected": 2,
+    "needs_human_review": 2
+  },
+  "verified_ids": [
+    "psf-requests",
+    "pallets-flask",
+    "urllib3-urllib3",
+    "pallets-click",
+    "pytest-dev-pytest",
+    "aio-libs-aiohttp",
+    "tiangolo-fastapi"
+  ],
+  "rejected_ids": [
+    "psf-black",
+    "pypa-setuptools"
+  ],
+  "needs_human_review_ids": [
+    "psf-black",
+    "pypa-setuptools"
+  ],
+  "all_verified": false
+}

@@ -23,7 +23,7 @@ Phase 6  7B / commercial      [░░░░░░░░░░] 0% (future: possi
 |---|---|
 | From-scratch Transformer + training engine | `training/model.py`, `training/pretrain.py` |
 | Own tokenizer (49,152 BPE) | `tokenizer/qm_bpe_v0.json` |
-| Corpus v0 (~10M tokens, PII-scrubbed, deduped, decontaminated) | `data/corpus_v0.*` |
+| Corpus v0 (9,993,983 tokens, PII-scrubbed, deduped, **NOT decontaminated**) | `data/corpus_v0.*` |
 | India-finance eval set (40 items) + harness | `evaluation/` |
 | Local chat UI with India-residency guard | `serving/app.py` |
 | Kaggle pilot kit (optional, free tier) | `scripts/kaggle_pilot.ipynb` + guide |

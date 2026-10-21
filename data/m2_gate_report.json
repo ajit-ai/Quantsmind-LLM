@@ -1,0 +1,117 @@
+{
+  "schema": "quantsmind.m2_gate/1",
+  "generated_at": "2026-10-18T10:25:49+00:00",
+  "verdict": "M2 BLOCKED",
+  "summary": "M2 is not complete: 1 technical failure(s), 3 blocked on human decisions. Blocked items cannot be closed by writing code.",
+  "counts": {
+    "PASS": 6,
+    "FAIL": 1,
+    "BLOCKED": 3
+  },
+  "checks": [
+    {
+      "id": "M2.4-schema",
+      "requirement": "Dataset records satisfy the release schema",
+      "status": "PASS",
+      "evidence": "437/437 valid, state=audited, kinds={'corpus': 437}",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.3-licence",
+      "requirement": "Every source has an approved licence",
+      "status": "BLOCKED",
+      "evidence": "checked=9 verified=7 rejected=2 needs_human_review=2",
+      "detail": "2 source(s) need a human licence decision: psf-black, pypa-setuptools",
+      "remedy": "A human must decide whether these licences are acceptable for training data. This is a legal judgement, not a code change."
+    },
+    {
+      "id": "M2.3-scale",
+      "requirement": "Corpus draws from at least 20 sources",
+      "status": "BLOCKED",
+      "evidence": "9 distinct repositories in the corpus",
+      "detail": "only 9 repositories are present; target is 20. Expanding the source allowlist requires human authorisation.",
+      "remedy": "A human must authorise additional sources before they are fetched."
+    },
+    {
+      "id": "M2.3-tokens",
+      "requirement": "Token corpus reaches 100,000,000 tokens",
+      "status": "FAIL",
+      "evidence": "2,239,771 tokens from 437 documents (2.24% of the 100,000,000 target)",
+      "detail": "2,239,771 tokens is 97,760,229 short of the target",
+      "remedy": "Blocked upstream by M2.3-scale: a larger corpus needs more authorised sources. Adding tokens from the current sources cannot close a gap this large."
+    },
+    {
+      "id": "M2.6-splits",
+      "requirement": "Train/val/test splits do not share repositories",
+      "status": "PASS",
+      "evidence": "46 test vs 193 train; shared repos=[]",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.8-release",
+      "requirement": "Released artifacts verify against their checksums",
+      "status": "PASS",
+      "evidence": "code_corpus-v2: 9 checks passed, 0 failed",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.9-training",
+      "requirement": "Training config resolves to a real, vocab-matched token artifact",
+      "status": "PASS",
+      "evidence": "dataset_tag=code-corpus-v2 -> data\\code_corpus_v2.tokens.bin; code_tiny.yaml vocab_size=5822, tokenizer vocab_size=5822",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.10-holdout",
+      "requirement": "Held-out evaluation data exists and is separated from training",
+      "status": "PASS",
+      "evidence": "46 items across 2 repositories; executable_benchmark=False",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.10-benchmark",
+      "requirement": "Evaluation capability is not overstated",
+      "status": "PASS",
+      "evidence": "published_suites_status=unavailable, executable_benchmark=False",
+      "detail": null,
+      "remedy": null
+    },
+    {
+      "id": "M2.11-human-eval",
+      "requirement": "Human evaluation is defined, calibrated and releasable",
+      "status": "BLOCKED",
+      "evidence": "rubric v1 with 3 criteria and 3 stated limitations",
+      "detail": "the rubric and protocol are defined, but no annotators have been recruited and no judgements collected, so no agreement figure exists and no human score may be released",
+      "remedy": "Requires human action: an annotator pool and a judging round. No code change can produce this evidence."
+    }
+  ],
+  "human_decisions_required": [
+    {
+      "id": "M2.3-licence",
+      "requirement": "Every source has an approved licence",
+      "detail": "2 source(s) need a human licence decision: psf-black, pypa-setuptools"
+    },
+    {
+      "id": "M2.3-scale",
+      "requirement": "Corpus draws from at least 20 sources",
+      "detail": "only 9 repositories are present; target is 20. Expanding the source allowlist requires human authorisation."
+    },
+    {
+      "id": "M2.11-human-eval",
+      "requirement": "Human evaluation is defined, calibrated and releasable",
+      "detail": "the rubric and protocol are defined, but no annotators have been recruited and no judgements collected, so no agreement figure exists and no human score may be released"
+    }
+  ],
+  "technical_failures": [
+    {
+      "id": "M2.3-tokens",
+      "requirement": "Token corpus reaches 100,000,000 tokens",
+      "detail": "2,239,771 tokens is 97,760,229 short of the target"
+    }
+  ]
+}

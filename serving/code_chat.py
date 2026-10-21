@@ -4,14 +4,14 @@ from pathlib import Path
 
 import gradio as gr
 import torch
-import torch.nn.functional as F
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from serving.local_inference import load_model
+from serving.local_inference import generate_ids, load_model
+from training.chat_template import render_prompt
 
 CODE_SYSTEM_PROMPT = (
-    "You are Quantsmind Coder, an expert programming assistant specializing in "
+    "You are Taksh Coder, an expert programming assistant specializing in "
     "Python and JavaScript/TypeScript.\n"
     "- Provide correct, idiomatic code with proper error handling.\n"
     "- Explain your reasoning before code solutions.\n"
@@ -29,32 +29,32 @@ LANGUAGE_INFO = {
 
 @torch.no_grad()
 def generate_code(model, tokenizer, prompt: str, max_new_tokens: int = 512, temperature: float = 0.2, device: str = "cpu") -> str:
-    model.eval()
-    ids = tokenizer.encode(prompt).ids
-    x = torch.tensor([ids], dtype=torch.long, device=device)
-    for _ in range(max_new_tokens):
-        idx_cond = x if x.size(1) <= model.cfg["max_seq_len"] else x[:, -model.cfg["max_seq_len"]:]
-        logits, _ = model(idx_cond)
-        logits = logits[:, -1, :] / temperature
-        v, _ = torch.topk(logits, min(50, logits.size(-1)))
-        logits[logits < v[:, [-1]]] = float("-inf")
-        probs = F.softmax(logits, dim=-1)
-        next_id = torch.multinomial(probs, num_samples=1)
-        x = torch.cat([x, next_id], dim=1)
-        if next_id.item() == tokenizer.token_to_id("<eos>"):
-            break
-    generated = tokenizer.decode(x[0].tolist())
-    return generated[len(prompt):] if generated.startswith(prompt) else generated
+    """Generate a completion. Delegates to the shared sampler in local_inference."""
+    result = generate_ids(
+        model,
+        tokenizer,
+        prompt,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        device=device,
+    )
+    return result["text"]
 
 
 def format_prompt(message: str, language: str, context: str = "") -> str:
-    parts = [f"<|system|>{CODE_SYSTEM_PROMPT}\n"]
+    """Render the inference prompt.
+
+    C3: this used to hand-build "<|system|>...<|user|>...<|assistant|>", none of
+    which exist in the tokenizer, so inference fed the model the same shredded
+    byte fragments SFT trained on. It now renders through the shared template so
+    training and inference cannot drift apart.
+    """
     if context:
         lang_label = language if language != "auto" else "unknown"
-        parts.append(f"<|user|>\nContext ({lang_label}):\n```\n{context}\n```\n\nQuestion: {message}\n<|assistant|>\n")
+        user = f"Context ({lang_label}):\n```\n{context}\n```\n\nQuestion: {message}"
     else:
-        parts.append(f"<|user|>\n{message}\n<|assistant|>\n")
-    return "".join(parts)
+        user = message
+    return render_prompt(CODE_SYSTEM_PROMPT, user)
 
 
 def create_code_chat_ui(model, tokenizer, device: str):
@@ -68,8 +68,8 @@ def create_code_chat_ui(model, tokenizer, device: str):
             full += chunk
             yield full
 
-    with gr.Blocks(title="Quantsmind Coder", theme=gr.themes.Soft()) as ui:
-        gr.Markdown("# Quantsmind Coder — AI Programming Assistant")
+    with gr.Blocks(title="Taksh Coder", theme=gr.themes.Soft()) as ui:
+        gr.Markdown("# Taksh Coder — AI Programming Assistant")
         gr.Markdown("Python & JavaScript/TypeScript specialist. Code generation, debugging, review, and explanation.")
 
         with gr.Row():
@@ -101,7 +101,7 @@ def create_code_chat_ui(model, tokenizer, device: str):
 def main():
     import argparse
 
-    p = argparse.ArgumentParser(description="Quantsmind Coder — Code Chat UI")
+    p = argparse.ArgumentParser(description="Taksh Coder — Code Chat UI")
     p.add_argument("--ckpt", required=True)
     p.add_argument("--tokenizer", default="tokenizer/qm_code_bpe_v0.json")
     p.add_argument("--port", type=int, default=7860)
@@ -115,7 +115,7 @@ def main():
     from tokenizers import Tokenizer
     tokenizer = Tokenizer.from_file(args.tokenizer)
 
-    print(f"Starting Quantsmind Coder on http://localhost:{args.port}")
+    print(f"Starting Taksh Coder on http://localhost:{args.port}")
     ui = create_code_chat_ui(model, tokenizer, device)
     ui.launch(server_name="0.0.0.0", server_port=args.port)
 

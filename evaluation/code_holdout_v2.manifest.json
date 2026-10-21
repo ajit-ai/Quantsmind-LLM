@@ -1,0 +1,45 @@
+{
+  "schema": "quantsmind.code_holdout/1",
+  "dataset_id": "code_corpus-v2",
+  "holdout_split": "test",
+  "generated_at": "2026-10-18T09:56:22+00:00",
+  "corpus": "data\\code_corpus_v2.jsonl",
+  "corpus_sha256": "c02a6223f985e67b5d03661a55b761bed827da9a5cc8dcd5229cbfd8016bc08e",
+  "items": 46,
+  "skipped_short": 0,
+  "min_chars": 200,
+  "languages": {
+    "python": 46
+  },
+  "repositories": [
+    "psf/black",
+    "psf/requests"
+  ],
+  "separation": {
+    "holdout_split": "test",
+    "holdout_records": 46,
+    "train_records": 193,
+    "shared_content_sha1": [],
+    "shared_repositories": [],
+    "grouping": "source repository (source_group)",
+    "ok": true
+  },
+  "separation_method": "content SHA-1 set intersection and repository set intersection against the training split, computed from the shipped corpus",
+  "evaluation_protocol": {
+    "metric": "per-token cross-entropy loss on held-out source files",
+    "why_loss": "These are real source files from unseen repositories, not executable function specifications. Loss is the only metric they support honestly.",
+    "executable_benchmark": false,
+    "published_suites_status": "unavailable",
+    "baseline": {
+      "uniform_random_loss": 8.669399124305569,
+      "vocab_size": 5822,
+      "note": "A model at or above this loss has learned nothing; report it as the floor for any held-out loss figure."
+    },
+    "limitations": [
+      "Not a pass@1 code-generation benchmark; cannot report pass@1.",
+      "HumanEval (164) and MBPP (500) are not present in this repository; the 5-problem subsets in evaluation/eval_code.py exist only to prove the harness runs.",
+      "Loss on held-out files measures generalisation over unseen repositories, not task capability.",
+      "Split is grouped by repository, so the held-out set spans 2 repositories only."
+    ]
+  }
+}
