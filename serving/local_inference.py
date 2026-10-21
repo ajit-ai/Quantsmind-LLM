@@ -87,6 +87,10 @@ def generate(model, tokenizer, prompt: str, max_new_tokens: int = 200, temperatu
     model.eval()
     ids = tokenizer.encode(prompt).ids
     x = torch.tensor([ids], dtype=torch.long, device=device)
+    # v1.5.0: the terminator is the tokenizer's own end-of-document token.
+    # The previous check looked for a token literally named "[EOS]", which no
+    # tokenizer in this repository registers, so early stopping never fired.
+    eos_id = tokenizer.token_to_id("<eos>")
 
     for _ in range(max_new_tokens):
         idx_cond = x if x.size(1) <= model.cfg["max_seq_len"] else x[:, -model.cfg["max_seq_len"] :]
@@ -101,7 +105,7 @@ def generate(model, tokenizer, prompt: str, max_new_tokens: int = 200, temperatu
         next_id = torch.multinomial(probs, num_samples=1)
         x = torch.cat([x, next_id], dim=1)
 
-        if next_id.item() == tokenizer.token_to_id("[EOS]") if hasattr(tokenizer, "token_to_id") else False:
+        if eos_id is not None and next_id.item() == eos_id:
             break
 
     return tokenizer.decode(x[0].tolist())

@@ -66,6 +66,20 @@ def aggregate(records: list) -> dict:
     failure_categories = Counter(
         r.get("failure_category") for r in evaluated if r.get("outcome") != "pass"
     )
+    refused = [r for r in records if r.get("outcome") == "refused"]
+    empty_outputs = sum(1 for r in evaluated if r.get("empty_output"))
+    truncated = sum(1 for r in evaluated if r.get("truncated"))
+
+    by_surface = defaultdict(lambda: {"total": 0, "passed": 0, "syntax_valid": 0})
+    for record in records:
+        if record.get("outcome") == "excluded":
+            continue
+        entry = by_surface[record.get("surface") or "unknown"]
+        entry["total"] += 1
+        if record.get("outcome") == "pass":
+            entry["passed"] += 1
+        if record.get("syntax_valid"):
+            entry["syntax_valid"] += 1
 
     return {
         "cases_total": total,
@@ -92,6 +106,19 @@ def aggregate(records: list) -> dict:
         "refusal_count": refusals,
         "refusal_rate": _rate(refusals, len(evaluated)),
         "failure_categories": dict(sorted(failure_categories.items())),
+        "contract_mismatch_count": len(refused),
+        "empty_output_count": empty_outputs,
+        "empty_output_rate": _rate(empty_outputs, len(evaluated)),
+        "truncated_count": truncated,
+        "truncation_rate": _rate(truncated, len(evaluated)),
+        "by_surface": {
+            name: {
+                **counts,
+                "pass_rate": _rate(counts["passed"], counts["total"]),
+                "syntax_valid_rate": _rate(counts["syntax_valid"], counts["total"]),
+            }
+            for name, counts in sorted(by_surface.items())
+        },
         "by_category": {
             category: {
                 **counts,

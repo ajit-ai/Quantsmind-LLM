@@ -18,6 +18,7 @@ from pathlib import Path
 from evaluation.python_eval import REPORT_SCHEMA_VERSION
 from evaluation.python_eval.metrics import aggregate
 from evaluation.python_eval.sandbox import default_policy, execute_python
+from evaluation.python_eval.surfaces import assemble_program, check_contract, surface_of
 from evaluation.python_eval.syntax import extract_code_block, validate_syntax
 
 
@@ -42,6 +43,31 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
     budget = case.get("budget") or {}
     max_new_tokens = int(budget.get("max_new_tokens", 96))
     prompt = case["prompt"]
+    surface = surface_of(case)
+    capabilities = None
+    identity = getattr(generator, "model_identity", None) or {}
+    if identity:
+        capabilities = identity.get("capabilities")
+    allowed, reason = check_contract(case, capabilities)
+    if not allowed:
+        return {
+            "case_id": case.get("case_id"),
+            "category": case.get("category"),
+            "language": case.get("language"),
+            "surface": surface,
+            "prompt_format": case.get("prompt_format"),
+            "outcome": "refused",
+            "failure_category": "contract_mismatch",
+            "error": reason,
+            "syntax_valid": None,
+            "functional": None,
+            "format_compliant": None,
+            "tokens_generated": 0,
+            "timed_out": False,
+            "refused": True,
+            "latency_seconds": 0.0,
+            "raw_output": "",
+        }
     started = time.time()
     refusal = None
     finish_reason = None
@@ -73,11 +99,20 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
         }
     latency = time.time() - started
 
-    code = extract_code_block(raw)
+    if surface == "base_completion":
+        # The program to judge is prefix + continuation: a continuation that
+        # only makes sense with the prefix in front is still a correct
+        # continuation.
+        code = assemble_program(case, raw)
+    else:
+        code = extract_code_block(raw)
     syntax_ok, syntax_category, syntax_detail = validate_syntax(code, case["language"])
     functional = None
     failure_category = None
-    if not syntax_ok:
+    empty_output = not (raw or "").strip()
+    if empty_output:
+        failure_category = "empty_output"
+    elif not syntax_ok:
         failure_category = "syntax_error"
     else:
         validator = case.get("validator") or {}
@@ -111,6 +146,7 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
         "case_id": case.get("case_id"),
         "category": case.get("category"),
         "language": case.get("language"),
+        "surface": surface,
         "prompt_format": case.get("prompt_format"),
         "outcome": outcome,
         "failure_category": failure_category,
@@ -123,6 +159,8 @@ def run_case(case: dict, generator, *, sandbox_policy=None) -> dict:
         "finish_reason": finish_reason,
         "refused": bool(refusal),
         "timed_out": finish_reason == "timeout",
+        "truncated": finish_reason == "length",
+        "empty_output": empty_output,
         "latency_seconds": latency,
         "raw_output": raw,
     }

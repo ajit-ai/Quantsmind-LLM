@@ -84,6 +84,9 @@ class State:
     ckpt_path = None
     api_key = None
     contract_id = None
+    #: "base" for a pretraining checkpoint, "chat" for an instruction-qualified one.
+    prompt_surface = "chat"
+    chat_qualified = False
 
 
 state = State()
@@ -201,12 +204,31 @@ async def health():
 
 
 def build_prompt(messages):
-    """Render through the canonical contract-aware renderer.
+    """Render through the contract-aware renderer for the loaded checkpoint.
 
-    v1.1.0 removed the hand-built legacy "<|system|>..." string: the markers were
-    never tokens, so multi-turn input silently became byte fragments. The
+    v1.1.0 removed the hand-built legacy "<|system|>..." string: the markers
+    were never tokens, so multi-turn input silently became byte fragments. The
     renderer now refuses shapes the loaded contract cannot express.
+
+    v1.5.0 adds the prompt *surface*: a base (pretraining) checkpoint is
+    served raw text, because wrapping an instruction in a chat template the
+    model never saw during training is a prompt-surface mismatch, not a
+    capability. A checkpoint that declares chat qualification keeps the
+    canonical renderer.
     """
+    if getattr(state, "prompt_surface", "chat") == "base":
+        user_turns = [m for m in messages if m.role == "user"]
+        assistant_turns = [m for m in messages if m.role == "assistant"]
+        if len(user_turns) != 1 or assistant_turns:
+            # A base completion model cannot represent turns, so a multi-turn
+            # history is refused rather than silently flattened.
+            raise ValueError(
+                "a base checkpoint serves a single user turn; multi-turn input "
+                "needs a checkpoint qualified on the chat contract"
+            )
+        system_parts = [m.content for m in messages if m.role == "system"]
+        parts = list(system_parts) + [user_turns[0].content]
+        return "\n\n".join(part for part in parts if part)
     return render_chat(state.tokenizer, messages, default_system=SYSTEM_PROMPT)
 
 
@@ -243,6 +265,19 @@ async def chat_completions(payload: ChatCompletionRequest):
                 param="messages",
                 code="unsupported_role",
             )
+
+    # v1.5.0: an unknown model identifier is refused instead of being echoed.
+    # The previous behaviour accepted any string and answered with it, so a
+    # client could believe it was talking to a model that was never loaded.
+    if payload.model is not None and payload.model != state.model_id:
+        return _err(
+            400,
+            f"Model '{payload.model}' is not loaded. This endpoint serves "
+            f"'{state.model_id}'.",
+            "invalid_request_error",
+            param="model",
+            code="model_not_found",
+        )
 
     try:
         prompt = build_prompt(payload.messages)
@@ -337,6 +372,13 @@ def load_state(ckpt: str, tokenizer: str) -> None:
     from training.tokenizer_contract import CONTRACT_V1, detect_contract
 
     metadata = torch_load_checkpoint(ckpt)
+    provenance = metadata.get("provenance") or {}
+    # v1.5.0: the prompt surface follows the checkpoint's recorded training
+    # mode. A pretraining checkpoint is a completion model; serving it through
+    # a chat template it never saw is a prompt-surface mismatch.
+    training_mode = provenance.get("training_mode", "pretrain")
+    state.prompt_surface = "chat" if training_mode == "instruction" else "base"
+    state.chat_qualified = bool(provenance.get("chat_qualified", False))
     if metadata.get("schema") == SCHEMA_V2:
         state.contract_id = detect_contract(tok)
         verify_against(

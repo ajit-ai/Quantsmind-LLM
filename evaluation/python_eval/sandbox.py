@@ -90,6 +90,51 @@ def default_policy() -> SandboxPolicy:
     return SandboxPolicy()
 
 
+def detect_local_isolation() -> dict:
+    """Report which isolation mechanisms are actually available on this host.
+
+    Detection is read-only: the tools are looked up, never installed and never
+    started. A mechanism that is present but cannot be used without
+    privilege escalation or a new system dependency is reported as
+    ``present_unusable`` with the reason, and it is **not** enabled.
+    """
+    import shutil
+
+    found = {}
+    for name in ("docker", "podman", "wsl", "bwrap", "firejail"):
+        path = shutil.which(name)
+        if not path:
+            found[name] = {"state": "absent"}
+            continue
+        found[name] = {"state": "present", "path": path}
+    usable = []
+    notes = []
+    for name, entry in found.items():
+        if entry["state"] != "present":
+            continue
+        if name == "wsl":
+            entry["state"] = "present_unusable"
+            entry["reason"] = (
+                "wsl.exe is present, but a distro must be provisioned and "
+                "enabled (a system change) before it can isolate anything; "
+                "that is not authorised and is not attempted here"
+            )
+            notes.append(entry["reason"])
+            continue
+        usable.append(name)
+    return {
+        "mechanisms": found,
+        "usable_mechanisms": usable,
+        "functional_execution_available": bool(usable),
+        "notes": notes,
+        "policy": (
+            "a mechanism is only used when the operator configures it "
+            "explicitly through SandboxPolicy(mode='external', ...); an "
+            "ordinary subprocess is never treated as a sandbox"
+        ),
+    }
+
+
 def capability_report(policy: SandboxPolicy) -> dict:
     """Describe what the configured mechanism can and cannot promise."""
     return {

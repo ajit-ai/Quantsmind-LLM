@@ -160,7 +160,11 @@ def test_requested_model_is_echoed(client):
         "/v1/chat/completions",
         json={"model": "some-alias", "messages": [{"role": "user", "content": "hi"}]},
     )
-    assert r.json()["model"] == "some-alias"
+    # v1.5.0: an unknown model id is refused instead of echoed.
+    assert r.status_code == 400
+    error = r.json()["error"]
+    assert error["code"] == "model_not_found"
+    assert error["type"] == "invalid_request_error"
 
 
 # --------------------------------------------------------------------------- #
