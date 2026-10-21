@@ -47,6 +47,17 @@ RESERVED_LITERALS = tuple(BASE_SPECIAL_TOKENS) + tuple(CONTROL_TOKENS)
 
 #: Every reason code this module can produce. Stable identifiers: they are
 #: written into manifests and compared across runs.
+#: Patterns that look like instructions embedded in source data. A training
+#: corpus that contains them can teach the model to obey text found in files
+#: rather than in the prompt, so such files are excluded rather than cleaned.
+EMBEDDED_INSTRUCTION_PATTERNS = (
+    re.compile(r"(?i)ignore\s+(?:all\s+)?(?:the\s+)?previous\s+instructions"),
+    re.compile(r"(?i)disregard\s+(?:the\s+)?(?:above|previous)"),
+    re.compile(r"(?i)you\s+are\s+now\s+(?:a|an|the)\b"),
+    re.compile(r"(?im)^\s*###\s*instruction\s*:"),
+    re.compile(r"(?im)^\s*system\s*:\s*\S"),
+)
+
 EXCLUSION_REASONS = (
     "empty_file",
     "too_small",
@@ -58,6 +69,7 @@ EXCLUSION_REASONS = (
     "excessive_repetition",
     "low_information",
     "embedded_secret",
+    "embedded_instruction",
     "reserved_token_literal",
     "syntax_error",
     "too_complex",
@@ -212,6 +224,10 @@ def assess_python(
     secrets = detect_secrets(text)
     if secrets:
         return QualityResult(False, "embedded_secret", ",".join(sorted(secrets)))
+
+    for pattern in EMBEDDED_INSTRUCTION_PATTERNS:
+        if pattern.search(text):
+            return QualityResult(False, "embedded_instruction", pattern.pattern[:40])
 
     reserved = detect_reserved_literals(
         text, quality.get("reserved_literals") or RESERVED_LITERALS

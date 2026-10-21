@@ -71,6 +71,14 @@ def main(argv=None) -> int:
     parser.add_argument("--cases", default=None)
     parser.add_argument("--repeat", type=int, default=1)
     parser.add_argument("--max-new-tokens", type=int, default=96)
+    parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument(
+        "--qualified-surfaces",
+        default="completion",
+        choices=["completion", "instruction", "chat"],
+        help="the surfaces the checkpoint is qualified on",
+    )
+    parser.add_argument("--prompt-contract", default="qm.plain_instruction/1")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--out", default=None)
@@ -100,6 +108,23 @@ def main(argv=None) -> int:
         "context_window": model_cfg.get("max_seq_len"),
         "trained_on": args.trained_on,
         "qualified_formats": ["code_completion", "chat_instruction"],
+        "capabilities": {
+            "completion": True,
+            "instruction": args.qualified_surfaces in ("instruction", "chat"),
+            "chat": args.qualified_surfaces == "chat",
+            "prompt_contract": args.prompt_contract,
+        },
+        "generation": {
+            "temperature": args.temperature,
+            "seed": args.seed,
+            "max_new_tokens": args.max_new_tokens,
+            "decoding": "greedy" if args.temperature == 0 else "seeded sampling",
+        },
+        "evaluation": {
+            "suite": str(cases_path),
+            "suite_version": "v1.5.0-surface-aligned" if "v15" in str(cases_path) else "v1.4.0",
+            "tracks": ["base_completion", "instruction_to_code", "chat_instruction"],
+        },
         "note": (
             "A base (pretraining) model is served raw text; the chat template "
             "is not applied and no chat qualification is claimed."
@@ -109,7 +134,11 @@ def main(argv=None) -> int:
         model,
         tokenizer,
         model_identity=identity,
-        qualified_formats=("code_completion", "chat_instruction"),
+        qualified_formats=(
+            ("code_completion",)
+            if args.qualified_surfaces == "completion"
+            else ("code_completion", "chat_instruction")
+        ),
         max_new_tokens_cap=max(64, args.max_new_tokens),
         device=args.device,
     )
