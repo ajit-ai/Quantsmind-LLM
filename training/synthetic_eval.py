@@ -254,3 +254,195 @@ def classify(baseline: dict, trained: dict, *, loss_delta: float | None = None) 
             "and the experimental checkpoint is not promoted."
         ),
     }
+
+
+# --------------------------------------------------------------------------- #
+# v2.0.0: task-conditioning metrics
+# --------------------------------------------------------------------------- #
+def _body_of(program: str) -> str:
+    """A normalised representation of the generated function body."""
+    try:
+        tree = ast.parse(program)
+    except (SyntaxError, ValueError):
+        return "<unparsable>"
+    funcs = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+    if not funcs:
+        return "<no-function>"
+    return ast.dump(funcs[-1], annotate_fields=False)
+
+
+def evaluate_cases_v2(model, tokenizer, cases, *, budget: int = 64,
+                      temperature: float = 0.0, seed: int | None = None,
+                      device: str = "cpu") -> dict:
+    """Evaluate cases with the v2.0 metrics (task conditioning included)."""
+    from serving.local_inference import generate_ids
+    from training.contrastive_tasks import OPERATION_MARKERS
+
+    if isinstance(cases, dict):
+        case_list = []
+        for partition in sorted(cases):
+            case_list.extend(cases[partition])
+    else:
+        case_list = list(cases)
+
+    records = []
+    for case in case_list:
+        result = generate_ids(
+            model, tokenizer, case.prompt, max_new_tokens=budget,
+            temperature=temperature, seed=seed if temperature and temperature > 0 else None,
+            device=device,
+        )
+        text = result.get("text", "")
+        program = case.prompt + text
+        body = _body_of(program)
+        body_key = _body_key(program)
+        operation = (case.params or {}).get("operation")
+        markers = OPERATION_MARKERS.get(operation, [])
+        records.append({
+            "case_id": case.case_id,
+            "family": case.family,
+            "partition": case.partition,
+            "pair_id": (case.params or {}).get("pair_id"),
+            "operation": operation,
+            "body": body,
+            "body_key": body_key,
+            "syntax_valid": body != "<unparsable>",
+            "complete_function": body not in ("<unparsable>", "<no-function>"),
+            "exact_target": _exact(program, case.reference),
+            "operation_agreement": bool(markers) and any(
+                marker in program for marker in markers
+            ),
+            "degenerate": _is_degenerate(text, result.get("token_ids") or []),
+            "eos_terminated": result.get("finish_reason") == "stop",
+            "truncated": result.get("finish_reason") == "length",
+            "tokens": len(result.get("token_ids") or []),
+            "text": text,
+        })
+    return {"records": records, "metrics": task_conditioning_metrics(records)}
+
+
+def _body_key(program: str) -> str:
+    """A body comparison key that ignores literal numbers.
+
+    Numbers are per-case salts, so a digit-stable key measures whether the
+    *computation* changed rather than whether the text differs.
+    """
+    import re
+
+    return re.sub(r"\d+", "N", _body_of(program))
+
+
+def task_conditioning_metrics(records) -> dict:
+    """Metrics that distinguish task-conditioned output from a fixed template."""
+    total = len(records)
+    if not total:
+        return {"cases": 0}
+    bodies = [record.get("body_key") or record["body"] for record in records]
+    modal = max(set(bodies), key=bodies.count)
+    unique_bodies = len(set(bodies))
+    unique_texts = len({record["text"] for record in records})
+    sensitive = sum(1 for body in bodies if body != modal)
+    pairs = {}
+    for record in records:
+        if record.get("pair_id"):
+            pairs.setdefault(record["pair_id"], []).append(record)
+    differentiated = 0
+    comparable = 0
+    for members in pairs.values():
+        if len(members) < 2:
+            continue
+        comparable += 1
+        if len({member["body"] for member in members}) > 1:
+            differentiated += 1
+    return {
+        "cases": total,
+        "syntax_valid": sum(1 for r in records if r["syntax_valid"]),
+        "complete_function": sum(1 for r in records if r["complete_function"]),
+        "exact_target": sum(1 for r in records if r["exact_target"]),
+        "degenerate": sum(1 for r in records if r["degenerate"]),
+        "operation_agreement": sum(1 for r in records if r["operation_agreement"]),
+        "unique_completion_ratio": unique_texts / total,
+        "unique_body_ratio": unique_bodies / total,
+        "prompt_sensitivity": sensitive / total,
+        "contrastive_pairs": comparable,
+        "contrastive_differentiated": differentiated,
+        "contrastive_differentiation_rate": (
+            differentiated / comparable if comparable else None
+        ),
+        "eos_terminated": sum(1 for r in records if r["eos_terminated"]),
+        "truncated": sum(1 for r in records if r["truncated"]),
+        "mean_tokens": round(sum(r["tokens"] for r in records) / total, 2),
+    }
+
+
+#: Task-conditioning classifications (v2.0.0).
+TASK_CONDITIONING_CLASSES = (
+    "TASK_CONDITIONED_LEARNING_DEMONSTRATED",
+    "SURFACE_CONDITIONED_LEARNING",
+    "GENERIC_TEMPLATE_COLLAPSE",
+    "LOSS_REDUCTION_WITHOUT_TASK_LEARNING",
+    "INSUFFICIENT_EVIDENCE",
+)
+
+
+def classify_task_conditioning(metrics: dict, *, loss_delta=None) -> dict:
+    """Classify task conditioning from measured evidence only.
+
+    A model that emits one body for every prompt is a template collapse, no
+    matter how well it parses. A model that changes the requested operation
+    but is never verified for correctness is reported as task-conditioned
+    *with the correctness caveat attached*, because static operator agreement
+    is not functional proof.
+    """
+    if not metrics or not metrics.get("cases"):
+        return {"verdict": "INSUFFICIENT_EVIDENCE", "reason": "no cases evaluated"}
+    body_ratio = metrics.get("unique_body_ratio", 0.0)
+    sensitivity = metrics.get("prompt_sensitivity", 0.0)
+    operation = metrics.get("operation_agreement", 0) / metrics["cases"]
+    differentiation = metrics.get("contrastive_differentiation_rate")
+    loss_fell = bool(loss_delta is not None and loss_delta < 0)
+
+    if body_ratio <= 0.25 or sensitivity <= 0.25:
+        verdict = "GENERIC_TEMPLATE_COLLAPSE"
+        reason = (
+            f"only {body_ratio:.2f} of the completions have a distinct body and "
+            f"prompt sensitivity is {sensitivity:.2f}: the output does not depend "
+            "on the requested operation"
+        )
+    elif differentiation is not None and differentiation >= 0.8 and operation >= 0.8:
+        verdict = "TASK_CONDITIONED_LEARNING_DEMONSTRATED"
+        reason = (
+            f"{differentiation:.2f} of the matched contrastive pairs produced "
+            f"different bodies and {operation:.2f} of the completions contain the "
+            "requested operation"
+        )
+    elif operation >= 0.4:
+        verdict = "SURFACE_CONDITIONED_LEARNING"
+        reason = (
+            f"the requested operation appears in {operation:.2f} of the "
+            "completions, but the matched pairs are not reliably differentiated"
+        )
+    elif sensitivity > 0.25:
+        verdict = "SURFACE_CONDITIONED_LEARNING"
+        reason = (
+            f"the output varies with the prompt (sensitivity {sensitivity:.2f}) "
+            f"but only {operation:.2f} of the completions contain the requested "
+            "operation: the response is prompt-dependent without being "
+            "task-correct"
+        )
+    elif loss_fell:
+        verdict = "LOSS_REDUCTION_WITHOUT_TASK_LEARNING"
+        reason = "training loss fell without measurable task differentiation"
+    else:
+        verdict = "INSUFFICIENT_EVIDENCE"
+        reason = "the evidence does not separate collapse from task conditioning"
+    return {
+        "verdict": verdict,
+        "reason": reason,
+        "loss_delta": loss_delta,
+        "caveat": (
+            "Static operator agreement is not functional correctness: no "
+            "generated program was executed, because no verified isolation "
+            "mechanism exists on this host."
+        ),
+    }
