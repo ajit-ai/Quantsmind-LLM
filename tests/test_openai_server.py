@@ -539,3 +539,44 @@ def test_verified_checkpoint_loads_and_is_discoverable():
     assert entry["quantsmind"]["vocab_size"] == 5822
     assert entry["quantsmind"]["n_params_non_embedding"] == 495_808
     assert entry["created"] > 0
+
+
+def test_stale_base_surface_does_not_govern_a_different_tokenizer(monkeypatch):
+    """A surface decided for a pretraining checkpoint must not leak onward."""
+    from training.tokenizer_contract import build_contract_tokenizer
+
+    tokenizer = build_contract_tokenizer("tokenizer/qm_code_bpe_v0.json")
+    monkeypatch.setattr(openai_server.state, "tokenizer", tokenizer, raising=False)
+    monkeypatch.setattr(openai_server.state, "prompt_surface", "base")
+    monkeypatch.setattr(
+        openai_server.state, "surface_tokenizer", object(), raising=False
+    )
+    prompt = openai_server.build_prompt(
+        [
+            {"role": "user", "content": "first"},
+            {"role": "assistant", "content": "second"},
+            {"role": "user", "content": "third"},
+        ]
+    )
+    assert "<|user|>" in prompt and "<|assistant|>" in prompt
+    assert prompt.index("first") < prompt.index("second") < prompt.index("third")
+
+
+def test_base_surface_accepts_dict_messages(monkeypatch):
+    tokenizer = object()
+    monkeypatch.setattr(openai_server.state, "tokenizer", tokenizer, raising=False)
+    monkeypatch.setattr(openai_server.state, "prompt_surface", "base")
+    monkeypatch.setattr(
+        openai_server.state, "surface_tokenizer", tokenizer, raising=False
+    )
+    assert openai_server.build_prompt(
+        [{"role": "user", "content": "add"}]
+    ) == "add"
+    with pytest.raises(ValueError):
+        openai_server.build_prompt(
+            [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        )

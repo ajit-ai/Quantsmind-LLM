@@ -327,8 +327,11 @@ def serving_client(monkeypatch):
     openai_server.state.ckpt_path = None
     openai_server.state.contract_id = "qm.plain_instruction/1"
     # monkeypatch restores the previous values, so this fixture cannot leak a
-    # prompt surface into another test module.
+    # prompt surface into another test module. The surface is declared for the
+    # tokenizer this fixture installs, matching how load_state scopes it.
     monkeypatch.setattr(openai_server.state, "prompt_surface", "base")
+    monkeypatch.setattr(openai_server.state, "surface_tokenizer",
+                        openai_server.state.tokenizer)
     monkeypatch.setattr(openai_server.state, "chat_qualified", False)
 
     captured = {}

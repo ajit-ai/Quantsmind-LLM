@@ -86,6 +86,10 @@ class State:
     contract_id = None
     #: "base" for a pretraining checkpoint, "chat" for an instruction-qualified one.
     prompt_surface = "chat"
+    #: The tokenizer object the surface decision was derived for. If a different
+    #: tokenizer is installed, the surface is re-derived instead of serving a
+    #: stale process-global decision.
+    surface_tokenizer = None
     chat_qualified = False
 
 
@@ -203,6 +207,34 @@ async def health():
     }
 
 
+def _field(message, name, default=""):
+    if isinstance(message, dict):
+        return message.get(name, default)
+    return getattr(message, name, default)
+
+
+def _base_prompt(messages):
+    """Serve raw text to a pretraining checkpoint, refusing turn shapes."""
+    user_turns = [
+        _field(m, "content") for m in messages if _field(m, "role") == "user"
+    ]
+    assistant_turns = [
+        _field(m, "content") for m in messages if _field(m, "role") == "assistant"
+    ]
+    if len(user_turns) != 1 or assistant_turns:
+        # A base completion model cannot represent turns, so a multi-turn
+        # history is refused rather than silently flattened.
+        raise ValueError(
+            "a base checkpoint serves a single user turn; multi-turn input "
+            "needs a checkpoint qualified on the chat contract"
+        )
+    system_parts = [
+        _field(m, "content") for m in messages if _field(m, "role") == "system"
+    ]
+    parts = list(system_parts) + [user_turns[0]]
+    return "\n\n".join(part for part in parts if part)
+
+
 def build_prompt(messages):
     """Render through the contract-aware renderer for the loaded checkpoint.
 
@@ -215,20 +247,31 @@ def build_prompt(messages):
     model never saw during training is a prompt-surface mismatch, not a
     capability. A checkpoint that declares chat qualification keeps the
     canonical renderer.
+
+    The surface is scoped to the tokenizer it was derived for. A caller that
+    installs a different tokenizer (a reload, a contract-specific test) gets a
+    surface derived from that tokenizer rather than the previous checkpoint's
+    decision, so no process-global state can leak across models.
     """
+    from training.tokenizer_contract import (
+        CONTRACT_V1,
+        CONTRACT_V2,
+        TokenizerContractError,
+        detect_contract,
+    )
+
+    tokenizer = state.tokenizer
+    if tokenizer is not None and tokenizer is not getattr(
+        state, "surface_tokenizer", None
+    ):
+        try:
+            contract = detect_contract(tokenizer)
+        except (AttributeError, TokenizerContractError):
+            contract = None
+        if contract in (CONTRACT_V1, CONTRACT_V2):
+            return render_chat(tokenizer, messages, default_system=SYSTEM_PROMPT)
     if getattr(state, "prompt_surface", "chat") == "base":
-        user_turns = [m for m in messages if m.role == "user"]
-        assistant_turns = [m for m in messages if m.role == "assistant"]
-        if len(user_turns) != 1 or assistant_turns:
-            # A base completion model cannot represent turns, so a multi-turn
-            # history is refused rather than silently flattened.
-            raise ValueError(
-                "a base checkpoint serves a single user turn; multi-turn input "
-                "needs a checkpoint qualified on the chat contract"
-            )
-        system_parts = [m.content for m in messages if m.role == "system"]
-        parts = list(system_parts) + [user_turns[0].content]
-        return "\n\n".join(part for part in parts if part)
+        return _base_prompt(messages)
     return render_chat(state.tokenizer, messages, default_system=SYSTEM_PROMPT)
 
 
@@ -378,6 +421,7 @@ def load_state(ckpt: str, tokenizer: str) -> None:
     # a chat template it never saw is a prompt-surface mismatch.
     training_mode = provenance.get("training_mode", "pretrain")
     state.prompt_surface = "chat" if training_mode == "instruction" else "base"
+    state.surface_tokenizer = tok
     state.chat_qualified = bool(provenance.get("chat_qualified", False))
     if metadata.get("schema") == SCHEMA_V2:
         state.contract_id = detect_contract(tok)
