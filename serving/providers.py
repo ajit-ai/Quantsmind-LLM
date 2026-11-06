@@ -414,11 +414,10 @@ class SeedCoderProvider:
         return self._identity
 
     def _available(self) -> bool:
-        return bool(
-            self.model_path is not None
-            and self.model_path.is_dir()
-            and importlib.util.find_spec("transformers") is not None
-        )
+        # Availability means the approved local artifact is present. Importing
+        # the inference stack is deferred to generation so offline interface
+        # tests can exercise loaders without requiring transformers in CI.
+        return bool(self.model_path is not None and self.model_path.is_dir())
 
     def capabilities(self) -> ProviderCapabilities:
         return ProviderCapabilities(
@@ -440,8 +439,6 @@ class SeedCoderProvider:
             raise ProviderUnavailableError("local Seed-Coder model directory is not supplied")
         if not self.model_path.is_dir():
             raise ProviderUnavailableError(f"local Seed-Coder model directory not found: {self.model_path}")
-        if importlib.util.find_spec("transformers") is None:
-            raise ProviderUnavailableError("transformers is required for the Seed-Coder adapter")
         try:
             self._model, self._tokenizer = _load_seed_resources(
                 self.model_path, device=self.device, dtype=self.dtype
