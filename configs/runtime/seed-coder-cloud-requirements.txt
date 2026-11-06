@@ -1,0 +1,13 @@
+# Seed-Coder-8B-Instruct cloud runtime for Taksh D3.1
+# Reproducible execution environment only. Do not use these pins for local CPU.
+# Python: 3.12.x is the preferred cloud runtime; 3.10-3.13 are acceptable if CUDA wheels exist.
+--extra-index-url https://pypi.org/simple
+--index-url https://download.pytorch.org/whl/cu128
+torch==2.8.0+cu128
+transformers==4.57.1
+accelerate==1.12.0
+safetensors>=0.7.0
+tokenizers>=0.21.0
+huggingface-hub>=0.34.0
+numpy>=2.0
+psutil>=7.0.0

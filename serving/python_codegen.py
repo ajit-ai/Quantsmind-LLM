@@ -114,6 +114,7 @@ class PythonCodeGenerator:
         temperature: float = 0.0,
         seed: int | None = None,
         stop=None,
+        binding_repair: bool | None = None,
     ) -> dict:
         """Generate a bounded completion for one prompt."""
         started = time.time()
@@ -144,6 +145,8 @@ class PythonCodeGenerator:
             )
         budget = min(budget, self.context_length - prompt_tokens)
 
+        if binding_repair is None:
+            binding_repair = bool(self.model_identity.get("binding_repair", True))
         result = generate_ids(
             self.model,
             self.tokenizer,
@@ -153,6 +156,7 @@ class PythonCodeGenerator:
             device=self.device,
             seed=seed,
             stop=stop,
+            binding_repair=bool(binding_repair),
         )
         text = result.get("text", "")
         truncated = len(text.encode("utf-8")) > self.max_new_tokens_cap * 8
@@ -166,6 +170,7 @@ class PythonCodeGenerator:
             "truncated": truncated,
             "duration_seconds": time.time() - started,
             "notes": notes,
+            "repair": result.get("repair", {}),
             "model": dict(self.model_identity),
         }
         result["diagnostics"] = diagnostics

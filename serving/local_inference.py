@@ -166,13 +166,19 @@ def generate_ids(
     frequency_penalty: float = 0.0,
     device: str = "cpu",
     seed: int | None = None,
+    binding_repair: bool = True,
 ):
     """Single shared sampling implementation for every serving surface.
 
     Returns a dict with ``text`` (completion only, prompt stripped), ``token_ids``,
     ``finish_reason`` (``"stop"`` for EOS or a stop sequence, ``"length"`` when the
-    token budget is exhausted) and accurate ``prompt_tokens`` / ``completion_tokens``
-    counts.
+    token budget is exhausted), prompt/completion token counts and a structured
+    ``repair`` diagnostic.
+
+    The repair is deterministic, configurable and fail-closed. Ambiguous,
+    unsafe, malformed or whole-function outputs are left as the raw completion.
+    ``binding_repair=False`` is retained for A/B qualification. Generated code
+    is never executed by this layer.
 
     There is no KV cache in this model, so each step re-runs a full forward pass over
     the (left-truncated) window. That is correct but slow at long context; see
@@ -222,13 +228,46 @@ def generate_ids(
                 break
 
     completion = tokenizer.decode(generated)
+    raw_completion = completion
+    repair_diagnostic: dict = {
+        "enabled": bool(binding_repair),
+        "applied": False,
+        "status": "repaired" if binding_repair else "disabled",
+        "reason": "repair enabled" if binding_repair else "repair disabled",
+        "mapping": {},
+        "changed": False,
+        "raw_preserved": True,
+    }
+    if binding_repair:
+        try:
+            from training.binding_repair import repair_from_prompt_info
+
+            info = repair_from_prompt_info(prompt, completion)
+            completion = info.completion
+            repair_diagnostic.update({
+                "applied": bool(info.changed),
+                "status": info.status,
+                "reason": info.reason,
+                "mapping": dict(info.mapping),
+                "changed": bool(info.changed),
+            })
+        except Exception as exc:  # keep raw output and explain the failure
+            repair_diagnostic.update({
+                "applied": False,
+                "status": "repair_failed",
+                "reason": f"{type(exc).__name__}: {exc}",
+                "changed": False,
+            })
+            completion = raw_completion
     return {
         "text": completion,
+        "raw_text": raw_completion,
         "token_ids": generated,
         "finish_reason": finish_reason,
         "prompt_tokens": prompt_tokens,
         "completion_tokens": len(generated),
         "eos_id": eos_id,
+        "repair": repair_diagnostic,
     }
 
 
