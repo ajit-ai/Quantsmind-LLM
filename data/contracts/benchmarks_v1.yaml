@@ -1,0 +1,40 @@
+# Benchmark registry for the Python data foundation (v1.2.0).
+#
+# A suite is "available" only when a local copy exists and can be screened.
+# The pipeline never downloads a suite. Registering HumanEval or MBPP means
+# placing an approved local copy and pointing the entry at it; until then the
+# suite is recorded as unavailable and the contamination verdict says so.
+#
+# A clean result is only ever a statement about the suites listed here with
+# availability "available".
+
+schema: quantsmind.benchmark_registry/1
+version: benchmarks_v1
+
+suites:
+  - id: humaneval
+    version: "164"
+    availability: unavailable
+    published_problems: 164
+    notes: >-
+      No local copy of the published HumanEval suite is present in this
+      repository, so it cannot be screened. The five hand-transcribed problems
+      in evaluation/eval_code.py are a harness fixture, not the published
+      suite, and are audited separately by data.contamination_audit.
+
+  - id: mbpp
+    version: "500"
+    availability: unavailable
+    published_problems: 500
+    notes: >-
+      No local copy of the published MBPP suite is present in this repository,
+      so it cannot be screened.
+
+  - id: in_repo_transcribed_subset
+    version: "5+5"
+    availability: unavailable
+    published_problems: 10
+    notes: >-
+      The hand-transcribed HumanEval/MBPP problems in evaluation/eval_code.py
+      are screened by data.contamination_audit, not by this registry, because
+      they live in a Python module rather than in a JSONL file.

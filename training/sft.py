@@ -20,9 +20,12 @@ from training.chat_template import (
     validate_chat_template,
 )
 from training.checkpoint import CheckpointIncompatible, init_from_checkpoint
+from training.checkpoint_schema import build_provenance
+from training.determinism import set_determinism
 from training.loss_log import LossLogger
 from training.model import QMModel
 from training.pretrain import load_checkpoint, lr_at, save_checkpoint
+from training.tokenizer_contract import detect_contract
 
 # Re-exported for existing callers/tests. TEMPLATE is now rendered from tokens the
 # tokenizer actually registers (C3); the old "<|system|>..." form shredded into
@@ -55,8 +58,10 @@ class SFTPairDataset:
         if not self.pairs:
             raise ValueError(f"No SFT pairs found in {jsonl_path}")
         # C3: refuse a tokenizer that cannot represent the template as single
-        # tokens, rather than training on shredded byte fragments.
+        # tokens, rather than training on shredded byte fragments. The contract
+        # itself is a property of the tokenizer (v1: bos/eos, v2: role markers).
         self.markers = validate_chat_template(tokenizer)
+        self.contract = detect_contract(tokenizer)
 
     def __len__(self):
         return len(self.pairs)
@@ -65,7 +70,9 @@ class SFTPairDataset:
         pair = self.pairs[idx]
         instruction = pair.get("instruction", pair.get("input", ""))
         response = pair.get("response", pair.get("output", ""))
-        text = render_completion(SYSTEM_PROMPT, instruction, response)
+        text = render_completion(
+            SYSTEM_PROMPT, instruction, response, contract_id=self.contract
+        )
         ids = self.tokenizer.encode(text).ids
         truncated = len(ids) > self.max_length
         ids = ids[: self.max_length]
@@ -73,7 +80,9 @@ class SFTPairDataset:
         labels = torch.tensor(ids[1:], dtype=torch.long)
         # Mask everything up to and including the prompt: supervision starts at
         # the response, and the final <eos> is what the model must learn to emit.
-        prompt_ids = prompt_token_length(self.tokenizer, SYSTEM_PROMPT, instruction)
+        prompt_ids = prompt_token_length(
+            self.tokenizer, SYSTEM_PROMPT, instruction, contract_id=self.contract
+        )
         prompt_ids = min(prompt_ids, labels.numel())
         labels[:prompt_ids] = -100
         return input_ids, labels
@@ -192,6 +201,9 @@ def main():
         )
 
     cfg = load_yaml(args.config)
+    seed = cfg.get("run", {}).get("seed", 42)
+    determinism = set_determinism(seed)
+    print(f"determinism: {determinism}")
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -210,6 +222,17 @@ def main():
 
     model_cfg = load_yaml(cfg["run"]["model_config"])["model"]
     model = QMModel(model_cfg).to(device)
+
+    provenance = build_provenance(
+        model_cfg=model_cfg,
+        parameter_count=sum(p.numel() for p in model.parameters()),
+        contract_id=dataset.contract,
+        config=cfg,
+        seed=seed,
+        tokenizer=tokenizer,
+        tokenizer_path="tokenizer/qm_code_bpe_v0.json",
+        corpus_manifest=args.sft_data,
+    )
 
     if args.init_ckpt:
         # B3: this used to load with strict=False and print "initialized from ..."
@@ -258,7 +281,6 @@ def main():
     # ``[dataset[i % len(dataset)] for i in range(micro_bs)]``, so each step saw
     # the same first ``micro_bs`` pairs and the rest of the corpus was never
     # trained on. An explicit, shuffled, epoch-cycling batcher replaces it.
-    seed = cfg.get("run", {}).get("seed", 42)
     batcher = SFTBatcher(len(dataset), micro_bs, seed=seed)
     if args.resume and start_step > 0:
         # Deterministic resume: replay the index stream the interrupted run would
@@ -349,6 +371,7 @@ def main():
                     "dataset_size": len(dataset),
                     "coverage": batcher.coverage_report(),
                 },
+                provenance=provenance,
             )
             print(f"checkpoint saved: {last_ckpt} (step {step + 1})")
 
