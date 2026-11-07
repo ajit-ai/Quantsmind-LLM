@@ -1,0 +1,22 @@
+# Taksh v1.7.0 — Scale-Up: 300M parameter model
+#
+# Mid-scale demonstration. Requires multi-GPU for practical training;
+# CPU run possible but slow (~minutes per step).
+#
+# Parameter estimate: ~300M non-embedding (+ tied embedding/head)
+#   d_model=768, n_layers=24, n_heads=12, n_kv_heads=4, ffn_dim=3072
+#
+# Context: 8K tokens. Vocab: 5822.
+
+model:
+  name: qm-code-v170-300m
+  vocab_size: 5822
+  d_model: 768
+  n_layers: 24
+  n_heads: 12
+  n_kv_heads: 4
+  ffn_dim: 3072
+  max_seq_len: 8192
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

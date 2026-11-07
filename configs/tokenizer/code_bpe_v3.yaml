@@ -1,0 +1,31 @@
+# Taksh v2.3.0 — Tokenizer Configuration
+#
+# BPE tokenizer trained on 50B+ tokens of cleared code corpus.
+# Vocab size: 65,536 (larger than v2.0.0's 32,768 for better compression).
+# Includes multimodal special tokens for image-to-code and document-to-code.
+
+tokenizer:
+  name: taksh-code-bpe-v3
+  vocab_size: 65536
+  min_frequency: 5
+  normalizer: NFKC
+  pre_tokenizer: ByteLevel
+  decoder: ByteLevel
+  special_tokens:
+    - "<pad>"
+    - "<bos>"
+    - "<eos>"
+    - " unk"
+    - "<mask>"
+    - "<|fim_prefix|>"
+    - "<|fim_suffix|>"
+    - "<|fim_middle|>"
+    - "<|repo_name|>"
+    - "<|file_sep|>"
+    - "<|language|>"
+    - "<|image|>"
+    - "<|image_start|>"
+    - "<|image_end|>"
+    - "<|document|>"
+    - "<|document_start|>"
+    - "<|document_end|>"

@@ -414,7 +414,8 @@ def load_state(ckpt: str, tokenizer: str) -> None:
     from training.checkpoint_schema import SCHEMA_V2, verify_against
     from training.tokenizer_contract import CONTRACT_V1, detect_contract
 
-    metadata = torch_load_checkpoint(ckpt)
+    # Same trusted startup boundary as load_trusted_state: operator CLI path.
+    metadata = torch_load_checkpoint(ckpt, allow_unsafe_trusted=True)
     provenance = metadata.get("provenance") or {}
     # v1.5.0: the prompt surface follows the checkpoint's recorded training
     # mode. A pretraining checkpoint is a completion model; serving it through

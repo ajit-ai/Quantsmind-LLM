@@ -10,7 +10,7 @@ model:
   n_heads: 4
   n_kv_heads: 2          # GQA: KV cache /2 vs MHA
   ffn_dim: 512           # SwiGLU
-  max_seq_len: 512
+  max_seq_len: 2048
   rope_theta: 10000.0
   norm_eps: 1.0e-5
   tie_embeddings: true   # text embedding/lm-head tied, as in M0 local_15m

@@ -336,7 +336,12 @@ def test_sampled_decoding_is_reproducible_with_a_seed():
     from serving.local_inference import load_model
     from serving.local_inference import generate_ids
 
-    model, _ = load_model(str(REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt"), "cpu")
+    # Legacy checkpoint predates safe-serialisation; trusted local artifact only.
+    model, _ = load_model(
+        str(REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt"),
+        "cpu",
+        allow_unsafe_trusted=True,
+    )
     tokenizer = Tokenizer.from_file(str(REPO_ROOT / "tokenizer" / "qm_code_bpe_v0.json"))
     prompt = "def add(a, b):\n"
     first = generate_ids(model, tokenizer, prompt, max_new_tokens=16, temperature=0.8, seed=7)

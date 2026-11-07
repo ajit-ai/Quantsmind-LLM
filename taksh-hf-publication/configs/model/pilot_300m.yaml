@@ -1,0 +1,15 @@
+# Quantsmind-LLM model config — pilot 300M
+# Purpose: end-to-end pipeline validation at minimal cost (Phase 1)
+model:
+  name: qm-pilot-300m
+  vocab_size: 49152
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 4          # GQA: KV-cache /3 vs MHA
+  ffn_dim: 2048          # SwiGLU
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true   # save params at this scale
+  attn_kernel: flash_attention_2

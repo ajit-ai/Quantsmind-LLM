@@ -23,8 +23,16 @@ from training.schedules import WarmupCosineSchedule
 from training.sequence import Batch
 
 
-def build_batches(tokenizer, examples, *, max_length: int = 256, eos_token: str = "<eos>"):
-    """Tokenise examples into masked training batches."""
+def build_batches(tokenizer, examples, *, max_length: int = 256, eos_token: str = "<eos>", identifier_config=None):
+    """Tokenise examples into masked training batches.
+
+    With ``identifier_config=None`` (default) batches carry no weights and
+    the objective is exactly the previous token-mean objective. With an
+    :class:`~training.identifier_supervision.IdentifierSupervisionConfig`,
+    each batch carries a mean-1.0 ``weights`` tensor aligned with its
+    labels, computed once per example (never re-applied).
+    """
+    from training.identifier_supervision import classify_identifiers, loss_weights
     from training.supervised import supervise
 
     batches = []
@@ -39,16 +47,40 @@ def build_batches(tokenizer, examples, *, max_length: int = 256, eos_token: str 
         labels = supervision["labels"]
         inputs = torch.tensor([ids[:-1]], dtype=torch.long)
         target = torch.tensor(labels, dtype=torch.long)
+        weights = None
+        if identifier_config is not None:
+            occurrences = classify_identifiers(example.signature, example.body)
+            weights = torch.tensor(
+                loss_weights(supervision, occurrences, tokenizer=tokenizer, config=identifier_config)["weights"],
+                dtype=torch.float32,
+            )
         batches.append(
             {
                 "input_ids": inputs,
                 "labels": target,
+                "weights": weights,
                 "supervised": len(supervision["supervised_positions"]),
                 "example_id": example.example_id,
                 "operation": example.operation,
             }
         )
     return batches
+
+
+def weighted_mean_loss(logits, labels, item_weights):
+    """Mean loss for one batch, weighted if ``item_weights`` is present.
+
+    Returns ``(micro_mean, supervised_count)`` matching the existing
+    ``summed / supervised`` contract of :func:`token_mean_loss`.
+    """
+    if item_weights is None:
+        summed, supervised = token_mean_loss(logits, labels)
+        if supervised == 0:
+            return None, 0
+        return summed / supervised, supervised
+    from training.identifier_supervision import weighted_token_mean_loss
+
+    return weighted_token_mean_loss(logits, labels, item_weights)
 
 
 def _batch_tensor(items) -> Batch:
@@ -75,6 +107,7 @@ def train_supervised(
     max_length: int = 256,
     grad_accum: int = 2,
     seed: int = 20261021,
+    identifier_config=None,
     warmup: int = 2,
     weight_decay: float = 0.1,
     grad_clip: float = 1.0,
@@ -92,8 +125,8 @@ def train_supervised(
     schedule = WarmupCosineSchedule(
         peak_lr=lr, warmup_steps=warmup, total_steps=steps, min_ratio=0.1
     )
-    train_batches = build_batches(tokenizer, examples, max_length=max_length)
-    val_batches = build_batches(tokenizer, val_examples, max_length=max_length)
+    train_batches = build_batches(tokenizer, examples, max_length=max_length, identifier_config=identifier_config)
+    val_batches = build_batches(tokenizer, val_examples, max_length=max_length, identifier_config=identifier_config)
     if not train_batches:
         raise ValueError("no trainable examples were produced")
 
@@ -116,10 +149,9 @@ def train_supervised(
         for item, weight in zip(window, weights):
             batch = _batch_tensor([item])
             logits, _ = model(batch.input_ids.to(device))
-            summed, supervised = token_mean_loss(logits, batch.labels.to(device))
-            if supervised == 0:
+            micro_mean, supervised = weighted_mean_loss(logits, batch.labels.to(device), item.get("weights"))
+            if supervised == 0 or micro_mean is None:
                 continue
-            micro_mean = summed / supervised
             (micro_mean * weight).backward()
             loss_value += float(micro_mean.item()) * weight
         grad_norm = float(
@@ -175,8 +207,9 @@ def _validation_loss(model, batches, device) -> float | None:
         for item in batches:
             batch = _batch_tensor([item])
             logits, _ = model(batch.input_ids.to(device))
-            summed, supervised = token_mean_loss(logits, batch.labels.to(device))
-            total += float(summed.item())
+            mean_loss, supervised = weighted_mean_loss(logits, batch.labels.to(device), item.get("weights"))
+            if supervised:
+                total += float((mean_loss * supervised).item())
             count += supervised
     model.train()
     return (total / count) if count else None

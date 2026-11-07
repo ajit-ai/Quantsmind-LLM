@@ -1,0 +1,50 @@
+# Taksh v2.3.0 — DPO (Direct Preference Optimization): 70B Parameter Model
+#
+# Aligns the v2.3.0 pretrained checkpoint using preference pairs.
+# GPU cluster required.
+
+run:
+  name: qm-code-v230-70b-dpo
+  base_checkpoint: runs/v230_70b_sft/checkpoint_last.pt
+  base_model_config: configs/model/code_v230_70b.yaml
+  seed: 42
+
+data:
+  tokenizer: tokenizer/taksh_code_bpe_v3.json
+  train_jsonl: data/v230_dpo/train.jsonl
+  val_jsonl: data/v230_dpo/val.jsonl
+  max_length: 131072
+  dataset_manifest: data/v230_dpo/manifest.json
+  beta: 0.1
+
+optimizer:
+  type: adamw
+  lr_peak: 5.0e-7
+  lr_schedule: cosine
+  warmup_steps: 50
+  min_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16
+  device: auto
+
+batch:
+  micro_batch_size: 1
+  grad_accum_steps: 64
+
+training:
+  max_steps: 10000
+  checkpoint_every_steps: 1000
+  log_every_steps: 25
+
+watchdog:
+  nan_check_every_steps: 25
+
+logging:
+  tracker: wandb
+  write_run_manifest: true
+  run_manifest_path: runs/v230_70b_dpo/run_manifest.json

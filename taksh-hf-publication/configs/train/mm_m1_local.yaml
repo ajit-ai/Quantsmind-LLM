@@ -1,0 +1,64 @@
+# M1.2 real-data configuration (local run template).
+# Infrastructure is ready; do NOT run a large training yet — M1 is not promoted.
+# Synthetic fit-check config remains configs/train/mm_fit_check.yaml (unchanged).
+run:
+  name: mm-m1-local
+  model_config: configs/model/local_15m_mm.yaml
+  vision_config: configs/vision/vision_m1.yaml
+  seed: 42
+  init_ckpt: runs/local_15m/checkpoint_last.pt
+  # M1.3 correction: the text backbone is a shared asset and stays frozen during
+  # caption-only MM training (ViT + projector trainable). Unfrozen full-backbone
+  # fine-tuning on the 32-pair corpus destroyed held-out text modeling (M1 issue #1).
+  freeze_text_backbone: true
+
+data:
+  # Provenance-aware manifests (see data/mm_m1/DATA_CARD.rst).
+  train_manifest: data/mm_m1/MANIFEST_v2.json
+  val_manifest: data/mm_m1/MANIFEST_v2.json
+  test_manifest: data/mm_m1/MANIFEST_v2.json
+  train_split: train
+  val_split: val
+  test_split: test
+  tokenizer: tokenizer/qm_bpe_v0.json
+
+image:
+  resolution: 112
+  preprocessing_version: mm1_v2
+  normalize: null  # per-channel {"mean": [..], "std": [..]} in [0,1] space, optional
+
+sequence:
+  max_seq_len: 512
+  max_caption_len: 64
+
+batch:
+  micro_batch_size: 8
+  grad_accum_steps: 2
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-4
+  lr_schedule: cosine
+  warmup_steps: 200
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+training:
+  max_steps: 500
+  epochs: 1
+  log_every_steps: 25
+  checkpoint_every_steps: 500
+  out_dir: runs/mm_m1_local
+
+precision:
+  dtype: float32
+
+cpu:
+  threads: 1
+
+reproducibility:
+  record_manifest_hash: true
+  record_git_commit: true

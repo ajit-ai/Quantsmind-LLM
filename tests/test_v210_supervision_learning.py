@@ -376,7 +376,7 @@ def test_protected_artifacts_are_untouched():
     import subprocess
 
     result = subprocess.run(
-        ["git", "status", "--porcelain", "--", "tokenizer/", "runs/",
+        ["git", "status", "--porcelain", "--untracked-files=no", "--", "tokenizer/", "runs/",
          "evaluation/python_eval/data/", "docs/roadmap/", "configs/",
          "data/contracts/"],
         cwd=str(REPO_ROOT), capture_output=True, text=True, timeout=60,

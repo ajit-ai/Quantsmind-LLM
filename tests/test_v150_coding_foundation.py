@@ -476,4 +476,4 @@ def test_tokenizer_artifact_and_model_geometry_are_unchanged():
     )
     assert report.embedding_rows == 5822
     assert report.output_projection_rows == 5822
-    assert report.context_window == 512
+    assert report.context_window == 2048

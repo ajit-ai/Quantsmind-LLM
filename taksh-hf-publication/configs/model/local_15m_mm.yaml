@@ -1,0 +1,16 @@
+# Quantsmind multimodal model config — local MM fit-check (M1.1)
+# Same text backbone as local_15m (d_model=128, 6L) with vocab extended to 49156.
+# Reserved ids: 49152=IMG_START, 49153=IMG_END, 49154=CAPTION_START, 49155=TEXT_EOS.
+# Future image-token vocab reserves 51200+ (not allocated in M1.1).
+model:
+  name: qm-local-15m-mm
+  vocab_size: 49156
+  d_model: 128
+  n_layers: 6
+  n_heads: 4
+  n_kv_heads: 2          # GQA: KV cache /2 vs MHA
+  ffn_dim: 512           # SwiGLU
+  max_seq_len: 512
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true   # text embedding/lm-head tied, as in M0 local_15m

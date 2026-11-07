@@ -1,0 +1,1064 @@
+{
+  "suite": "Taksh Binding Repair Qualification",
+  "version": "1.0.0",
+  "date_utc": "2026-10-23",
+  "status": "frozen_before_evaluation",
+  "description": "Independent held-out Python qualification set for the v2.5 binding-repair postprocessor. Existing valid code and ambiguous/unsupported outputs are included.",
+  "prompt_format": "instruction + '\\n' + signature + '\\n'",
+  "checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "decoding": {
+    "temperature": 0.0,
+    "top_k": 1,
+    "top_p": 1.0,
+    "seed": 20261023,
+    "max_new_tokens": 64
+  },
+  "scoring": {
+    "exact": "normalized AST body dump equality via training.program_analysis.analyse",
+    "structural": "expected operations are a subset of generated operations; skipped when no expected operation exists",
+    "binding": "normalized used parameters match expected and no undefined names remain",
+    "functional": "restricted, explicit fixture execution for cases with execution_safe=true only",
+    "false_repair": "a repaired output that becomes executable/agreeable where raw output did not, in ambiguous or unsupported cases",
+    "negative": "never credited; no execution authorized for negative cases"
+  },
+  "overlap_policy": "no instruction/signature pair may match AD-1; checked before evaluation",
+  "case_count": 46,
+  "categories": [
+    "already_bound_valid",
+    "ambiguous_binding",
+    "boolean_predicates",
+    "builtin_operations",
+    "comprehensions",
+    "keyword_arguments",
+    "loops",
+    "method_calls",
+    "multiple_operations",
+    "nested_functions",
+    "renamed_parameters",
+    "shadowed_names",
+    "string_operations",
+    "unsupported_ambiguous",
+    "unused_and_multiple_parameters"
+  ],
+  "cases": [
+    {
+      "case_id": "Q-add-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the sum of two integers.",
+      "signature": "def total_pair(alpha, beta):",
+      "reference_body": "    return alpha + beta",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "total_pair",
+      "tests": [
+        {
+          "args": [
+            2,
+            3
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "Q-sub-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the difference between two numbers.",
+      "signature": "def difference_pair(left_input, right_input):",
+      "reference_body": "    return left_input - right_input",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "difference_pair",
+      "tests": [
+        {
+          "args": [
+            9,
+            4
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "Q-mul-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the product of two values.",
+      "signature": "def product_values(first_value, second_value):",
+      "reference_body": "    return first_value * second_value",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "product_values",
+      "tests": [
+        {
+          "args": [
+            6,
+            7
+          ],
+          "kwargs": {},
+          "expected": 42
+        }
+      ]
+    },
+    {
+      "case_id": "Q-max-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the larger of two numbers.",
+      "signature": "def larger_of(left_input, right_input):",
+      "reference_body": "    if left_input > right_input:\n        return left_input\n    return right_input",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "larger_of",
+      "tests": [
+        {
+          "args": [
+            4,
+            9
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "Q-min-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the smaller of two numbers.",
+      "signature": "def smaller_of(left_input, right_input):",
+      "reference_body": "    if left_input < right_input:\n        return left_input\n    return right_input",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "smaller_of",
+      "tests": [
+        {
+          "args": [
+            4,
+            9
+          ],
+          "kwargs": {},
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "case_id": "Q-upper-000",
+      "category": "string_operations",
+      "instruction": "Write a function that returns the uppercase form of a string.",
+      "signature": "def shout_case(text):",
+      "reference_body": "    return text.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "shout_case",
+      "tests": [
+        {
+          "args": [
+            "hello"
+          ],
+          "kwargs": {},
+          "expected": "HELLO"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-lower-000",
+      "category": "string_operations",
+      "instruction": "Write a function that returns the lowercase form of a string.",
+      "signature": "def shout_case(text):",
+      "reference_body": "    return text.lower()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "shout_case",
+      "tests": [
+        {
+          "args": [
+            "HELLO"
+          ],
+          "kwargs": {},
+          "expected": "hello"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-length-000",
+      "category": "builtin_operations",
+      "instruction": "Write a function that returns how many records a list holds.",
+      "signature": "def count_entries(records):",
+      "reference_body": "    return len(records)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_entries",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "case_id": "Q-equality-000",
+      "category": "boolean_predicates",
+      "instruction": "Write a function that checks whether two numbers are equal.",
+      "signature": "def same_number(left_input, right_input):",
+      "reference_body": "    return left_input == right_input",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "same_number",
+      "tests": [
+        {
+          "args": [
+            4,
+            4
+          ],
+          "kwargs": {},
+          "expected": true
+        },
+        {
+          "args": [
+            4,
+            5
+          ],
+          "kwargs": {},
+          "expected": false
+        }
+      ]
+    },
+    {
+      "case_id": "Q-add-mult-000",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that adds two numbers and multiplies the result by a scale.",
+      "signature": "def add_and_scale(first, second, scale):",
+      "reference_body": "    return (first + second) * scale",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_and_scale",
+      "tests": [
+        {
+          "args": [
+            2,
+            3,
+            10
+          ],
+          "kwargs": {},
+          "expected": 50
+        }
+      ]
+    },
+    {
+      "case_id": "Q-sub-mult-000",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that subtracts one number from another and multiplies by a scale.",
+      "signature": "def subtract_and_scale(first, second, scale):",
+      "reference_body": "    return (first - second) * scale",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "subtract_and_scale",
+      "tests": [
+        {
+          "args": [
+            10,
+            3,
+            7
+          ],
+          "kwargs": {},
+          "expected": 49
+        }
+      ]
+    },
+    {
+      "case_id": "Q-mul-add-000",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that multiplies two numbers and then adds the third.",
+      "signature": "def multiply_then_add(first, second, third):",
+      "reference_body": "    return first * second + third",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "multiply_then_add",
+      "tests": [
+        {
+          "args": [
+            4,
+            5,
+            6
+          ],
+          "kwargs": {},
+          "expected": 26
+        }
+      ]
+    },
+    {
+      "case_id": "Q-add-sub-000",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that adds two numbers and then subtracts the third.",
+      "signature": "def add_then_subtract(first, second, third):",
+      "reference_body": "    return first + second - third",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_then_subtract",
+      "tests": [
+        {
+          "args": [
+            10,
+            8,
+            3
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "Q-unused-000",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that returns the first number supplied.",
+      "signature": "def choose_first(first, second, third):",
+      "reference_body": "    return first",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_first",
+      "tests": [
+        {
+          "args": [
+            11,
+            12,
+            13
+          ],
+          "kwargs": {},
+          "expected": 11
+        }
+      ]
+    },
+    {
+      "case_id": "Q-unused-001",
+      "category": "unused_and_multiple_parameters",
+      "instruction": "Write a function that returns the middle input.",
+      "signature": "def choose_middle(alpha, beta, gamma, delta):",
+      "reference_body": "    return beta",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_middle",
+      "tests": [
+        {
+          "args": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "Q-exact-000",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the sum of two integers.",
+      "signature": "def add_pair(left, right):",
+      "reference_body": "    return left + right",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_pair",
+      "tests": [
+        {
+          "args": [
+            7,
+            8
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "Q-exact-001",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the larger of two numbers.",
+      "signature": "def pick_larger(first, second):",
+      "reference_body": "    if first > second:\n        return first\n    return second",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "pick_larger",
+      "tests": [
+        {
+          "args": [
+            3,
+            8
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "Q-exact-002",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the uppercase form of a string.",
+      "signature": "def upper_string(text):",
+      "reference_body": "    return text.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "upper_string",
+      "tests": [
+        {
+          "args": [
+            "mixed"
+          ],
+          "kwargs": {},
+          "expected": "MIXED"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-mapping-000",
+      "category": "method_calls",
+      "instruction": "Write a function that returns the value stored under a key.",
+      "signature": "def read_mapping(mapping, key):",
+      "reference_body": "    return mapping.get(key, 0)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "read_mapping",
+      "tests": [
+        {
+          "args": [
+            {
+              "alpha": 7
+            },
+            "alpha"
+          ],
+          "kwargs": {},
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "case_id": "Q-mapping-001",
+      "category": "method_calls",
+      "instruction": "Write a function that checks whether a key exists in a mapping.",
+      "signature": "def key_present(mapping, key):",
+      "reference_body": "    return key in mapping",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "key_present",
+      "tests": [
+        {
+          "args": [
+            {
+              "alpha": 1
+            },
+            "alpha"
+          ],
+          "kwargs": {},
+          "expected": true
+        },
+        {
+          "args": [
+            {
+              "alpha": 1
+            },
+            "beta"
+          ],
+          "kwargs": {},
+          "expected": false
+        }
+      ]
+    },
+    {
+      "case_id": "Q-nested-000",
+      "category": "nested_functions",
+      "instruction": "Write a function that counts the items in a list.",
+      "signature": "def count_items(items):",
+      "reference_body": "    def inner(values):\n        return len(values)\n    return inner(items)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "count_items",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "Q-nested-001",
+      "category": "nested_functions",
+      "instruction": "Write a function that returns the input after uppercasing it.",
+      "signature": "def shout_once(data):",
+      "reference_body": "    def inner(text):\n        return text.upper()\n    return inner(data)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "shout_once",
+      "tests": [
+        {
+          "args": [
+            "quiet"
+          ],
+          "kwargs": {},
+          "expected": "QUIET"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-nested-002",
+      "category": "nested_functions",
+      "instruction": "Write a function that returns the sum of two numbers through a helper.",
+      "signature": "def total_with_helper(first, second):",
+      "reference_body": "    def inner(left_input, right_input):\n        return left_input + right_input\n    return inner(first, second)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "total_with_helper",
+      "tests": [
+        {
+          "args": [
+            3,
+            6
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "Q-comprehension-000",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the positive values from a list.",
+      "signature": "def select_positive(values):",
+      "reference_body": "    return [value for value in values if value > 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "select_positive",
+      "tests": [
+        {
+          "args": [
+            [
+              -1,
+              2,
+              0,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "Q-comprehension-001",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the negative values from a list.",
+      "signature": "def negative_values(values):",
+      "reference_body": "    return [value for value in values if value < 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "negative_values",
+      "tests": [
+        {
+          "args": [
+            [
+              -2,
+              0,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            -2
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "Q-comprehension-002",
+      "category": "comprehensions",
+      "instruction": "Write a function that counts the even values in a list.",
+      "signature": "def count_even(data):",
+      "reference_body": "    return len([item for item in data if item % 2 == 0])",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_even",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "Q-loop-000",
+      "category": "loops",
+      "instruction": "Write a function that adds the numbers in a list.",
+      "signature": "def add_all(data):",
+      "reference_body": "    total = 0\n    for item in data:\n        total += item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_all",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "Q-loop-001",
+      "category": "loops",
+      "instruction": "Write a function that sums the squares of the numbers.",
+      "signature": "def sum_squares(data):",
+      "reference_body": "    total = 0\n    for item in data:\n        total += item * item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "sum_squares",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 14
+        }
+      ]
+    },
+    {
+      "case_id": "Q-keyword-000",
+      "category": "keyword_arguments",
+      "instruction": "Write a function that renders a greeting with a punctuation mark.",
+      "signature": "def greet(first, last, punctuation=\"!\"):",
+      "reference_body": "    return first + \" \" + last + punctuation",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "greet",
+      "tests": [
+        {
+          "args": [
+            "Ada",
+            "Lovelace"
+          ],
+          "kwargs": {},
+          "expected": "Ada Lovelace!"
+        },
+        {
+          "args": [
+            "Ada",
+            "Lovelace"
+          ],
+          "kwargs": {
+            "punctuation": "?"
+          },
+          "expected": "Ada Lovelace?"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-keyword-001",
+      "category": "keyword_arguments",
+      "instruction": "Write a function that renders a host and port pair.",
+      "signature": "def format_endpoint(host, port=8080):",
+      "reference_body": "    return host + \":\" + str(port)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "format_endpoint",
+      "tests": [
+        {
+          "args": [
+            "localhost"
+          ],
+          "kwargs": {},
+          "expected": "localhost:8080"
+        },
+        {
+          "args": [
+            "example.test"
+          ],
+          "kwargs": {
+            "port": 1024
+          },
+          "expected": "example.test:1024"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-keyword-002",
+      "category": "keyword_arguments",
+      "instruction": "Write a function that sums a numeric range with a step.",
+      "signature": "def range_sum(start, stop, step=1):",
+      "reference_body": "    return sum(range(start, stop, step))",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "range_sum",
+      "tests": [
+        {
+          "args": [
+            0,
+            10
+          ],
+          "kwargs": {},
+          "expected": 45
+        },
+        {
+          "args": [
+            0,
+            10,
+            2
+          ],
+          "kwargs": {},
+          "expected": 20
+        }
+      ]
+    },
+    {
+      "case_id": "Q-composition-000",
+      "category": "multiple_operations",
+      "instruction": "Write a function that sums two numbers and scales the total by a third.",
+      "signature": "def sum_then_scale(a, b, c):",
+      "reference_body": "    return (a + b) * c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "sum_then_scale",
+      "tests": [
+        {
+          "args": [
+            2,
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 20
+        }
+      ]
+    },
+    {
+      "case_id": "Q-composition-001",
+      "category": "multiple_operations",
+      "instruction": "Write a function that subtracts two numbers and multiplies by a third.",
+      "signature": "def subtract_then_multiply(a, b, c):",
+      "reference_body": "    return (a - b) * c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "subtract_then_multiply",
+      "tests": [
+        {
+          "args": [
+            10,
+            4,
+            3
+          ],
+          "kwargs": {},
+          "expected": 18
+        }
+      ]
+    },
+    {
+      "case_id": "Q-composition-002",
+      "category": "multiple_operations",
+      "instruction": "Write a function that multiplies two numbers and then adds a third.",
+      "signature": "def product_then_add(a, b, c):",
+      "reference_body": "    return a * b + c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "product_then_add",
+      "tests": [
+        {
+          "args": [
+            2,
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "Q-composition-003",
+      "category": "multiple_operations",
+      "instruction": "Write a function that takes the larger of two numbers and adds a third.",
+      "signature": "def max_then_add(a, b, c):",
+      "reference_body": "    if a > b:\n        return a + c\n    return b + c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "max_then_add",
+      "tests": [
+        {
+          "args": [
+            8,
+            5,
+            3
+          ],
+          "kwargs": {},
+          "expected": 11
+        },
+        {
+          "args": [
+            5,
+            8,
+            3
+          ],
+          "kwargs": {},
+          "expected": 11
+        }
+      ]
+    },
+    {
+      "case_id": "Q-composition-004",
+      "category": "multiple_operations",
+      "instruction": "Write a function that counts positive values and returns the count.",
+      "signature": "def positive_count(values):",
+      "reference_body": "    return len([value for value in values if value > 0])",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "positive_count",
+      "tests": [
+        {
+          "args": [
+            [
+              -1,
+              0,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "Q-shadow-000",
+      "category": "shadowed_names",
+      "instruction": "Write a function that returns a number after uppercasing it.",
+      "signature": "def shadow_value(value):",
+      "reference_body": "    return value.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "shadow_value",
+      "tests": [
+        {
+          "args": [
+            "abc"
+          ],
+          "kwargs": {},
+          "expected": "ABC"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-shadow-001",
+      "category": "shadowed_names",
+      "instruction": "Write a function that returns the total of a list.",
+      "signature": "def shadow_total(values):",
+      "reference_body": "    total = 0\n    for value in values:\n        total += value\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "shadow_total",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              4,
+              5
+            ]
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "Q-ambiguous-000",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that uses two identifiers that resemble other names.",
+      "signature": "def choose_values(items, item_count):",
+      "reference_body": "    return item_count",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_values",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            99
+          ],
+          "kwargs": {},
+          "expected": 99
+        }
+      ]
+    },
+    {
+      "case_id": "Q-ambiguous-001",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that returns the alphabetical form of a suffix.",
+      "signature": "def suffix_form(prefix, suffix):",
+      "reference_body": "    return suffix",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "suffix_form",
+      "tests": [
+        {
+          "args": [
+            "pre",
+            "post"
+          ],
+          "kwargs": {},
+          "expected": "post"
+        }
+      ]
+    },
+    {
+      "case_id": "Q-negative-000",
+      "category": "unsupported_ambiguous",
+      "instruction": "Ask for a weather forecast from an external service.",
+      "signature": "def get_weather(city):",
+      "reference_body": "    raise RuntimeError('unsupported')",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "get_weather",
+      "tests": []
+    },
+    {
+      "case_id": "Q-negative-001",
+      "category": "unsupported_ambiguous",
+      "instruction": "Print the supplied argument to the console.",
+      "signature": "def announce(value):",
+      "reference_body": "    print(value)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "announce",
+      "tests": []
+    },
+    {
+      "case_id": "Q-negative-002",
+      "category": "unsupported_ambiguous",
+      "instruction": "Return a value fetched from an external API.",
+      "signature": "def fetch_value(name):",
+      "reference_body": "    return get_external_value(name)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "fetch_value",
+      "tests": []
+    },
+    {
+      "case_id": "Q-negative-003",
+      "category": "unsupported_ambiguous",
+      "instruction": "Leave the function body empty.",
+      "signature": "def empty_response(value):",
+      "reference_body": "    pass",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "empty_response",
+      "tests": []
+    },
+    {
+      "case_id": "Q-negative-004",
+      "category": "unsupported_ambiguous",
+      "instruction": "Combine two inputs using an operator that is not supported.",
+      "signature": "def divide_values(first, second):",
+      "reference_body": "    return first / second",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "divide_values",
+      "tests": []
+    },
+    {
+      "case_id": "Q-negative-005",
+      "category": "unsupported_ambiguous",
+      "instruction": "Reference a value that is not supplied.",
+      "signature": "def use_missing(value):",
+      "reference_body": "    return missing_value + value",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "use_missing",
+      "tests": []
+    }
+  ],
+  "digest": "8239e2a71743eeab695b0d7469486cb71364bb9ca6fbfa42e3d3d467c2bf0bb4",
+  "file_version": "binding_repair_qualification_2026_10_23_v1"
+}

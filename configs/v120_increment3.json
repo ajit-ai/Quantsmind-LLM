@@ -1,0 +1,46 @@
+{
+  "increment": "v1.2.0-increment-3",
+  "description": "Controlled training experiment preparation using the Increment 2 diversified curriculum. Conservative starting values, not proven optimal. Training requires both --train and --authorize.",
+  "architecture": "qm-code-m3-9m",
+  "parameters": 9359104,
+  "vocabulary_size": 5822,
+  "context_length": 512,
+  "baseline_checkpoint": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\v210\\runE\\checkpoints\\trained.pt",
+  "baseline_checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "tokenizer": "F:\\Codes\\Git\\Quantsmind-LLM\\tokenizer\\qm_code_bpe_v0.json",
+  "curriculum": "training.binding_curriculum (Increment 2 diversified)",
+  "curriculum_digest": "bc533a187a631e46d5efc03603c40d604ebddea430a8eb8dd5b54f5a8dc07b7b",
+  "train_examples": 156,
+  "validation_examples": 52,
+  "experiment_root": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\v120\\increment3",
+  "run_id": "increment3-diverse-100",
+  "steps": 100,
+  "lr": 2e-05,
+  "seed": 20261106,
+  "device": "cpu",
+  "max_length": 256,
+  "grad_accum": 2,
+  "warmup": 2,
+  "weight_decay": 0.1,
+  "grad_clip": 1.0,
+  "min_available_gib": 0.5,
+  "frozen_fixtures": {
+    "ad1": {
+      "path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\ad1\\ad1_suite.json",
+      "sha256": "a5bf9406f49335fe0c2d8e1bff4be1c6cdbb4a88e8bd4a866f262457420ca45e",
+      "cases": 29
+    },
+    "c3": {
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\evaluation\\python_benchmark_heldout_v1.json",
+      "sha256": "1b72f5388d86372582f03ae8cdf78ca031bfe34d27c0e3d9bbdc7cac4532a26e",
+      "cases": 54
+    }
+  },
+  "promotion": {
+    "parse_must_not_fall_below_baseline": true,
+    "functional_must_not_fall_below_baseline": true,
+    "mode_collapse_rejects": true,
+    "missing_cases_reject": true,
+    "hash_failure_rejects": true
+  }
+}

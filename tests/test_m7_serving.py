@@ -47,7 +47,7 @@ def test_m7_model_is_discoverable(m7_client):
 
     assert entry["id"] == "qm-code-m3-9m"
     assert entry["quantsmind"]["checkpoint_step"] == 120
-    assert entry["quantsmind"]["context_window"] == 512
+    assert entry["quantsmind"]["context_window"] == 2048
     assert entry["quantsmind"]["vocab_size"] == 5_822
     assert entry["quantsmind"]["n_params_non_embedding"] == 9_359_104
 

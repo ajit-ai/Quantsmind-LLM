@@ -1,6 +1,10 @@
+from typing import Optional, Tuple
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+from taksh.kv_cache import KVCache
 
 
 class RMSNorm(nn.Module):
@@ -48,24 +52,45 @@ class Attention(nn.Module):
         self.wo = nn.Linear(n_heads * self.head_dim, d_model, bias=False)
 
     def forward(
-        self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, attn_mask: torch.Tensor | None = None
-    ) -> torch.Tensor:
+        self,
+        x: torch.Tensor,
+        cos: torch.Tensor,
+        sin: torch.Tensor,
+        attn_mask: torch.Tensor | None = None,
+        past_key_value: Tuple[torch.Tensor, torch.Tensor] | None = None,
+        use_cache: bool = False,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         b, t, _ = x.shape
         q = self.wq(x).view(b, t, self.n_heads, self.head_dim).transpose(1, 2)
         k = self.wk(x).view(b, t, self.n_kv_heads, self.head_dim).transpose(1, 2)
         v = self.wv(x).view(b, t, self.n_kv_heads, self.head_dim).transpose(1, 2)
         q = apply_rope(q, cos, sin)
         k = apply_rope(k, cos, sin)
+
+        # Cache only the *new* step's key/value (not the concatenated result).
+        present = (k, v) if use_cache else None
+
+        if past_key_value is not None:
+            past_k, past_v = past_key_value
+            k = torch.cat([past_k, k], dim=2)
+            v = torch.cat([past_v, v], dim=2)
+
         rep = self.n_heads // self.n_kv_heads
         if rep > 1:
             k = k.repeat_interleave(rep, dim=1)
             v = v.repeat_interleave(rep, dim=1)
-        if attn_mask is not None:
+
+        # When a KV cache is provided, the single new query attends to all
+        # cached keys (all are in the past). is_causal=True would incorrectly
+        # restrict a q_len=1 query to only the first key. Use no mask instead.
+        if past_key_value is not None:
+            out = F.scaled_dot_product_attention(q, k, v, attn_mask=None)
+        elif attn_mask is not None:
             out = F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask)
         else:
             out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
         out = out.transpose(1, 2).contiguous().view(b, t, -1)
-        return self.wo(out)
+        return self.wo(out), present
 
 
 class SwiGLU(nn.Module):
@@ -89,11 +114,21 @@ class Block(nn.Module):
         self.ffn = SwiGLU(d, cfg["ffn_dim"])
 
     def forward(
-        self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, attn_mask: torch.Tensor | None = None
-    ) -> torch.Tensor:
-        x = x + self.attn(self.attn_norm(x), cos, sin, attn_mask)
+        self,
+        x: torch.Tensor,
+        cos: torch.Tensor,
+        sin: torch.Tensor,
+        attn_mask: torch.Tensor | None = None,
+        past_key_value: Tuple[torch.Tensor, torch.Tensor] | None = None,
+        use_cache: bool = False,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        attn_out, present = self.attn(
+            self.attn_norm(x), cos, sin, attn_mask,
+            past_key_value=past_key_value, use_cache=use_cache,
+        )
+        x = x + attn_out
         x = x + self.ffn(self.ffn_norm(x))
-        return x
+        return x, present
 
 
 # Numeric model-config fields. YAML 1.1 does not parse bare `1e-5` as a float,
@@ -148,8 +183,21 @@ class QMModel(nn.Module):
         if isinstance(m, (nn.Linear, nn.Embedding)):
             nn.init.normal_(m.weight, mean=0.0, std=0.02)
 
-    def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
-        return self.decode(self.embed(idx), targets=targets)
+    def forward(
+        self,
+        idx: torch.Tensor,
+        targets: torch.Tensor | None = None,
+        kv_cache: Optional[KVCache] = None,
+        use_cache: bool = False,
+        position_offset: int = 0,
+    ):
+        return self.decode(
+            self.embed(idx),
+            targets=targets,
+            kv_cache=kv_cache,
+            use_cache=use_cache,
+            position_offset=position_offset,
+        )
 
     def embed(self, idx: torch.Tensor) -> torch.Tensor:
         return self.tok_emb(idx)
@@ -159,15 +207,45 @@ class QMModel(nn.Module):
         x: torch.Tensor,
         targets: torch.Tensor | None = None,
         attn_mask: torch.Tensor | None = None,
+        kv_cache: Optional[KVCache] = None,
+        use_cache: bool = False,
+        position_offset: int = 0,
     ):
         b, t, _ = x.shape
         d = self.cfg["d_model"]
         head_dim = d // self.cfg["n_heads"]
         theta = self.cfg.get("rope_theta", 10000.0)
         dtype = self.tok_emb.weight.dtype
+        # RoPE is built for the current window. When using a KV cache, t is the
+        # number of *new* tokens in this step and position_offset shifts the
+        # RoPE phase to the absolute position in the full sequence.
         cos, sin = build_rope(t, head_dim, theta, x.device, dtype)
-        for blk in self.blocks:
-            x = blk(x, cos, sin, attn_mask)
+        if position_offset != 0:
+            # Rebuild RoPE for the absolute positions: [offset, offset + t)
+            abs_t = torch.arange(
+                position_offset, position_offset + t,
+                device=x.device, dtype=torch.float32,
+            )
+            inv_freq = 1.0 / (
+                theta ** (torch.arange(0, head_dim, 2, device=x.device, dtype=torch.float32) / head_dim)
+            )
+            freqs = torch.outer(abs_t, inv_freq)
+            cos = freqs.cos().to(dtype)
+            sin = freqs.sin().to(dtype)
+
+        presents = []
+        for layer_idx, blk in enumerate(self.blocks):
+            past = kv_cache.get(layer_idx) if kv_cache is not None else None
+            past_kv = (past.key, past.value) if past is not None else None
+            x, present = blk(
+                x, cos, sin, attn_mask,
+                past_key_value=past_kv, use_cache=use_cache,
+            )
+            if use_cache and present is not None:
+                if kv_cache is not None:
+                    kv_cache.update(layer_idx, present[0], present[1])
+                presents.append(present)
+
         x = self.norm(x)
         logits = self.lm_head(x)
         loss = None

@@ -1,0 +1,25 @@
+# Taksh v1.7.0 — Scale-Up: 1B parameter model
+#
+# Production-scale model. Requires GPU cluster for training.
+# CPU training is not practical (months of wall time).
+#
+# Parameter estimate: ~1B non-embedding (+ tied embedding/head)
+#   d_model=1024, n_layers=24, n_heads=16, n_kv_heads=8, ffn_dim=4096
+#
+# Context: 16K tokens. Vocab: 5822.
+#
+# Target capability: competitive with CodeLlama-7B tier on HumanEval/MBPP subset.
+# Requires 500M–5B pretraining tokens + 10K–100K SFT examples.
+
+model:
+  name: qm-code-v170-1b
+  vocab_size: 5822
+  d_model: 1024
+  n_layers: 24
+  n_heads: 16
+  n_kv_heads: 8
+  ffn_dim: 4096
+  max_seq_len: 16384
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

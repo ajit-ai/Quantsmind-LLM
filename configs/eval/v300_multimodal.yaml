@@ -1,0 +1,52 @@
+# Taksh v3.0.0 — Evaluation Configuration: Multimodal & Code
+#
+# Evaluates the v3.0.0 model on coding benchmarks and multimodal tasks.
+# GPU required for inference at 70B scale.
+
+run:
+  name: qm-code-v300-70b-eval
+  model_checkpoint: runs/v300_70b_dpo/checkpoint_last.pt
+  model_config: configs/model/code_v300_70b.yaml
+  tokenizer: tokenizer/taksh_code_bpe_v3.json
+  seed: 42
+
+benchmarks:
+  humaneval:
+    path: data/v300_eval/humaneval.jsonl
+    count: 164
+    metric: pass_at_1
+    target: 0.60
+  mbpp:
+    path: data/v300_eval/mbpp.jsonl
+    count: 974
+    metric: pass_at_1
+    target: 0.65
+  bigcodebench:
+    path: data/v300_eval/bigcodebench.jsonl
+    count: 1000
+    metric: pass_at_1
+    target: 0.45
+  image_to_code:
+    path: data/v300_eval/image_to_code.jsonl
+    count: 500
+    metric: structural_match
+    target: 0.70
+  document_to_code:
+    path: data/v300_eval/document_to_code.jsonl
+    count: 500
+    metric: structural_match
+    target: 0.70
+
+inference:
+  max_new_tokens: 4096
+  temperature: 0.2
+  top_p: 0.95
+  top_k: 50
+  batch_size: 4
+  context_window: 131072
+
+hardware:
+  gpus: 64
+  precision: bfloat16
+  kv_cache: true
+  speculative_decoding: true

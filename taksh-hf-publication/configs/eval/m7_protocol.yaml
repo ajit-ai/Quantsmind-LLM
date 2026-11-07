@@ -1,0 +1,69 @@
+# M7 pre-registered evaluation protocol.
+#
+# These thresholds are fixed before training. Changing them after seeing the
+# result would turn a measurement into a rationalisation. The report must quote
+# them verbatim, including the small-sample limitation.
+schema: quantsmind.m7_protocol/1
+
+dataset:
+  manifest: data/m7/m7-code-supervised-v0.manifest.json
+  train: data/m7/m7-code-supervised-v0.train.jsonl
+  val: data/m7/m7-code-supervised-v0.val.jsonl
+  locked: data/m7/m7-code-supervised-v0.locked.jsonl
+  dev: data/m7/m7-code-supervised-v0.dev.jsonl
+  oracles: data/m7/m7-code-supervised-v0.oracles.json
+  locked_source: psf-requests
+
+benchmark_integrity:
+  # The M5 locked benchmark is not modified by M7. Its hash is verified as an
+  # input to Gate C; M7 does not evaluate against it.
+  m5_benchmark: evaluation/m5_benchmark.jsonl
+  m5_manifest: evaluation/m5_benchmark.manifest.json
+  m5_expected_sha256: 52ea2ed5db839b22fb6865f8fa62e52456f82be8151c45abc8f6da10731b8d87
+
+checkpoints:
+  untrained: runs/m7_untrained/checkpoint.pt
+  m3_base: runs/m3_base/checkpoint_best.pt
+  m4_tuned: runs/m4_sft/checkpoint_best.pt
+  m7_candidate: runs/m7_sft/checkpoint_best.pt
+
+historical_checkpoint_sha256:
+  m3_base: 56365457E5FFB28061D4D98772E2D0457857E95DF7DB3AE4738321FD262CD078
+  m4_tuned: 2BD86E2B9CD211BC6501F7719243102E69544AC6EB5755A2A06639A925968769
+
+generation:
+  max_new_tokens: 192
+  temperature: 0.0
+  top_k: null
+  seed: 7
+
+thresholds:
+  # Level 2 (syntax): locked syntax-valid rate must be at least this, and at
+  # least 20 locked generation tasks must have been attempted.
+  syntax_rate_min: 0.50
+  min_locked_generation: 20
+  # Level 3 (functional): locked functional probes passed / attempted must be at
+  # least this. Eight probes is a pilot, not broad coverage.
+  functional_pass_min: 0.50
+  min_functional_tasks: 8
+  # The candidate must beat the best baseline by at least this absolute margin
+  # on the metric that supports the claim. Ties are not improvements.
+  min_absolute_gain: 0.10
+  # Level 4 needs demonstrated success in at least this many categories.
+  category_count_for_level4: 2
+  # Level 5 requires an independent human evaluation. M7 does not have one.
+  independent_review_required: true
+
+evidence_levels:
+  0: "training executed"
+  1: "learning demonstrated (held-out loss below untrained and M3/M4 controls)"
+  2: "syntax demonstrated on the locked partition"
+  3: "functional coding demonstrated on locked reference-execution probes"
+  4: "multiple categories demonstrated"
+  5: "independent locked evaluation with human review"
+
+limitations:
+  - "Eight functional probes from one held-out repository are pilot evidence."
+  - "Semantic correctness of explanations and docstrings has no automatic oracle."
+  - "Debugging, refactoring, and test generation are unavailable, not failed."
+  - "The M5 benchmark is not independent of M7 training material and is not used as final evidence."

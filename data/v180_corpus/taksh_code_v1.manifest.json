@@ -1,0 +1,22 @@
+{
+  "campaign": "TAKSH v1.7.0 \u2014 Scaled cleared corpus build",
+  "created": "2026-11-07T12:21:51.331186+00:00",
+  "project_dirs": [
+    "taksh",
+    "serving",
+    "evaluation",
+    "training",
+    "scripts",
+    "configs"
+  ],
+  "extra_dirs": [
+    "docs",
+    "scripts"
+  ],
+  "file_count": 237,
+  "total_bytes": 2112095,
+  "estimated_tokens": 528023,
+  "corpus_sha256": "ef067bd0e2938caee25ec2c3970c316c4848bcfd47480066a0c126baccebafca",
+  "output_file": "data\\v180_corpus\\taksh_code_v1.txt",
+  "notes": "Corpus contains only cleared code. Scale target: 5M\u201350M tokens."
+}

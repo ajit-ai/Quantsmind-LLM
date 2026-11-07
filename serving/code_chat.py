@@ -68,12 +68,12 @@ def create_code_chat_ui(model, tokenizer, device: str):
 
     with gr.Blocks(title="Taksh Coder", theme=gr.themes.Soft()) as ui:
         gr.Markdown("# Taksh Coder — AI Programming Assistant")
-        gr.Markdown("Python & JavaScript/TypeScript specialist. Code generation, debugging, review, and explanation.")
+        gr.Markdown("Python, JavaScript/TypeScript specialist, and experimental C# evaluation support. Code generation, debugging, review, and explanation.")
 
         with gr.Row():
             with gr.Column(scale=1):
                 language = gr.Dropdown(
-                    choices=["auto", "python", "javascript", "typescript"],
+                    choices=["auto", "python", "javascript", "typescript", "csharp"],
                     value="auto",
                     label="Language",
                 )

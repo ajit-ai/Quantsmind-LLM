@@ -1,0 +1,41 @@
+# Corporate fine-tuning config — continued pretrain + SFT on internal codebase
+# Phase 1: Continued pretrain on internal code (low LR)
+# Phase 2: SFT on internal code review/QA pairs
+run:
+  name: qm-code-corporate-v0
+  model_config: configs/model/code_tiny.yaml
+  seed: 42
+
+data:
+  dataset_tag: corporate-internal-v0
+  seq_len: 2048
+
+optimizer:
+  type: adamw
+  lr_peak: 5.0e-4
+  lr_schedule: cosine
+  warmup_steps: 50
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+precision:
+  dtype: float32
+  # grad_accum_steps moved to `batch` (B4): the copy here was never read.
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 8      # 4 x 2048 x 8 = 65536 tokens/step
+
+training:
+  max_steps: 3000
+  checkpoint_every_steps: 500
+  log_every_steps: 25
+
+watchdog:
+  nan_check_every_steps: 50
+
+logging:
+  tracker: none

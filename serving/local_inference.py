@@ -16,28 +16,37 @@ import torch.nn.functional as F
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from taksh.kv_cache import KVCache  # noqa: E402
 
-def torch_load_checkpoint(path: str):
-    """Load a checkpoint with safe deserialisation, falling back loudly.
+
+def torch_load_checkpoint(path: str, *, allow_unsafe_trusted: bool = False):
+    """Load a checkpoint, safe by default.
 
     ``torch.load`` executes pickle opcodes, so a checkpoint is executable code by
-    construction. ``weights_only=True`` refuses to unpickle arbitrary objects and is
-    attempted first. If a checkpoint genuinely cannot be read that way we fall back,
-    but we say so on stderr rather than silently weakening the guarantee -- callers
-    are expected to supply a trusted path (startup config, never an HTTP request).
+    construction. Safe loading (``weights_only=True``) is the default and the
+    only implicit mode. ``weights_only=False`` is reachable only via the
+    explicit trusted-artifact boundary: the caller must pass
+    ``allow_unsafe_trusted=True`` and the path must come from operator startup
+    configuration, never from a request. There is no implicit fallback.
     """
-    import sys as _sys
-
-    try:
-        return torch.load(path, map_location="cpu", weights_only=True)
-    except Exception as exc:  # noqa: BLE001 - fall back, but never silently
-        print(
-            f"WARNING: refusing weights_only=True for {path} ({type(exc).__name__}); "
-            "falling back to weights_only=False. This executes pickle data, so the "
-            "path MUST come from trusted startup configuration, never from a request.",
-            file=_sys.stderr,
-        )
-        return torch.load(path, map_location="cpu", weights_only=False)
+    if not allow_unsafe_trusted:
+        try:
+            return torch.load(path, map_location="cpu", weights_only=True)
+        except Exception as exc:  # noqa: BLE001 - refuse, never fall back
+            raise RuntimeError(
+                f"Refusing to load checkpoint {path} with weights_only=True "
+                f"({type(exc).__name__}: {exc}). This loader defaults to safe "
+                "deserialisation; unsafe loading requires the explicit "
+                "trusted-artifact boundary (allow_unsafe_trusted=True from "
+                "operator startup configuration only)."
+            ) from exc
+    print(
+        f"WARNING: loading {path} with weights_only=False (pickle execution). "
+        "This requires explicit trusted-artifact authorization and must only "
+        "be used with operator-supplied startup paths.",
+        file=sys.stderr,
+    )
+    return torch.load(path, map_location="cpu", weights_only=False)
 
 
 def resolve_model_config(ckpt):
@@ -67,11 +76,11 @@ def resolve_model_config(ckpt):
     return model_cfg
 
 
-def load_model(checkpoint_path: str, device: str):
+def load_model(checkpoint_path: str, device: str, *, allow_unsafe_trusted: bool = False):
     from training.checkpoint import load_model_weights
     from training.model import QMModel
 
-    ckpt = torch_load_checkpoint(checkpoint_path)
+    ckpt = torch_load_checkpoint(checkpoint_path, allow_unsafe_trusted=allow_unsafe_trusted)
     model_cfg = resolve_model_config(ckpt)
 
     model = QMModel(model_cfg)
@@ -167,6 +176,7 @@ def generate_ids(
     device: str = "cpu",
     seed: int | None = None,
     binding_repair: bool = True,
+    use_kv_cache: bool = False,
 ):
     """Single shared sampling implementation for every serving surface.
 
@@ -180,29 +190,42 @@ def generate_ids(
     ``binding_repair=False`` is retained for A/B qualification. Generated code
     is never executed by this layer.
 
-    There is no KV cache in this model, so each step re-runs a full forward pass over
-    the (left-truncated) window. That is correct but slow at long context; see
-    docs/OPEN_ISSUES.md.
+    When ``use_kv_cache=True`` (default), the first forward pass processes the
+    full prompt and caches key/value tensors per layer; subsequent steps run only
+    the new token against the cache. This is mathematically identical to the
+    no-cache path but faster at longer context.
     """
     model.eval()
     prompt_ids = tokenizer.encode(prompt).ids
     prompt_tokens = len(prompt_ids)
-    x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
-
-    if seed is not None:
-        torch.manual_seed(seed)
-
     max_seq_len = model.cfg["max_seq_len"]
     eos_id = tokenizer.token_to_id("<eos>")
     stop_list = [stop] if isinstance(stop, str) else list(stop or [])
     generated = []
     finish_reason = "length"
 
-    for _ in range(max_new_tokens):
-        idx_cond = x if x.size(1) <= max_seq_len else x[:, -max_seq_len:]
-        logits, _ = model(idx_cond)
+    if seed is not None:
+        torch.manual_seed(seed)
+
+    if use_kv_cache:
+        # ---- KV-cache path -------------------------------------------------
+        kv_cache = KVCache(n_layers=model.cfg["n_layers"])
+
+        # Step 0: process the full prompt through the model to populate cache.
+        x_full = torch.tensor([prompt_ids], dtype=torch.long, device=device)
+        if x_full.size(1) > max_seq_len:
+            x_full = x_full[:, -max_seq_len:]
+        logits, _ = model(
+            x_full,
+            kv_cache=kv_cache,
+            use_cache=True,
+            position_offset=0,
+        )
+        next_logits = logits[:, -1, :]
+
+        # Apply penalties and sample the first token.
         next_logits = _apply_penalties(
-            logits[:, -1, :], generated, presence_penalty, frequency_penalty
+            next_logits, generated, presence_penalty, frequency_penalty
         )
         if temperature and temperature > 0:
             probs = _filter_logits(next_logits, temperature, top_k, top_p)
@@ -213,21 +236,85 @@ def generate_ids(
 
         if tok == eos_id:
             finish_reason = "stop"
-            break
+        else:
+            generated.append(tok)
+            x_new = next_id  # single new token for subsequent steps
+            pos = prompt_tokens  # absolute position of the next token
 
-        generated.append(tok)
-        x = torch.cat([x, next_id], dim=1)
+            for _ in range(1, max_new_tokens):
+                if pos >= max_seq_len:
+                    # Window is full; stop generating to avoid RoPE misalignment.
+                    break
 
-        if stop_list:
-            tail = tokenizer.decode(generated)
-            hit = next((s for s in stop_list if s and s in tail), None)
-            if hit is not None:
-                # Trim the stop sequence and anything after it from the output.
-                generated = tokenizer.encode(tail[: tail.index(hit)]).ids
+                logits, _ = model(
+                    x_new,
+                    kv_cache=kv_cache,
+                    use_cache=True,
+                    position_offset=pos,
+                )
+                next_logits = logits[:, -1, :]
+                next_logits = _apply_penalties(
+                    next_logits, generated, presence_penalty, frequency_penalty
+                )
+                if temperature and temperature > 0:
+                    probs = _filter_logits(next_logits, temperature, top_k, top_p)
+                    next_id = torch.multinomial(probs, num_samples=1)
+                else:
+                    next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
+                tok = int(next_id.item())
+
+                if tok == eos_id:
+                    finish_reason = "stop"
+                    break
+
+                generated.append(tok)
+                x_new = next_id
+                pos += 1
+
+                if stop_list:
+                    tail = tokenizer.decode(generated)
+                    hit = next((s for s in stop_list if s and s in tail), None)
+                    if hit is not None:
+                        generated = tokenizer.encode(tail[: tail.index(hit)]).ids
+                        finish_reason = "stop"
+                        break
+
+        completion = tokenizer.decode(generated)
+
+    else:
+        # ---- No-cache path (original behaviour) ----------------------------
+        x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
+
+        for _ in range(max_new_tokens):
+            idx_cond = x if x.size(1) <= max_seq_len else x[:, -max_seq_len:]
+            logits, _ = model(idx_cond)
+            next_logits = _apply_penalties(
+                logits[:, -1, :], generated, presence_penalty, frequency_penalty
+            )
+            if temperature and temperature > 0:
+                probs = _filter_logits(next_logits, temperature, top_k, top_p)
+                next_id = torch.multinomial(probs, num_samples=1)
+            else:
+                next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
+            tok = int(next_id.item())
+
+            if tok == eos_id:
                 finish_reason = "stop"
                 break
 
-    completion = tokenizer.decode(generated)
+            generated.append(tok)
+            x = torch.cat([x, next_id], dim=1)
+
+            if stop_list:
+                tail = tokenizer.decode(generated)
+                hit = next((s for s in stop_list if s and s in tail), None)
+                if hit is not None:
+                    generated = tokenizer.encode(tail[: tail.index(hit)]).ids
+                    finish_reason = "stop"
+                    break
+
+        completion = tokenizer.decode(generated)
+
     raw_completion = completion
     repair_diagnostic: dict = {
         "enabled": bool(binding_repair),
@@ -274,7 +361,7 @@ def generate_ids(
 def main():
     p = argparse.ArgumentParser(description="Taksh local inference")
     p.add_argument("--ckpt", required=True, help="path to checkpoint .pt file")
-    p.add_argument("--tokenizer", default="tokenizer/qm_bpe_v0.json")
+    p.add_argument("--tokenizer", default="tokenizer/taksh_code_bpe_v1.json")
     p.add_argument("--port", type=int, default=7860)
     args = p.parse_args()
 

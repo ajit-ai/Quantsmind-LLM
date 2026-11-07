@@ -1,0 +1,44 @@
+# Frozen C# and .NET contract for Taksh evaluation work.
+# Status: engineering contract, not a release claim.
+schema_version: taksh.data_contract.v1
+language: csharp
+status: proposed-not-released
+target:
+  framework: net10.0
+  framework_basis: >-
+    Master roadmap proposed net8.0 with a pinned SDK. The validation host
+    exposes .NET SDK 10.0.400 and Microsoft.NETCore.App 10.0.11 only, so the
+    local contract records net10.0 rather than claim net8.0 support.
+  sdk: "10.0.400"
+  runtime: "Microsoft.NETCore.App 10.0.11"
+  nullable: enable
+  implicit_usings: enable
+  warnings_as_errors: false
+network:
+  nuget_offline: true
+  external_packages: []
+  allow_network: false
+data:
+  mixture_fraction: 0.08
+  fraction_basis: proposed
+  replay_required: true
+  provenance_required: true
+  license_cleared_required: true
+  training_data_status: not-acquired
+  claims: no C# capability measured
+safety:
+  execute_untrusted_code: false
+  execution_requires_flag: true
+  sandbox: temporary directory and timeout only; not a security boundary
+  compile_before_execute: true
+provenance:
+  license_manifest_required: true
+  source_hashes_required: true
+  author_human_verification_required: true
+  no_model_generated_records_without_review: true
+tests:
+  required: [build, compile-diagnostics, async-probes, unit-like-fixture]
+  xunit_status: blocked-no-approved-package-source
+notes:
+  - No .NET workload or NuGet package may be added without owner approval.
+  - The contract does not authorise weight release, dataset release, or publication.

@@ -1,0 +1,179 @@
+{
+  "schema": "taksh.live_lab.hang_diagnostic/1",
+  "generated_at": "2026-10-21T08:54:48+05:30",
+  "status": "COMPLETE",
+  "final_disposition": "INFERENCE_INCORRECT",
+  "scope": "bounded M6/M7 diagnostic only; no UI, no 40-prompt suite, no publication",
+  "repository": {
+    "path": "F:\\Codes\\Git\\Quantsmind-LLM",
+    "branch": "develop",
+    "head": "cb9b81ef7ecdfed07ef1a7f69324bf04c8bd24c4",
+    "head_subject": "Merge develop: synchronize v1.0.0 source release",
+    "status_at_start": "clean",
+    "tag": "v1.0.0",
+    "tag_commit": "a156892dfa230ba45f9bc140f4d7d04844327b75",
+    "tag_changed": false,
+    "previous_live_lab_artifacts_found": false
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.14.7",
+    "python_prefix": "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314",
+    "torch": "2.13.0+cpu",
+    "cuda_available": false,
+    "torch_threads": 4,
+    "total_ram_mb": 4005,
+    "free_ram_mb_initial": 341,
+    "free_ram_mb_before_inference": 310,
+    "free_ram_mb_after_inference": 283,
+    "dependencies_installed": false
+  },
+  "server": {
+    "pre_existing": true,
+    "pid": 12688,
+    "started_at": "2026-10-21T08:42:27",
+    "uptime_seconds_at_inspection": 644.1,
+    "command": "python -m serving.openai_server --ckpt runs/m7_sft/checkpoint_best.pt --tokenizer tokenizer/qm_code_bpe_v0.json --host 127.0.0.1 --port 8012",
+    "bind": "127.0.0.1:8012",
+    "remote_exposed": false,
+    "startup_status": "ALREADY_RUNNING_HEALTHY",
+    "startup_observed_seconds": 21,
+    "startup_deadline_seconds": 90,
+    "startup_within_deadline": true,
+    "new_process_started": false,
+    "exit_code": null,
+    "health_http_status": 200,
+    "health_within_deadline_seconds": 10,
+    "health": {
+      "status": "ok",
+      "version": "1.0.0",
+      "model_loaded": true,
+      "model_id": "qm-code-m3-9m",
+      "context_window": 512
+    },
+    "stdout_log": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\taksh-live-lab\\server.out.log",
+    "stderr_log": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\taksh-live-lab\\server.err.log"
+  },
+  "checkpoint": {
+    "path": "runs/m7_sft/checkpoint_best.pt",
+    "bytes": 112414501,
+    "sha256": "421C218D626524FFA8266A5F5C5CCB06FA743D3CCF8E75CC036B1047478B4DD9",
+    "tokenizer_path": "tokenizer/qm_code_bpe_v0.json",
+    "tokenizer_bytes": 410135,
+    "step": 120,
+    "parameters": 9359104,
+    "model_id": "qm-code-m3-9m",
+    "model_vocab": 5822,
+    "tokenizer_vocab": 5822,
+    "context_window": 512,
+    "device": "cpu",
+    "weights_only_fallback": true,
+    "load_warning": "weights_only=True raised UnpicklingError; logged fallback to weights_only=False",
+    "private_bytes_after_inference": 796987392,
+    "working_set_bytes_after_inference": 78348288
+  },
+  "inference": {
+    "endpoint": "http://127.0.0.1:8012/v1/chat/completions",
+    "method": "POST",
+    "requested_at": "2026-10-21T08:53:29+05:30",
+    "request": {
+      "model": "qm-code-m3-9m",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 2 + 2? Reply with only the number."
+        }
+      ],
+      "max_tokens": 16,
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "seed": 7,
+      "stream": false
+    },
+    "http_status": 200,
+    "latency_ms": 2100,
+    "deadline_seconds": 60,
+    "timed_out": false,
+    "retries": 0,
+    "transport_success": true,
+    "answer_correct": false,
+    "expected": "4",
+    "prompt_tokens": 103,
+    "completion_tokens": 16,
+    "total_tokens": 119,
+    "finish_reason": "length",
+    "exact_content": "    :param _pytest.abc.\n    \"\"\"\n    :",
+    "raw_response_file": "reports/live-lab/inference-response-raw.json",
+    "raw_response_sha256": "A17CE32CDEBC7E831946114E05DEF09744C7D42BF3B8281469B8B909AEB49914",
+    "raw_response": {
+      "id": "chatcmpl-5b32005a2c02428388447752b362aa5a",
+      "object": "chat.completion",
+      "created": 1792553009,
+      "model": "qm-code-m3-9m",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "    :param _pytest.abc.\n    \"\"\"\n    :"
+          },
+          "finish_reason": "length",
+          "logprobs": null
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 103,
+        "completion_tokens": 16,
+        "total_tokens": 119
+      }
+    }
+  },
+  "errors_and_timeouts": {
+    "startup_errors": [],
+    "health_errors": [],
+    "inference_errors": [],
+    "timeouts": [],
+    "previous_attempt_logs_found": false,
+    "previous_attempt_source_found": false,
+    "note": "The three earlier hangs could not be reconstructed because no prior implementation or logs remain."
+  },
+  "root_cause": {
+    "classification": "UNKNOWN",
+    "confidence": "medium that the M6/M7 path is not the cause; low for the exact prior blocking call",
+    "evidence": [
+      "The existing checkpoint server loaded and passed health checks.",
+      "One real 16-token inference returned HTTP 200 in 2100 ms.",
+      "Server logs contain no crash, deadlock, or timeout on the verified path.",
+      "Only one Python process and one relevant listener were present.",
+      "No logs, stack traces, process IDs, or source from the three failed attempts were found."
+    ],
+    "excluded": [
+      "CHECKPOINT_LOADING_TIMEOUT",
+      "INFERENCE_TIMEOUT",
+      "SERVER_STARTUP_FAILURE",
+      "DEPENDENCY_FAILURE"
+    ],
+    "missing_evidence": [
+      "Previous attempt terminal output and stack traces",
+      "Previous UI implementation source",
+      "Previous process IDs and port bindings",
+      "Timing of each prior blocked operation"
+    ],
+    "hypothesis": "The discarded UI/tool workflow blocked, but this is not proven."
+  },
+  "recommended_corrective_action": "Do not reuse the discarded UI/tool workflow. Use the verified M6 server plus a thin client with independent per-request deadlines and incremental report writes. Free memory or stop unused processes before any future UI attempt.",
+  "files_changed": [
+    "reports/live-lab/hang-diagnostic.md",
+    "reports/live-lab/hang-diagnostic.json",
+    "reports/live-lab/inference-response-raw.json"
+  ],
+  "cleanup": {
+    "diagnostic_processes_started": 0,
+    "pre_existing_related_processes_terminated": 1,
+    "pre_existing_server_left_running": false,
+    "pre_existing_server_pid": 12688,
+    "pre_existing_server_stopped_after_evidence_capture": true,
+    "port_8012_listener_remaining": false,
+    "background_jobs_left_by_diagnostic": 0
+  }
+}
