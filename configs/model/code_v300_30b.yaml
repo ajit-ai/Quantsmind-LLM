@@ -1,0 +1,25 @@
+# Taksh v3.0.0 — Advanced/Enterprise: 30B Parameter Model
+#
+# Production-scale multimodal coding LLM. Requires GPU cluster.
+#
+# Parameter estimate: ~30B non-embedding parameters
+#   d_model=5120, n_layers=48, n_heads=40, n_kv_heads=8, ffn_dim=13696
+#
+# Context: 32K tokens. Vocabulary: 65,536.
+#
+# Target capability: Qwen-32B / DeepSeek-Coder-33B tier on coding benchmarks,
+# plus multimodal capabilities.
+# Requires 20B+ pretraining tokens + extensive SFT + DPO + multimodal alignment.
+
+model:
+  name: qm-code-v300-30b
+  vocab_size: 65536
+  d_model: 5120
+  n_layers: 48
+  n_heads: 40
+  n_kv_heads: 8
+  ffn_dim: 13696
+  max_seq_len: 32768
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

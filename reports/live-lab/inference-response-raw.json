@@ -1,0 +1,1 @@
+{"id":"chatcmpl-5b32005a2c02428388447752b362aa5a","object":"chat.completion","created":1792553009,"model":"qm-code-m3-9m","choices":[{"index":0,"message":{"role":"assistant","content":"    :param _pytest.abc.\n    \"\"\"\n    :"},"finish_reason":"length","logprobs":null}],"usage":{"prompt_tokens":103,"completion_tokens":16,"total_tokens":119}}

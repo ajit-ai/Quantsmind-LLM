@@ -105,6 +105,32 @@ def resolve_device():
     return "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def verify_serving_contract(ckpt_path: str, tokenizer) -> str:
+    """Prove the checkpoint and tokenizer belong to the same prompt contract.
+
+    Schema /2 must match exactly: a ``ContractMismatch`` propagates and the server
+    refuses to start. Schema /1 predates contracts and is served under the
+    documented legacy contract, with a warning that it is not a v2 artifact.
+    """
+    from training.checkpoint_schema import SCHEMA_V2, verify_against
+    from training.tokenizer_contract import CONTRACT_V1, detect_contract
+
+    from serving.local_inference import torch_load_checkpoint
+
+    # Trusted startup boundary: operator-supplied path, may need unsafe loading
+    # for legacy checkpoints that predate safe-serialisation support.
+    metadata = torch_load_checkpoint(str(ckpt_path), allow_unsafe_trusted=True)
+    detected = detect_contract(tokenizer)
+    if metadata.get("schema") == SCHEMA_V2:
+        verify_against(metadata["provenance"], tokenizer=tokenizer, contract_id=detected)
+        return detected
+    print(
+        "WARNING: checkpoint has no provenance contract (schema /1); serving under "
+        f"the documented legacy contract {CONTRACT_V1}"
+    )
+    return CONTRACT_V1
+
+
 def load_trusted_state(ckpt: str, tokenizer: str, device: str):
     """Load a checkpoint from operator-supplied startup configuration.
 
@@ -122,7 +148,10 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
     if not tok_path.is_file():
         raise SystemExit(f"Tokenizer not found: {tokenizer}")
 
-    model, model_cfg = load_model(str(ckpt_path), device)
+    # Explicit trusted-artifact boundary: this startup path comes from the
+    # operator's command line, never from a request, so legacy checkpoints
+    # that require weights_only=False may load here — and only here.
+    model, model_cfg = load_model(str(ckpt_path), device, allow_unsafe_trusted=True)
     tok = Tokenizer.from_file(str(tok_path))
 
     model_vocab = int(model_cfg["vocab_size"])
@@ -133,13 +162,14 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
             "token ids would index outside the embedding table."
         )
 
+    verify_serving_contract(str(ckpt_path), tok)
     return model, model_cfg, tok
 
 
 def add_standard_args(parser, default_port: int):
     """Attach the shared security-relevant CLI flags to a server's parser."""
     parser.add_argument("--ckpt", required=True, help="checkpoint path, loaded at startup")
-    parser.add_argument("--tokenizer", default="tokenizer/qm_code_bpe_v0.json")
+    parser.add_argument("--tokenizer", default="tokenizer/taksh_code_bpe_v1.json")
     parser.add_argument("--host", default="127.0.0.1", help="default is loopback only")
     parser.add_argument("--port", type=int, default=default_port)
     parser.add_argument(

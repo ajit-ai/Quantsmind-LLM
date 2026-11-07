@@ -1,8 +1,15 @@
-# Taksh - Development Roadmap (Authoritative)
+# Taksh - Development Roadmap (M0–M7 record and history)
 
-> **Authority.** This document is the **single authoritative execution roadmap** for
-> QuantsMind-LLM. Where another document defines a milestone differently, this one
-> governs.
+> **Forward planning.** From `v1.1.0` onward, the canonical development roadmap is
+> [roadmap/TAKSH_MASTER_DEVELOPMENT_ROADMAP.md](roadmap/TAKSH_MASTER_DEVELOPMENT_ROADMAP.md).
+> It defines the approved version responsibilities (`v1.1.0`–`v3.0.0`), the
+> milestone groups M-A–M-E and the per-version release gates. Where this file
+> states a future intent that conflicts with it, the master roadmap governs.
+>
+> **Authority for history.** This document remains the authoritative record of
+> the completed M0–M7 programme and of the decisions taken up to `v1.0.0`.
+> Where another historical document defines a completed milestone differently,
+> this record governs.
 >
 > **Direction (2026-10-14 pivot):** QuantsMind-LLM is a **Sovereign Coding LLM** —
 > Python, JavaScript/TypeScript, software engineering. See

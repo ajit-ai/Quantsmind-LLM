@@ -1,0 +1,5 @@
+NOT APPROVED FOR DISTRIBUTION pending license and provenance approval.
+
+This directory is a locally staged experimental artifact candidate. It is not a Hugging Face release, not a published model, not a license declaration, and not cleared for redistribution.
+
+Source checkpoint and tokenizer SHA-256 values are verified in artifact_manifest.json. Owner approval is required before any publication or distribution.

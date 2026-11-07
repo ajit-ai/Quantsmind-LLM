@@ -1,0 +1,445 @@
+{
+  "schema": "quantsmind.eval_case/1",
+  "suite": {
+    "id": "python_capability_v15",
+    "version": "v1",
+    "description": "Surface-aligned Python coding cases authored for v1.5.0. The v1.4.0 twenty-case suite is unchanged and remains the baseline.",
+    "provenance": {
+      "source": "authored:v1.5.0",
+      "author": "taksh",
+      "license": "project-internal"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "v15-base-001",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "def add(a, b):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-002",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "def is_even(value):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-003",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "def total(values):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-004",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "def longest(words):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-005",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "class Counter:\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-006",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "import os\n\n\ndef sep():\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-007",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "def clamp(value, low, high):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-base-008",
+      "category": "function_completion",
+      "language": "python",
+      "surface": "base_completion",
+      "prompt": "for index in range(10):\n",
+      "prompt_format": "code_completion",
+      "prompt_contract": null,
+      "expected_contract": "A base_completion answer satisfying the case validator.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 64
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-instr-001",
+      "category": "small_algorithm",
+      "language": "python",
+      "surface": "instruction_to_code",
+      "prompt": "Write a Python function that returns the maximum value in a list.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": null,
+      "expected_contract": "A instruction_to_code answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def "
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-instr-002",
+      "category": "small_algorithm",
+      "language": "python",
+      "surface": "instruction_to_code",
+      "prompt": "Write a Python function that reverses a string.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": null,
+      "expected_contract": "A instruction_to_code answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-instr-003",
+      "category": "small_algorithm",
+      "language": "python",
+      "surface": "instruction_to_code",
+      "prompt": "Write a Python function that counts the vowels in a word.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": null,
+      "expected_contract": "A instruction_to_code answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "for"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-instr-004",
+      "category": "small_algorithm",
+      "language": "python",
+      "surface": "instruction_to_code",
+      "prompt": "Write a Python function that returns the n-th Fibonacci number.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": null,
+      "expected_contract": "A instruction_to_code answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-instr-005",
+      "category": "small_algorithm",
+      "language": "python",
+      "surface": "instruction_to_code",
+      "prompt": "Write a Python function that checks whether a number is prime.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": null,
+      "expected_contract": "A instruction_to_code answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "if"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-chat-001",
+      "category": "control_flow",
+      "language": "python",
+      "surface": "chat_instruction",
+      "prompt": "Write a Python function that sums the even numbers in a list.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": "qm.chat_instruction/2",
+      "expected_contract": "A chat_instruction answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def "
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-chat-002",
+      "category": "control_flow",
+      "language": "python",
+      "surface": "chat_instruction",
+      "prompt": "Write a Python function that returns the keys of a dictionary sorted by value.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": "qm.chat_instruction/2",
+      "expected_contract": "A chat_instruction answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "v15-chat-003",
+      "category": "control_flow",
+      "language": "python",
+      "surface": "chat_instruction",
+      "prompt": "Write a Python function that parses a comma separated line into a list.",
+      "prompt_format": "chat_instruction",
+      "prompt_contract": "qm.chat_instruction/2",
+      "expected_contract": "A chat_instruction answer satisfying the case validator.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def ",
+          "split"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.5.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    }
+  ]
+}

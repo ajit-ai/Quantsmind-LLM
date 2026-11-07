@@ -1,0 +1,531 @@
+{
+  "schema": "quantsmind.eval_case/1",
+  "suite": {
+    "id": "python_capability",
+    "version": "v1",
+    "description": "Authored in-repository Python coding cases. Not drawn from any published benchmark, so no published-suite licence or contamination applies.",
+    "provenance": "authored for Taksh v1.4.0 in this repository; no external suite and no training-corpus overlap"
+  },
+  "cases": [
+    {
+      "case_id": "py-syntax-001",
+      "category": "syntax_validity",
+      "language": "python",
+      "prompt": "Write a Python function named `is_even` that returns True when a number is even.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the syntax_validity task that satisfies the case contract.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "py-syntax-002",
+      "category": "syntax_validity",
+      "language": "python",
+      "prompt": "Write a Python class named `Counter` with an `increment` method.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the syntax_validity task that satisfies the case contract.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "py-syntax-003",
+      "category": "syntax_validity",
+      "language": "python",
+      "prompt": "def scale(value):\n    return value * 2\n",
+      "prompt_format": "code_completion",
+      "expected_contract": "An answer to the syntax_validity task that satisfies the case contract.",
+      "validator": {
+        "kind": "syntax_only"
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "py-complete-001",
+      "category": "function_completion",
+      "language": "python",
+      "prompt": "def average(values):\n    total = 0\n",
+      "prompt_format": "code_completion",
+      "expected_contract": "An answer to the function_completion task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-complete-002",
+      "category": "function_completion",
+      "language": "python",
+      "prompt": "def is_palindrome(text):\n    cleaned = ''\n",
+      "prompt_format": "code_completion",
+      "expected_contract": "An answer to the function_completion task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-complete-003",
+      "category": "function_completion",
+      "language": "python",
+      "prompt": "def clamp(value, low, high):\n    \"\"\"Clamp value into the range [low, high].\"\"\"\n",
+      "prompt_format": "code_completion",
+      "expected_contract": "An answer to the function_completion task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "if",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-complete-004",
+      "category": "function_completion",
+      "language": "python",
+      "prompt": "def count_vowels(text):\n    count = 0\n",
+      "prompt_format": "code_completion",
+      "expected_contract": "An answer to the function_completion task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 96
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-algo-001",
+      "category": "small_algorithm",
+      "language": "python",
+      "prompt": "Write a Python function `fibonacci(n)` that returns the n-th Fibonacci number using a loop.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the small_algorithm task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def fibonacci",
+          "for"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-algo-002",
+      "category": "small_algorithm",
+      "language": "python",
+      "prompt": "Write a Python function `factorial(n)` that returns n! for a non-negative n.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the small_algorithm task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def factorial",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-algo-003",
+      "category": "small_algorithm",
+      "language": "python",
+      "prompt": "Write a Python function `unique(values)` that returns the unique values of a list, preserving order.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the small_algorithm task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def unique"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-str-001",
+      "category": "string_and_list",
+      "language": "python",
+      "prompt": "Write a Python function `join_names(names)` that joins a list of names with a comma and a space.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the string_and_list task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def join_names",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-str-002",
+      "category": "string_and_list",
+      "language": "python",
+      "prompt": "Write a Python function `reverse_words(sentence)` that reverses the order of the words in a sentence.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the string_and_list task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def reverse_words"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-flow-001",
+      "category": "control_flow",
+      "language": "python",
+      "prompt": "Write a Python function `classify(n)` that returns the string `positive`, `negative` or `zero`.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the control_flow task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def classify",
+          "if"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-flow-002",
+      "category": "control_flow",
+      "language": "python",
+      "prompt": "Write a Python function `count_evens(numbers)` that counts how many numbers in the list are even.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the control_flow task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def count_evens",
+          "for"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-debug-001",
+      "category": "debugging",
+      "language": "python",
+      "prompt": "This function returns the wrong result:\n\ndef mean(values):\n    return sum(values) / len(values) + 1\n\nRewrite it so it returns the mean.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the debugging task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def mean",
+          "return"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-debug-002",
+      "category": "debugging",
+      "language": "python",
+      "prompt": "Fix this loop so it counts down from ten to one:\n\nfor i in range(10):\n    print(i)\n",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the debugging task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "for"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-test-001",
+      "category": "test_generation",
+      "language": "python",
+      "prompt": "Write a pytest test function named `test_add` for a function `add(a, b)` that returns a + b.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the test_generation task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def test_add",
+          "assert"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-test-002",
+      "category": "test_generation",
+      "language": "python",
+      "prompt": "Write a pytest test function named `test_len_of_empty` that checks that `len([]) == 0`.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the test_generation task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def test_len_of_empty",
+          "assert"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "python3-isolated"
+    },
+    {
+      "case_id": "py-fmt-001",
+      "category": "format_compliance",
+      "language": "python",
+      "prompt": "Return the code for a function `greet(name)` inside a single fenced code block.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the format_compliance task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def greet"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    },
+    {
+      "case_id": "py-fmt-002",
+      "category": "format_compliance",
+      "language": "python",
+      "prompt": "Output only Python code, no prose, for a function `double(x)` that returns x * 2.",
+      "prompt_format": "chat_instruction",
+      "expected_contract": "An answer to the format_compliance task that satisfies the case contract.",
+      "validator": {
+        "kind": "contains_all",
+        "contains": [
+          "def double"
+        ]
+      },
+      "budget": {
+        "timeout_seconds": 10,
+        "max_output_bytes": 65536,
+        "max_new_tokens": 128
+      },
+      "provenance": {
+        "source": "authored:v1.4.0",
+        "author": "taksh",
+        "license": "project-internal"
+      },
+      "contamination": "authored",
+      "execution_environment": "none"
+    }
+  ]
+}

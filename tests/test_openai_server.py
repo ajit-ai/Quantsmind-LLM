@@ -160,7 +160,11 @@ def test_requested_model_is_echoed(client):
         "/v1/chat/completions",
         json={"model": "some-alias", "messages": [{"role": "user", "content": "hi"}]},
     )
-    assert r.json()["model"] == "some-alias"
+    # v1.5.0: an unknown model id is refused instead of echoed.
+    assert r.status_code == 400
+    error = r.json()["error"]
+    assert error["code"] == "model_not_found"
+    assert error["type"] == "invalid_request_error"
 
 
 # --------------------------------------------------------------------------- #
@@ -182,9 +186,10 @@ def test_system_and_user_roles_reach_the_prompt(client):
     assert "add two numbers" in prompt
 
 
-def test_assistant_turn_preserved_in_history_order(client):
+def test_legacy_contract_refuses_multi_turn(client):
+    """v1 cannot express roles, so it must refuse instead of emitting delimiters."""
     c, captured = client
-    c.post(
+    r = c.post(
         "/v1/chat/completions",
         json={
             "messages": [
@@ -194,8 +199,36 @@ def test_assistant_turn_preserved_in_history_order(client):
             ]
         },
     )
+    assert r.status_code == 400
+    assert "legacy contract" in r.json()["error"]["message"]
+    assert "prompt" not in captured
+
+
+def test_v2_assistant_turn_preserved_in_history_order(client, monkeypatch):
+    from training.tokenizer_contract import build_contract_tokenizer
+
+    c, captured = client
+    monkeypatch.setattr(
+        openai_server.state,
+        "tokenizer",
+        build_contract_tokenizer("tokenizer/qm_code_bpe_v0.json"),
+        raising=False,
+    )
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        },
+    )
+    assert r.status_code == 200
     prompt = captured["prompt"]
     assert prompt.index("first") < prompt.index("second") < prompt.index("third")
+    assert "<|assistant|>second<|end_of_turn|>" in prompt
+    assert prompt.endswith("<|assistant|>")
 
 
 def test_unsupported_role_rejected(client):
@@ -502,7 +535,48 @@ def test_verified_checkpoint_loads_and_is_discoverable():
     body = TestClient(app).get("/v1/models").json()
     entry = body["data"][0]
     assert entry["id"] == "qm-code-tiny"
-    assert entry["quantsmind"]["context_window"] == 512
+    assert entry["quantsmind"]["context_window"] == 2048
     assert entry["quantsmind"]["vocab_size"] == 5822
     assert entry["quantsmind"]["n_params_non_embedding"] == 495_808
     assert entry["created"] > 0
+
+
+def test_stale_base_surface_does_not_govern_a_different_tokenizer(monkeypatch):
+    """A surface decided for a pretraining checkpoint must not leak onward."""
+    from training.tokenizer_contract import build_contract_tokenizer
+
+    tokenizer = build_contract_tokenizer("tokenizer/qm_code_bpe_v0.json")
+    monkeypatch.setattr(openai_server.state, "tokenizer", tokenizer, raising=False)
+    monkeypatch.setattr(openai_server.state, "prompt_surface", "base")
+    monkeypatch.setattr(
+        openai_server.state, "surface_tokenizer", object(), raising=False
+    )
+    prompt = openai_server.build_prompt(
+        [
+            {"role": "user", "content": "first"},
+            {"role": "assistant", "content": "second"},
+            {"role": "user", "content": "third"},
+        ]
+    )
+    assert "<|user|>" in prompt and "<|assistant|>" in prompt
+    assert prompt.index("first") < prompt.index("second") < prompt.index("third")
+
+
+def test_base_surface_accepts_dict_messages(monkeypatch):
+    tokenizer = object()
+    monkeypatch.setattr(openai_server.state, "tokenizer", tokenizer, raising=False)
+    monkeypatch.setattr(openai_server.state, "prompt_surface", "base")
+    monkeypatch.setattr(
+        openai_server.state, "surface_tokenizer", tokenizer, raising=False
+    )
+    assert openai_server.build_prompt(
+        [{"role": "user", "content": "add"}]
+    ) == "add"
+    with pytest.raises(ValueError):
+        openai_server.build_prompt(
+            [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        )

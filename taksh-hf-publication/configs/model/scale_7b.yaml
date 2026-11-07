@@ -1,0 +1,14 @@
+# Quantsmind-LLM model config — scale 7B (Phase 6)
+model:
+  name: qm-scale-7b
+  vocab_size: 49152
+  d_model: 4096
+  n_layers: 32
+  n_heads: 32
+  n_kv_heads: 8          # GQA: KV-cache /4
+  ffn_dim: 11008         # SwiGLU, ~2.7x d_model
+  max_seq_len: 8192      # roadmap: extend to 128k post-launch
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false
+  attn_kernel: flash_attention_2

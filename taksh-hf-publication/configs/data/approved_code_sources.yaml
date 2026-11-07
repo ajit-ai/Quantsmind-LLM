@@ -1,0 +1,222 @@
+# Approved external code sources for M1.
+#
+# This file is the ONLY place an external source may be introduced. The builder
+# refuses any repository not listed here, and refuses any repository whose live
+# licence does not match BOTH the allowlist below AND the pinned `spdx` recorded
+# here. There is no search-based discovery: sources are enumerated and pinned.
+#
+# Provenance rules:
+#   * `commit` is a full 40-char SHA. Builds are reproducible against an immutable
+#     tree; a moving branch would make the manifest a lie.
+#   * `spdx` was read from the GitHub API at the time listed in `retrieved`.
+#     `NOASSERTION` (unclear licence) is NOT permitted and is rejected.
+#   * The builder re-verifies the licence at run time and aborts that source on
+#     mismatch, so a relicensed or squatted repo cannot slip in silently.
+#
+# MANDATORY LICENCE GATE (2026-10-16):
+#   Ingestion requires `data/licence_verification.json`, produced by
+#   `python -m data.verify_licenses`, which reads the licence FILE at each pinned
+#   commit instead of trusting repository metadata. A source that is absent from
+#   that artifact, or whose entry does not match the pinned commit, or whose
+#   result is not `verified` / `verified_with_quarantine` (with every conflicting
+#   subtree actually excluded), contributes ZERO records. Missing evidence is a
+#   rejection, never permission.
+#
+# QUARANTINE PATHS:
+#   `quarantine_paths` are project policy decisions and record their reason.
+#   They are enforced in addition to paths derived automatically from nested
+#   licence files, so a decision survives even if derived evidence is missing.
+#   Excluding a subtree excludes all of its descendants.
+#
+# Licensing note: this project keeps no model-weights or training-data licence yet
+# (OPEN_ISSUES E4). The sources below are permissively licensed and suitable for
+# redistribution of derived corpora, but the project must still publish a data
+# card and record per-file attribution before any corpus is distributed.
+
+# Bumped to v2 when the token-aware PII scrub (G5) and source-group splits (G3)
+# changed record content identity. v1 artifacts are preserved untouched.
+corpus_version: v2
+
+policy:
+  # SPDX ids accepted. Anything else, including NOASSERTION, is refused.
+  # NOTE: `mit` was accidentally dropped from this list during editing on
+  # 2026-10-15 and restored in the same session. Keep this list under review.
+  allowed_spdx:
+    - mit
+    - apache-2.0
+    - bsd-3-clause
+    - bsd-2-clause
+    - isc
+  # A source without a pinned commit is refused outright.
+  require_pinned_commit: true
+  # Re-check the live licence at run time; abort the source on mismatch.
+  verify_license_at_runtime: true
+  # Extensions considered source code.
+  extensions:
+    - .py
+  # Per-file size gate, applied before decoding.
+  min_file_bytes: 200
+  max_file_bytes: 262144
+  # Fraction of a file that must be alphabetic, to drop binary-ish/minified blobs.
+  min_alpha_ratio: 0.55
+  # Require generated Python to parse.
+  require_python_parses: true
+
+limits:
+  # Hard ceilings. Hitting one is recorded in the manifest as `truncated: true`;
+  # the run never reports success while truncated.
+  max_repos: 5
+  max_files: 4000
+  max_total_bytes: 67108864 # 64 MiB
+  # Network behaviour.
+  max_retries_per_request: 3
+  request_timeout_seconds: 30
+  # Wall-clock cap on a single response body, independent of the per-request
+  # socket timeout. Prevents a slow-drip body from stalling a run.
+  transfer_deadline_seconds: 90
+  # Brief pause between raw downloads. raw.githubusercontent throttles bursts of
+  # sequential fetches; without this a larger run stalls on backoff.
+  pause_between_requests_seconds: 0.15
+
+dedup:
+  # Exact duplicates by SHA-1 of normalised text.
+  exact: true
+  # Near-duplicate rejection by MinHash LSH over 8-word shingles, 0.8 Jaccard.
+  minhash: true
+  minhash_perms: 64
+  minhash_bands: 16
+  minhash_threshold: 0.8
+
+splits:
+  # Deterministic: a chunk's split is a function of its content hash, so the
+  # assignment is identical across runs and independent of collection order.
+  #
+  # `source_group` was added for G3. With it, the split is a function of the
+  # *repository*, so no two files from the same project can land in different
+  # splits. Deduplication still runs first, on content, before any split is
+  # assigned.
+  #
+  # Fraction choice (G3): splits are assigned to *repositories*, and there are
+  # only 9 approved repositories. A 98/1/1 split assigns 98% of 9 = 8.82 repos to
+  # train, so val and test receive 0 repositories -- measured, not assumed: the
+  # first source_group build produced group_counts {train: 9, val: 0, test: 0}.
+  # The fractions below are the coarsest that actually yield holdouts at n=9.
+  # They are a configuration choice made under a stated constraint, NOT a claim
+  # that these splits are statistically sufficient.
+  method: content_hash
+  mode: source_group
+  train: 0.6
+  val: 0.2
+  test: 0.2
+
+sources:
+  - id: psf-requests
+    repo: psf/requests
+    commit: 611c6162cbc4ac2020a2f91c7cfa4f3abf9bbb60
+    branch: main
+    spdx: Apache-2.0
+    language: python
+    attribution: "Copyright the requests authors; licensed under Apache-2.0"
+    retrieved: "2026-10-14"
+
+  - id: pallets-flask
+    repo: pallets/flask
+    commit: d086db856be187255b8ec61ef409357393020f32
+    branch: main
+    spdx: BSD-3-Clause
+    language: python
+    attribution: "Copyright the Pallets; licensed under BSD-3-Clause"
+    retrieved: "2026-10-14"
+
+  - id: psf-black
+    repo: psf/black
+    commit: 11cff1312bf96e02bce9a467d0b5a2dd65300642
+    branch: main
+    spdx: MIT
+    language: python
+    attribution: "Copyright the Black contributors; licensed under MIT"
+    retrieved: "2026-10-14"
+    # G4 finding (2026-10-15): `src/blib2to3/LICENSE` is GPL-2.0 while the
+    # repository root is MIT. The blib2to3 subtree is derived from CPython's
+    # lib2to3 and carries its own licence. Those files must not be published
+    # under the MIT label. Quarantined, recorded, and awaiting human review --
+    # see data/licence_verification.json.
+    quarantine_paths:
+      - src/blib2to3/
+
+  - id: urllib3-urllib3
+    repo: urllib3/urllib3
+    commit: 5ebe9bf9f691646dcabdb259ffabfc6108ded5e8
+    branch: main
+    spdx: MIT
+    language: python
+    attribution: "Copyright Andrey Petrov and urllib3 contributors; licensed under MIT"
+    retrieved: "2026-10-14"
+
+  - id: pallets-click
+    repo: pallets/click
+    commit: 2247b35ea1c47c727d7a06e51fa280e12a863ff6
+    branch: main
+    spdx: BSD-3-Clause
+    language: python
+    attribution: "Copyright the Pallets; licensed under BSD-3-Clause"
+    retrieved: "2026-10-14"
+
+  # Verified permissive but held back from the Phase 1 default run to keep the
+  # first corpus small and fast. Listed so they are auditable, not hidden.
+  - id: pytest-dev-pytest
+    repo: pytest-dev/pytest
+    commit: c9c19f8e62c12834ad83193a1869cc82fe9c700e
+    branch: main
+    spdx: MIT
+    language: python
+    attribution: "Copyright the pytest contributors; licensed under MIT"
+    retrieved: "2026-10-14"
+    phase1_default: false
+
+  - id: aio-libs-aiohttp
+    repo: aio-libs/aiohttp
+    commit: f4b1558931abc172d77e8d70869b5a2429ed54f6
+    branch: master
+    spdx: Apache-2.0
+    language: python
+    attribution: "Copyright the aiohttp contributors; licensed under Apache-2.0"
+    retrieved: "2026-10-14"
+    phase1_default: false
+
+  - id: pypa-setuptools
+    repo: pypa/setuptools
+    commit: 4e612f9e44ecfad130d0b2a27a2dce0740599b4b
+    branch: main
+    spdx: MIT
+    language: python
+    attribution: "Copyright the setuptools contributors; licensed under MIT"
+    retrieved: "2026-10-14"
+    # G4 finding (2026-10-15): AGPL-3.0 text is present at
+    # setuptools/config/_validate_pyproject/. The repository root is MIT, but
+    # that text must not be published under the MIT label until a human decides
+    # what governs it. Conservative project policy: exclude, keep the revision,
+    # await an explicit licensing decision.
+    quarantine_paths:
+      - setuptools/config/_validate_pyproject/
+    phase1_default: false
+
+  - id: tiangolo-fastapi
+    repo: tiangolo/fastapi
+    commit: 4dda4625bdc19ce5ae946c152298f70d4d4fc5ed
+    branch: master
+    spdx: MIT
+    language: python
+    attribution: "Copyright the FastAPI contributors; licensed under MIT"
+    retrieved: "2026-10-14"
+    phase1_default: false
+
+# Rejected during verification on 2026-10-14. Recorded explicitly so the decision
+# is auditable rather than invisible.
+rejected:
+  - repo: sphinx-doc/sphinx
+    spdx: NOASSERTION
+    reason: >-
+      GitHub reports noassertion for the repository licence, so permitted use
+      cannot be established from machine-readable metadata. Excluded until a
+      human verifies LICENSE and records an explicit decision.

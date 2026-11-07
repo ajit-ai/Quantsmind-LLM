@@ -1,0 +1,25 @@
+# Taksh v3.0.0 — Advanced/Enterprise: 70B Parameter Multimodal Model
+#
+# Production-scale multimodal coding LLM. Requires large GPU cluster.
+#
+# Parameter estimate: ~70B non-embedding parameters
+#   d_model=8192, n_layers=80, n_heads=64, n_kv_heads=8, ffn_dim=28672
+#
+# Context: 131,072 tokens. Vocabulary: 65,536 (BPE, code+text+multimodal).
+#
+# Target capability: Qwen-72B / DeepSeek-Coder-72B tier on coding benchmarks,
+# plus multimodal (image-to-code, document-to-code) capabilities.
+# Requires 50B+ pretraining tokens + extensive SFT + DPO + multimodal alignment.
+
+model:
+  name: qm-code-v300-70b
+  vocab_size: 65536
+  d_model: 8192
+  n_layers: 80
+  n_heads: 64
+  n_kv_heads: 8
+  ffn_dim: 28672
+  max_seq_len: 131072
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

@@ -8,17 +8,12 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from serving.local_inference import generate_ids, load_model
-from training.chat_template import render_prompt
+from training.chat_template import SYSTEM_PROMPT, render_for, render_prompt
 
-CODE_SYSTEM_PROMPT = (
-    "You are Taksh Coder, an expert programming assistant specializing in "
-    "Python and JavaScript/TypeScript.\n"
-    "- Provide correct, idiomatic code with proper error handling.\n"
-    "- Explain your reasoning before code solutions.\n"
-    "- For code review: identify bugs, security issues, and performance problems.\n"
-    "- Follow PEP 8 for Python and standard conventions for JavaScript/TypeScript.\n"
-    "- State assumptions about API versions when unsure."
-)
+#: One canonical preamble. There must not be a second "serving system prompt":
+#: the M7 mismatch was exactly that. Callers may still pass their own system
+#: message explicitly, but the default is the one training used.
+CODE_SYSTEM_PROMPT = SYSTEM_PROMPT
 
 LANGUAGE_INFO = {
     "python": {"extensions": [".py"], "prompt_prefix": "# Python code:\n"},
@@ -41,20 +36,23 @@ def generate_code(model, tokenizer, prompt: str, max_new_tokens: int = 512, temp
     return result["text"]
 
 
-def format_prompt(message: str, language: str, context: str = "") -> str:
+def format_prompt(message: str, language: str, context: str = "", tokenizer=None) -> str:
     """Render the inference prompt.
 
     C3: this used to hand-build "<|system|>...<|user|>...<|assistant|>", none of
     which exist in the tokenizer, so inference fed the model the same shredded
     byte fragments SFT trained on. It now renders through the shared template so
-    training and inference cannot drift apart.
+    training and inference cannot drift apart. With a tokenizer supplied, the
+    contract is derived from that tokenizer instead of assumed.
     """
     if context:
         lang_label = language if language != "auto" else "unknown"
         user = f"Context ({lang_label}):\n```\n{context}\n```\n\nQuestion: {message}"
     else:
         user = message
-    return render_prompt(CODE_SYSTEM_PROMPT, user)
+    if tokenizer is None:
+        return render_prompt(CODE_SYSTEM_PROMPT, user)
+    return render_for(tokenizer, CODE_SYSTEM_PROMPT, user)
 
 
 def create_code_chat_ui(model, tokenizer, device: str):
@@ -70,12 +68,12 @@ def create_code_chat_ui(model, tokenizer, device: str):
 
     with gr.Blocks(title="Taksh Coder", theme=gr.themes.Soft()) as ui:
         gr.Markdown("# Taksh Coder — AI Programming Assistant")
-        gr.Markdown("Python & JavaScript/TypeScript specialist. Code generation, debugging, review, and explanation.")
+        gr.Markdown("Python, JavaScript/TypeScript specialist, and experimental C# evaluation support. Code generation, debugging, review, and explanation.")
 
         with gr.Row():
             with gr.Column(scale=1):
                 language = gr.Dropdown(
-                    choices=["auto", "python", "javascript", "typescript"],
+                    choices=["auto", "python", "javascript", "typescript", "csharp"],
                     value="auto",
                     label="Language",
                 )

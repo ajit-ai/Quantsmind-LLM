@@ -1,0 +1,17 @@
+{
+  "campaign": "TAKSH v1.5.0 \u2014 Tokenizer corpus build",
+  "created": "2026-11-07T09:17:35.728855+00:00",
+  "source_directories": [
+    "taksh",
+    "serving",
+    "evaluation",
+    "training",
+    "scripts",
+    "configs"
+  ],
+  "file_count": 187,
+  "total_bytes": 1765527,
+  "corpus_sha256": "ba3d47e107fa1bf7d1616fd52c68ed8c2632b41fffe7f516bbcfdbf5e6d8fe74",
+  "output_file": "data\\tokenizer_corpus\\taksh_code_v1.txt",
+  "notes": "Corpus contains only project-owned Python source code. Cleared for tokenizer training."
+}

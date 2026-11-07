@@ -1,0 +1,143 @@
+# Python data contract for Taksh v1.2.0.
+#
+# This file is the ONLY way a byte enters the corpus. A source that is not
+# listed here is denied; a source that is listed but not approved, or whose
+# licence decision is unresolved, or whose revision is not pinned, is denied
+# as well. Absence of evidence is a denial, never a permission.
+#
+# D1-D5 (licensing decisions) and D3 (allowlist widening) remain owner
+# decisions. The `sources:` list below is deliberately empty: no real corpus
+# has been approved for this version, so the shipped contract builds nothing.
+# Use the template in the comment to add a source once the owner has decided.
+
+schema: quantsmind.python_data_contract/1
+version: python_v1
+
+policy:
+  # Default deny. The loader refuses any other value.
+  default_decision: deny
+  # Licences the owner has already decided are usable. This is not widened
+  # automatically; adding one is an owner decision.
+  allowed_spdx:
+    - MIT
+    - Apache-2.0
+    - BSD-3-Clause
+    - BSD-2-Clause
+    - ISC
+  require_pinned_revision: true
+  require_license_evidence: true
+
+limits:
+  max_files: 1000
+  max_total_bytes: 50000000
+  max_file_bytes: 200000
+  max_path_depth: 40
+
+encoding:
+  primary: utf-8
+  # Explicit fallbacks, tried in order only when the declared encoding fails.
+  # Empty means a file that is not decodable is rejected, not guessed at.
+  fallbacks: []
+  allow_bom: true
+
+normalization:
+  newline: "\n"
+  strip_bom: true
+
+quality:
+  min_bytes: 200
+  max_bytes: 200000
+  min_lines: 5
+  min_unique_token_ratio: 0.10
+  minified_line_length: 400
+  minified_average_line_length: 200
+  max_compression_ratio: 0.08
+  generated_markers:
+    - "@generated"
+    - "do not edit"
+    - "automatically generated"
+    - "auto-generated"
+  excluded_path_patterns:
+    - "(^|/)(tests?|testing|docs?|examples?|vendor|_vendor|third[_-]?party|node_modules)(/|$)"
+    - "(^|/)(setup\\.py|conftest\\.py|noxfile\\.py)$"
+  # Reserved token spellings that must not appear in a training sample. The
+  # literal "<eos>" is encoded as the reserved id, and the control spellings
+  # are role markers under qm.chat_instruction/2, so a file containing one
+  # would inject a control marker into the token stream. Such files are
+  # excluded, never rewritten.
+  reserved_literals:
+    - "<bos>"
+    - "<eos>"
+    - "<unk>"
+    - "<pad>"
+    - "<|system|>"
+    - "<|user|>"
+    - "<|assistant|>"
+    - "<|end_of_turn|>"
+    - "<|tool|>"
+    - "<|fim|>"
+
+dedup:
+  exact: true
+  near: true
+  shingle_size: 8
+  minhash_perms: 64
+  minhash_bands: 16
+  threshold: 0.85
+  boilerplate_df_ratio: 0.5
+  max_shingles_per_record: 4000
+  max_bucket_candidates: 64
+  group_by_source: true
+  seed: 120
+
+splits:
+  proportions:
+    train: 0.8
+    val: 0.1
+    test: 0.1
+  seed: 120
+  min_groups_per_split: 1
+  min_records_per_split: 1
+
+benchmarks:
+  registry: benchmarks_v1.yaml
+  ngram_size: 13
+  near_threshold: null
+
+tokenizer:
+  path: tokenizer/qm_code_bpe_v0.json
+  contract_id: qm.plain_instruction/1
+
+prune_dirs:
+  - .git
+  - __pycache__
+  - .venv
+  - venv
+  - node_modules
+  - .mypy_cache
+
+# Source template. Copy, fill in, and record the owner decision.
+#
+# sources:
+#   - id: approved_python_source
+#     kind: local_directory
+#     location: ../../approved/python_source        # relative to this file
+#     revision: "sha256:<snapshot digest>"          # pinned content identity
+#     project: approved_python_source
+#     attribution: "Copyright (c) <owner>"
+#     allowed_extensions: [".py"]
+#     excluded_paths: ["vendor/", "tests/"]
+#     license:
+#       spdx: MIT
+#       decision: approved                           # approved | rejected | unresolved
+#       evidence: "LICENSE"
+#       evidence_sha256: "<sha256 of the LICENSE file>"
+#     approval:
+#       status: approved                             # approved | pending | rejected
+#       reviewer: "<owner>"
+#       rationale: "<why this source is approved>"
+#
+# The snapshot digest is computed over the eligible Python files of the
+# source (path + content hash). Compute it with:
+#   python -m data.python_v1 --contract <contract> --print-snapshot <source id>
+sources: []

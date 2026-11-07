@@ -1,0 +1,57 @@
+# Taksh v1.7.0 — Pretraining: 1B parameter model (GPU cluster plan)
+#
+# Trains qm-code-v170-1b on a large cleared corpus.
+# GPU cluster REQUIRED — CPU training is impractical (~months).
+#
+# Target capability: competitive with CodeLlama-7B tier on HumanEval/MBPP.
+# Requires 500M–5B pretraining tokens + 10K–100K SFT examples.
+#
+# This config documents the hyperparameters; actual execution waits for GPU access.
+
+run:
+  name: qm-code-v170-1b-pretrain
+  model_config: configs/model/code_v170_1b.yaml
+  seed: 42
+
+data:
+  tokens_path: data/v170_tokens_1b/train.tokens.bin
+  val_tokens_path: data/v170_tokens_1b/val.tokens.bin
+  tokenizer: tokenizer/taksh_code_bpe_v1.json
+  dataset_manifest: data/v170_tokens_1b/manifest.json
+  seq_len: 16384
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-4
+  lr_schedule: cosine
+  warmup_steps: 2000
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16
+  device: auto
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 16
+
+training:
+  max_steps: 100000
+  checkpoint_every_steps: 5000
+  log_every_steps: 10
+  eval_every_steps: 1000
+  val_batches: 32
+  val_seed: 1234
+  keep_checkpoints: 5
+
+watchdog:
+  nan_check_every_steps: 100
+
+logging:
+  tracker: wandb
+  write_run_manifest: true
+  run_manifest_path: runs/v170_1b_pretrain/run_manifest.json

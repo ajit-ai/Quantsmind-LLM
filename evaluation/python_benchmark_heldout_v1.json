@@ -1,0 +1,1320 @@
+{
+  "suite": "Taksh Python Benchmark Held-Out",
+  "version": "1.0.0",
+  "date_utc": "2026-10-23",
+  "status": "frozen_before_evaluation",
+  "description": "Independently authored Python benchmark split. It is not an AD-1/C1/C2 extension and is not tuned against model output.",
+  "prompt_format": "instruction + '\\n' + signature + '\\n'",
+  "checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "decoding": {
+    "temperature": 0.0,
+    "top_k": 1,
+    "top_p": 1.0,
+    "seed": 20261023,
+    "max_new_tokens": 64
+  },
+  "scoring": {
+    "exact": "normalized AST body dump equality via training.program_analysis.analyse",
+    "structural": "expected operations are a subset of generated operations; skipped when no expected operation exists",
+    "binding": "normalized used parameters match expected and no undefined names remain",
+    "functional": "restricted, explicit fixture execution for cases with execution_safe=true only",
+    "negative": "never credited; no execution authorized for negative cases"
+  },
+  "overlap_policy": "no instruction/signature pair or signature may match AD-1, C1 or C2; checked before evaluation",
+  "case_count": 54,
+  "categories": [
+    "ambiguous_binding",
+    "arithmetic",
+    "basic_algorithms",
+    "comprehensions",
+    "conditional_logic",
+    "edge_cases",
+    "error_handling",
+    "loops",
+    "mappings",
+    "multiple_operations",
+    "nested_functions",
+    "parameter_binding",
+    "strings",
+    "unsupported_ambiguous"
+  ],
+  "digest": "c47fee4725749dae56a35e99fffeb9dc18ef29b9da4f9cc4beb7ef06f13e9c12",
+  "cases": [
+    {
+      "case_id": "HELD-arith-000",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that returns three times a value.",
+      "signature": "def triple_value(n):",
+      "reference_body": "    return n * 3",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "triple_value",
+      "tests": [
+        {
+          "args": [
+            5
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-arith-001",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that computes a remainder modulo seven.",
+      "signature": "def remainder_seven(n):",
+      "reference_body": "    return n % 7",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "remainder_seven",
+      "tests": [
+        {
+          "args": [
+            15
+          ],
+          "kwargs": {},
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-arith-002",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that caps a value at ten.",
+      "signature": "def clamp_high(n):",
+      "reference_body": "    return min(n, 10)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "clamp_high",
+      "tests": [
+        {
+          "args": [
+            14
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-arith-003",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that returns the negation of a number.",
+      "signature": "def negate(n):",
+      "reference_body": "    return -n",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "negate",
+      "tests": [
+        {
+          "args": [
+            7
+          ],
+          "kwargs": {},
+          "expected": -7
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-arith-004",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that reports whether a number is non-negative.",
+      "signature": "def is_nonnegative(n):",
+      "reference_body": "    return n >= 0",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "is_nonnegative",
+      "tests": [
+        {
+          "args": [
+            0
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-arith-005",
+      "split": "held_out",
+      "category": "arithmetic",
+      "instruction": "Write a function that clamps a value to a floor.",
+      "signature": "def saturate(n, floor):",
+      "reference_body": "    return max(n, floor)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "saturate",
+      "tests": [
+        {
+          "args": [
+            2,
+            5
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-binding-000",
+      "split": "held_out",
+      "category": "parameter_binding",
+      "instruction": "Write a function that joins two strings with a space.",
+      "signature": "def join_words(first, second):",
+      "reference_body": "    return first + \" \" + second",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "join_words",
+      "tests": [
+        {
+          "args": [
+            "blue",
+            "sky"
+          ],
+          "kwargs": {},
+          "expected": "blue sky"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-binding-001",
+      "split": "held_out",
+      "category": "parameter_binding",
+      "instruction": "Write a function that multiplies two numbers.",
+      "signature": "def product_pair(a, b):",
+      "reference_body": "    return a * b",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "product_pair",
+      "tests": [
+        {
+          "args": [
+            4,
+            6
+          ],
+          "kwargs": {},
+          "expected": 24
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-binding-002",
+      "split": "held_out",
+      "category": "parameter_binding",
+      "instruction": "Write a function that returns the third list item.",
+      "signature": "def third_item(values):",
+      "reference_body": "    return values[2]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "third_item",
+      "tests": [
+        {
+          "args": [
+            [
+              "a",
+              "b",
+              "c"
+            ]
+          ],
+          "kwargs": {},
+          "expected": "c"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-binding-003",
+      "split": "held_out",
+      "category": "parameter_binding",
+      "instruction": "Write a function that returns one value when a flag is true and another otherwise.",
+      "signature": "def true_value(a, b, c):",
+      "reference_body": "    if b:\n        return a\n    return c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "true_value",
+      "tests": [
+        {
+          "args": [
+            1,
+            true,
+            9
+          ],
+          "kwargs": {},
+          "expected": 1
+        },
+        {
+          "args": [
+            1,
+            false,
+            9
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-binding-004",
+      "split": "held_out",
+      "category": "parameter_binding",
+      "instruction": "Write a function that returns the length of a string.",
+      "signature": "def length_of(text):",
+      "reference_body": "    return len(text)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "length_of",
+      "tests": [
+        {
+          "args": [
+            "abc"
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-conditional-000",
+      "split": "held_out",
+      "category": "conditional_logic",
+      "instruction": "Write a function that classifies a number as positive or non-positive.",
+      "signature": "def classify_number(n):",
+      "reference_body": "    if n > 0:\n        return \"positive\"\n    return \"non-positive\"",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "classify_number",
+      "tests": [
+        {
+          "args": [
+            4
+          ],
+          "kwargs": {},
+          "expected": "positive"
+        },
+        {
+          "args": [
+            -1
+          ],
+          "kwargs": {},
+          "expected": "non-positive"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-conditional-001",
+      "split": "held_out",
+      "category": "conditional_logic",
+      "instruction": "Write a function that returns the absolute difference of two numbers.",
+      "signature": "def absolute_difference(a, b):",
+      "reference_body": "    return abs(a - b)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "absolute_difference",
+      "tests": [
+        {
+          "args": [
+            3,
+            8
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-conditional-002",
+      "split": "held_out",
+      "category": "conditional_logic",
+      "instruction": "Write a function that returns the longer of two strings.",
+      "signature": "def choose_longer(a, b):",
+      "reference_body": "    if len(a) > len(b):\n        return a\n    return b",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_longer",
+      "tests": [
+        {
+          "args": [
+            "abc",
+            "a"
+          ],
+          "kwargs": {},
+          "expected": "abc"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-conditional-003",
+      "split": "held_out",
+      "category": "conditional_logic",
+      "instruction": "Write a function that returns zero for zero and seven otherwise.",
+      "signature": "def zero_or_seven(n):",
+      "reference_body": "    if n == 0:\n        return 0\n    return 7",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "zero_or_seven",
+      "tests": [
+        {
+          "args": [
+            0
+          ],
+          "kwargs": {},
+          "expected": 0
+        },
+        {
+          "args": [
+            3
+          ],
+          "kwargs": {},
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-loop-000",
+      "split": "held_out",
+      "category": "loops",
+      "instruction": "Write a function that multiplies the values in a list.",
+      "signature": "def product_list(items):",
+      "reference_body": "    product = 1\n    for item in items:\n        product *= item\n    return product",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "product_list",
+      "tests": [
+        {
+          "args": [
+            [
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 24
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-loop-001",
+      "split": "held_out",
+      "category": "loops",
+      "instruction": "Write a function that counts the items above a threshold.",
+      "signature": "def count_above(items, threshold):",
+      "reference_body": "    count = 0\n    for item in items:\n        if item > threshold:\n            count += 1\n    return count",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_above",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              10,
+              3,
+              8
+            ],
+            5
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-loop-002",
+      "split": "held_out",
+      "category": "loops",
+      "instruction": "Write a function that returns the odd numbers from a list.",
+      "signature": "def collect_odd(items):",
+      "reference_body": "    values = []\n    for item in items:\n        if item % 2 != 0:\n            values.append(item)\n    return values",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "collect_odd",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-loop-003",
+      "split": "held_out",
+      "category": "loops",
+      "instruction": "Write a function that returns the lengths of the strings in a list.",
+      "signature": "def string_lengths(words):",
+      "reference_body": "    lengths = []\n    for word in words:\n        lengths.append(len(word))\n    return lengths",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "string_lengths",
+      "tests": [
+        {
+          "args": [
+            [
+              "a",
+              "bc",
+              "def"
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-loop-004",
+      "split": "held_out",
+      "category": "loops",
+      "instruction": "Write a function that sums the values in a list.",
+      "signature": "def sum_values(items):",
+      "reference_body": "    total = 0\n    for item in items:\n        total += item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "sum_values",
+      "tests": [
+        {
+          "args": [
+            [
+              2,
+              5,
+              7
+            ]
+          ],
+          "kwargs": {},
+          "expected": 14
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-mapping-000",
+      "split": "held_out",
+      "category": "mappings",
+      "instruction": "Write a function that reports whether an item is in a list.",
+      "signature": "def contains(items, item):",
+      "reference_body": "    return item in items",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "contains",
+      "tests": [
+        {
+          "args": [
+            [
+              "a",
+              "b"
+            ],
+            "b"
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-mapping-001",
+      "split": "held_out",
+      "category": "mappings",
+      "instruction": "Write a function that returns the sorted distinct values from two lists.",
+      "signature": "def merge_unique(a, b):",
+      "reference_body": "    return sorted(set(a + b))",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "merge_unique",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-mapping-002",
+      "split": "held_out",
+      "category": "mappings",
+      "instruction": "Write a function that returns the sorted values from a mapping.",
+      "signature": "def lookup_all(mapping):",
+      "reference_body": "    return sorted(mapping.values())",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "lookup_all",
+      "tests": [
+        {
+          "args": [
+            {
+              "a": 3,
+              "b": 1
+            }
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-mapping-003",
+      "split": "held_out",
+      "category": "mappings",
+      "instruction": "Write a function that combines two collections of unique values and returns them sorted.",
+      "signature": "def merge_unique_values(a, b):",
+      "reference_body": "    return sorted(set(a) | set(b))",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "merge_unique_values",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-mapping-004",
+      "split": "held_out",
+      "category": "mappings",
+      "instruction": "Write a function that returns the number of keys in a mapping.",
+      "signature": "def key_count(mapping):",
+      "reference_body": "    return len(mapping)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "key_count",
+      "tests": [
+        {
+          "args": [
+            {
+              "a": 1,
+              "b": 2
+            }
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-string-000",
+      "split": "held_out",
+      "category": "strings",
+      "instruction": "Write a function that returns the uppercase form of a string.",
+      "signature": "def upper_phrase(text):",
+      "reference_body": "    return text.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "upper_phrase",
+      "tests": [
+        {
+          "args": [
+            "text"
+          ],
+          "kwargs": {},
+          "expected": "TEXT"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-string-001",
+      "split": "held_out",
+      "category": "strings",
+      "instruction": "Write a function that reports whether a string starts with a prefix.",
+      "signature": "def text_starts_with(text, prefix):",
+      "reference_body": "    return text.startswith(prefix)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "text_starts_with",
+      "tests": [
+        {
+          "args": [
+            "hello world",
+            "hello"
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-string-002",
+      "split": "held_out",
+      "category": "strings",
+      "instruction": "Write a function that removes the padding at both ends of a string.",
+      "signature": "def trim_text(text):",
+      "reference_body": "    return text.strip()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "trim_text",
+      "tests": [
+        {
+          "args": [
+            "  hello  "
+          ],
+          "kwargs": {},
+          "expected": "hello"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-string-003",
+      "split": "held_out",
+      "category": "strings",
+      "instruction": "Write a function that repeats a string.",
+      "signature": "def repeat_text(text, n):",
+      "reference_body": "    return text * n",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "repeat_text",
+      "tests": [
+        {
+          "args": [
+            "ab",
+            3
+          ],
+          "kwargs": {},
+          "expected": "ababab"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-comprehension-000",
+      "split": "held_out",
+      "category": "comprehensions",
+      "instruction": "Write a function that reports whether all values are positive.",
+      "signature": "def all_positive(values):",
+      "reference_body": "    return all(value > 0 for value in values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "all_positive",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-comprehension-001",
+      "split": "held_out",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the squares of the even values.",
+      "signature": "def even_squares(values):",
+      "reference_body": "    return [value * value for value in values if value % 2 == 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "even_squares",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            4,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-comprehension-002",
+      "split": "held_out",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the lengths of the strings in a list.",
+      "signature": "def word_lengths(words):",
+      "reference_body": "    return [len(word) for word in words]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "word_lengths",
+      "tests": [
+        {
+          "args": [
+            [
+              "ab",
+              "cde",
+              "f"
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            3,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-nested-000",
+      "split": "held_out",
+      "category": "nested_functions",
+      "instruction": "Write a function that counts items with a helper.",
+      "signature": "def count_nested(values):",
+      "reference_body": "    def inner(records):\n        return len(records)\n    return inner(values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "count_nested",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-nested-001",
+      "split": "held_out",
+      "category": "nested_functions",
+      "instruction": "Write a function that doubles a number through a helper.",
+      "signature": "def double_nested(n):",
+      "reference_body": "    def twice(x):\n        return x * 2\n    return twice(n)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "double_nested",
+      "tests": [
+        {
+          "args": [
+            6
+          ],
+          "kwargs": {},
+          "expected": 12
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-nested-002",
+      "split": "held_out",
+      "category": "nested_functions",
+      "instruction": "Write a function that sums a list through a helper.",
+      "signature": "def sum_nested(values):",
+      "reference_body": "    def total(items):\n        count = 0\n        for item in items:\n            count += item\n        return count\n    return total(values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "sum_nested",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 6
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-composition-000",
+      "split": "held_out",
+      "category": "multiple_operations",
+      "instruction": "Write a function that adds two numbers and subtracts a third.",
+      "signature": "def add_then_subtract(a, b, c):",
+      "reference_body": "    return a + b - c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_then_subtract",
+      "tests": [
+        {
+          "args": [
+            10,
+            8,
+            3
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-composition-001",
+      "split": "held_out",
+      "category": "multiple_operations",
+      "instruction": "Write a function that multiplies two numbers and then adds a third.",
+      "signature": "def multiply_and_add(a, b, c):",
+      "reference_body": "    return a * b + c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "multiply_and_add",
+      "tests": [
+        {
+          "args": [
+            3,
+            4,
+            5
+          ],
+          "kwargs": {},
+          "expected": 17
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-composition-002",
+      "split": "held_out",
+      "category": "multiple_operations",
+      "instruction": "Write a function that takes the larger of two numbers and adds a third.",
+      "signature": "def larger_plus_third(a, b, c):",
+      "reference_body": "    if a > b:\n        return a + c\n    return b + c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "larger_plus_third",
+      "tests": [
+        {
+          "args": [
+            8,
+            5,
+            3
+          ],
+          "kwargs": {},
+          "expected": 11
+        },
+        {
+          "args": [
+            5,
+            8,
+            3
+          ],
+          "kwargs": {},
+          "expected": 11
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-algorithm-000",
+      "split": "held_out",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that returns the smallest number in a list.",
+      "signature": "def find_min(values):",
+      "reference_body": "    return min(values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "find_min",
+      "tests": [
+        {
+          "args": [
+            [
+              4,
+              2,
+              7
+            ]
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-algorithm-001",
+      "split": "held_out",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that returns the factorial of a number.",
+      "signature": "def factorial(n):",
+      "reference_body": "    total = 1\n    for item in range(1, n + 1):\n        total *= item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "factorial",
+      "tests": [
+        {
+          "args": [
+            4
+          ],
+          "kwargs": {},
+          "expected": 24
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-algorithm-002",
+      "split": "held_out",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that reverses a string.",
+      "signature": "def reverse_string(text):",
+      "reference_body": "    return text[::-1]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "reverse_string",
+      "tests": [
+        {
+          "args": [
+            "race"
+          ],
+          "kwargs": {},
+          "expected": "ecar"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-error-000",
+      "split": "held_out",
+      "category": "error_handling",
+      "instruction": "Write a function that returns a default when a key is missing.",
+      "signature": "def safe_get(mapping, key):",
+      "reference_body": "    if key in mapping:\n        return mapping[key]\n    return None",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "safe_get",
+      "tests": [
+        {
+          "args": [
+            {
+              "a": 7
+            },
+            "a"
+          ],
+          "kwargs": {},
+          "expected": 7
+        },
+        {
+          "args": [
+            {
+              "a": 7
+            },
+            "b"
+          ],
+          "kwargs": {},
+          "expected": null
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-error-001",
+      "split": "held_out",
+      "category": "error_handling",
+      "instruction": "Write a function that clamps negative values to zero.",
+      "signature": "def clamp_nonnegative(n):",
+      "reference_body": "    if n < 0:\n        return 0\n    return n",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "clamp_nonnegative",
+      "tests": [
+        {
+          "args": [
+            -2
+          ],
+          "kwargs": {},
+          "expected": 0
+        },
+        {
+          "args": [
+            3
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-edge-000",
+      "split": "held_out",
+      "category": "edge_cases",
+      "instruction": "Write a function that returns yes for a truthy flag and no otherwise.",
+      "signature": "def yes_or_no(flag):",
+      "reference_body": "    if flag:\n        return \"yes\"\n    return \"no\"",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "yes_or_no",
+      "tests": [
+        {
+          "args": [
+            true
+          ],
+          "kwargs": {},
+          "expected": "yes"
+        },
+        {
+          "args": [
+            false
+          ],
+          "kwargs": {},
+          "expected": "no"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-edge-001",
+      "split": "held_out",
+      "category": "edge_cases",
+      "instruction": "Write a function that returns the first list item or None.",
+      "signature": "def first_item(values):",
+      "reference_body": "    if values:\n        return values[0]\n    return None",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "first_item",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "kwargs": {},
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              8,
+              7
+            ]
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-negative-000",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Retrieve a live quote from a remote service.",
+      "signature": "def fetch_quote(symbol):",
+      "reference_body": "    raise RuntimeError('unsupported')",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "fetch_quote",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-negative-001",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Print the supplied text.",
+      "signature": "def announce(text):",
+      "reference_body": "    print(text)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "announce",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-negative-002",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Divide two numbers with no rules specified.",
+      "signature": "def divide_pair(a, b):",
+      "reference_body": "    return a / b",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "divide_pair",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-negative-003",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Return a value that was not supplied.",
+      "signature": "def use_unknown(value):",
+      "reference_body": "    return missing + value",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "use_unknown",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-negative-004",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Leave the function empty.",
+      "signature": "def blank(value):",
+      "reference_body": "    pass",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "blank",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-negative-005",
+      "split": "held_out",
+      "category": "unsupported_ambiguous",
+      "instruction": "Call a remote directory lookup.",
+      "signature": "def remote_directory(name):",
+      "reference_body": "    return directory_lookup(name)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "remote_directory",
+      "tests": []
+    },
+    {
+      "case_id": "HELD-ambiguous-000",
+      "split": "held_out",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that returns the suffix supplied.",
+      "signature": "def suffix_choice(prefix, suffix):",
+      "reference_body": "    return suffix",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "suffix_choice",
+      "tests": [
+        {
+          "args": [
+            "start",
+            "end"
+          ],
+          "kwargs": {},
+          "expected": "end"
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-ambiguous-001",
+      "split": "held_out",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that returns the highest of two values.",
+      "signature": "def highest_choice(a, b):",
+      "reference_body": "    return max(a, b)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "highest_choice",
+      "tests": [
+        {
+          "args": [
+            3,
+            8
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "HELD-ambiguous-002",
+      "split": "held_out",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that returns the first of two values.",
+      "signature": "def first_choice(a, b):",
+      "reference_body": "    return a",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "first_choice",
+      "tests": [
+        {
+          "args": [
+            1,
+            2
+          ],
+          "kwargs": {},
+          "expected": 1
+        }
+      ]
+    }
+  ]
+}

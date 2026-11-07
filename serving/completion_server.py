@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from serving.languages import is_supported_language
 from serving.server_security import (
     add_standard_args,
     api_key_from_env,
@@ -55,6 +56,8 @@ def get_model():
 @app.post("/complete", response_model=CompletionResponse)
 async def complete(request: CompletionRequest):
     model, tokenizer, device = get_model()
+    if not is_supported_language(request.language):
+        raise HTTPException(status_code=400, detail="unsupported language")
 
     if request.suffix:
         prompt = f"<|fim_prefix|>{request.prefix}<|fim_suffix|>{request.suffix}<|fim_middle|>"
