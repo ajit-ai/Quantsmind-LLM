@@ -1,0 +1,86 @@
+{
+  "schema": "taksh.l100eng3_dev_tasks/1",
+  "id": "taksh-l100eng3-dev-suite-v1",
+  "created": "2026-11-11",
+  "note": "Synthetic development fixtures for pipeline qualification — NOT a benchmark, NOT frozen evaluation data, NOT model capability evidence.",
+  "tasks": [
+    {
+      "task_id": "ENG3-DEV-001",
+      "language": "python",
+      "description": "Write a function add(a, b) that returns the sum of a and b.",
+      "constraints": ["no imports required", "single function"],
+      "expected_behavior": "add(2, 3) returns 5",
+      "entry_point": "add",
+      "tests": [
+        {"name": "basic", "check": "call_equals", "args": [2, 3], "expected": 5, "entry_point": "add"},
+        {"name": "negative", "check": "call_equals", "args": [-1, 1], "expected": 0, "entry_point": "add"},
+        {"name": "zero", "check": "call_equals", "args": [0, 0], "expected": 0, "entry_point": "add"}
+      ]
+    },
+    {
+      "task_id": "ENG3-DEV-002",
+      "language": "python",
+      "description": "Write a function reverse_string(s) that returns s reversed.",
+      "constraints": ["no imports required"],
+      "expected_behavior": "reverse_string('abc') returns 'cba'",
+      "entry_point": "reverse_string",
+      "tests": [
+        {"name": "basic", "check": "call_equals", "args": ["abc"], "expected": "cba", "entry_point": "reverse_string"},
+        {"name": "empty", "check": "call_equals", "args": [""], "expected": "", "entry_point": "reverse_string"},
+        {"name": "palindrome", "check": "call_equals", "args": ["racecar"], "expected": "racecar", "entry_point": "reverse_string"}
+      ]
+    },
+    {
+      "task_id": "ENG3-DEV-003",
+      "language": "python",
+      "description": "Write a function count_vowels(s) that returns the number of lowercase vowels (a, e, i, o, u) in s.",
+      "constraints": ["no imports required", "case-sensitive lowercase vowels only"],
+      "expected_behavior": "count_vowels('hello') returns 2",
+      "entry_point": "count_vowels",
+      "tests": [
+        {"name": "basic", "check": "call_equals", "args": ["hello"], "expected": 2, "entry_point": "count_vowels"},
+        {"name": "none", "check": "call_equals", "args": ["rhythm"], "expected": 0, "entry_point": "count_vowels"},
+        {"name": "all", "check": "call_equals", "args": ["aeiou"], "expected": 5, "entry_point": "count_vowels"}
+      ]
+    },
+    {
+      "task_id": "ENG3-DEV-004",
+      "language": "python",
+      "description": "Write a function max_of(values) returning the largest item in a non-empty list of numbers. Raise ValueError('empty list') for an empty list.",
+      "constraints": ["handle empty list by raising ValueError"],
+      "expected_behavior": "max_of([1, 9, 3]) returns 9; max_of([]) raises ValueError",
+      "entry_point": "max_of",
+      "tests": [
+        {"name": "basic", "check": "call_equals", "args": [[1, 9, 3]], "expected": 9, "entry_point": "max_of"},
+        {"name": "negative", "check": "call_equals", "args": [[-5, -2, -9]], "expected": -2, "entry_point": "max_of"},
+        {"name": "empty", "check": "raises", "args": [[]], "expected": "ValueError", "entry_point": "max_of"}
+      ]
+    },
+    {
+      "task_id": "ENG3-DEV-005",
+      "language": "python",
+      "description": "Write a function is_palindrome(s) that returns True if s reads the same forwards and backwards, considering only alphanumeric characters and ignoring case.",
+      "constraints": ["no imports required"],
+      "expected_behavior": "is_palindrome('A man, a plan, a canal: Panama') returns True",
+      "entry_point": "is_palindrome",
+      "tests": [
+        {"name": "classic", "check": "call_equals", "args": ["A man, a plan, a canal: Panama"], "expected": true, "entry_point": "is_palindrome"},
+        {"name": "not", "check": "call_equals", "args": ["hello"], "expected": false, "entry_point": "is_palindrome"},
+        {"name": "simple", "check": "call_equals", "args": ["RaceCar"], "expected": true, "entry_point": "is_palindrome"}
+      ]
+    },
+    {
+      "task_id": "ENG3-DEV-006",
+      "language": "python",
+      "description": "Write a function fib(n) returning the nth Fibonacci number where fib(0) = 0 and fib(1) = 1.",
+      "constraints": ["no imports required"],
+      "expected_behavior": "fib(10) returns 55",
+      "entry_point": "fib",
+      "tests": [
+        {"name": "zero", "check": "call_equals", "args": [0], "expected": 0, "entry_point": "fib"},
+        {"name": "one", "check": "call_equals", "args": [1], "expected": 1, "entry_point": "fib"},
+        {"name": "ten", "check": "call_equals", "args": [10], "expected": 55, "entry_point": "fib"}
+      ]
+    }
+  ]
+}

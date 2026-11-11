@@ -181,10 +181,23 @@ Every adaptation of TAKSH to something new — a language, version, dialect, fra
   failure localization, suggestion-only repair candidates, source-hash
   evidence invalidation, interrupted-analysis resume — engineering
   qualification only; see `docs/architecture/DLCAE-SEMANTIC-VALIDATION.md`.
+- **Implemented (L1.0.0-ENG3, 2026-11-11):** the end-to-end coding
+  intelligence pipeline in `taksh/dlcae/coding/` — explicit model-session
+  gating (canonical identity/fingerprint enforced; substitution refused;
+  v180_sft GEOMETRY_INCOMPATIBLE), generation capture, DLCAE+ENG2
+  integration, sandboxed execution of dev tasks, bounded repair loop with
+  model-availability/validation BLOCKED stop rules, deterministic dev suite
+  (`configs/l100eng3/dev_tasks.json`), four separated decision axes
+  (engineering qualification ≠ model availability ≠ capability ≠ language
+  qualification) — engineering qualification only; see
+  `docs/L100ENG3_END_TO_END_CODING_INTELLIGENCE.md`.
 - **Engine status:** all six engines IMPLEMENTED_AND_TESTED (engineering
   qualification only — see `docs/L100ENG_DLCAE_RUNTIME_FOUNDATION.md`);
   ENG2 components IMPLEMENTED_AND_TESTED (see
-  `docs/L100ENG2_SEMANTIC_EXECUTION_VALIDATION.md`).
+  `docs/L100ENG2_SEMANTIC_EXECUTION_VALIDATION.md`);
+  ENG3 pipeline IMPLEMENTED_AND_TESTED with the canonical model genuinely
+  MODEL_UNAVAILABLE (see
+  `docs/L100ENG3_END_TO_END_CODING_INTELLIGENCE.md`).
 - **Test evidence:** `tests/test_l100eng_dlcae_runtime.py` (70 tests) +
   `tests/test_l100eng2_semantic_validation.py` (53 tests).
 - **Capability claim:** none. Engineering qualification is not model
