@@ -1,0 +1,33 @@
+{
+  "schema": "taksh.l080pre_checkpoint_recovery/1",
+  "generated_by": "evaluation/l080pre/checkpoint_recovery.py",
+  "synthetic_fixture_lifecycle": {
+    "write": {
+      "path": "C:\\WINDOWS\\TEMP\\l080pre_ckpt_xt_7831r\\synthetic_checkpoint.pt",
+      "sha256": "bc0504544ded2596a8388f2b5669a90c3a35826e945144768413dab2ca38950b",
+      "fingerprint": "01d7cddab2d082b2e5f3a07fdc34f3fdce2ee754bcecaec20c9ae1e04a22c847",
+      "size": 1805
+    },
+    "verify_clean": {
+      "ok": true,
+      "problems": [],
+      "step": 0
+    },
+    "tamper_rejected": true
+  },
+  "canonical_111m_artifact": "MISSING",
+  "v180_sft_classification": "GEOMETRY_INCOMPATIBLE",
+  "synthetic_artifacts_are_never_production": true,
+  "lifecycle_gates": [
+    "atomic write (mkstemp+fsync+os.replace) \u2014 qualified",
+    "interrupted-write detection (.tmp_partial rejection) \u2014 qualified",
+    "fingerprint tamper rejection \u2014 verified just now",
+    "resume validation (schema+tokenizer+config fingerprint) \u2014 enforced upstream (L0.6.1)",
+    "optimizer/scheduler state required for genuine training artifacts \u2014 contract pinned (l074 spec)"
+  ],
+  "isolation": "no existing checkpoint was read, written, modified or substituted",
+  "labels": {
+    "synthetic_tests": "SYNTHETIC_TEST_FIXTURE",
+    "artifacts": "none touched"
+  }
+}

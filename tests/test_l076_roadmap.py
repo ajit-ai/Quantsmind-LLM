@@ -217,12 +217,17 @@ def test_registry_53_languages_preserved():
     assert hashlib.sha256((REPO / "configs" / "feasibility" / "l051_languages.yaml").read_bytes()).hexdigest() == L051_SHA
 
 
-def test_owner_decision_record_remains_blank():
+def test_owner_decision_record_contains_only_authorized_decisions():
+    """The L0.7.6 test asserted a blank record; L0.8.0-PRE recorded A1.1-C and A2-E only."""
     text = (REPO / "docs" / "L075_L080_OWNER_DECISION_RECORD.md").read_text(encoding="utf-8")
-    assert "- [x]" not in text
-    assert "- [X]" not in text
-    assert "Authorization date" not in text
-    assert text.count("- [ ]") >= 5
+    checked = [line for line in text.splitlines() if "- [x]" in line]
+    assert {line.strip() for line in checked} == {
+        "- [x] **A1.1-C \u2014 Authorize preparation and preflight only; no training.**",
+        "- [x] **A2-E \u2014 No compute authorization yet.**",
+    }
+    for line in text.splitlines():
+        assert not any(s in line for s in ("- [x] **A1.1-A", "- [x] **A1.1-B", "- [x] **A2-A", "- [x] **A2-B", "- [x] **A2-C", "- [x] **A2-D"))
+    assert "TAKSH-OWNER-DECISION-2026-11-11" in text
 
 
 def test_karkain_remains_undiscovered_for_training():

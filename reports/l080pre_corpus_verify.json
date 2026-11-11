@@ -1,0 +1,28 @@
+{
+  "schema": "taksh.l080pre_corpus_verify/1",
+  "generated_by": "evaluation/l080pre/corpus_verify.py",
+  "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+  "parent_snapshot": "l071-l04-8de91c22931af682",
+  "identity_and_integrity_verified": true,
+  "records": 1052,
+  "derived_children": 1052,
+  "eligible_children": 1050,
+  "eligible_tokens": 1380611,
+  "excluded_children": 2,
+  "contaminated_children": 0,
+  "leakage_groups_spanning_splits": 0,
+  "split_counts": {
+    "train": 952,
+    "val": 51,
+    "test": 47
+  },
+  "max_child_tokens": 2043,
+  "all_within_context": true,
+  "benchmark_python_intact": true,
+  "benchmark_multilingual_intact": true,
+  "frozen_verdict": "FROZEN_RESEARCH_ONLY",
+  "frozen_for_training": false,
+  "training_authorized": false,
+  "language_python_only": true,
+  "eligibility_note": "technical eligibility NEVER implies legal/training eligibility; frozen verdict remains FROZEN_RESEARCH_ONLY"
+}

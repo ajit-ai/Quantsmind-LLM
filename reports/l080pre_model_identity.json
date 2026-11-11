@@ -1,0 +1,22 @@
+{
+  "schema": "taksh.l080pre_model_identity/1",
+  "generated_by": "evaluation/l080pre/model_identity.py",
+  "config_path": "configs\\foundation\\l060_foundation.yaml",
+  "config_sha256": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+  "config_sha256_matches_l0706_anchor": true,
+  "model_config_fingerprint": "92da3497cec631b49f7a4c2be7a60cfb74e95c2e8e248a102546f8a4a99d1c14",
+  "derived_parameters": 110658816,
+  "expected_parameters": 110658816,
+  "parameter_count_verified": true,
+  "config_matches_approved_baseline": true,
+  "mismatches": {},
+  "architecture_verified": true,
+  "v180_sft_rejected_as_foundation": true,
+  "canonical_checkpoint_artifact": "MISSING",
+  "labels": {
+    "config": "measured",
+    "fingerprint": "measured",
+    "param_count": "computed-verification (110,658,816 exact match)"
+  },
+  "provenance": "configs/foundation/l060_foundation.yaml \u2014 qualified L0.6.0; unchanged"
+}

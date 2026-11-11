@@ -1,0 +1,139 @@
+{
+  "schema": "taksh.l080pre_aggregate/1",
+  "generated_by": "evaluation/l080pre/gate.py",
+  "verified_on": "2026-11-11",
+  "dimensions": {
+    "owner_training_authorization": {
+      "status": "MISSING",
+      "evidence": "A1.1-C authorizes preparation only; zero training authorization exists (reference TAKSH-OWNER-DECISION-2026-11-11)",
+      "responsible_party": "owner",
+      "owner_decision": true
+    },
+    "compute_authorization": {
+      "status": "MISSING",
+      "evidence": "A2-E: no compute authorization of any kind; host cannot train; MX150 ineffective",
+      "responsible_party": "owner",
+      "owner_decision": true
+    },
+    "model_configuration_integrity": {
+      "status": "PASS",
+      "evidence": "params=110,658,816; fingerprint=92da3497cec631b4\u2026",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "tokenizer_integrity": {
+      "status": "PASS",
+      "evidence": "committed blob matches L0.7.6 anchor; vocab=5822; working-tree CRLF separately documented",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "corpus_snapshot_integrity": {
+      "status": "PASS",
+      "evidence": "snapshot l072-l04-fdb1fee2beaae9c2; eligible 1050 samples / 1,380,611 tokens",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "legal_eligibility": {
+      "status": "CONDITIONAL",
+      "evidence": "internal research pretraining only (L0.4/L0.7.0 record); external/commercial release requires fresh counsel review",
+      "responsible_party": "owner + counsel",
+      "owner_decision": true
+    },
+    "training_eligible_token_count": {
+      "status": "MISSING",
+      "evidence": "0 training-eligible tokens (technical \u2260 legal \u2260 authorization); frozen verdict FROZEN_RESEARCH_ONLY",
+      "responsible_party": "engineering fact; promotion requires owner authorization (absent)",
+      "owner_decision": true
+    },
+    "language_coverage": {
+      "status": "PARTIAL",
+      "evidence": "python only; 52 languages + Karkain: zero qualified corpus tokens",
+      "responsible_party": "engineering fact; expansion requires data decisions (owner)",
+      "owner_decision": false
+    },
+    "checkpoint_availability": {
+      "status": "MISSING",
+      "evidence": "taksh-foundation-111m checkpoint MISSING; v180_sft is GEOMETRY_INCOMPATIBLE; nothing materialized",
+      "responsible_party": "engineering spawn; blocked by owner decisions A1/A2",
+      "owner_decision": false
+    },
+    "hardware_feasibility": {
+      "status": "BLOCKED",
+      "evidence": "available 497434624 B (~474.4 MiB); estimated optimizer state 1,770,541,056 B \u2014 host cannot qualify",
+      "responsible_party": "owner (environment)",
+      "owner_decision": true
+    },
+    "training_configuration_completeness": {
+      "status": "CONDITIONAL",
+      "evidence": "complete proposal written (L0.6.1 canonical values inherited where applicable); unverified hypotheses flagged; NOT_AUTHORIZED by design",
+      "responsible_party": "engineering (proposal); owner authorizes any execution",
+      "owner_decision": true
+    },
+    "checkpoint_recovery_readiness": {
+      "status": "CONDITIONAL",
+      "evidence": "atomic writes, interrupted-write detection, fingerprint tamper rejection, resume gates \u2014 all qualified on synthetic fixtures; artifact missing",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "evaluation_integrity": {
+      "status": "PASS",
+      "evidence": "frozen benchmarks intact; zero overlap with training snapshot; 0/30 stands",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "ci_and_runtime_qualification": {
+      "status": "BLOCKED",
+      "evidence": "CI execution blocked on this branch (workflow_dispatch not exposed from non-default branch; owner action); Python 3.11 runtime CONDITIONAL (static only); inherited CI regressions resolved (L0.7.3/L0.7.4)",
+      "responsible_party": "owner (CI change); engineering (runtime verification)",
+      "owner_decision": true
+    },
+    "reproducibility": {
+      "status": "PASS",
+      "evidence": "snapshot rebuild deterministic; content-derived IDs; atomic writes; resume gates defined",
+      "responsible_party": "engineering",
+      "owner_decision": false
+    },
+    "artifact_provenance": {
+      "status": "MISSING",
+      "evidence": "no training run exists; provenance contracts pinned; nothing materialized",
+      "responsible_party": "owner (authorization); engineering (execution under authorization)",
+      "owner_decision": true
+    },
+    "karkain_integration_status": {
+      "status": "BLOCKED",
+      "evidence": "Karkain DISCOVERED; kcc.exe 0xC0000135; TAKSH-KARK-BENCH 0 tasks; zero corpus; spec 1.1.0",
+      "responsible_party": "owner (Karkain repo)",
+      "owner_decision": true
+    },
+    "distribution_publication_authorization": {
+      "status": "NOT_AUTHORIZED",
+      "evidence": "no distribution/publication rights of any kind; publication prohibited",
+      "responsible_party": "owner",
+      "owner_decision": true
+    }
+  },
+  "dimension_count": 18,
+  "blocking_dimensions": [
+    "owner_training_authorization",
+    "compute_authorization",
+    "training_eligible_token_count",
+    "checkpoint_availability",
+    "hardware_feasibility",
+    "ci_and_runtime_qualification",
+    "artifact_provenance",
+    "karkain_integration_status",
+    "distribution_publication_authorization"
+  ],
+  "preparation_verdict": "PREPARATION_QUALIFIED",
+  "training_verdict": "NO_GO",
+  "training_authorized": false,
+  "training_eligible_tokens": 0,
+  "verdict_rule": "preparation qualification never authorizes training; verdict axes are independent",
+  "governance": {
+    "A1_1_C_preparation_only": true,
+    "A2_E_no_compute": true,
+    "v180_sft_not_canonical": true,
+    "frozen_benchmarks_immutable": true
+  },
+  "note": "expected outcome under current owner decisions: PREPARATION_QUALIFIED (if all preparation axes pass) AND NO_GO for training \u2014 always reported separately"
+}

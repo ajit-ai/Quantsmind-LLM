@@ -1,0 +1,114 @@
+{
+  "schema": "taksh.l080pre_observability/1",
+  "generated_by": "evaluation/l080pre/observability.py",
+  "created": "2026-11-11T13:54:55+00:00",
+  "distinguishing_statuses": [
+    "PASS",
+    "CONDITIONAL",
+    "BLOCKED",
+    "MISSING",
+    "NOT_AUTHORIZED",
+    "NO_GO"
+  ],
+  "tools": [
+    {
+      "tool": "model_identity",
+      "state": "PASS",
+      "module": "evaluation.l080pre.model_identity",
+      "exit_code": 0,
+      "stdout_tail": [
+        "canonical model identity verified: params=110,658,816 fingerprint=92da3497cec631b4\u2026",
+        "report written to reports\\l080pre_model_identity.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "tokenizer_integrity",
+      "state": "PASS",
+      "module": "evaluation.l080pre.tokenizer_integrity",
+      "exit_code": 0,
+      "stdout_tail": [
+        "tokenizer verified: committed=fbedf003774183c4\u2026 vocab=5822",
+        "report written to reports\\l080pre_tokenizer_integrity.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "corpus_verify",
+      "state": "PASS",
+      "module": "evaluation.l080pre.corpus_verify",
+      "exit_code": 0,
+      "stdout_tail": [
+        "corpus verified: records=1052 eligible=1050 tokens=1,380,611 verdict=FROZEN_RESEARCH_ONLY",
+        "report written to reports\\l080pre_corpus_verify.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "training_config",
+      "state": "PASS",
+      "module": "evaluation.l080pre.training_config",
+      "exit_code": 0,
+      "stdout_tail": [
+        "training configuration proposal written to reports\\l080pre_training_config.json",
+        "authorization status: NOT_AUTHORIZED (NOT_AUTHORIZED by design)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "resource_estimate",
+      "state": "PASS",
+      "module": "evaluation.l080pre.resource_estimate",
+      "exit_code": 0,
+      "stdout_tail": [
+        "available=497434624 B; estimated optimizer state=1,770,541,056 B",
+        "report written to reports\\l080pre_resource_estimate.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "checkpoint_recovery",
+      "state": "PASS",
+      "module": "evaluation.l080pre.checkpoint_recovery",
+      "exit_code": 0,
+      "stdout_tail": [
+        "canonical checkpoint artifact: MISSING (as expected)",
+        "synthetic lifecycle verified: tamper_rejected=True",
+        "report written to reports\\l080pre_checkpoint_recovery.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "benchmark_safeguard",
+      "state": "PASS",
+      "module": "evaluation.l080pre.benchmark_safeguard",
+      "exit_code": 0,
+      "stdout_tail": [
+        "benchmarks intact; contamination overlap == 0 records",
+        "report written to reports\\l080pre_benchmark_safeguard.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "gate",
+      "state": "PASS",
+      "module": "evaluation.l080pre.gate",
+      "exit_code": 0,
+      "stdout_tail": [
+        "preparation_verdict: PREPARATION_QUALIFIED",
+        "training_verdict: NO_GO",
+        "report written to reports\\l080pre_aggregate.json"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "summary": {
+    "all_exit_zero": true,
+    "preparation_verdict": "PREPARATION_QUALIFIED",
+    "training_verdict": "NO_GO",
+    "training_tokens_eligible": 0,
+    "artifacts_created_or_modified": [],
+    "frozen_benchmarks_modified": false
+  },
+  "verdict": "L0.8.0-PRE COMPLETE \u2014 PREPARATION_QUALIFIED; TRAINING NO-GO; nothing trained; nothing acquired"
+}

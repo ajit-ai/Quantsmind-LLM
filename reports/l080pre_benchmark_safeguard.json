@@ -1,0 +1,29 @@
+{
+  "schema": "taksh.l080pre_benchmark_safeguard/1",
+  "generated_by": "evaluation/l080pre/benchmark_safeguard.py",
+  "frozen_python_benchmark": {
+    "sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "intact": true,
+    "tasks": 30
+  },
+  "multilingual_benchmark": {
+    "sha256": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+    "intact": true,
+    "tasks": 64
+  },
+  "contamination_shadow_probe": [
+    {
+      "benchmark": "frozen_python_bench_v1",
+      "exact_overlap": []
+    }
+  ],
+  "contamination_detected": false,
+  "training_contamination_guard": "training pathways consume frozen snapshots only; benchmark overlap would block training eligibility; this probe verifies none exists today",
+  "prompt_expected_outputs_immutable": true,
+  "compiler_assisted_versus_model_only_preserved": true,
+  "capability_claim": "none \u2014 evaluation is integrity-only; 0/30 stands",
+  "labels": {
+    "benchmarks": "read-only verified",
+    "probe": "read-only"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "taksh.l080pre_tokenizer_integrity/1",
+  "generated_by": "evaluation/l080pre/tokenizer_integrity.py",
+  "artifact_path": "tokenizer\\taksh_code_bpe_v1.json",
+  "hash_method": {
+    "committed_git_blob_sha256": "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7",
+    "working_tree_sha256": "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92",
+    "method_note": "committed Git blob (LF) is the canonical fingerprint; working-tree copy is CRLF on Windows and differs intentionally; both recorded, never conflated"
+  },
+  "committed_blob_matches_l0706_anchor": true,
+  "working_tree_matches_recorded_crlf_copy": true,
+  "vocab_size": 5822,
+  "vocab_size_expected": 5822,
+  "vocabulary_equal": true,
+  "artifact_modified_or_rewritten": false,
+  "labels": {
+    "committed_blob": "measured (git blob)",
+    "working_tree": "measured (working tree)",
+    "vocab_size": "measured (tokenizers load)"
+  }
+}

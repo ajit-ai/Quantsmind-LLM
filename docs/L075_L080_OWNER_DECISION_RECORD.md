@@ -31,7 +31,7 @@ Select exactly one:
 
 - [ ] **A1.1-A — Authorize a bounded research training run.**
 - [ ] **A1.1-B — Do not authorize training yet.**
-- [ ] **A1.1-C — Authorize preparation and preflight only; no training.**
+- [x] **A1.1-C — Authorize preparation and preflight only; no training.**
 
 If A1.1-A is selected, the authorization is limited to:
 
@@ -62,7 +62,7 @@ Select one:
 - [ ] **A2-B — Owner-provided GPU hardware.** Use only hardware explicitly identified and approved below.
 - [ ] **A2-C — External compute investigation only.** Research options and report estimates; no account creation, provisioning or spending.
 - [ ] **A2-D — External compute execution authorized**, subject to the explicit limits below.
-- [ ] **A2-E — No compute authorization yet.**
+- [x] **A2-E — No compute authorization yet.**
 
 If A2-D is selected, complete all fields:
 
@@ -112,15 +112,28 @@ Even after A1.1 and A2 decisions, the engineering team must independently verify
 
 ## 6. Owner decision record
 
-Owner decision date:
+Owner decision date: 2026-11-11
 
-A1.1 decision:
+A1.1 decision: **A1.1-C — Authorize preparation and preflight only; no training.**
 
-A2 decision:
+A2 decision: **A2-E — No compute authorization yet.**
 
-Additional restrictions or conditions:
+Additional restrictions or conditions (explicitly supplied by the owner, 2026-11-11):
 
-Owner authorization reference / evidence:
+- No model training, pretraining, fine-tuning or weight updates.
+- No checkpoint creation or replacement through training.
+- No external dataset acquisition, downloads, mirroring or ingestion.
+- No GPU rental, cloud provisioning, purchases or other compute spending.
+- No paid APIs, paid services or external model execution.
+- No publication or distribution.
+- No changes to `develop` or `main`.
+- No tags, releases or publication.
+
+No other decisions are modified, inferred or implied by this record. Every other entry in this record remains exactly as previously filed: A1.1-A and A1.1-B remain unchecked; A2-A/A2-B/A2-C/A2-D remain unchecked; the A2-D bounding fields remain unspecified and unauthorized; no paid purchase is authorized; no external data authority exists.
+
+Owner authorization reference / evidence: `TAKSH-OWNER-DECISION-2026-11-11`
+
+**A1.1-C authorizes preparation only. It does NOT authorize training, checkpoint generation, external data acquisition, compute spending, publication, or any change to `develop` or `main`. A preparation authorization must never be interpreted as a training authorization.**
 
 ## 7. Final authorization rule
 
