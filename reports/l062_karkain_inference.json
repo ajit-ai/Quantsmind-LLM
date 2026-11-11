@@ -1,0 +1,62 @@
+{
+  "schema": "taksh.l062_karkain_inference/1",
+  "generated_by": "evaluation/l062_karkain_inference.py",
+  "valid": true,
+  "metadata": {
+    "language_id": "karkain",
+    "extensions": [
+      ".kark"
+    ],
+    "spec_version": "1.1.0",
+    "compiler_version": "1.1.0 (windows/amd64, Stable Build)",
+    "kcc_engine": "go reference compiler (pkg/lexer|parser|sema|codegen|ir/ssa)",
+    "kir_version": "KIR v1 (SSA)",
+    "bench": "TAKSH-KARK-BENCH v1.0.0 (evaluation/l060r1_kark_bench_schema.json; 0 tasks instantiated)",
+    "qualification_status": "DISCOVERED",
+    "kcc_state_on_host": {
+      "kcc_binary": "0xC0000135 (DLL missing) \u2014 cannot start",
+      "compile_commands": "run/build/check/kir/lint/test all exit 3 (ExitCompile), zero diagnostics",
+      "freshly_built_compiler": "same behavior (go build ./cmd/karkain, Go 1.27.0)",
+      "consequence": "no Karkain compile/test validation possible; no Karkain capability may be claimed"
+    },
+    "training_eligibility": [],
+    "evaluation_modes": [
+      "model_only",
+      "compiler_assisted"
+    ],
+    "mode_separation": "compiler_assisted results are never reported as model capability"
+  },
+  "probe": {
+    "identify": {
+      "is_karkain": true,
+      "detection": "filename_extension",
+      "language_id": "karkain",
+      "note": "identification never implies capability"
+    },
+    "classification": {
+      "task_class": "bugfix",
+      "source": "heuristic",
+      "confidence": 0.6
+    },
+    "context_model_only": {
+      "language_id": "karkain",
+      "mode": "model_only",
+      "instruction": "Write a Karkain struct",
+      "kir_snippet": null,
+      "compiler_feedback": null,
+      "note": "model_only: no compiler evidence attached by design",
+      "evidence": "none"
+    },
+    "context_compiler_assisted": {
+      "language_id": "karkain",
+      "mode": "compiler_assisted",
+      "instruction": "Write a Karkain struct",
+      "kir_snippet": null,
+      "compiler_feedback": null,
+      "note": "compiler_assisted requested but KCC is unavailable on this host (0xC0000135 / exit 3): context carries NO compiler evidence",
+      "evidence": "none"
+    }
+  },
+  "capability": "NOT CLAIMED \u2014 no compiler evidence; no frozen KARK-BENCH results",
+  "verdict": "KARK INFERENCE CONTRACT QUALIFIED (interfaces only; no Karkain execution)"
+}
