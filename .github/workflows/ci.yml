@@ -1,5 +1,22 @@
 name: CI
 
+# Ownership: repository automation for develop/main PRs and pushes.
+#
+# Visibility limitation (verified 2026-11-11): this workflow triggers only on
+# pushes to develop/main and on PRs. Pushes to feature/l060-foundation-model-qualification
+# execute NO remote CI. A separate read-only manual qualification workflow exists
+# on the feature branch (ci-l0704-manual-qualification.yml) but is not
+# dispatchable: GitHub only exposes workflows present on the default branch to
+# workflow_dispatch. Qualifying the feature branch remotely requires an owner
+# action (add a push trigger or merge the manual workflow to the default branch).
+# See docs/audit/TAKSH-CICD-DOCUMENTATION-RECOVERY.md.
+#
+# Node: runs-on=ubuntu-latest (Ubuntu 26 migration pending upstream),
+#       actions are Node 24-forced; cosmetic upstream annotations, not defects.
+
+permissions:
+  contents: read
+
 on:
   push:
     branches: [develop, main]

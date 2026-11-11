@@ -2,8 +2,15 @@ name: CI (L0.7.4 manual qualification)
 
 # CI-only manual qualification path. Does NOT replace, alter or bypass the
 # production `CI` workflow. Runs read-only, no releases, no publication.
-# Tests-only: focused and full suite excluding three tests that require
-# untracked local `runs/` artifacts not present on a bare checkout:
+#
+# Expected usage (documented for the owner): on the default branch, dispatch
+# this workflow against ref=feature/l060-foundation-model-qualification. On the
+# feature branch alone it is not dispatchable — GitHub only exposes workflows
+# present on the default branch to workflow_dispatch. See
+# docs/audit/TAKSH-CICD-DOCUMENTATION-RECOVERY.md §5.
+#
+# Tests-only: focused L0.6.0 → L1.0.0-ENG3 chain plus the suite excluding three
+# tests that require untracked local runs/ artifacts not present on a bare checkout:
 #   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
 #   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
 #   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
@@ -19,6 +26,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-l0704-${{ inputs.ref }}
+  cancel-in-progress: false
 
 jobs:
   qualify:
@@ -42,7 +53,7 @@ jobs:
       - name: Version consistency
         run: python scripts/check_version_consistency.py
 
-      - name: Focused qualification chain (L0.6.0 -> L0.7.4)
+      - name: Focused qualification chain (L0.6.0 -> L1.0.0-ENG3)
         run: |
           python -m pytest \
             tests/test_l060_foundation.py \
@@ -54,6 +65,14 @@ jobs:
             tests/test_l071_corpus.py \
             tests/test_l072_freeze.py \
             tests/test_l073_readiness.py \
+            tests/test_l074_readiness.py \
+            tests/test_l075_readiness.py \
+            tests/test_l076_roadmap.py \
+            tests/test_l080pre_preflight.py \
+            tests/test_l100eng_dlcae_runtime.py \
+            tests/test_l100eng2_semantic_validation.py \
+            tests/test_l100eng3_end_to_end.py \
+            tests/test_ci_workflows.py \
             -q
 
       - name: Full suite minus untracked-artifact tests

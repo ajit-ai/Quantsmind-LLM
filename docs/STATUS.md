@@ -1,5 +1,14 @@
 # Taksh - Execution Status Tracker
 
+> **TAKSH roadmap status (2026-11-11).** v1.0.0 GA is **NOT established**. Qualified on
+> `feature/l060-foundation-model-qualification` only: L0.6.x → L0.8.0-PRE (preparation),
+> L1.0.0-ENG / ENG2 / ENG3 (engineering qualification; no capability claim). The canonical
+> 111M artifact is MISSING; the frozen Python benchmark remains 0/30; Karkain remains
+> DISCOVERED (KARK-BENCH 0 tasks, KCC `0xC0000135`); `v180_sft` is never substituted;
+> A1.1-C / A2-E are owner-enforced; develop/main untouched. Live authority:
+> `configs/roadmap/taksh-v3-roadmap.yaml` and `docs/TAKSH-MASTER-ROADMAP-v3.0.0.md`.
+> The M7-era banners below are the historical record, preserved verbatim.
+
 > **M7 status (2026-10-21).** The M7 Sovereign Capability Experiment completed with a
 > negative capability result: 0/40 locked syntax-valid generations, 0/8 functional
 > probes, evidence level 0. The final packaging target is **v1.0.0** (Apache-2.0
