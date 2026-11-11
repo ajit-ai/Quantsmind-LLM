@@ -1,0 +1,598 @@
+# TAKSH v3.0.0 — machine-readable roadmap and milestone registry
+#
+# Canonical, versioned registry of every approved milestone from L0.5 through
+# L3.7 and the v1.0.0 / v2.0.0 / v3.0.0 release gates. Status is never inferred
+# from existence of code or documents: it is the recorded outcome of that
+# milestone's own qualification, nothing else.
+# No owner decision, authorization, capability or release is created by this file.
+schema: taksh.v3_roadmap_registry/1
+id: taksh-v3-roadmap-v1
+version: 1
+created: "2026-11-11"
+owner: ajit-ai
+v3_target: "TAKSH v3.0.0 — Advanced Autonomous Software Engineering (proven, independent, repository-aware)"
+
+statuses:
+  - NOT_STARTED
+  - IN_PROGRESS
+  - BLOCKED
+  - CONDITIONAL_PASS
+  - QUALIFIED
+  - RELEASE_CANDIDATE
+  - GA
+  - DEFERRED
+
+releases:
+  - id: L0
+    name: "L0 — Independent foundation and learning"
+    stage: L0
+    objective: "independent foundation-model engineering through L0.10.3"
+    gates: ["L0.8.0-entry-gate", "L0.10.0-frozen-benchmark-qualification"]
+    milestones: [L0.5, L0.5.1, L0.6.0, L0.6.0-R1, L0.6.1, L0.6.2, L0.7.0, L0.7.1, L0.7.2, L0.7.3, L0.7.4, L0.7.5, L0.7.6,
+                 L0.8.0, L0.8.1, L0.8.2, L0.9.0, L0.9.1, L0.9.2, L0.9.3, L0.9.4, L0.10.0, L0.10.1, L0.10.2, L0.10.3]
+  - id: v1.0.0
+    name: "v1.0.0 — Independent Adaptive Coding Assistant"
+    stage: L1
+    objective: "locally deployable, independently developed coding intelligence; demonstrated capability through frozen executable benchmarks"
+    gates: ["L1.0.0-coding-assistant-GA", "L1.9.0-L1-maturity-qualification"]
+    milestones: [L1.0.0, L1.1.0, L1.2.0, L1.3.0, L1.4.0, L1.5.0, L1.6.0, L1.7.0, L1.8.0, L1.9.0]
+    status: NOT_STARTED
+  - id: v2.0.0
+    name: "v2.0.0 — Repository-Aware Software Engineering"
+    stage: L2
+    objective: "move from snippets to understanding/modifying/validating/engineering complete software repositories"
+    gates: ["L2.9-repository-engineering-qualification", "L2.10-repository-aware-coding-assistant"]
+    milestones: [L2.0, L2.1, L2.2, L2.3, L2.4, L2.5, L2.6, L2.7, L2.8, L2.9, L2.10]
+    status: NOT_STARTED
+  - id: v3.0.0
+    name: "v3.0.0 — Advanced Autonomous Software Engineering"
+    stage: L3
+    objective: "controlled, evidence-driven autonomous software engineering platform"
+    gates: ["L3.6-engineering-agent-qualification", "L3.7-advanced-local-coding-platform"]
+    milestones: [L3.0, L3.1, L3.2, L3.3, L3.4, L3.5, L3.6, L3.7]
+    status: NOT_STARTED
+
+milestones:
+  # ---------------------------------------------------------------- foundation stage
+  - id: L0.5
+    title: Model feasibility
+    stage: L0
+    status: CONDITIONAL_PASS
+    dependencies: []
+    prerequisites: ["canonical model architecture qualified in L0.6.0"]
+    deliverables: ["feasibility plan", "resource estimates", "data feasibility"]
+    exit_criteria: ["architecture/resource feasibility established with owner-visible evidence"]
+    evidence: ["reports/l05_feasibility_report.json", "reports/L05_FEASIBILITY_REPORT.md"]
+
+  - id: L0.5.1
+    title: Multilingual feasibility
+    stage: L0
+    status: CONDITIONAL_PASS
+    dependencies: [L0.5]
+    prerequisites: ["53-language catalogue", "Karkain as 54th first-class language"]
+    deliverables: ["53-language registry audit", "toolchain audit", "multilingual benchmark starter (64 tasks)"]
+    exit_criteria: ["multilingual feasibility CONDITIONAL_GO established; remaining blockers cataloged"]
+    evidence: ["reports/l051_multilingual_benchmark.json", "reports/L051_MULTILINGUAL_FEASIBILITY_REPORT.md"]
+
+  - id: L0.6.0
+    title: Foundation model qualification
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.5, L0.5.1]
+    prerequisites: ["tokenizer", "checkpoint format"]
+    deliverables: ["canonical taksh-foundation-111m (5822/768/12L/12H/6KV/FFN 3072, context 2048, tied, RoPE 10000)", "parameter validation", "inference qualification", "resource guard"]
+    exit_criteria: ["canonical architecture qualified; 110,658,816 parameters; inference infrastructure qualified"]
+    evidence: ["reports/L060_FOUNDATION_MODEL_QUALIFICATION_REPORT.md", "reports/l060_model_qualification.json"]
+
+  - id: L0.6.0-R1
+    title: Architecture alignment (DLCAE and Karkain)
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.6.0]
+    prerequisites: ["DLCAE specification", "Karkain SPEC pinned 1.1.0"]
+    deliverables: ["DLCAE six engines preserved", "Karkain 54th first-class registry entry", "8 subsystems preserved"]
+    exit_criteria: ["architecture alignment qualified; nothing reduced; Karkain remains first-class"]
+    evidence: ["docs/L0600_R1_ARCHITECTURE_ALIGNMENT_REPORT.md", "configs/foundation/l060r1_dynamic_language_registry.yaml"]
+
+  - id: L0.6.1
+    title: Training pipeline qualification (DLCAE-aware)
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.6.0-R1]
+    prerequisites: ["L0.6.0 tokenizer", "L0.7.0 data controls (later)"]
+    deliverables: ["canonical training config", "multilingual training manifest schema", "provenance/licensing fail-closed enforcement", "incremental orchestration", "checkpoint lifecycle", "replay/forgetting interfaces", "DLCAE→Learning authorization boundary", "Karkain learning contract"]
+    exit_criteria: ["pipeline qualified; DLCAE→Learning handoff fail-closed without owner authorization"]
+    evidence: ["docs/L061_TRAINING_PIPELINE_QUALIFICATION_REPORT.md"]
+
+  - id: L0.6.2
+    title: Local inference qualification
+    stage: L0
+    status: CONDITIONAL_PASS
+    dependencies: [L0.6.1]
+    prerequisites: ["canonical model configuration", "tokenizer"]
+    deliverables: ["qualified local inference engine", "OpenAI-subset local API", "streaming/cancellation/concurrency controls", "resource-guarded CPU inference"]
+    exit_criteria: ["inference infrastructure qualified; full checkpoint inference blocked by host resources (report documents it)"]
+    evidence: ["docs/L062_LOCAL_INFERENCE_QUALIFICATION_REPORT.md"]
+
+  - id: L0.7.0
+    title: Data acquisition and qualification readiness
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.6.2]
+    prerequisites: ["provenance/licensing baselines (L0.6.0)"]
+    deliverables: ["data-source registry", "fail-closed license decisions", "contamination fingerprint registry", "acquisition-authorization workflow (execution disabled)"]
+    exit_criteria: ["acquisition-readiness qualified; zero sources authorized; benchmarks preserved"]
+    evidence: ["docs/L070_DATA_ACQUISITION_READINESS_REPORT.md", "configs/data/l070_source_registry.yaml"]
+
+  - id: L0.7.1
+    title: Multilingual corpus engineering
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.7.0]
+    prerequisites: ["frozen Python benchmark", "licensed in-repo corpus (data/l04_code_corpus)"]
+    deliverables: ["canonical corpus record schema", "ingestion adapters (authorized internal Python corpus)", "contamination-protected pipeline", "pipeline artifacts under artifacts/"]
+    exit_criteria: ["pipeline real and reproducible; no external data accessed or downloaded"]
+    evidence: ["docs/L071_MULTILINGUAL_CORPUS_ENGINEERING_REPORT.md", "artifacts/l071_l04_snapshot/snapshot.json"]
+
+  - id: L0.7.2
+    title: Training-corpus freeze and eligibility qualification
+    stage: L0
+    status: BLOCKED
+    dependencies: [L0.7.1]
+    prerequisites: ["L0.7.1 pipeline", "owner authorization (absent)"]
+    deliverables: ["immutable re-sliced freeze snapshot", "parent-aware split assignment", "eligibility engine (owner gate)"]
+    exit_criteria: ["FROZEN_RESEARCH_ONLY with explicit owner-gate; training eligibility ZERO until owner signs off"]
+    evidence: ["docs/L072_TRAINING_CORPUS_FREEZE_REPORT.md", "artifacts/l072_l04_freeze/snapshot.json"]
+
+  - id: L0.7.3
+    title: Training readiness and CI regression closure
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.7.2]
+    prerequisites: ["L0.7.2 freeze", "CI history (v1.0.0 run)"]
+    deliverables: ["readiness gate", "7/7 inherited CI regression dispositions (RESOLVED)", "regression ledger"]
+    exit_criteria: ["all inherited CI regressions evidence-backed RESOLVED; gate fail-closed"]
+    evidence: ["docs/L073_TRAINING_READINESS_REPORT.md", "configs/data/l073_regression_ledger.yaml"]
+
+  - id: L0.7.4
+    title: CI execution, runtime compatibility and resource strategy
+    stage: L0
+    status: QUALIFIED
+    dependencies: [L0.7.3]
+    prerequisites: ["ci.yml (production trigger policy)"]
+    deliverables: ["CI-only manual qualification workflow (dispatch blocked on non-default branch)", "resource strategy qualification", "checkpoint readiness spec", "18-dimension readiness gate"]
+    exit_criteria: ["CI execution blocked pending owner action (documented); readiness gate reconciled to BLOCKED"]
+    evidence: ["docs/L074_CI_RUNTIME_RESOURCE_QUALIFICATION_REPORT.md", "docs/L074_RESOURCE_STRATEGY.md"]
+
+  - id: L0.7.5
+    title: Final pretraining authorization and execution readiness
+    stage: L0
+    status: BLOCKED
+    dependencies: [L0.7.4]
+    prerequisites: ["owner decision record", "L0.8.0 entry contract"]
+    deliverables: ["authoritative owner decision register", "18-dimension final gate", "L0.8.0 entry contract"]
+    exit_criteria: ["BLOCKED; owner must act before any pretraining; no work may proceed"]
+    evidence: ["docs/L075_FINAL_PRETRAINING_READINESS_REPORT.md", "docs/L075_L080_ENTRY_CONTRACT.md", "docs/L075_L080_OWNER_DECISION_RECORD.md"]
+
+  - id: L0.7.6
+    title: Master roadmap and release governance
+    stage: L0
+    status: IN_PROGRESS
+    dependencies: [L0.7.5]
+    prerequisites: ["all prior milestones recorded"]
+    deliverables: ["TAKSH-MASTER-ROADMAP-v3.0.0.md", "machine-readable registry", "release governance", "changelog", "roadmap validator"]
+    exit_criteria: ["roadmap complete and consistent; nothing authorized; verification recorded"]
+    evidence: ["evaluation/roadmap/roadmap_validator.py"]
+
+  - id: L0.8.0
+    title: Foundation code pretraining
+    stage: L0
+    status: BLOCKED
+    dependencies: [L0.7.6, L0.7.5]
+    prerequisites: ["owner A1.1 authorization", "A2 compute authorization", "L0.8.0 entry contract all-mandatory-green"]
+    deliverables: ["canonically pretrained taksh-foundation-111m checkpoint", "complete run provenance", "recovery qualification"]
+    exit_criteria: ["authorized training executes to completion; benchmarks unchanged; artifact handed to L0.9.0"]
+    evidence: []
+
+  - id: L0.8.1
+    title: Training stability
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.8.0]
+    prerequisites: ["L0.8.0 complete"]
+    deliverables: ["recovery/interruption certification", "checkpoint stability evidence"]
+    exit_criteria: ["resume-from-failure verified; no silent divergence; checkpoint integrity proven"]
+    evidence: []
+
+  - id: L0.8.2
+    title: Language balance
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.8.0]
+    prerequisites: ["multilingual corpora authorized (today: Python-only)"]
+    deliverables: ["language-weight analysis", "cross-language interference report"]
+    exit_criteria: ["language distribution measured and explained; no invented coverage"]
+    evidence: []
+
+  - id: L0.9.0
+    title: Coding instruction training
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.8.0]
+    prerequisites: ["L0.8.1 stability"]
+    deliverables: ["instruction-tuned foundation variant", "chat/instruction corpus (licensed)"]
+    exit_criteria: ["instruction following demonstrated on frozen evaluation gates"]
+    evidence: []
+
+  - id: L0.9.1
+    title: Code generation
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.9.0]
+    prerequisites: ["instruction training complete"]
+    deliverables: ["executable code generation qualification", "fresh held-out benchmark results"]
+    exit_criteria: ["pass@k thresholds established on frozen benchmarks with documented evidence"]
+    evidence: []
+
+  - id: L0.9.2
+    title: Debugging and repair
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.9.1]
+    prerequisites: ["generation qualification"]
+    deliverables: ["fault localization capability", "validated repair capability"]
+    exit_criteria: ["repair benchmark thresholds met or honestly reported as not met"]
+    evidence: []
+
+  - id: L0.9.3
+    title: Testing and reasoning
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.9.2]
+    prerequisites: ["debugging qualification"]
+    deliverables: ["test generation", "engineering reasoning measurements"]
+    exit_criteria: ["test-generation benchmark thresholds; CI stays green on regressions"]
+    evidence: []
+
+  - id: L0.9.4
+    title: Multilingual alignment
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.9.2, L0.8.2]
+    prerequisites: ["multilingual corpora authorized"]
+    deliverables: ["cross-language consistency qualification", "language-level specialization evidence"]
+    exit_criteria: ["per-language frozen benchmark evidence for at least the initial 16 L1 languages + Karkain"]
+    evidence: []
+
+  - id: L0.10.0
+    title: Frozen benchmark qualification
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.9.1, L0.9.2, L0.9.3, L0.9.4]
+    prerequisites: ["all L0.9.x qualifications", "owner sign-off of the acceptance bar"]
+    deliverables: ["frozen benchmark run + verdict", "reproducibility evidence across seeds"]
+    exit_criteria: ["frozen Python benchmark threshold exceeded honestly or reported not met; 0/30 ceiling displaced under measurement"]
+    evidence: []
+
+  - id: L0.10.1
+    title: Multilingual qualification
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.10.0]
+    prerequisites: ["L0.10.0 qualification"]
+    deliverables: ["per-language evidence packs", "execution reports per qualified language"]
+    exit_criteria: ["≥16 executed tasks/language and ≥50% pass ratio on frozen multilingual benchmark for claimed languages"]
+    evidence: []
+
+  - id: L0.10.2
+    title: Safety and reproducibility
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.10.0]
+    prerequisites: ["L0.10.0 qualification"]
+    deliverables: ["safety assessment", "determinism and repeatability report", "data-handling review"]
+    exit_criteria: ["safety and reproducibility gates pass; owner accepts profile"]
+    evidence: []
+
+  - id: L0.10.3
+    title: Release candidate — L0 foundation
+    stage: L0
+    status: NOT_STARTED
+    dependencies: [L0.10.0, L0.10.1, L0.10.2]
+    prerequisites: ["all L0.10 qualifications", "release sign-off"]
+    deliverables: ["release candidate package", "owner-dispatched GA decision if pursued"]
+    exit_criteria: ["release gate passed; publication only with explicit owner authorization"]
+    evidence: []
+
+  # ---------------------------------------------------------------- L1
+  - id: L1.0.0
+    title: Coding assistant GA (v1.0.0)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L0.10.3]
+    prerequisites: ["L0 foundation release"]
+    deliverables: ["independently developed coding assistant, locally deployable, demonstrated on frozen benchmarks"]
+    exit_criteria: ["v1.0.0 release decision with frozen benchmark evidence; owner-authorized"]
+    evidence: []
+
+  - id: L1.1.0
+    title: Coding accuracy and reliability (v1.1)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.0.0]
+    prerequisites: ["v1.0.0"]
+    deliverables: ["accuracy and reliability uplift", "frozen benchmark improvement evidence"]
+    exit_criteria: ["threshold improvements demonstrated; no capability claimed without measurement"]
+    evidence: []
+
+  - id: L1.2.0
+    title: Enterprise and legacy languages (v1.2)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.1.0]
+    prerequisites: ["initial 17-language target qualified", "capacity planning"]
+    deliverables: ["12 enterprise and legacy languages qualified (vbnet, vba, cobol, fortran, delphi, perl, groovy, scala, objectivec, assembly, plsql, tsql)"]
+    exit_criteria: ["per-language frozen benchmark execution ≥16 executed tasks and ≥50% pass ratio per claimed language"]
+    evidence: []
+
+  - id: L1.3.0
+    title: Scientific and functional languages (v1.3)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.2.0]
+    prerequisites: ["L1.2.0"]
+    deliverables: ["10 scientific and functional languages qualified (r, matlab, julia, haskell, fsharp, ocaml, elixir, erlang, clojure, lisp)"]
+    exit_criteria: ["per-language execution evidence; qualification gates per language"]
+    evidence: []
+
+  - id: L1.4.0
+    title: Complete original 53-language expansion (v1.4)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.3.0]
+    prerequisites: ["L1.2.0", "L1.3.0"]
+    deliverables: ["remaining systems/embedded/games/blockchain (10) and emerging/specialist (5) languages qualified"]
+    exit_criteria: ["all 53 original languages EXECUTED-qualified at their declared gates; Karkain remains the 54th first-class target as evidence exists"]
+    evidence: []
+
+  - id: L1.5.0
+    title: Advanced programming (v1.5)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.4.0]
+    prerequisites: ["L1.4.0"]
+    deliverables: ["advanced algorithms, systems and concurrency programming evidence"]
+    exit_criteria: ["advanced-benchmark suites pass on frozen execution criteria"]
+    evidence: []
+
+  - id: L1.6.0
+    title: Cross-language programming (v1.6)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.5.0]
+    prerequisites: ["L1.5.0"]
+    deliverables: ["polyglot correctness evidence (binding/FFI, interop, translation)"]
+    exit_criteria: ["cross-language benchmark thresholds met"]
+    evidence: []
+
+  - id: L1.7.0
+    title: Developer productivity (v1.7)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.6.0]
+    prerequisites: ["L1.6.0"]
+    deliverables: ["developer workflow acceleration evidence (edit/repair loops with frozen tasks)"]
+    exit_criteria: ["measured productivity within declared safety limits"]
+    evidence: []
+
+  - id: L1.8.0
+    title: Local inference optimization (v1.8)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.7.0]
+    prerequisites: ["L1.7.0"]
+    deliverables: ["quantized/optimized local serving qualified; latency/throughput/VRAM measurements"]
+    exit_criteria: ["measured local serving SLA; no quality regression beyond declared tolerance"]
+    evidence: []
+
+  - id: L1.9.0
+    title: L1 maturity qualification (v1.9)
+    stage: L1
+    status: NOT_STARTED
+    dependencies: [L1.2.0, L1.3.0, L1.4.0, L1.8.0]
+    prerequisites: ["all L1.x milestones"]
+    deliverables: ["L1 maturity gate: language coverage, reliability, safety, recovery, reproducibility; release readiness review"]
+    exit_criteria: ["v1.9 qualification gate passed; owner authorizes v2.0 planning"]
+    evidence: []
+
+  # ---------------------------------------------------------------- L2
+  - id: L2.0
+    title: Repository understanding (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L1.9.0]
+    prerequisites: ["v1.x authority restored; repository tooling available"]
+    deliverables: ["repo-structural understanding: layout, dependencies, conventions"]
+    exit_criteria: ["repository-understanding benchmark thresholds on frozen multi-file suites"]
+    evidence: []
+
+  - id: L2.1
+    title: Multi-file code generation (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.0]
+    prerequisites: ["L2.0"]
+    deliverables: ["multi-file feature implementation evidence"]
+    exit_criteria: ["multi-file benchmark thresholds met; architecture-preserving edits verified"]
+    evidence: []
+
+  - id: L2.2
+    title: Repository debugging (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.1]
+    prerequisites: ["L2.1"]
+    deliverables: ["repository-level fault localization and fix evidence"]
+    exit_criteria: ["repository-debugging benchmarks; regression tests generated and passing"]
+    evidence: []
+
+  - id: L2.3
+    title: Test-driven development (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.2]
+    prerequisites: ["L2.2"]
+    deliverables: ["TDD loop implemented; tests generated before/with fixes"]
+    exit_criteria: ["TDD benchmark thresholds; tests-before-fix verified on execution"]
+    evidence: []
+
+  - id: L2.4
+    title: Build and dependency management (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.2]
+    prerequisites: ["L2.2"]
+    deliverables: ["build failure diagnosis; dependency conflict resolution"]
+    exit_criteria: ["build/dependency benchmark thresholds; reproducible build evidence"]
+    evidence: []
+
+  - id: L2.5
+    title: Code review and refactoring (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.1, L2.3]
+    prerequisites: ["L2.1", "L2.3"]
+    deliverables: ["code review suggestions; behavior-preserving refactoring"]
+    exit_criteria: ["refactoring exercised without behavior regressions (frozen tests stay green)"]
+    evidence: []
+
+  - id: L2.6
+    title: Controlled Git-aware development (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.5]
+    prerequisites: ["L2.5"]
+    deliverables: ["Git-aware engineering with explicit permissions; never merges protected branches without approval"]
+    exit_criteria: ["audit-trail verification; protected-branch behavior verified; owner authorization boundary enforced"]
+    evidence: []
+
+  - id: L2.7
+    title: Project documentation (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.5]
+    prerequisites: ["L2.5"]
+    deliverables: ["repo-consistent documentation generation; architecture notes"]
+    exit_criteria: ["documentation accepted as accurate by hidden-review criteria"]
+    evidence: []
+
+  - id: L2.8
+    title: Software quality engineering (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.3, L2.6]
+    prerequisites: ["L2.3", "L2.6"]
+    deliverables: ["lint/type/coverage/stability engineering actions executed end-to-end"]
+    exit_criteria: ["quality engineering benchmarks met; repo stays green across interventions"]
+    evidence: []
+
+  - id: L2.9
+    title: Repository engineering qualification (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.0, L2.1, L2.2, L2.3, L2.4, L2.6, L2.7, L2.8]
+    prerequisites: ["all L2.0-L2.8"]
+    deliverables: ["repository-engineering qualification gate; v2.0 GA decision"]
+    exit_criteria: ["v2.0 qualification gate passed; owner authorization for GA"]
+    evidence: []
+
+  - id: L2.10
+    title: Repository-aware coding assistant (v2.0)
+    stage: L2
+    status: NOT_STARTED
+    dependencies: [L2.9]
+    prerequisites: ["L2.9"]
+    deliverables: ["repository-aware coding assistant GA; end-to-end repository tasks"]
+    exit_criteria: ["v2.0.0 GA with frozen repository benchmark evidence; owner-authorized publication if any"]
+    evidence: []
+
+  # ---------------------------------------------------------------- L3
+  - id: L3.0
+    title: Task planning (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L2.10]
+    prerequisites: ["v2.0"]
+    deliverables: ["engineered task planning for multi-step objectives"]
+    exit_criteria: ["planning benchmark thresholds met; plans auditable and interruption-tolerant"]
+    evidence: []
+
+  - id: L3.1
+    title: Controlled task execution (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.0]
+    prerequisites: ["L3.0"]
+    deliverables: ["permissioned tool execution; audit trails; pause/resume/cancel"]
+    exit_criteria: ["execution safety/containment benchmarks met; no unauthorized side effects"]
+    evidence: []
+
+  - id: L3.2
+    title: Autonomous implementation (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.1]
+    prerequisites: ["L3.1"]
+    deliverables: ["multi-file autonomous implementation from specifications"]
+    exit_criteria: ["autonomous-implementation benchmark thresholds; architecture-preserving changes"]
+    evidence: []
+
+  - id: L3.3
+    title: Autonomous debugging (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.2]
+    prerequisites: ["L3.2"]
+    deliverables: ["end-to-end defect localization + verified repair without correctness regression"]
+    exit_criteria: ["autonomous-repair benchmarks pass under frozen tests"]
+    evidence: []
+
+  - id: L3.4
+    title: Multi-stage engineering (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.3]
+    prerequisites: ["L3.3"]
+    deliverables: ["multi-milestone autonomous engineering with explicit memory, resumability, and reports"]
+    exit_criteria: ["multi-stage engineering benchmark passed; interruptions recover without loss"]
+    evidence: []
+
+  - id: L3.5
+    title: Advanced multilingual engineering (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.4]
+    prerequisites: ["L3.4"]
+    deliverables: ["autonomous engineering across multiple qualified languages incl. Karkain where evidence exists"]
+    exit_criteria: ["multilingual engineering benchmark meets per-language gates on frozen execution criteria"]
+    evidence: []
+
+  - id: L3.6
+    title: Engineering agent qualification (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.5]
+    prerequisites: ["L3.5"]
+    deliverables: ["end-to-end autonomous benchmark qualification: task completion, correctness, regression, reproducibility, resource use, safety; multiple seeds"]
+    exit_criteria: ["engineering-agent qualification gate passed; hidden/held-out task evidence published-in-report"]
+    evidence: []
+
+  - id: L3.7
+    title: Advanced local coding platform (v3.0)
+    stage: L3
+    status: NOT_STARTED
+    dependencies: [L3.6]
+    prerequisites: ["L3.6"]
+    deliverables: ["locally deployable advanced engineering platform; tool/permission orchestration", "reproducible engineering sessions"]
+    exit_criteria: ["v3.0.0 GA decision with complete evidence pack; owner-authorized publication only"]
+    evidence: []

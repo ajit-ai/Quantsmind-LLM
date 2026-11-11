@@ -1,0 +1,17 @@
+{
+  "schema": "taksh.roadmap_validation/1",
+  "generated_by": "evaluation/roadmap/roadmap_validator.py",
+  "registry": "configs/roadmap/taksh-v3-roadmap.yaml",
+  "valid": true,
+  "problems": [],
+  "status_counts": {
+    "CONDITIONAL_PASS": 3,
+    "QUALIFIED": 7,
+    "BLOCKED": 3,
+    "IN_PROGRESS": 1,
+    "NOT_STARTED": 40
+  },
+  "milestone_count": 54,
+  "release_count": 4,
+  "verdict": "ROADMAP VALID \u2014 statuses and dependencies consistent; nothing authorized; no owner decision, authorization or capability is implied"
+}
