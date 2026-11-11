@@ -63,8 +63,23 @@ def test_measured_reference_matches_the_known_configuration():
     assert MEASURED_REFERENCE["B-existing-9m"] > 0
 
 
-def test_available_ram_is_the_binding_constraint(scales):
-    assert any(s.fits_total_ram and not s.fits_available_ram for s in scales)
+def test_available_ram_is_the_binding_constraint():
+    # Deterministic resource-policy fixture: total 4 GiB, available 128 MiB.
+    # Policy under test is the comparison itself, not the host's current state.
+    synthetic_total = 4 * 2**30
+    synthetic_available = 128 * 2**20
+    scales = estimate_scales(memory={"total_bytes": synthetic_total,
+                                     "available_bytes": synthetic_available})
+    fits_total_not_available = [s for s in scales
+                                if s.fits_total_ram and not s.fits_available_ram]
+    assert fits_total_not_available, "expected at least one scale to fit total RAM but not available RAM"
+
+
+def test_available_ram_measurement_is_live_and_nonnegative():
+    # Environment-observation test: informational only, never asserts a verdict.
+    mem = __import__("training.preflight", fromlist=["system_memory"]).system_memory()
+    assert mem["total_bytes"] > 0
+    assert mem["available_bytes"] is not None
 
 
 def test_data_assessment_never_invents_task_coverage():

@@ -314,30 +314,51 @@ class ExternalHFAdapter(BaseAdapter):
     def preflight(self):
         from training.preflight import system_memory
 
-        version = self._transformers_available()
-        if not version:
+        # 1. licence record — required before anything else is considered.
+        if not self.license_record.get("license_id"):
+            return False, (
+                "no licence record supplied; an external model may not be "
+                "evaluated or redistributed without a verified licence"
+            )
+
+        # 2. Discovery first: locate local weights WITHOUT any optional
+        #    dependency (transformers is consulted only for the load decision).
+        weights = self._snapshot_path()
+        transformers_version = self._transformers_available()
+
+        if weights is None:
+            detail = (
+                f"no local weights for {self.model_id!r} and download is not "
+                "permitted by this run (allow_download=False); nothing was "
+                "fetched"
+            )
+            if not transformers_version:
+                detail += (
+                    "; the 'transformers' package is not installed "
+                    "(external evaluation cannot run)"
+                )
+            if self.allow_download:
+                if not transformers_version:
+                    return False, (
+                        "download permitted by operator but the 'transformers' "
+                        "package is not installed; external evaluation cannot run"
+                    )
+                return True, (
+                    f"download permitted by operator; would fetch {self.model_id} "
+                    f"(revision {self.revision or 'default'})"
+                )
+            return False, detail
+
+        if not transformers_version:
             return False, (
                 "the 'transformers' package is not installed; external "
                 "evaluation cannot run"
             )
 
-        weights = self._snapshot_path()
-        if weights is None:
-            if self.allow_download:
-                return True, (
-                    f"download permitted by operator; would fetch {self.model_id} "
-                    f"(revision {self.revision or 'default'})"
-                )
-            return False, (
-                f"no local weights for {self.model_id!r} and download is not "
-                "permitted by this run (allow_download=False); nothing was "
-                "fetched"
-            )
-
+        # 3. RAM headroom with fp16 weights + activation margin (conservative).
         size_mb = weights.stat().st_size / 2**20
         memory = system_memory()
         available_mb = (memory["available_bytes"] or 0) / 2**20
-        # fp16 weights plus a small activation margin. Deliberately conservative.
         required_mb = size_mb * 1.3
         if available_mb and required_mb > available_mb:
             return False, (
@@ -346,13 +367,8 @@ class ExternalHFAdapter(BaseAdapter):
                 f"{available_mb:.0f} MiB is available"
             )
 
-        if not self.license_record.get("license_id"):
-            return False, (
-                "no licence record supplied; an external model may not be "
-                "evaluated or redistributed without a verified licence"
-            )
         return True, (
-            f"transformers {version}; {weights.name} {size_mb:.0f} MiB; "
+            f"transformers {transformers_version}; {weights.name} {size_mb:.0f} MiB; "
             f"{available_mb:.0f} MiB available"
         )
 

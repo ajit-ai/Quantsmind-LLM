@@ -135,11 +135,15 @@ def test_metrics_report_empty_and_truncated_generations():
 # --------------------------------------------------------------------------- #
 # B - checkpoint / tokenizer / geometry compatibility
 # --------------------------------------------------------------------------- #
-def test_geometry_inspector_reports_a_matching_triple():
+def test_geometry_inspector_reports_a_matching_triple(tmp_path):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from fixture_s2_checkpoint import build_s2_checkpoint
     from training.geometry import inspect
 
     report = inspect(
-        checkpoint_path=REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt",
+        checkpoint_path=build_s2_checkpoint(tmp_path),
         tokenizer_path=TOKENIZER,
         model_config_path=REPO_ROOT / "configs" / "model" / "code_m3_9m.yaml",
     )
@@ -160,11 +164,15 @@ def test_geometry_inspector_fails_closed_on_a_missing_tokenizer(tmp_path):
     assert any("tokenizer" in problem for problem in report.problems)
 
 
-def test_geometry_inspector_fails_closed_on_a_vocab_mismatch():
+def test_geometry_inspector_fails_closed_on_a_vocab_mismatch(tmp_path):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from fixture_s2_checkpoint import build_s2_checkpoint
     from training.geometry import inspect
 
     report = inspect(
-        checkpoint_path=REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt",
+        checkpoint_path=build_s2_checkpoint(tmp_path),
         tokenizer_path=TOKENIZER,
         model_config_path=REPO_ROOT / "configs" / "model" / "code_30m.yaml",
     )
@@ -466,11 +474,15 @@ def test_v14_evaluation_suite_is_untouched():
     assert all("surface" not in case for case in payload["cases"])
 
 
-def test_tokenizer_artifact_and_model_geometry_are_unchanged():
+def test_tokenizer_artifact_and_model_geometry_are_unchanged(tmp_path):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from fixture_s2_checkpoint import build_s2_checkpoint
     from training.geometry import inspect
 
     report = inspect(
-        checkpoint_path=REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt",
+        checkpoint_path=build_s2_checkpoint(tmp_path),
         tokenizer_path=TOKENIZER,
         model_config_path=REPO_ROOT / "configs" / "model" / "code_m3_9m.yaml",
     )

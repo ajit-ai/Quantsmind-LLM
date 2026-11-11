@@ -330,18 +330,19 @@ def test_sampling_boundaries_behave_documented_ways():
     assert 0 <= token < 32
 
 
-def test_sampled_decoding_is_reproducible_with_a_seed():
+def test_sampled_decoding_is_reproducible_with_a_seed(tmp_path):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from fixture_s2_checkpoint import build_s2_checkpoint
     from tokenizers import Tokenizer
 
     from serving.local_inference import load_model
     from serving.local_inference import generate_ids
 
-    # Legacy checkpoint predates safe-serialisation; trusted local artifact only.
-    model, _ = load_model(
-        str(REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt"),
-        "cpu",
-        allow_unsafe_trusted=True,
-    )
+    # Synthetic S2-equivalent fixture (CI has no production checkpoint): equal
+    # seeds and inputs must decode identically; quality is not claimed.
+    model, _ = load_model(str(build_s2_checkpoint(tmp_path)), "cpu")
     tokenizer = Tokenizer.from_file(str(REPO_ROOT / "tokenizer" / "qm_code_bpe_v0.json"))
     prompt = "def add(a, b):\n"
     first = generate_ids(model, tokenizer, prompt, max_new_tokens=16, temperature=0.8, seed=7)
