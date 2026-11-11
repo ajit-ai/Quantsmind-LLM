@@ -171,9 +171,22 @@ Every adaptation of TAKSH to something new — a language, version, dialect, fra
   (authorization-gated; training handoff DISABLED under A1.1-C / A2-E),
   persistence with integrity/tamper detection, Karkain first-class adapter
   (BLOCKED: KCC 0xC0000135), and an A/B/C experiment framework.
+- **Implemented (L1.0.0-ENG2, 2026-11-11):** the semantic and execution
+  validation foundation in `taksh/dlcae/semantic/` — versioned semantic
+  contract (PASS/FAIL/PARTIAL/BLOCKED/UNVERIFIED/NOT_APPLICABLE), real
+  Python symbol analysis, discipline-preserving type relationships, local
+  offline dependency graphs with cycle detection and missing-dependency
+  reporting, local toolchain adapters (py_compile/mypy/ruff, node --check,
+  bash -n, gofmt, javac, dotnet-version), diagnostic correlation and
+  failure localization, suggestion-only repair candidates, source-hash
+  evidence invalidation, interrupted-analysis resume — engineering
+  qualification only; see `docs/architecture/DLCAE-SEMANTIC-VALIDATION.md`.
 - **Engine status:** all six engines IMPLEMENTED_AND_TESTED (engineering
-  qualification only — see `docs/L100ENG_DLCAE_RUNTIME_FOUNDATION.md`).
-- **Test evidence:** `tests/test_l100eng_dlcae_runtime.py` (70 focused tests).
+  qualification only — see `docs/L100ENG_DLCAE_RUNTIME_FOUNDATION.md`);
+  ENG2 components IMPLEMENTED_AND_TESTED (see
+  `docs/L100ENG2_SEMANTIC_EXECUTION_VALIDATION.md`).
+- **Test evidence:** `tests/test_l100eng_dlcae_runtime.py` (70 tests) +
+  `tests/test_l100eng2_semantic_validation.py` (53 tests).
 - **Capability claim:** none. Engineering qualification is not model
   capability; no benchmark improvement is asserted; TAKSH-KARK-BENCH
   remains 0 instantiated tasks; the canonical 111M checkpoint remains

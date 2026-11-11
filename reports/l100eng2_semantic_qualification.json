@@ -1,0 +1,2571 @@
+{
+  "schema": "taksh.l100eng2_semantic_qualification/1",
+  "generated_by": "evaluation/l100eng2_qualification.py",
+  "verified_on": "2026-11-11",
+  "git": {
+    "branch": "feature/l060-foundation-model-qualification",
+    "head": "efcda299f6a667028051e994327278d4e1249c87",
+    "remote_feature_branch": "efcda299f6a667028051e994327278d4e1249c87"
+  },
+  "toolchain_discovery": {
+    "bash": {
+      "tool": "bash",
+      "available": true,
+      "version": "GNU bash, version 5.2.37(1)-release (x86_64-pc-msys)",
+      "env_fingerprint": "f5a785d3e5f19b315cd4f9aadcc732f3fc0263290209ccd8edc7f99c5b134c11",
+      "status": "AVAILABLE"
+    },
+    "csharp": {
+      "tool": "dotnet",
+      "available": true,
+      "version": "10.0.400",
+      "env_fingerprint": "6c1bb54a2ec3fb6911587e188d84e9e70efb1e0e6c8b63f99b5a96caacb32509",
+      "status": "AVAILABLE"
+    },
+    "go": {
+      "tool": "go",
+      "available": true,
+      "version": "go version go1.27.0 windows/amd64",
+      "env_fingerprint": "2e49a682afc55c88f72fc94914e1174d7be6c3b16be0dec084574eb7dcbc49fd",
+      "status": "AVAILABLE"
+    },
+    "java": {
+      "tool": "java-jdk21",
+      "available": true,
+      "version": "21.0.2",
+      "env_fingerprint": "74cdfd7d4d432cc8dc324b880482ee5cc64592cae77d9ffa0138338dc6be3c35",
+      "status": "AVAILABLE"
+    },
+    "javascript": {
+      "tool": "node",
+      "available": true,
+      "version": "v24.18.1",
+      "env_fingerprint": "25d8c39e86ec7afd57a825dc5cdbfd52d454540a15c1a2480035dce1b8980880",
+      "status": "AVAILABLE"
+    },
+    "python": {
+      "tool": "python",
+      "available": true,
+      "version": "3.14.7",
+      "env_fingerprint": "7dc44c57a437a078bd77dc4dbe6dad22e68ded14d1ad1be03eff3de9090c386c",
+      "status": "AVAILABLE"
+    }
+  },
+  "summary": {
+    "clean_contract_valid": true,
+    "tool_assisted_python": "PARTIAL",
+    "broken_syntax_detected": "FAIL",
+    "broken_symbols_stage": "FAIL",
+    "karkain_status": "PARTIAL",
+    "karkain_symbols": "BLOCKED",
+    "interrupted_resumed": true,
+    "invalidated_for_changed_source": true,
+    "correlation_primary": "syntax_error",
+    "repair_candidates_no_mutation": true,
+    "reproducible_fingerprints": true,
+    "training_handoff_authorized": false
+  },
+  "stages": {
+    "semantic_contract": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "schema": "taksh.dlcae.semantic_contract/1"
+    },
+    "symbol_analysis": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "metrics": {
+        "schema": "taksh.dlcae.semantic_symbol_metrics/1",
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_positives": 4,
+        "detected": [
+          "Widget",
+          "Widget2",
+          "helper",
+          "render"
+        ],
+        "imports_detected": [
+          "os"
+        ],
+        "exports": [
+          "CONSTANT",
+          "Widget",
+          "Widget2",
+          "helper",
+          "os"
+        ],
+        "unresolved": {
+          "expected": [
+            "nonexistent_symbol_to_detect"
+          ],
+          "found": [
+            "nonexistent_symbol_to_detect"
+          ],
+          "all_expected_detected": true,
+          "precision": 1.0
+        },
+        "shadowing": {
+          "expected_shadow_count": 1,
+          "shadowing": [
+            {
+              "name": "x",
+              "scope": "f",
+              "shadows": "<module>",
+              "line": 3
+            }
+          ],
+          "shadow_detected": true
+        },
+        "duplicates": {
+          "expected": "f",
+          "detected": [
+            "f"
+          ],
+          "duplicate_detected": true
+        },
+        "duration_ms": 0.367,
+        "truth_source": "synthetic fixture (never frozen benchmarks)"
+      }
+    },
+    "type_analysis": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "metrics": {
+        "schema": "taksh.dlcae.semantic_type_metrics/1",
+        "relations_found": 5,
+        "kinds_found": [
+          "parameter",
+          "return",
+          "signature",
+          "variable"
+        ],
+        "expected_kinds_present": true,
+        "parameter_annotations": [
+          {
+            "name": "annotate.a",
+            "type": "int"
+          },
+          {
+            "name": "annotate.b",
+            "type": "str"
+          }
+        ],
+        "unannotated_count": 0,
+        "discipline": "gradual"
+      },
+      "compatibility": {
+        "schema": "taksh.dlcae.type_compatibility/1",
+        "observations": {
+          "int->float": "COMPATIBLE_WIDENING",
+          "bool->int": "COMPATIBLE_WIDENING",
+          "str->int": "INCOMPATIBLE_OR_UNKNOWN",
+          "None->int": "UNVERIFIED",
+          "int->None": "UNVERIFIED",
+          "Any->str": "INCOMPATIBLE_OR_UNKNOWN",
+          "int->int": "IDENTICAL"
+        },
+        "unknown_discipline_preserved": true
+      }
+    },
+    "dependency_analysis": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "metrics": {
+        "schema": "taksh.dlcae.semantic_dependency_metrics/1",
+        "cycle_sources": [
+          "cyc_a",
+          "cyc_b",
+          "cyc_c"
+        ],
+        "cycles_detected": [
+          [
+            "cyc_a",
+            "cyc_b",
+            "cyc_c",
+            "cyc_a"
+          ]
+        ],
+        "cycle_detected": true,
+        "missing_detector": [
+          "definitely_not_installed_pkg_xyz123"
+        ],
+        "missing_dependency_detected": true,
+        "installed_stdlib_recognized": true
+      }
+    },
+    "toolchain_adapters": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "discovery": {
+        "bash": {
+          "tool": "bash",
+          "available": true,
+          "version": "GNU bash, version 5.2.37(1)-release (x86_64-pc-msys)",
+          "env_fingerprint": "f5a785d3e5f19b315cd4f9aadcc732f3fc0263290209ccd8edc7f99c5b134c11",
+          "status": "AVAILABLE"
+        },
+        "csharp": {
+          "tool": "dotnet",
+          "available": true,
+          "version": "10.0.400",
+          "env_fingerprint": "6c1bb54a2ec3fb6911587e188d84e9e70efb1e0e6c8b63f99b5a96caacb32509",
+          "status": "AVAILABLE"
+        },
+        "go": {
+          "tool": "go",
+          "available": true,
+          "version": "go version go1.27.0 windows/amd64",
+          "env_fingerprint": "2e49a682afc55c88f72fc94914e1174d7be6c3b16be0dec084574eb7dcbc49fd",
+          "status": "AVAILABLE"
+        },
+        "java": {
+          "tool": "java-jdk21",
+          "available": true,
+          "version": "21.0.2",
+          "env_fingerprint": "74cdfd7d4d432cc8dc324b880482ee5cc64592cae77d9ffa0138338dc6be3c35",
+          "status": "AVAILABLE"
+        },
+        "javascript": {
+          "tool": "node",
+          "available": true,
+          "version": "v24.18.1",
+          "env_fingerprint": "25d8c39e86ec7afd57a825dc5cdbfd52d454540a15c1a2480035dce1b8980880",
+          "status": "AVAILABLE"
+        },
+        "python": {
+          "tool": "python",
+          "available": true,
+          "version": "3.14.7",
+          "env_fingerprint": "7dc44c57a437a078bd77dc4dbe6dad22e68ded14d1ad1be03eff3de9090c386c",
+          "status": "AVAILABLE"
+        }
+      }
+    },
+    "compiler_feedback": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "records": 2,
+      "feedback_id_set_note": "fingerprinted"
+    },
+    "failure_localization": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "correlation": {
+        "schema": "taksh.dlcae.failure_correlation/1",
+        "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+        "groups": [
+          {
+            "key": "<unknown>:1",
+            "count": 1,
+            "categories": [
+              "syntax_error"
+            ]
+          },
+          {
+            "key": "<unknown>:2",
+            "count": 1,
+            "categories": [
+              "type_error"
+            ]
+          }
+        ],
+        "primary": "876542685ab1cf05",
+        "primary_category": "syntax_error",
+        "primary_line": 1,
+        "cascades": [
+          {
+            "cascading": "d2a4bfeb3fa07be4",
+            "cascade_of": "876542685ab1cf05",
+            "reason": "downstream of the earliest high-rank failure in the same file"
+          }
+        ],
+        "earliest_known_failure": "876542685ab1cf05",
+        "ordered_chain": [
+          "876542685ab1cf05",
+          "d2a4bfeb3fa07be4"
+        ],
+        "uncertain": false,
+        "verdict": "ROOT_CAUSE_IDENTIFIED",
+        "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+      }
+    },
+    "repair_candidates": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "candidates": {
+        "schema": "taksh.dlcae.repair_candidates/1",
+        "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+        "candidate_count": 2,
+        "candidates": [
+          {
+            "suggestion_id": "7ecee9b24429bdc2",
+            "for_diagnostic": {
+              "category": "syntax_error",
+              "line": 1,
+              "column": null,
+              "symbol": null
+            },
+            "suggestion": "inspect and rebalance the reported bracket/quote/indentation at the recorded location",
+            "origin": "suggestion-not-verified-fix",
+            "verified": false,
+            "source_mutation": false,
+            "confidence": 0.2
+          },
+          {
+            "suggestion_id": "ca502b986e63d2bd",
+            "for_diagnostic": {
+              "category": "type_error",
+              "line": 2,
+              "column": null,
+              "symbol": null
+            },
+            "suggestion": "reconcile the declared annotation with the inferred use site; change the annotation or the use",
+            "origin": "suggestion-not-verified-fix",
+            "verified": false,
+            "source_mutation": false,
+            "confidence": 0.2
+          }
+        ],
+        "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+      },
+      "source_mutation": false
+    },
+    "karkain_semantic_adapter": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "blocked": true,
+      "kcc_startup_failure": "0xC0000135"
+    },
+    "kcc_benchmark_tasks": 0
+  },
+  "clean_result": {
+    "schema": "taksh.dlcae.semantic_contract/1",
+    "contract_version": 1,
+    "language_id": "python",
+    "registry_version": "dynreg/1",
+    "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+    "file": "qual-clean.py",
+    "module": "qual-clean",
+    "status": "PARTIAL",
+    "diagnostics": [],
+    "symbols": {
+      "schema": "taksh.dlcae.symbol_analysis/1",
+      "language_id": "python",
+      "adapter": "python-ast",
+      "adapter_version": "symbols/1.0.0",
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "file": "qual-clean.py",
+      "module": "qual-clean",
+      "status": "PASS",
+      "symbols": [
+        {
+          "name": "add",
+          "qualified_name": "add",
+          "kind": "function",
+          "scope": "<module>",
+          "line": 1,
+          "column": 1,
+          "exported": true
+        },
+        {
+          "name": "a",
+          "qualified_name": "add.a",
+          "kind": "parameter",
+          "scope": "add",
+          "line": 1,
+          "column": 9,
+          "exported": false
+        },
+        {
+          "name": "b",
+          "qualified_name": "add.b",
+          "kind": "parameter",
+          "scope": "add",
+          "line": 1,
+          "column": 17,
+          "exported": false
+        }
+      ],
+      "references": [
+        {
+          "name": "a",
+          "scope": "add",
+          "line": 2,
+          "column": 12,
+          "resolution": "add.a",
+          "confidence": 0.9
+        },
+        {
+          "name": "b",
+          "scope": "add",
+          "line": 2,
+          "column": 16,
+          "resolution": "add.b",
+          "confidence": 0.9
+        },
+        {
+          "name": "int",
+          "scope": "add",
+          "line": 1,
+          "column": 28,
+          "resolution": "builtins.int",
+          "confidence": 1.0
+        }
+      ],
+      "scopes": [
+        {
+          "path": "add",
+          "kind": "function",
+          "line": 1
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "add"
+      ],
+      "duplicates": [],
+      "shadowing": [],
+      "unresolved": [],
+      "diagnostics": [],
+      "unsupported": [],
+      "fingerprint": "symbols/1.0.0"
+    },
+    "references": [],
+    "type_relationships": [],
+    "dependency_relationships": [],
+    "comprehension": {
+      "levels": {
+        "1": [
+          {
+            "observation_id": "bcdf67241b24c4c2",
+            "level": 1,
+            "kind": "character_representation",
+            "detail": {
+              "bytes": 49,
+              "codepoints": 49,
+              "utf8_ascii_fraction": 1.0,
+              "printable_fraction": 0.9592,
+              "granularity": "token",
+              "l1_hypothesis": "char-level processing is a measured research hypothesis"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "2": [
+          {
+            "observation_id": "562d5c127a6a2664",
+            "level": 2,
+            "kind": "token_comprehension",
+            "detail": {
+              "token_count": 18,
+              "by_kind": {
+                "ident": 10,
+                "op": 8
+              },
+              "sample_offsets": [
+                [
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  11,
+                  14
+                ],
+                [
+                  14,
+                  15
+                ],
+                [
+                  16,
+                  17
+                ]
+              ]
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "3": [
+          {
+            "observation_id": "7718683bfcd75697",
+            "level": 3,
+            "kind": "lexical_identifier",
+            "detail": {
+              "identifiers": 10,
+              "distinct_identifiers": 6,
+              "keywords_configured": true,
+              "keyword_hits": [
+                "def",
+                "return"
+              ],
+              "keyword_source": "builtin-seed:python"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "4": [
+          {
+            "observation_id": "0042113ab1f90ed1",
+            "level": 4,
+            "kind": "syntax_structure",
+            "detail": {
+              "brackets_balanced": true,
+              "parsed": true,
+              "functions": 1,
+              "classes": 0,
+              "imports": 0,
+              "annotated_assignments": 0,
+              "returns": 1,
+              "branches": 0
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "5": [
+          {
+            "observation_id": "74e3e055279c0b3b",
+            "level": 5,
+            "kind": "semantic_type",
+            "detail": {
+              "annotated_assignments": 0,
+              "import_count": 0,
+              "note": "annotation presence measured; no type checker installed; semantic correctness UNVERIFIED"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.6,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "6": [
+          {
+            "observation_id": "7a2117c4709c81f8",
+            "level": 6,
+            "kind": "task_intent",
+            "detail": {
+              "decomposition": [
+                {
+                  "step": "implement_function",
+                  "basis": "function declaration detected"
+                }
+              ],
+              "single_responsibility_hypothesis": true,
+              "note": "intent decomposition is INFERRED; never verified without tests"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.35,
+            "state": "INFERRED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "7": [
+          {
+            "observation_id": "e89caa2e5e135d41",
+            "level": 7,
+            "kind": "execution_verification",
+            "detail": {
+              "status": "UNVERIFIED",
+              "reason": "no execution oracle engaged in this comprehension pass; see Validation Engine for toolchain verdicts"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-clean",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ]
+      },
+      "level_status": {
+        "1": "COMPLETE",
+        "2": "COMPLETE",
+        "3": "COMPLETE",
+        "4": "COMPLETE",
+        "5": "UNCERTAIN",
+        "6": "UNCERTAIN",
+        "7": "UNCERTAIN"
+      }
+    },
+    "toolchain": {
+      "id": "none",
+      "name": "none",
+      "version": "unknown",
+      "available": false,
+      "execution_status": "NOT_RUN"
+    },
+    "provenance": {
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "produced_by": "taksh.dlcae.semantic/1.0.0",
+      "produced_at": "2026-11-11T16:28:41+00:00",
+      "run_id": "eb3ed4c15d053c9f"
+    },
+    "unsupported_constructs": [],
+    "unresolved": [],
+    "result_id": "eb3ed4c15d053c9f",
+    "mode": "model_only",
+    "types": {
+      "schema": "taksh.dlcae.type_analysis/1",
+      "language_id": "python",
+      "adapter": "python-ast-types",
+      "adapter_version": "typesys/1.0.0",
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "file": "qual-clean.py",
+      "module": "qual-clean",
+      "status": "PARTIAL",
+      "discipline": "gradual",
+      "relations": [
+        {
+          "kind": "signature",
+          "name": "add",
+          "discipline": "gradual",
+          "parameters": [
+            {
+              "name": "a",
+              "notion": "primitive",
+              "explicit_unknown": false,
+              "type": "int",
+              "detail": "annotation `int` (primitive)"
+            },
+            {
+              "name": "b",
+              "notion": "primitive",
+              "explicit_unknown": false,
+              "type": "int",
+              "detail": "annotation `int` (primitive)"
+            }
+          ],
+          "returns": {
+            "notion": "primitive",
+            "explicit_unknown": false,
+            "type": "int",
+            "detail": "annotation `int` (primitive)"
+          },
+          "source": "python-ast-types"
+        },
+        {
+          "kind": "parameter",
+          "name": "add.a",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        },
+        {
+          "kind": "parameter",
+          "name": "add.b",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        },
+        {
+          "kind": "return",
+          "name": "add -> int",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        }
+      ],
+      "unsupported": [],
+      "diagnostics": []
+    },
+    "dependencies": {
+      "schema": "taksh.dlcae.dependency_graph/1",
+      "source_of": "7901edc89177a1c9db92bc8027142b42b7ebbfe6f9e6184ca285c0f314fa2303",
+      "packages": {
+        "qual-clean": {
+          "module": "qual-clean",
+          "kind": "module",
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be"
+        }
+      },
+      "edges": [],
+      "cycles": [],
+      "missing": [],
+      "diagnostics": [],
+      "node_count": 1,
+      "edge_count": 0
+    },
+    "validation": {
+      "mode": "model_only",
+      "checks": [
+        {
+          "schema": "taksh.dlcae.validation/1",
+          "stage": "structural",
+          "language_id": "python",
+          "mode": "model_only",
+          "verdict": "PASS",
+          "reason": "bracket-balance heuristic (model_only)",
+          "mode_note": "model_only heuristics; never capability evidence"
+        }
+      ],
+      "toolchain": {
+        "id": "model-only",
+        "name": "model-only",
+        "version": "heuristic",
+        "available": false,
+        "execution_status": "NOT_EXECUTED",
+        "env_fingerprint": ""
+      }
+    },
+    "knowledge": {
+      "records_created": [
+        "kr-a0da1fce57d0",
+        "kr-1ddca3d1f7a3",
+        "kr-615b1dfe8431"
+      ],
+      "promotion": "VERIFIED-bound-to-source"
+    },
+    "feedback": {
+      "correlation": {
+        "verdict": "NO_EVIDENCE",
+        "cascades": [],
+        "uncertain": true
+      },
+      "repair_candidates": {
+        "schema": "taksh.dlcae.repair_candidates/1",
+        "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+        "candidate_count": 0,
+        "candidates": [],
+        "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+      },
+      "feedback_records": 0,
+      "training_handoff": "DISABLED (A1.1-C / A2-E)"
+    },
+    "stage_status": {
+      "comprehension": "PASS",
+      "comprehension_duration_ms": "1.156",
+      "symbols": "PASS",
+      "symbols_duration_ms": "0.175",
+      "types": "PARTIAL",
+      "types_duration_ms": "2.418",
+      "dependencies": "PASS",
+      "dependencies_duration_ms": "0.187",
+      "validation": "PASS",
+      "validation_duration_ms": "0.031",
+      "knowledge": "PASS",
+      "knowledge_duration_ms": "0.226",
+      "feedback": "PASS",
+      "feedback_duration_ms": "0.009"
+    },
+    "evidence": {
+      "schema": "taksh.dlcae.evidence_ledger/1",
+      "bindings": [
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        }
+      ],
+      "ledger_fingerprint": "5396809b4309370088b5e7f8e902ca18b60fd2af0cd78ab28b34fb931c8769e9",
+      "count": 3
+    },
+    "contract_problems": []
+  },
+  "tool_assisted_result": {
+    "schema": "taksh.dlcae.semantic_contract/1",
+    "contract_version": 1,
+    "language_id": "python",
+    "registry_version": "dynreg/1",
+    "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+    "file": "qual-tool.py",
+    "module": "qual-tool",
+    "status": "PARTIAL",
+    "diagnostics": [],
+    "symbols": {
+      "schema": "taksh.dlcae.symbol_analysis/1",
+      "language_id": "python",
+      "adapter": "python-ast",
+      "adapter_version": "symbols/1.0.0",
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "file": "qual-tool.py",
+      "module": "qual-tool",
+      "status": "PASS",
+      "symbols": [
+        {
+          "name": "add",
+          "qualified_name": "add",
+          "kind": "function",
+          "scope": "<module>",
+          "line": 1,
+          "column": 1,
+          "exported": true
+        },
+        {
+          "name": "a",
+          "qualified_name": "add.a",
+          "kind": "parameter",
+          "scope": "add",
+          "line": 1,
+          "column": 9,
+          "exported": false
+        },
+        {
+          "name": "b",
+          "qualified_name": "add.b",
+          "kind": "parameter",
+          "scope": "add",
+          "line": 1,
+          "column": 17,
+          "exported": false
+        }
+      ],
+      "references": [
+        {
+          "name": "a",
+          "scope": "add",
+          "line": 2,
+          "column": 12,
+          "resolution": "add.a",
+          "confidence": 0.9
+        },
+        {
+          "name": "b",
+          "scope": "add",
+          "line": 2,
+          "column": 16,
+          "resolution": "add.b",
+          "confidence": 0.9
+        },
+        {
+          "name": "int",
+          "scope": "add",
+          "line": 1,
+          "column": 28,
+          "resolution": "builtins.int",
+          "confidence": 1.0
+        }
+      ],
+      "scopes": [
+        {
+          "path": "add",
+          "kind": "function",
+          "line": 1
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "add"
+      ],
+      "duplicates": [],
+      "shadowing": [],
+      "unresolved": [],
+      "diagnostics": [],
+      "unsupported": [],
+      "fingerprint": "symbols/1.0.0"
+    },
+    "references": [],
+    "type_relationships": [],
+    "dependency_relationships": [],
+    "comprehension": {
+      "levels": {
+        "1": [
+          {
+            "observation_id": "bcdf67241b24c4c2",
+            "level": 1,
+            "kind": "character_representation",
+            "detail": {
+              "bytes": 49,
+              "codepoints": 49,
+              "utf8_ascii_fraction": 1.0,
+              "printable_fraction": 0.9592,
+              "granularity": "token",
+              "l1_hypothesis": "char-level processing is a measured research hypothesis"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "2": [
+          {
+            "observation_id": "562d5c127a6a2664",
+            "level": 2,
+            "kind": "token_comprehension",
+            "detail": {
+              "token_count": 18,
+              "by_kind": {
+                "ident": 10,
+                "op": 8
+              },
+              "sample_offsets": [
+                [
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  11,
+                  14
+                ],
+                [
+                  14,
+                  15
+                ],
+                [
+                  16,
+                  17
+                ]
+              ]
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "3": [
+          {
+            "observation_id": "7718683bfcd75697",
+            "level": 3,
+            "kind": "lexical_identifier",
+            "detail": {
+              "identifiers": 10,
+              "distinct_identifiers": 6,
+              "keywords_configured": true,
+              "keyword_hits": [
+                "def",
+                "return"
+              ],
+              "keyword_source": "builtin-seed:python"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "4": [
+          {
+            "observation_id": "0042113ab1f90ed1",
+            "level": 4,
+            "kind": "syntax_structure",
+            "detail": {
+              "brackets_balanced": true,
+              "parsed": true,
+              "functions": 1,
+              "classes": 0,
+              "imports": 0,
+              "annotated_assignments": 0,
+              "returns": 1,
+              "branches": 0
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "5": [
+          {
+            "observation_id": "74e3e055279c0b3b",
+            "level": 5,
+            "kind": "semantic_type",
+            "detail": {
+              "annotated_assignments": 0,
+              "import_count": 0,
+              "note": "annotation presence measured; no type checker installed; semantic correctness UNVERIFIED"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.6,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "6": [
+          {
+            "observation_id": "7a2117c4709c81f8",
+            "level": 6,
+            "kind": "task_intent",
+            "detail": {
+              "decomposition": [
+                {
+                  "step": "implement_function",
+                  "basis": "function declaration detected"
+                }
+              ],
+              "single_responsibility_hypothesis": true,
+              "note": "intent decomposition is INFERRED; never verified without tests"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.35,
+            "state": "INFERRED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "7": [
+          {
+            "observation_id": "e89caa2e5e135d41",
+            "level": 7,
+            "kind": "execution_verification",
+            "detail": {
+              "status": "UNVERIFIED",
+              "reason": "no execution oracle engaged in this comprehension pass; see Validation Engine for toolchain verdicts"
+            },
+            "provenance": {
+              "record_id": "src-b414e3e8a1cc84d0",
+              "source": "qual-tool",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:41+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ]
+      },
+      "level_status": {
+        "1": "COMPLETE",
+        "2": "COMPLETE",
+        "3": "COMPLETE",
+        "4": "COMPLETE",
+        "5": "UNCERTAIN",
+        "6": "UNCERTAIN",
+        "7": "UNCERTAIN"
+      }
+    },
+    "toolchain": {
+      "id": "none",
+      "name": "none",
+      "version": "unknown",
+      "available": false,
+      "execution_status": "NOT_RUN"
+    },
+    "provenance": {
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "produced_by": "taksh.dlcae.semantic/1.0.0",
+      "produced_at": "2026-11-11T16:28:41+00:00",
+      "run_id": "fb218dd0ab15dd1b"
+    },
+    "unsupported_constructs": [],
+    "unresolved": [],
+    "result_id": "fb218dd0ab15dd1b",
+    "mode": "tool_assisted",
+    "types": {
+      "schema": "taksh.dlcae.type_analysis/1",
+      "language_id": "python",
+      "adapter": "python-ast-types",
+      "adapter_version": "typesys/1.0.0",
+      "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+      "file": "qual-tool.py",
+      "module": "qual-tool",
+      "status": "PARTIAL",
+      "discipline": "gradual",
+      "relations": [
+        {
+          "kind": "signature",
+          "name": "add",
+          "discipline": "gradual",
+          "parameters": [
+            {
+              "name": "a",
+              "notion": "primitive",
+              "explicit_unknown": false,
+              "type": "int",
+              "detail": "annotation `int` (primitive)"
+            },
+            {
+              "name": "b",
+              "notion": "primitive",
+              "explicit_unknown": false,
+              "type": "int",
+              "detail": "annotation `int` (primitive)"
+            }
+          ],
+          "returns": {
+            "notion": "primitive",
+            "explicit_unknown": false,
+            "type": "int",
+            "detail": "annotation `int` (primitive)"
+          },
+          "source": "python-ast-types"
+        },
+        {
+          "kind": "parameter",
+          "name": "add.a",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        },
+        {
+          "kind": "parameter",
+          "name": "add.b",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        },
+        {
+          "kind": "return",
+          "name": "add -> int",
+          "scope": "add",
+          "discipline": "gradual",
+          "notion": "primitive",
+          "explicit_unknown": false,
+          "type": "int",
+          "detail": "annotation `int` (primitive)",
+          "source": "python-ast-types",
+          "line": 1
+        }
+      ],
+      "unsupported": [],
+      "diagnostics": []
+    },
+    "dependencies": {
+      "schema": "taksh.dlcae.dependency_graph/1",
+      "source_of": "8a0fc37b8ba451d5f3ad7a70b2af24275d1f6e42008893a5104e355426698207",
+      "packages": {
+        "qual-tool": {
+          "module": "qual-tool",
+          "kind": "module",
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be"
+        }
+      },
+      "edges": [],
+      "cycles": [],
+      "missing": [],
+      "diagnostics": [],
+      "node_count": 1,
+      "edge_count": 0
+    },
+    "validation": {
+      "mode": "tool_assisted",
+      "checks": [
+        {
+          "schema": "taksh.dlcae.toolchain_result/1",
+          "tool": "python.exe",
+          "tool_version": "3.14.7",
+          "available": true,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "timed_out": false,
+          "cancelled": false,
+          "duration_ms": 186.909,
+          "argv": [
+            "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-I",
+            "-m",
+            "py_compile",
+            "C:\\WINDOWS\\TEMP\\l100eng2_tools_skwi3zqd\\qual-tool.py"
+          ],
+          "execution_context": "isolated-tmp-workspace",
+          "evidence_classification": "TOOL_VERIFIED"
+        },
+        {
+          "tool": "python.exe",
+          "verdict": "PASS",
+          "note": "syntax accepted by the local toolchain"
+        },
+        {
+          "schema": "taksh.dlcae.toolchain_result/1",
+          "tool": "python-mypy",
+          "tool_version": "mypy 2.3.0 (compiled: yes)",
+          "available": true,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "timed_out": false,
+          "cancelled": false,
+          "duration_ms": 2114.088,
+          "argv": [
+            "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-m",
+            "mypy",
+            "--ignore-missing-imports",
+            "--no-error-summary",
+            "--show-error-codes",
+            "C:\\WINDOWS\\TEMP\\l100eng2_tools_mr5lq7sc\\qual-tool.py"
+          ],
+          "execution_context": "isolated-tmp-workspace",
+          "evidence_classification": "TOOL_VERIFIED"
+        }
+      ],
+      "toolchain": {
+        "id": "python",
+        "name": "python",
+        "version": "3.14.7",
+        "available": true,
+        "execution_status": "EXECUTED",
+        "env_fingerprint": "7dc44c57a437a078bd77dc4dbe6dad22e68ded14d1ad1be03eff3de9090c386c"
+      }
+    },
+    "knowledge": {
+      "records_created": [
+        "kr-a0da1fce57d0",
+        "kr-1ddca3d1f7a3",
+        "kr-615b1dfe8431"
+      ],
+      "promotion": "VERIFIED-bound-to-source"
+    },
+    "feedback": {
+      "correlation": {
+        "verdict": "NO_EVIDENCE",
+        "cascades": [],
+        "uncertain": true
+      },
+      "repair_candidates": {
+        "schema": "taksh.dlcae.repair_candidates/1",
+        "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+        "candidate_count": 0,
+        "candidates": [],
+        "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+      },
+      "feedback_records": 0,
+      "training_handoff": "DISABLED (A1.1-C / A2-E)"
+    },
+    "stage_status": {
+      "comprehension": "PASS",
+      "comprehension_duration_ms": "0.73",
+      "symbols": "PASS",
+      "symbols_duration_ms": "0.151",
+      "types": "PARTIAL",
+      "types_duration_ms": "0.117",
+      "dependencies": "PASS",
+      "dependencies_duration_ms": "0.132",
+      "validation": "PASS",
+      "validation_duration_ms": "2796.656",
+      "knowledge": "PASS",
+      "knowledge_duration_ms": "0.234",
+      "feedback": "PASS",
+      "feedback_duration_ms": "0.011"
+    },
+    "evidence": {
+      "schema": "taksh.dlcae.evidence_ledger/1",
+      "bindings": [
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        }
+      ],
+      "ledger_fingerprint": "979bbc4575242f09958fa5df85e067ac1968f5d121a4f32e17f1ca3951b1cac1",
+      "count": 6
+    },
+    "contract_problems": []
+  },
+  "broken_syntax_result": {
+    "schema": "taksh.dlcae.semantic_contract/1",
+    "contract_version": 1,
+    "language_id": "python",
+    "registry_version": "dynreg/1",
+    "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+    "file": "qual-broken.py",
+    "module": "qual-broken",
+    "status": "FAIL",
+    "diagnostics": [
+      {
+        "category": "syntax_error",
+        "message": "invalid syntax (line 1)",
+        "severity": "ERROR",
+        "line": 1,
+        "column": 12,
+        "file": null,
+        "symbol": null,
+        "source": "python-ast",
+        "tool_version": "symbols/1.0.0",
+        "evidence_classification": "TOOL_VERIFIED"
+      }
+    ],
+    "symbols": {
+      "schema": "taksh.dlcae.symbol_analysis/1",
+      "language_id": "python",
+      "adapter": "python-ast",
+      "adapter_version": "symbols/1.0.0",
+      "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+      "file": "qual-broken.py",
+      "module": "qual-broken",
+      "status": "FAIL",
+      "symbols": [],
+      "references": [],
+      "scopes": [],
+      "imports": [],
+      "exports": [],
+      "duplicates": [],
+      "shadowing": [],
+      "unresolved": [],
+      "diagnostics": [
+        {
+          "category": "syntax_error",
+          "message": "invalid syntax (line 1)",
+          "severity": "ERROR",
+          "line": 1,
+          "column": 12,
+          "file": null,
+          "symbol": null,
+          "source": "python-ast",
+          "tool_version": "symbols/1.0.0",
+          "evidence_classification": "TOOL_VERIFIED"
+        }
+      ],
+      "unsupported": [],
+      "fingerprint": "symbols/1.0.0"
+    },
+    "references": [],
+    "type_relationships": [],
+    "dependency_relationships": [],
+    "comprehension": {
+      "levels": {
+        "1": [
+          {
+            "observation_id": "f69033161184e2a5",
+            "level": 1,
+            "kind": "character_representation",
+            "detail": {
+              "bytes": 26,
+              "codepoints": 26,
+              "utf8_ascii_fraction": 1.0,
+              "printable_fraction": 0.9231,
+              "granularity": "token",
+              "l1_hypothesis": "char-level processing is a measured research hypothesis"
+            },
+            "provenance": {
+              "record_id": "src-e6938fd8f563665f",
+              "source": "qual-broken",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:44+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "2": [
+          {
+            "observation_id": "b20208f25ce37a8c",
+            "level": 2,
+            "kind": "token_comprehension",
+            "detail": {
+              "token_count": 6,
+              "by_kind": {
+                "ident": 3,
+                "op": 2,
+                "number": 1
+              },
+              "sample_offsets": [
+                [
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  12
+                ],
+                [
+                  17,
+                  23
+                ],
+                [
+                  24,
+                  25
+                ]
+              ]
+            },
+            "provenance": {
+              "record_id": "src-e6938fd8f563665f",
+              "source": "qual-broken",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:44+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "3": [
+          {
+            "observation_id": "1e831acfed07fe16",
+            "level": 3,
+            "kind": "lexical_identifier",
+            "detail": {
+              "identifiers": 3,
+              "distinct_identifiers": 3,
+              "keywords_configured": true,
+              "keyword_hits": [
+                "def",
+                "return"
+              ],
+              "keyword_source": "builtin-seed:python"
+            },
+            "provenance": {
+              "record_id": "src-e6938fd8f563665f",
+              "source": "qual-broken",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:44+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "4": [
+          {
+            "observation_id": "62e492dd3714e9b8",
+            "level": 4,
+            "kind": "syntax_structure",
+            "detail": {
+              "brackets_balanced": false,
+              "parsed": false,
+              "error": "invalid syntax (line 1)",
+              "error_line": 1
+            },
+            "provenance": {
+              "record_id": "src-e6938fd8f563665f",
+              "source": "qual-broken",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:44+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          },
+          {
+            "observation_id": "ef615251960d2d6c",
+            "level": 4,
+            "kind": "parse_failure",
+            "detail": {
+              "error": "invalid syntax (line 1)",
+              "error_line": 1
+            },
+            "provenance": {
+              "record_id": "src-e6938fd8f563665f",
+              "source": "qual-broken",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:44+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ]
+      },
+      "level_status": {
+        "1": "COMPLETE",
+        "2": "COMPLETE",
+        "3": "COMPLETE",
+        "4": "FAILED",
+        "5": "BLOCKED",
+        "6": "BLOCKED",
+        "7": "BLOCKED"
+      }
+    },
+    "toolchain": {
+      "id": "none",
+      "name": "none",
+      "version": "unknown",
+      "available": false,
+      "execution_status": "NOT_RUN"
+    },
+    "provenance": {
+      "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+      "produced_by": "taksh.dlcae.semantic/1.0.0",
+      "produced_at": "2026-11-11T16:28:44+00:00",
+      "run_id": "820e4fd75fdeb63c"
+    },
+    "unsupported_constructs": [],
+    "unresolved": [],
+    "result_id": "820e4fd75fdeb63c",
+    "mode": "tool_assisted",
+    "types": {
+      "relations": [],
+      "reason": "syntax failure upstream \u2014 type analysis cannot proceed"
+    },
+    "dependencies": {
+      "schema": "taksh.dlcae.dependency_graph/1",
+      "source_of": "cd11a823943c5ab7537c98708cbe684f239158e9fb9027571a5d3dfda374a069",
+      "packages": {},
+      "edges": [],
+      "cycles": [],
+      "missing": [],
+      "diagnostics": [
+        {
+          "category": "syntax_error",
+          "module": "qual-broken",
+          "message": "invalid syntax (line 1)"
+        }
+      ],
+      "node_count": 0,
+      "edge_count": 0
+    },
+    "validation": {
+      "mode": "tool_assisted",
+      "checks": [
+        {
+          "schema": "taksh.dlcae.toolchain_result/1",
+          "tool": "python.exe",
+          "tool_version": "3.14.7",
+          "available": true,
+          "ok": false,
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "  File \"C:\\WINDOWS\\TEMP\\l100eng2_tools_u0stwtl0\\qual-broken.py\", line 1\r\n    def broken(:\r\n               ^\r\nSyntaxError: invalid syntax\r\n",
+          "timed_out": false,
+          "cancelled": false,
+          "duration_ms": 192.42,
+          "argv": [
+            "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-I",
+            "-m",
+            "py_compile",
+            "C:\\WINDOWS\\TEMP\\l100eng2_tools_u0stwtl0\\qual-broken.py"
+          ],
+          "execution_context": "isolated-tmp-workspace",
+          "evidence_classification": "TOOL_VERIFIED"
+        },
+        {
+          "category": "syntax_error",
+          "message": "File \"C:\\WINDOWS\\TEMP\\l100eng2_tools_u0stwtl0\\qual-broken.py\", line 1\r\n    def broken(:\r\n               ^\r\nSyntaxError: invalid syntax",
+          "severity": "ERROR",
+          "line": null,
+          "column": null,
+          "file": "qual-broken.py",
+          "symbol": null,
+          "source": "python.exe",
+          "tool_version": "3.14.7",
+          "evidence_classification": "TOOL_VERIFIED"
+        },
+        {
+          "schema": "taksh.dlcae.toolchain_result/1",
+          "tool": "python-mypy",
+          "tool_version": "mypy 2.3.0 (compiled: yes)",
+          "available": true,
+          "ok": false,
+          "exit_code": 2,
+          "stdout": "qual-broken.py:1: error: Invalid syntax  [syntax]\r\n",
+          "stderr": "",
+          "timed_out": false,
+          "cancelled": false,
+          "duration_ms": 542.697,
+          "argv": [
+            "C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-m",
+            "mypy",
+            "--ignore-missing-imports",
+            "--no-error-summary",
+            "--show-error-codes",
+            "C:\\WINDOWS\\TEMP\\l100eng2_tools_uunqi2ey\\qual-broken.py"
+          ],
+          "execution_context": "isolated-tmp-workspace",
+          "evidence_classification": "TOOL_VERIFIED"
+        }
+      ],
+      "toolchain": {
+        "id": "python",
+        "name": "python",
+        "version": "3.14.7",
+        "available": true,
+        "execution_status": "EXECUTED",
+        "env_fingerprint": "7dc44c57a437a078bd77dc4dbe6dad22e68ded14d1ad1be03eff3de9090c386c"
+      }
+    },
+    "knowledge": {
+      "records_created": [],
+      "promotion": "OBSERVED-only (no Validation PASS)"
+    },
+    "feedback": {
+      "correlation": {
+        "schema": "taksh.dlcae.failure_correlation/1",
+        "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+        "groups": [
+          {
+            "key": "<unknown>:1",
+            "count": 1,
+            "categories": [
+              "syntax_error"
+            ]
+          },
+          {
+            "key": "qual-broken.py:0",
+            "count": 2,
+            "categories": [
+              "syntax_error"
+            ]
+          }
+        ],
+        "primary": "6813fd12290fe6e5",
+        "primary_category": "syntax_error",
+        "primary_line": 1,
+        "cascades": [],
+        "earliest_known_failure": "6813fd12290fe6e5",
+        "ordered_chain": [
+          "6813fd12290fe6e5",
+          "b6a2bbeb3bde93ce",
+          "12c4a8acccc1c939"
+        ],
+        "uncertain": false,
+        "verdict": "ROOT_CAUSE_IDENTIFIED",
+        "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+      },
+      "repair_candidates": {
+        "schema": "taksh.dlcae.repair_candidates/1",
+        "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+        "candidate_count": 1,
+        "candidates": [
+          {
+            "suggestion_id": "cc613143e4d246e2",
+            "for_diagnostic": {
+              "category": "syntax_error",
+              "line": null,
+              "column": null,
+              "symbol": null
+            },
+            "suggestion": "inspect and rebalance the reported bracket/quote/indentation at the recorded location",
+            "origin": "suggestion-not-verified-fix",
+            "verified": false,
+            "source_mutation": false,
+            "confidence": 0.2
+          }
+        ],
+        "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+      },
+      "feedback_records": 3,
+      "training_handoff": "DISABLED (A1.1-C / A2-E)"
+    },
+    "stage_status": {
+      "comprehension": "FAIL",
+      "comprehension_duration_ms": "0.398",
+      "symbols": "FAIL",
+      "symbols_duration_ms": "0.143",
+      "types": "BLOCKED",
+      "types_duration_ms": "0.003",
+      "dependencies": "PASS",
+      "dependencies_duration_ms": "0.161",
+      "validation": "FAIL",
+      "validation_duration_ms": "1212.976",
+      "knowledge": "UNVERIFIED",
+      "knowledge_duration_ms": "0.039",
+      "feedback": "PASS",
+      "feedback_duration_ms": "0.108"
+    },
+    "evidence": {
+      "schema": "taksh.dlcae.evidence_ledger/1",
+      "bindings": [
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        }
+      ],
+      "ledger_fingerprint": "979bbc4575242f09958fa5df85e067ac1968f5d121a4f32e17f1ca3951b1cac1",
+      "count": 6
+    },
+    "contract_problems": []
+  },
+  "karkain_result": {
+    "schema": "taksh.dlcae.semantic_contract/1",
+    "contract_version": 1,
+    "language_id": "karkain",
+    "registry_version": "dynreg/1",
+    "source_sha256": "536e506bb90914c243a12b397b9a998f85ae2cbd9ba02dfd03a9e155ca5ca0f4",
+    "file": "qual-kark.kark",
+    "module": "qual-kark",
+    "status": "PARTIAL",
+    "diagnostics": [
+      {
+        "category": "blocked",
+        "message": "symbol analysis requires KCC; kcc.exe fails with 0xC0000135 on this host",
+        "severity": "ERROR",
+        "line": null,
+        "column": null,
+        "file": null,
+        "symbol": null,
+        "source": "karkain-kcc",
+        "tool_version": "kcc v1.1.0 (unavailable)",
+        "evidence_classification": "UNVERIFIED"
+      }
+    ],
+    "symbols": {
+      "schema": "taksh.dlcae.symbol_analysis/1",
+      "language_id": "karkain",
+      "adapter": "karkain-kcc",
+      "adapter_version": "symbols/1.0.0",
+      "source_sha256": "536e506bb90914c243a12b397b9a998f85ae2cbd9ba02dfd03a9e155ca5ca0f4",
+      "file": "qual-kark.kark",
+      "module": "qual-kark",
+      "status": "BLOCKED",
+      "symbols": [],
+      "references": [],
+      "scopes": [],
+      "imports": [],
+      "exports": [],
+      "duplicates": [],
+      "shadowing": [],
+      "unresolved": [],
+      "diagnostics": [
+        {
+          "category": "blocked",
+          "message": "symbol analysis requires KCC; kcc.exe fails with 0xC0000135 on this host",
+          "severity": "ERROR",
+          "line": null,
+          "column": null,
+          "file": null,
+          "symbol": null,
+          "source": "karkain-kcc",
+          "tool_version": "kcc v1.1.0 (unavailable)",
+          "evidence_classification": "UNVERIFIED"
+        }
+      ],
+      "unsupported": [
+        "KARK-BENCH: 0 instantiated tasks",
+        "kcc.exe 0xC0000135 \u2014 symbol table unavailable; no parser substitution authorized"
+      ],
+      "fingerprint": "symbols/1.0.0"
+    },
+    "references": [],
+    "type_relationships": [],
+    "dependency_relationships": [],
+    "comprehension": {
+      "levels": {
+        "1": [
+          {
+            "observation_id": "49eecd162f8f5a04",
+            "level": 1,
+            "kind": "character_representation",
+            "detail": {
+              "bytes": 13,
+              "codepoints": 13,
+              "utf8_ascii_fraction": 1.0,
+              "printable_fraction": 0.9231,
+              "granularity": "token",
+              "l1_hypothesis": "char-level processing is a measured research hypothesis"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "2": [
+          {
+            "observation_id": "851f7ee4dd4e0959",
+            "level": 2,
+            "kind": "token_comprehension",
+            "detail": {
+              "token_count": 6,
+              "by_kind": {
+                "ident": 2,
+                "op": 4
+              },
+              "sample_offsets": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  12
+                ]
+              ]
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "3": [
+          {
+            "observation_id": "fde63b24619b1f59",
+            "level": 3,
+            "kind": "lexical_identifier",
+            "detail": {
+              "identifiers": 2,
+              "distinct_identifiers": 2,
+              "keywords_configured": true,
+              "keyword_hits": [
+                "fn"
+              ],
+              "keyword_source": "builtin-seed:karkain"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 1.0,
+            "state": "OBSERVED",
+            "uncertain": false,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "4": [
+          {
+            "observation_id": "716d3a934b8a3769",
+            "level": 4,
+            "kind": "structural_heuristic",
+            "detail": {
+              "brackets_balanced": true,
+              "depth": {
+                "(": 0,
+                "[": 0,
+                "{": 0
+              },
+              "note": "no grammar/parser qualified for this language on this host; structure inferred heuristically \u2014 UNCERTAIN, never VERIFIED"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 0.4,
+            "state": "INFERRED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "5": [
+          {
+            "observation_id": "27cb8927af7da69d",
+            "level": 5,
+            "kind": "semantic_type",
+            "detail": {
+              "status": "UNVERIFIED",
+              "reason": "no semantic oracle qualified for 'karkain' on this host"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "INFERRED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "6": [
+          {
+            "observation_id": "7a2117c4709c81f8",
+            "level": 6,
+            "kind": "task_intent",
+            "detail": {
+              "decomposition": [
+                {
+                  "step": "implement_function",
+                  "basis": "function declaration detected"
+                }
+              ],
+              "single_responsibility_hypothesis": true,
+              "note": "intent decomposition is INFERRED; never verified without tests"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 0.35,
+            "state": "INFERRED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ],
+        "7": [
+          {
+            "observation_id": "e89caa2e5e135d41",
+            "level": 7,
+            "kind": "execution_verification",
+            "detail": {
+              "status": "UNVERIFIED",
+              "reason": "no execution oracle engaged in this comprehension pass; see Validation Engine for toolchain verdicts"
+            },
+            "provenance": {
+              "record_id": "src-536e506bb90914c2",
+              "source": "qual-kark",
+              "source_kind": "repository",
+              "license_spdx": "owner-internal",
+              "retrieved": "2026-11-11T16:28:45+00:00",
+              "note": ""
+            },
+            "confidence": 0.0,
+            "state": "OBSERVED",
+            "uncertain": true,
+            "conflict_ids": [],
+            "offsets": null
+          }
+        ]
+      },
+      "level_status": {
+        "1": "COMPLETE",
+        "2": "COMPLETE",
+        "3": "COMPLETE",
+        "4": "UNCERTAIN",
+        "5": "UNCERTAIN",
+        "6": "UNCERTAIN",
+        "7": "UNCERTAIN"
+      }
+    },
+    "toolchain": {
+      "id": "none",
+      "name": "none",
+      "version": "unknown",
+      "available": false,
+      "execution_status": "NOT_RUN"
+    },
+    "provenance": {
+      "source_sha256": "536e506bb90914c243a12b397b9a998f85ae2cbd9ba02dfd03a9e155ca5ca0f4",
+      "produced_by": "taksh.dlcae.semantic/1.0.0",
+      "produced_at": "2026-11-11T16:28:45+00:00",
+      "run_id": "87806289fee1bfb4"
+    },
+    "unsupported_constructs": [],
+    "unresolved": [],
+    "result_id": "87806289fee1bfb4",
+    "mode": "tool_assisted",
+    "types": {
+      "schema": "taksh.dlcae.type_analysis/1",
+      "language_id": "karkain",
+      "adapter": "karkain-kcc-types",
+      "adapter_version": "typesys/1.0.0",
+      "source_sha256": "536e506bb90914c243a12b397b9a998f85ae2cbd9ba02dfd03a9e155ca5ca0f4",
+      "file": "qual-kark.kark",
+      "module": "qual-kark",
+      "status": "BLOCKED",
+      "discipline": "static",
+      "relations": [],
+      "unsupported": [
+        "kcc.exe 0xC0000135 \u2014 no type oracle; Karkain semantics must not be inferred from spec reading"
+      ],
+      "diagnostics": []
+    },
+    "dependencies": {
+      "edges": [],
+      "reason": "no dependency adapter qualified for 'karkain'"
+    },
+    "validation": {
+      "mode": "tool_assisted",
+      "checks": [
+        {
+          "tool": "karkain",
+          "available": false,
+          "reason": "TOOLCHAIN_UNAVAILABLE"
+        }
+      ]
+    },
+    "knowledge": {
+      "records_created": [],
+      "promotion": "OBSERVED-only (no Validation PASS)"
+    },
+    "feedback": {
+      "correlation": {
+        "schema": "taksh.dlcae.failure_correlation/1",
+        "source_sha256": "e6938fd8f563665fcaefec05805213a62ed5a1fa7a136aa6aad7c16602ca1da8",
+        "groups": [
+          {
+            "key": "<unknown>:0",
+            "count": 1,
+            "categories": [
+              "blocked"
+            ]
+          },
+          {
+            "key": "<unknown>:1",
+            "count": 1,
+            "categories": [
+              "syntax_error"
+            ]
+          },
+          {
+            "key": "qual-broken.py:0",
+            "count": 2,
+            "categories": [
+              "syntax_error"
+            ]
+          }
+        ],
+        "primary": "6813fd12290fe6e5",
+        "primary_category": "syntax_error",
+        "primary_line": 1,
+        "cascades": [],
+        "earliest_known_failure": "6813fd12290fe6e5",
+        "ordered_chain": [
+          "6813fd12290fe6e5",
+          "b6a2bbeb3bde93ce",
+          "12c4a8acccc1c939",
+          "f2e8de4d5b6aef2a"
+        ],
+        "uncertain": false,
+        "verdict": "ROOT_CAUSE_IDENTIFIED",
+        "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+      },
+      "repair_candidates": {
+        "schema": "taksh.dlcae.repair_candidates/1",
+        "source_sha256": "536e506bb90914c243a12b397b9a998f85ae2cbd9ba02dfd03a9e155ca5ca0f4",
+        "candidate_count": 0,
+        "candidates": [],
+        "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+      },
+      "feedback_records": 4,
+      "training_handoff": "DISABLED (A1.1-C / A2-E)"
+    },
+    "stage_status": {
+      "comprehension": "PASS",
+      "comprehension_duration_ms": "0.507",
+      "symbols": "BLOCKED",
+      "symbols_duration_ms": "0.094",
+      "types": "BLOCKED",
+      "types_duration_ms": "0.022",
+      "dependencies": "NOT_APPLICABLE",
+      "dependencies_duration_ms": "0.008",
+      "validation": "BLOCKED",
+      "validation_duration_ms": "0.007",
+      "knowledge": "UNVERIFIED",
+      "knowledge_duration_ms": "0.02",
+      "feedback": "BLOCKED",
+      "feedback_duration_ms": "0.046"
+    },
+    "evidence": {
+      "schema": "taksh.dlcae.evidence_ledger/1",
+      "bindings": [
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:41+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-a0da1fce57d0",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-1ddca3d1f7a3",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        },
+        {
+          "source_sha256": "b414e3e8a1cc84d091471727544c353f60db59fc2bea10ee562ece77410915be",
+          "record_id": "kr-615b1dfe8431",
+          "validation_verdict": "PASS",
+          "bound_at": "2026-11-11T16:28:44+00:00"
+        }
+      ],
+      "ledger_fingerprint": "979bbc4575242f09958fa5df85e067ac1968f5d121a4f32e17f1ca3951b1cac1",
+      "count": 6
+    },
+    "contract_problems": []
+  },
+  "interrupted_resume_check": {
+    "interrupted_status": "INCOMPLETE",
+    "resume_token_issued": true,
+    "resumed_status": "PARTIAL",
+    "resumed_stages_completed": [
+      "comprehension",
+      "symbols",
+      "types",
+      "dependencies",
+      "validation",
+      "knowledge",
+      "feedback"
+    ]
+  },
+  "source_hash_invalidation": {
+    "schema": "taksh.dlcae.invalidation_report/1",
+    "at": "2026-11-11T16:28:45+00:00",
+    "source_sha256": "e264ed6acf0e847ea9a61a7157a24cf3a9855a2ae07cdaa988eb422c19da446f",
+    "invalidated_records": [
+      "kr-a0da1fce57d0"
+    ],
+    "invalidated_count": 1,
+    "retained_bindings": 0,
+    "rule": "evidence tied to a source hash cannot outlive that source identity"
+  },
+  "metrics": {
+    "symbol_detection": {
+      "schema": "taksh.dlcae.semantic_symbol_metrics/1",
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positives": 4,
+      "detected": [
+        "Widget",
+        "Widget2",
+        "helper",
+        "render"
+      ],
+      "imports_detected": [
+        "os"
+      ],
+      "exports": [
+        "CONSTANT",
+        "Widget",
+        "Widget2",
+        "helper",
+        "os"
+      ],
+      "unresolved": {
+        "expected": [
+          "nonexistent_symbol_to_detect"
+        ],
+        "found": [
+          "nonexistent_symbol_to_detect"
+        ],
+        "all_expected_detected": true,
+        "precision": 1.0
+      },
+      "shadowing": {
+        "expected_shadow_count": 1,
+        "shadowing": [
+          {
+            "name": "x",
+            "scope": "f",
+            "shadows": "<module>",
+            "line": 3
+          }
+        ],
+        "shadow_detected": true
+      },
+      "duplicates": {
+        "expected": "f",
+        "detected": [
+          "f"
+        ],
+        "duplicate_detected": true
+      },
+      "duration_ms": 0.367,
+      "truth_source": "synthetic fixture (never frozen benchmarks)"
+    },
+    "type_relations": {
+      "schema": "taksh.dlcae.semantic_type_metrics/1",
+      "relations_found": 5,
+      "kinds_found": [
+        "parameter",
+        "return",
+        "signature",
+        "variable"
+      ],
+      "expected_kinds_present": true,
+      "parameter_annotations": [
+        {
+          "name": "annotate.a",
+          "type": "int"
+        },
+        {
+          "name": "annotate.b",
+          "type": "str"
+        }
+      ],
+      "unannotated_count": 0,
+      "discipline": "gradual"
+    },
+    "dependency_graph": {
+      "schema": "taksh.dlcae.semantic_dependency_metrics/1",
+      "cycle_sources": [
+        "cyc_a",
+        "cyc_b",
+        "cyc_c"
+      ],
+      "cycles_detected": [
+        [
+          "cyc_a",
+          "cyc_b",
+          "cyc_c",
+          "cyc_a"
+        ]
+      ],
+      "cycle_detected": true,
+      "missing_detector": [
+        "definitely_not_installed_pkg_xyz123"
+      ],
+      "missing_dependency_detected": true,
+      "installed_stdlib_recognized": true
+    },
+    "reproducibility": {
+      "schema": "taksh.dlcae.reproducibility/1",
+      "fingerprint_a": "28bff297ee602c2d5722bde3b39850cdd2c4fe1b74afe151e2c9c1c2e4e5b2ae",
+      "fingerprint_b": "28bff297ee602c2d5722bde3b39850cdd2c4fe1b74afe151e2c9c1c2e4e5b2ae",
+      "byte_identical": true
+    },
+    "memory": {
+      "schema": "taksh.dlcae.memory_trace/1",
+      "peak_bytes": 56176,
+      "tool": "tracemalloc"
+    },
+    "type_compatibility": {
+      "schema": "taksh.dlcae.type_compatibility/1",
+      "observations": {
+        "int->float": "COMPATIBLE_WIDENING",
+        "bool->int": "COMPATIBLE_WIDENING",
+        "str->int": "INCOMPATIBLE_OR_UNKNOWN",
+        "None->int": "UNVERIFIED",
+        "int->None": "UNVERIFIED",
+        "Any->str": "INCOMPATIBLE_OR_UNKNOWN",
+        "int->int": "IDENTICAL"
+      },
+      "unknown_discipline_preserved": true
+    }
+  },
+  "preservation": {
+    "frozen_python_benchmark": true,
+    "multilingual_benchmark": true,
+    "v180_sft_checkpoint_untouched": true,
+    "foundation_config_untouched": true,
+    "tokenizer_committed_blob_untouched": true
+  },
+  "training_handoff": {
+    "schema": "taksh.dlcae.learning_handoff/1",
+    "authorized": false,
+    "owner_decision": {
+      "checked": [
+        "A1.1-C",
+        "A2-E"
+      ],
+      "ok": true,
+      "training_authorized": false,
+      "source": "F:\\Codes\\Git\\Quantsmind-LLM\\docs\\L075_L080_OWNER_DECISION_RECORD.md"
+    },
+    "candidates": [],
+    "released": [],
+    "reason": "missing owner decision(s): A1.1-A (training authorization), A2-A / A2-B / A2-D (compute authorization). A1.1-C preparation-only + A2-E authorize no training. Handoff refused.",
+    "training_eligible_tokens": 0
+  },
+  "canonical_checkpoint": "MISSING",
+  "v180_sft": "GEOMETRY_INCOMPATIBLE \u2014 never substituted",
+  "capability_claim": "none",
+  "language_qualification_promotion": "none \u2014 no language promoted by this milestone",
+  "verdict": "L1.0.0-ENG2 SEMANTIC AND EXECUTION VALIDATION FOUNDATION QUALIFIED (engineering qualification only \u2014 no capability claim)",
+  "core_ok": true
+}

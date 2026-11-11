@@ -47,6 +47,7 @@ class DLCAERuntime:
         self.learning = LearningFeedbackEngine()
         self.karkain = KarkainAdapter()
         self.sessions: dict[str, dict[str, Any]] = {}
+        self._semantic_engine_instance = None   # L1.0.0-ENG2: lazily created
 
     # ------------------------------------------------------------------ #
     def open_session(self, document_id: str, language_id: str, text: str, *,
@@ -208,6 +209,32 @@ class DLCAERuntime:
         self.persistence.save_json(
             f"sequences/{session['sequence_id']}.json",
             self.sequences.checkpoint(session["sequence_id"]))
+
+    # ------------------------------------------------------------------ #
+    def semantic_analysis(self, document_id: str, language_id: str, text: str, *,
+                          file: str | None = None, module: str | None = None,
+                          mode: str = "model_only", stop_after: str | None = None,
+                          resume_token: str | None = None,
+                          extra_sources: dict[str, str] | None = None,
+                          changed_modules: list[str] | None = None) -> dict[str, Any]:
+        """Run the L1.0.0-ENG2 semantic pipeline (additive hook; no engines forked)."""
+        return self._semantic_engine().analyze(
+            document_id, language_id, text, file=file, module=module, mode=mode,
+            stop_after=stop_after, resume_token=resume_token,
+            extra_sources=extra_sources, changed_modules=changed_modules)
+
+    def semantic_invalidate(self, source_sha256: str, reason: str) -> dict[str, Any]:
+        """Invalidate every evidence binding to a source hash (ENG2 invalidation path)."""
+        return self._semantic_engine().verify_source(source_sha256, reason=reason)
+
+    def _semantic_engine(self):
+        if self._semantic_engine_instance is None:
+            from taksh.dlcae.semantic.engine import SemanticAnalysisEngine
+
+            self._semantic_engine_instance = SemanticAnalysisEngine(
+                knowledge=self.knowledge, validation=self.validation,
+                state_store=self.persistence)
+        return self._semantic_engine_instance
 
     def status(self) -> dict[str, Any]:
         integrity = self.persistence.verify_integrity()

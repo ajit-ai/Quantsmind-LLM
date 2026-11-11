@@ -40,6 +40,22 @@ class KarkainAdapter:
         self.blocked_events: list[dict[str, Any]] = []
 
     # ------------------------------------------------------------------ #
+    def semantic_summary(self) -> dict[str, Any]:
+        """ENG2 semantic contract for Karkain — always BLOCKED while KCC is unavailable."""
+        return {
+            "schema": "taksh.dlcae.karkain_semantic/1",
+            "language_id": self.language_id,
+            "status": "BLOCKED",
+            "reason": ("KCC unavailable on this host (0xC0000135); no semantic/type/"
+                       "execution oracle; bypassing KCC is prohibited"),
+            "symbol_analysis": "BLOCKED",
+            "type_analysis": "BLOCKED",
+            "dependency_analysis": "NOT_APPLICABLE",
+            "execution": "BLOCKED",
+            "kark_bench_tasks": KARK_BENCH_TASKS,
+            "at": utcnow_iso(),
+        }
+
     def is_karkain_source(self, filename: str) -> bool:
         return str(filename).lower().endswith(self.extensions)
 

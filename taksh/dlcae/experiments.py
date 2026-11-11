@@ -95,7 +95,10 @@ class ExperimentFramework:
     def run_arm(self, arm: str, task_set: str, *, seeds: list[int],
                 model_fn: Callable[[dict[str, Any], int], dict[str, Any]],
                 retrieval_fn: Callable[[dict[str, Any]], list[dict[str, Any]]] | None = None,
-                tool_assisted: bool = False) -> dict[str, Any]:
+                tool_assisted: bool = False,
+                semantic_metrics: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Execute one arm. ``semantic_metrics`` (L1.0.0-ENG2, additive) records
+        semantic-validation measurements for the same run — no hypothesis forced."""
         if arm not in ARMS:
             raise ValueError(f"unknown arm {arm!r}; expected one of {sorted(ARMS)}")
         if len(seeds) < 3:
@@ -148,6 +151,13 @@ class ExperimentFramework:
                                           "tool_assisted": tool_assisted}),
             "executed_at": utcnow_iso(),
         }
+        if semantic_metrics is not None:
+            record["semantic_metrics"] = {
+                "measured_by": "taksh.dlcae.semantic.metrics (synthetic ground truth)",
+                "recorded": True,
+                "values": semantic_metrics,
+                "claim": "engineering measurement only — no comparative or capability claim",
+            }
         self.runs.append(record)
         return record
 
