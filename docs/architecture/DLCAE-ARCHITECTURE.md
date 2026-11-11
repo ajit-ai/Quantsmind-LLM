@@ -1,8 +1,8 @@
 # DLCAE — Dynamic Language Comprehension and Adaptation Engine
 
-**Status:** architecture specification (L0.6.0-R1). **DLCAE is NOT implemented.**
-Every component below is a *specified contract*, not working software. Nothing
-in this document may be read as evidence of capability.
+**Status:** architecture specification (L0.6.0-R1) + implemented runtime foundation (L1.0.0-ENG, 2026-11-11). The DLCAE *runtime foundation* now exists in `taksh/dlcae/` (six engines, engineering qualification only); DLCAE is NOT a qualified capability and no benchmark claim is authorized.
+**Every component below is both a contract and, since L1.0.0-ENG, executable software.** Nothing
+may be read as evidence of capability. Engineering qualification is not model capability.
 
 **Purpose.** TAKSH must progressively comprehend, learn, adapt to and qualify
 arbitrary programming languages without a fixed catalogue and without a
@@ -161,8 +161,20 @@ Every adaptation of TAKSH to something new — a language, version, dialect, fra
 
 ## 7. Implementation status (honest)
 
-- **Specified:** everything in this document.
-- **Partially implemented:** nothing.
-- **Implemented:** nothing.
-- **Test evidence:** none for DLCAE (by design, this milestone qualifies the
-  architecture and its contracts; no DLCAE runtime exists).
+- **Specified:** the six engines and their contracts (this document).
+- **Implemented (L1.0.0-ENG, 2026-11-11):** a working runtime foundation in
+  `taksh/dlcae/` — Incremental Comprehension (L1-L7), Sequence Orchestration
+  (DAG, checkpoint/resume, isolation), Knowledge Formation (OBSERVED /
+  INFERRED / VERIFIED / CONFLICTED / INVALIDATED), Language Adaptation
+  (dynamic registry, no ceiling, promotion/demotion), Validation
+  (model-only vs tool-assisted, fail-closed), Learning Feedback
+  (authorization-gated; training handoff DISABLED under A1.1-C / A2-E),
+  persistence with integrity/tamper detection, Karkain first-class adapter
+  (BLOCKED: KCC 0xC0000135), and an A/B/C experiment framework.
+- **Engine status:** all six engines IMPLEMENTED_AND_TESTED (engineering
+  qualification only — see `docs/L100ENG_DLCAE_RUNTIME_FOUNDATION.md`).
+- **Test evidence:** `tests/test_l100eng_dlcae_runtime.py` (70 focused tests).
+- **Capability claim:** none. Engineering qualification is not model
+  capability; no benchmark improvement is asserted; TAKSH-KARK-BENCH
+  remains 0 instantiated tasks; the canonical 111M checkpoint remains
+  MISSING; the frozen Python benchmark remains 0/30.
