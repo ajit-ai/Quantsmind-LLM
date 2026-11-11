@@ -1,0 +1,81 @@
+name: CI (L0.7.4 manual qualification)
+
+# CI-only manual qualification path. Does NOT replace, alter or bypass the
+# production `CI` workflow. Runs read-only, no releases, no publication.
+# Tests-only: focused and full suite excluding three tests that require
+# untracked local `runs/` artifacts not present on a bare checkout:
+#   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
+#   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
+#   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to qualify (branch, tag or SHA)'
+        required: false
+        default: 'feature/l060-foundation-model-qualification'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies (CPU torch)
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Version consistency
+        run: python scripts/check_version_consistency.py
+
+      - name: Focused qualification chain (L0.6.0 -> L0.7.4)
+        run: |
+          python -m pytest \
+            tests/test_l060_foundation.py \
+            tests/test_l060r1_architecture_alignment.py \
+            tests/test_m6_resources.py \
+            tests/test_l0601_pipeline.py \
+            tests/test_l062_inference.py \
+            tests/test_l070_data_readiness.py \
+            tests/test_l071_corpus.py \
+            tests/test_l072_freeze.py \
+            tests/test_l073_readiness.py \
+            -q
+
+      - name: Full suite minus untracked-artifact tests
+        run: |
+          python -m pytest tests -q \
+            --deselect tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility \
+            --deselect tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism \
+            --deselect tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
+
+      - name: Training readiness gate (informational; fail-closed)
+        run: python -m evaluation.l073_readiness --out "$RUNNER_TEMP/l073.json" && cat "$RUNNER_TEMP/l073.json" | python -c "import json,sys; print('verdict:', json.load(sys.stdin)['verdict'])"
+
+      - name: Frozen benchmark hashes (must match exactly)
+        run: |
+          python - <<'EOF'
+          import hashlib
+          expected = {
+              "evaluation/l02_python_bench_v1.json": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+              "evaluation/l051_multilingual_benchmark_v1.json": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+          }
+          for path, want in expected.items():
+              got = hashlib.sha256(open(path, "rb").read()).hexdigest()
+              assert got == want, f"{path}: {got} != {want}"
+          print("frozen benchmarks intact")
+          EOF

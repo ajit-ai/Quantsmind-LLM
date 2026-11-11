@@ -1,0 +1,149 @@
+{
+  "schema": "taksh.resource_strategy/1",
+  "id": "taksh-l074-resource-strategy-v1",
+  "created": "2026-11-11",
+  "generated_by": "evaluation/l074_resource_strategy.py (analysis) — manual authoring notes preserved in docs/L074_RESOURCE_STRATEGY.md",
+  "measurements": {
+    "host": {
+      "measured_at": "2026-11-11T16:03Z",
+      "cpu_count_logical": 8,
+      "memory_total_bytes": 4199780352,
+      "memory_available_bytes": 207020032,
+      "memory_percent_used": 95.1,
+      "swap_total_bytes": 8589934592,
+      "swap_free_bytes": 6379991040,
+      "disk_free_bytes": 182920556544,
+      "tool": "psutil",
+      "labels": "measured"
+    },
+    "gpu": {
+      "present": true,
+      "model": "NVIDIA GeForce MX150",
+      "vram_mib": 4096,
+      "driver_version": "457.49",
+      "cuda_driver_capability": "11.1",
+      "torch_cuda_available": false,
+      "torch_cuda_reason": "installed torch is 2.13.0+cpu (no CUDA runtime); driver CUDA 11.1 is far older than current wheel requirements",
+      "labels": "measured"
+    }
+  },
+  "canonical_model": {
+    "config": "taksh-foundation-111m",
+    "params": 110658816,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "n_kv_heads": 6,
+    "ffn_dim": 3072,
+    "context_length": 2048,
+    "gqa": true,
+    "swiglu": true,
+    "tied_embeddings": true
+  },
+  "estimates_labelled": {
+    "fp32_weights_bytes": 442635264,
+    "fp32_weights_grads_optimizer_bytes": 1770541056,
+    "bf16_weights_fp32_optimizer_bytes": "estimate_~1.1e9 (weights 221MB + grads 221MB + Adam fp32 m,v 885MB)",
+    "fp16_weights_grad_checkpointing_activation_savings": "activations reduced ~2-4x; weights+grads+Adam floor unchanged",
+    "estimate_note": "mathematically derived from parameter count; NOT measured end-to-end; NOT a guarantee"
+  },
+  "strategies": {
+    "A_local_cpu_host": {
+      "description": "train on the current 4.2 GiB, ~95%-used, CPU-only Windows host",
+      "min_theoretical": {
+        "ram_bytes": 1770541056,
+        "disk_bytes": 4000000000,
+        "note": "fp32+Adam floor only; activations and runtime extra"
+      },
+      "recommended": {
+        "ram_bytes": 8589934592,
+        "disk_bytes": 80000000000,
+        "cpu": "8+ cores",
+        "labels": "not met by this host: 4.2 GiB RAM, 95% used, ~0.2 GiB available"
+      },
+      "viability": "NOT VIABLE — required ~1.77 GiB training state + activations + runtime headroom exceeds available (~0.2 GiB) and total (4.2 GiB, shared with OS and 97%-occupied)"
+    },
+    "B_memory_efficient_cpu": {
+      "description": "bf16/fp16 + Adafactor-style factorized optimizer + gradient checkpointing + micro-batch 1 + grad-accum 64+, context 2048 (canonical) or a separately-qualified short context",
+      "min_theoretical": {
+        "ram_bytes": "~0.6e9 (bf16 weights 221MB + bf16 grads 221MB + factorized optimizer state ~50-150MB; estimate)",
+        "disk_bytes": 4000000000
+      },
+      "recommended": {
+        "ram_bytes": 68719476736,
+        "disk_bytes": 80000000000,
+        "note": "needs >= 64 GiB free RAM for sane throughput and checkpoint safety margin"
+      },
+      "known_issues": [
+        "bitsandbytes-style 8-bit optimizers are unavailable/unverified on Windows CPU",
+        "swap-backed training risks swap-thrash; swap exists (8.59 GB, 6.38 free) but training on swap is impractical",
+        "CPU throughput for 111M bf16 on 8 threads is unverified and likely impractical for any real token budget",
+        "reduced context breaks the canonical 2048-token profile and would itself require a separate qualification"
+      ],
+      "viability": "NOT VIABLE as a qualification path for training the canonical 111M on this host; theoretical only, unmeasured, unverified"
+    },
+    "C_owner_provided_gpu": {
+      "description": "owner-provided CUDA-capable GPU environment",
+      "min_theoretical": {
+        "vram_gib": 8,
+        "note": "absolute floor for bf16 111M + 2048 context + modest batch; estimate",
+        "disk_gib": 80
+      },
+      "recommended": {
+        "vram_gib": 16,
+        "ram_gib": 16,
+        "disk_gib": 80,
+        "note": "comfortable bf16 training with checkpointing and modest batch; estimate, not a guarantee"
+      },
+      "precision_optimizer_compatibility": [
+        "requires bf16-capable GPU (Pascal/MX150 lacks bf16)",
+        "requires CUDA-capable driver matching the installed torch build",
+        "this host's MX150 (4 GiB, CUDA 11.1 driver, no torch CUDA) is NOT usable without a separate toolchain migration that is out of scope and unauthorized"
+      ],
+      "viability": "NOT AVAILABLE — only MX150 present; incompatible with installed stack and insufficient for comfort"
+    },
+    "D_external_compute_owner_authorized": {
+      "description": "owner-authorized external/rented GPU compute or owner-provided server",
+      "minimum_viable_environment": {
+        "vram_gib": 16,
+        "ram_gib": 16,
+        "disk_gib": 80,
+        "cuda": "current supported driver + CUDA 12.x",
+        "authorization": "OWNER AUTHORIZATION REQUIRED IN WRITING before any spend, provisioning or download"
+      },
+      "recommended_environment": {
+        "vram_gib": 24,
+        "ram_gib": 32,
+        "disk_gib": 160,
+        "note": "room for checkpoint lineage, optimizer restart, and artifact export"
+      },
+      "known_risks": [
+        "no prices, no vendors, no throughput claims are invented or permitted without owner inspection",
+        "rented environments introduce data-handling obligations (corpus residency, license propagation)",
+        "owner must approve security model, spot-vs-on-demand tradeoff, and data retention before provisioning"
+      ],
+      "viability": "POSSIBLE ONLY WITH OWNER AUTHORIZATION — not available; zero provisioning performed"
+    }
+  },
+  "measured_vs_estimated": {
+    "measured": ["host memory 4,199,780,352 B; available 207,020,032 B at 16:03Z; disk free 182,920,556,544 B; 8 logical CPUs; swap 8.59 GB (6.38 free); MX150 4,096 MiB; driver 457.49"],
+    "estimated": ["all VRAM/RAM figures for training (algorithmic); CPU throughput; any comfort margins"],
+    "unverified_assumptions": [
+      "no real training run has measured actual peak memory for the canonical config",
+      "MX150 bf16 unsupported (Pascal); fp16 borderline; both untested with the canonical model",
+      "swap-backed training viability not measured",
+      "checkpoint save/load peak RSS not measured for this model"
+    ]
+  },
+  "recommendation": {
+    "decision": "REJECT local CPU and MX150 for canonical-111M training now",
+    "minimum_viable_environment": "single GPU with >= 16 GiB VRAM (bf16) + >= 16 GiB system RAM + >= 80 GiB free disk + current CUDA toolchain",
+    "resource_strategy_availability": "BLOCKED — no qualifying environment exists on this host or with the installed stack",
+    "owner_actions_required": [
+      "authorize acquisition of a qualifying environment (or provide one)",
+      "authorize data handling for the corpus on that environment",
+      "authorize training in writing, including duration/checkpoint policy",
+      "authorize external vs internal residency decision for derived artifacts"
+    ]
+  }
+}
