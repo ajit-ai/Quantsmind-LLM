@@ -1,0 +1,80 @@
+{
+  "schema": "taksh.l060r1_dynamic_language_registry/1",
+  "generated_by": "evaluation/l060r1_dynamic_registry.py",
+  "valid": true,
+  "base_registry": {
+    "languages": 53,
+    "l1_targets": 16
+  },
+  "extension_entries": [
+    {
+      "id": "karkain",
+      "name": "Karkain",
+      "aliases": [
+        "karkain-lang",
+        "Karkain Programming Language"
+      ],
+      "version_or_dialect": "SPEC v1.1.0 (reference compiler v1.1.0); branch feature/v1.2.0-native-independence",
+      "extensions": [
+        ".kark"
+      ],
+      "tokenizer_metadata": "reuses taksh_code_bpe_v1.json (vocab 5,822); no new tokens assumed",
+      "grammar_or_spec_reference": "Karkain SPEC.md v1.1.0 (extracted from pkg/lexer|parser|sema|codegen|ir/ssa); repo: github.com/ajit-ai/Karkain",
+      "semantic_metadata": "static typing; ownership + borrow checker (borrow/move semantics); no GC in native path; KIR v1 SSA IR",
+      "compiler_or_runtime_integration": "Karkain CLI (cmd/karkain); engine kcc (Go reference compiler); KCC is the authoritative compilation + validation oracle wherever available; local toolchain health: PARTIAL (see limitations)",
+      "execution_config": "native executable emission (x86_64-windows native; c-free PE backend); transpile C23/wasm32-wasi; runtime requirements per target",
+      "stdlib_knowledge_reference": "stdlib/ (async, collections, core, crypto, db, encoding, generics, gpu, http, io, math, net, numerics, string, system, testing)",
+      "documentation_and_provenance": "SPEC.md, stdlib.md, examples/ (app.kark golden sample), conformance/ corpus; local clone at F:/Codes/Git/Karkain",
+      "license_and_source_authorization": "owner-internal repository; owner authorization required for any redistribution or training-corpus use; NOT cleared for training ingestion",
+      "qualification_status": "DISCOVERED",
+      "benchmark_associations": [
+        "TAKSH-KARK-BENCH v1.0.0 schema"
+      ],
+      "adaptation_history": []
+    }
+  ],
+  "capability_assessment": {
+    "karkain": {
+      "status": "DISCOVERED",
+      "is_capability_state": false,
+      "disclaimer": "discovery/registration/comprehension/progress never implies capability; only FUNCTIONALLY_QUALIFIED or ENGINEERING_QUALIFIED does (never claimed here)"
+    }
+  },
+  "merged_view": {
+    "base_count": 53,
+    "extension_count": 1,
+    "total_languages": 54,
+    "ceiling": null,
+    "ceiling_note": "no language-count ceiling exists anywhere in this schema or its tooling",
+    "karkain_first_class_target": true,
+    "original_53_preserved": true,
+    "distribution": {
+      "REGISTERED": 0,
+      "DISCOVERED": 1,
+      "FUNCTIONALLY_QUALIFIED": 0,
+      "ENGINEERING_QUALIFIED": 0
+    }
+  },
+  "statuses": [
+    "BLOCKED",
+    "COMPREHENSION_IN_PROGRESS",
+    "DISCOVERED",
+    "ENGINEERING_QUALIFIED",
+    "FUNCTIONALLY_QUALIFIED",
+    "REGISTERED"
+  ],
+  "capability_states": [
+    "ENGINEERING_QUALIFIED",
+    "FUNCTIONALLY_QUALIFIED"
+  ],
+  "local_toolchain_limitations": {
+    "verified_on_this_host": [
+      "karkain CLI runs for help/config/target/explain/version (exit 0)"
+    ],
+    "not_available": [
+      "kcc.exe cannot start on this host: Windows error 0xC0000135 (a required DLL is missing)",
+      "every compile-pipeline command (run/build/check/kir/lint/test/transpile) exits code 3 (ExitCompile) with zero diagnostics, reproducible also with a freshly built reference compiler"
+    ],
+    "consequence": "Karkain syntax can be read and documented; native compilation cannot be validated on this host until the toolchain dependency is repaired or a different host is supplied"
+  }
+}
