@@ -1,0 +1,66 @@
+# TAKSH L0.6.1 — canonical foundation training configuration v1
+#
+# Versioned, validated configuration for future foundation-model training runs.
+# Compatible with taksh-foundation-111m (110,658,816 parameters, verified in
+# L0.6.0). Nothing in this file trains anything; it is the canonical
+# configuration future authorized runs will be validated against.
+#
+# Overrides are explicit: --override key=value is required for any change;
+# silent environment-based mutation is rejected.
+
+schema: taksh.training_config/1
+id: taksh-foundation-111m-training-v1
+name: taksh-foundation-111m-training-v1
+version: 1
+created: "2026-11-11"
+base_foundation_config: configs/foundation/l060_foundation.yaml
+base_foundation_sha256: "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3"
+
+model:
+  config_id: taksh-foundation-111m
+  vocab_size: 5822
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 6
+  ffn_dim: 3072
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-05
+  tie_embeddings: true
+
+optimizer:
+  type: adamw
+  lr_peak: 1.0e-3
+  schedule: cosine
+  warmup_steps: 200
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 4        # 4 x 512 x 4 = 8,192 tokens/step
+  max_micro_batch_size: 16   # hard ceiling; see evaluation/resource_guard.py
+  max_context_length: 2048   # hard ceiling
+
+training:
+  max_steps: 3000
+  tokens_per_step: 8192
+  seeds: [42]
+  deterministic: true
+  checkpoint_every_steps: 500
+  eval_every_steps: 100
+  val_batches: 8
+  val_seed: 1234
+  failure_states: [interrupted, nonfinite_loss, nonfinite_grad, resource_exhausted]
+
+logging:
+  loss_log: true
+  run_manifest: true
+  format: jsonl
+
+status: NOT_YET_AUTHORIZED
+note: "no run using this configuration is authorized by L0.6.1; explicit owner sign-off required before any training"

@@ -1,0 +1,22 @@
+{
+  "schema": "taksh.l0601_karkain_learning_contract/1",
+  "generated_by": "evaluation/l0601_karkain_learning_contract.py",
+  "valid": true,
+  "language_id": "karkain",
+  "spec_version": "1.1.0",
+  "compiler_version": "1.1.0 (windows/amd64, Stable Build)",
+  "corpus_entries": 0,
+  "corpus_status": "NOT_INSTANTIATED",
+  "training_eligibility": {
+    "currently_met": [],
+    "verdict": "NOT ELIGIBLE"
+  },
+  "kcc_state": {
+    "kcc_binary": "0xC0000135 (DLL missing) \u2014 cannot start",
+    "compile_commands": "run/build/check/kir/lint/test all exit 3 (ExitCompile), zero diagnostics",
+    "freshly_built_compiler": "same behavior (go build ./cmd/karkain, Go 1.27.0)",
+    "consequence": "no Karkain compile/test validation possible; no Karkain capability may be claimed"
+  },
+  "frozen_python_benchmark_unchanged": true,
+  "verdict": "KARK CONTRACT QUALIFIED (zero capability claims; no Karkain execution performed)"
+}

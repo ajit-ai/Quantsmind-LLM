@@ -1,0 +1,25 @@
+{
+  "schema": "taksh.l0601_checkpoint_lifecycle/1",
+  "generated_by": "training/checkpoint_lifecycle.py",
+  "atomic_write_verified": true,
+  "write_result": {
+    "path": "C:\\WINDOWS\\TEMP\\l0601_lifecycle_7fv9xqv8\\synthetic.pt",
+    "sha256": "af00bd6175e3c34695bccc986bf8610649e8fdd39283536072cbf1bc7e8c630a",
+    "fingerprint": "01d7cddab2d082b2e5f3a07fdc34f3fdce2ee754bcecaec20c9ae1e04a22c847",
+    "size": 1675
+  },
+  "verify_clean": {
+    "ok": true,
+    "problems": [],
+    "step": 0
+  },
+  "interrupted_write_detected": true,
+  "recovery_audit": {
+    "checkpoint": "C:\\WINDOWS\\TEMP\\l0601_lifecycle_7fv9xqv8\\synthetic.pt",
+    "ok": true,
+    "problems": [],
+    "action": "resume",
+    "isolation": "synthetic verification only; no existing campaign checkpoint inspected"
+  },
+  "verdict": "CHECKPOINT LIFECYCLE QUALIFIED (synthetic fixtures; no existing checkpoints touched)"
+}
