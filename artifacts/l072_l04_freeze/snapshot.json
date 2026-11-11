@@ -1,0 +1,96 @@
+{
+  "schema": "taksh.corpus_freeze/1",
+  "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+  "created_utc": "2026-11-11T09:21:31+00:00",
+  "pipeline_version": "l072-freeze/1",
+  "normalizer_version": "l071-norm/1",
+  "parent_snapshot": {
+    "snapshot_id": "l071-l04-8de91c22931af682",
+    "snapshot_path": "artifacts/l071_l04_snapshot/snapshot.json",
+    "snapshot_sha256": "3655e6216b1b583d3d4a9ed72f443d45d09c522c1238b646c14d6a616c8d81df",
+    "records_sha256": "3a4b0c1bd00f61a36023bbe515550ff40d62350747f366e434166f57b02ea56f",
+    "immutable": true
+  },
+  "original_corpus_sha256": "cf89b8bc803b7363d2643e337a561524644e4924318c90332399f1625dfa1d5f",
+  "original_corpus_note": "dataset_manifest.json train_sha256 verified at L0.4; train.jsonl re-verified here",
+  "counts": {
+    "parent_records": 378,
+    "derived_children": 1052,
+    "quarantined_units": 62,
+    "derived_tokens": 1380638,
+    "original_record_tokens": 1590326,
+    "token_delta_explanation": "separator tokens dropped + cut-boundary BPE shifts; quarantined monolithic units removed; no imputation"
+  },
+  "extraction_method_histogram": {
+    "structural_subdivision_from_single_record": 638,
+    "marker_split": 93,
+    "single_record": 74,
+    "structural_subdivision_from_marker_split": 247
+  },
+  "quarantine_reason_histogram": {
+    "monolithic_unit_exceeds_context": 32,
+    "monolithic_member_exceeds_context": 27,
+    "file_not_parseable_quarantine": 3
+  },
+  "quarantined_tokens": 204424,
+  "max_child_tokens": 2043,
+  "all_within_context": true,
+  "context_limit": 2048,
+  "duplicate_groups": 1046,
+  "near_duplicate_children": 9,
+  "contamination": {
+    "decision": "CLEAN (fixtures only)",
+    "exact_matches": [],
+    "near_duplicates": [],
+    "benchmarks_intact": true
+  },
+  "quality": {
+    "VALIDATED_WITH_WARNINGS": 1041,
+    "VALIDATED": 11
+  },
+  "split_counts": {
+    "train": 954,
+    "val": 51,
+    "test": 47
+  },
+  "split_tokens": {
+    "train": 1249338,
+    "val": 68863,
+    "test": 62437
+  },
+  "split_policy": "parent-aware + duplicate-group-aware; children of one parent co-locate; sha256-seeded",
+  "eligibility": {
+    "technically_eligible": 1050,
+    "human_review_required": 0,
+    "training_eligibility_blocked": 0,
+    "excluded": 2,
+    "quarantined": 0,
+    "training_eligible": 0,
+    "verdict": "TRAINING_ELIGIBILITY_BLOCKED_OWNER_AUTHORIZATION (aggregate); corpus is research-qualified but never training-ready until the owner signs off"
+  },
+  "frozen_verdict": "FROZEN_RESEARCH_ONLY",
+  "frozen_for_training": false,
+  "integrity_hashes": {
+    "records_sha256": "a4d051e2ea13a72bb88dff8b1ed802d64453b3fe79574859758277a57f5573f6"
+  },
+  "labels": {
+    "corpus": "REAL_AUTHORIZED_CORPUS",
+    "fixtures": "SYNTHETIC_TEST_FIXTURE",
+    "freeze": "FROZEN_RESEARCH_ONLY (NOT authorized for training; owner decision required)"
+  },
+  "preflight": {
+    "memory": {
+      "total_bytes": 4199780352,
+      "available_bytes": 798007296,
+      "percent_used": 81.0,
+      "measured": true
+    },
+    "disk": {
+      "total_bytes": 578812899328,
+      "free_bytes": 182926409728
+    },
+    "memory_floor_bytes": 134217728,
+    "preflight_ok": true
+  },
+  "wall_clock_seconds": 110.0
+}

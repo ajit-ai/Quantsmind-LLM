@@ -1,0 +1,74 @@
+{
+  "schema": "taksh.l072_resource_integrity/1",
+  "generated_by": "evaluation/l072_resource_integrity.py",
+  "memory": {
+    "total_bytes": 4199780352,
+    "available_bytes": 529453056,
+    "percent_used": 87.4,
+    "tool": "psutil",
+    "measured": true
+  },
+  "disk": {
+    "total_bytes": 578812899328,
+    "free_bytes": 182926422016,
+    "used_bytes": 395886477312,
+    "measured": true
+  },
+  "pinned_artifacts": [
+    {
+      "path": "evaluation/l02_python_bench_v1.json",
+      "expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "actual": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "intact": true
+    },
+    {
+      "path": "evaluation/l051_multilingual_benchmark_v1.json",
+      "expected": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "actual": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "intact": true
+    },
+    {
+      "path": "runs/v180_sft/checkpoint_last.pt",
+      "expected": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+      "actual": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+      "intact": true
+    },
+    {
+      "path": "configs/foundation/l060_foundation.yaml",
+      "expected": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+      "actual": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+      "intact": true
+    },
+    {
+      "path": "configs/feasibility/l051_languages.yaml",
+      "expected": "075d4b568f052c8ebede69ccaf21cc4d0fd15a4f01df455f1431505c354ef39d",
+      "actual": "075d4b568f052c8ebede69ccaf21cc4d0fd15a4f01df455f1431505c354ef39d",
+      "intact": true
+    },
+    {
+      "path": "artifacts/l071_l04_snapshot/snapshot.json",
+      "expected": null,
+      "actual": "3655e6216b1b583d3d4a9ed72f443d45d09c522c1238b646c14d6a616c8d81df",
+      "intact": true
+    },
+    {
+      "path": "data/l04_code_corpus/train.jsonl",
+      "expected": "cf89b8bc803b7363d2643e337a561524644e4924318c90332399f1625dfa1d5f",
+      "actual": "cf89b8bc803b7363d2643e337a561524644e4924318c90332399f1625dfa1d5f",
+      "intact": true
+    }
+  ],
+  "all_pinned_intact": true,
+  "freeze_snapshot": {
+    "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+    "records_sha256": "a4d051e2ea13a72bb88dff8b1ed802d64453b3fe79574859758277a57f5573f6",
+    "frozen_verdict": "FROZEN_RESEARCH_ONLY",
+    "frozen_for_training": false
+  },
+  "reservations": {
+    "paid_storage": "NONE",
+    "cloud_resources": "NONE",
+    "network_downloads": "NONE",
+    "gpu": "NONE"
+  }
+}

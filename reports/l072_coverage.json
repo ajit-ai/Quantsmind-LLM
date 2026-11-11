@@ -1,0 +1,1107 @@
+{
+  "schema": "taksh.l072_coverage/1",
+  "generated_by": "evaluation/l072_coverage.py",
+  "total_languages": 54,
+  "languages_with_real_data": [
+    "python"
+  ],
+  "languages_with_zero_corpus": [
+    "javascript",
+    "typescript",
+    "c",
+    "cpp",
+    "java",
+    "csharp",
+    "go",
+    "rust",
+    "php",
+    "ruby",
+    "swift",
+    "kotlin",
+    "dart",
+    "sql",
+    "bash",
+    "vbnet",
+    "vba",
+    "cobol",
+    "fortran",
+    "delphi",
+    "perl",
+    "groovy",
+    "scala",
+    "objectivec",
+    "assembly",
+    "plsql",
+    "tsql",
+    "r",
+    "matlab",
+    "julia",
+    "haskell",
+    "fsharp",
+    "ocaml",
+    "elixir",
+    "erlang",
+    "clojure",
+    "lisp",
+    "zig",
+    "ada",
+    "lua",
+    "solidity",
+    "gdscript",
+    "mojo",
+    "micropython",
+    "prolog",
+    "nim",
+    "crystal",
+    "gleam",
+    "odin",
+    "vlang",
+    "hack",
+    "pony",
+    "karkain"
+  ],
+  "entries": [
+    {
+      "registry_id": "python",
+      "name": "Python",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 1050,
+      "corpus_tokens": 1380611,
+      "quality_qualified_samples": 1050,
+      "technically_eligible_samples": 1050,
+      "training_eligible_samples": 0,
+      "source_coverage": "internal-l04 (authorized, internal research only)",
+      "toolchain_available_here": true,
+      "blockers": [],
+      "labels": "REAL_AUTHORIZED_CORPUS"
+    },
+    {
+      "registry_id": "javascript",
+      "name": "JavaScript",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "typescript",
+      "name": "TypeScript",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "limited-node-type-stripping",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "c",
+      "name": "C",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "msvc-only",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "cpp",
+      "name": "C++",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "msvc-only",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "java",
+      "name": "Java",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "csharp",
+      "name": "C#",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "go",
+      "name": "Go",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "rust",
+      "name": "Rust",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "php",
+      "name": "PHP",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "ruby",
+      "name": "Ruby",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "swift",
+      "name": "Swift",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "kotlin",
+      "name": "Kotlin",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "dart",
+      "name": "Dart",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "sql",
+      "name": "SQL",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "sqlite-only",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "bash",
+      "name": "Bash",
+      "family": "l1_target",
+      "l1_target": true,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "vbnet",
+      "name": "Visual Basic .NET",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "vba",
+      "name": "VBA",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "cobol",
+      "name": "COBOL",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "fortran",
+      "name": "Fortran",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "delphi",
+      "name": "Delphi / Object Pascal",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "perl",
+      "name": "Perl",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "groovy",
+      "name": "Groovy",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "gradle-bundled-only",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "scala",
+      "name": "Scala",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "objectivec",
+      "name": "Objective-C",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "assembly",
+      "name": "Assembly",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": "msvc-ml-unverified",
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "plsql",
+      "name": "PL/SQL",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "tsql",
+      "name": "T-SQL",
+      "family": "enterprise",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "r",
+      "name": "R",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "matlab",
+      "name": "MATLAB",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "julia",
+      "name": "Julia",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "haskell",
+      "name": "Haskell",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "fsharp",
+      "name": "F#",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": true,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "ocaml",
+      "name": "OCaml",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "elixir",
+      "name": "Elixir",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "erlang",
+      "name": "Erlang",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "clojure",
+      "name": "Clojure",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "lisp",
+      "name": "Lisp / Scheme",
+      "family": "scientific",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "zig",
+      "name": "Zig",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "ada",
+      "name": "Ada",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "lua",
+      "name": "Lua",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "solidity",
+      "name": "Solidity",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "gdscript",
+      "name": "GDScript",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "mojo",
+      "name": "Mojo",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "micropython",
+      "name": "MicroPython",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "prolog",
+      "name": "Prolog",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "nim",
+      "name": "Nim",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "crystal",
+      "name": "Crystal",
+      "family": "systems",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "gleam",
+      "name": "Gleam",
+      "family": "emerging",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "odin",
+      "name": "Odin",
+      "family": "emerging",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "vlang",
+      "name": "V",
+      "family": "emerging",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "hack",
+      "name": "Hack",
+      "family": "emerging",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "pony",
+      "name": "Pony",
+      "family": "emerging",
+      "l1_target": false,
+      "registry_status": "REGISTERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none qualified",
+      "toolchain_available_here": false,
+      "blockers": [
+        "no acquisition authorization; no corpus"
+      ],
+      "labels": "UNVERIFIED_SOURCE"
+    },
+    {
+      "registry_id": "karkain",
+      "name": "Karkain",
+      "family": "first-class extension (54th language)",
+      "l1_target": false,
+      "registry_status": "DISCOVERED",
+      "corpus_samples": 0,
+      "corpus_tokens": 0,
+      "quality_qualified_samples": 0,
+      "technically_eligible_samples": 0,
+      "training_eligible_samples": 0,
+      "source_coverage": "none \u2014 zero corpus; .kark pinned (SPEC 1.1.0 / compiler 1.1.0); kcc 0xC0000135",
+      "toolchain_available_here": false,
+      "blockers": [
+        "kcc.exe 0xC0000135; exit-3 pipeline; owner authorization absent"
+      ],
+      "labels": "BLOCKED_SOURCE"
+    }
+  ],
+  "groups": {
+    "l1_target": [
+      "python",
+      "javascript",
+      "typescript",
+      "c",
+      "cpp",
+      "java",
+      "csharp",
+      "go",
+      "rust",
+      "php",
+      "ruby",
+      "swift",
+      "kotlin",
+      "dart",
+      "sql",
+      "bash"
+    ],
+    "enterprise": [
+      "vbnet",
+      "vba",
+      "cobol",
+      "fortran",
+      "delphi",
+      "perl",
+      "groovy",
+      "scala",
+      "objectivec",
+      "assembly",
+      "plsql",
+      "tsql"
+    ],
+    "scientific": [
+      "r",
+      "matlab",
+      "julia",
+      "haskell",
+      "fsharp",
+      "ocaml",
+      "elixir",
+      "erlang",
+      "clojure",
+      "lisp"
+    ],
+    "systems": [
+      "zig",
+      "ada",
+      "lua",
+      "solidity",
+      "gdscript",
+      "mojo",
+      "micropython",
+      "prolog",
+      "nim",
+      "crystal"
+    ],
+    "emerging": [
+      "gleam",
+      "odin",
+      "vlang",
+      "hack",
+      "pony"
+    ],
+    "first-class extension (54th language)": [
+      "karkain"
+    ]
+  },
+  "synthetic_fixture_tokens_python": 16,
+  "python_eligible_tokens": 1380611,
+  "python_snapshot": "l072-l04-fdb1fee2beaae9c2",
+  "verdict": "PYTHON-ONLY REAL CORPUS; 52 + Karkain have ZERO qualified tokens; no multilingual claims"
+}

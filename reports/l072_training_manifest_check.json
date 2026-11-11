@@ -1,0 +1,39 @@
+{
+  "schema": "taksh.l072_training_manifest_check/1",
+  "generated_by": "evaluation/l072_manifest_check.py",
+  "manifest_valid": true,
+  "problems": [],
+  "summary": {
+    "train": {
+      "tokens": 1249311,
+      "samples": 952
+    },
+    "val": {
+      "tokens": 68863,
+      "samples": 51
+    },
+    "test": {
+      "tokens": 62437,
+      "samples": 47
+    }
+  },
+  "split_integrity": {
+    "no_duplicate_group_split_span": true,
+    "contamination_clear": true,
+    "max_child_tokens": 2043,
+    "all_within_2048": true,
+    "frozen_python_benchmark_intact": true,
+    "unique_fingerprints": true
+  },
+  "environment": {
+    "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+    "frozen_verdict": "FROZEN_RESEARCH_ONLY",
+    "frozen_for_training": false
+  },
+  "authorization_gate": {
+    "l0601_gate": "CLOSED (no training job was started; none is authorized)",
+    "owner_authorization_for_run": "MISSING",
+    "license_scope": "internal research pretraining only; external release requires fresh counsel review"
+  },
+  "verdict": "MANIFEST COMPATIBLE; GATE CLOSED; NOTHING TRAINING-ELIGIBLE"
+}
