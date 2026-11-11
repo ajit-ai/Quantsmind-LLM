@@ -1,0 +1,110 @@
+# TAKSH L0.7.5 — Owner-decision register (authoritative)
+#
+# Every decision required before actual pretraining is recorded here, with its
+# status. Statuses: GRANTED / CONDITIONAL / MISSING / HUMAN_LEGAL_REVIEW_REQUIRED
+# / REJECTED / NOT_AUTHORIZED / OWNER_ACTION_REQUIRED.
+# The coding agent never supplies or fabricates owner approval.
+# Any decision that is absent remains MISSING — by design.
+schema: taksh.owner_decision_register/1
+id: taksh-owner-decision-register-v1
+version: 1
+created: "2026-11-11"
+review_date: "2026-11-11"
+prepared_by: "l075 readiness milestone — engineering summary; OWNER retains every decision"
+
+register:
+  - id: A1.1-training-authorization
+    category: training_authorization
+    question: "Is any foundation-model training authorized now, for any scope, by this register?"
+    status: MISSING
+    evidence_reference: "l070_license_decisions.yaml (src-taksh-l04-code-corpus); l072 snapshot gates (frozen_for_training=false); no owner authorization record exists"
+    permitted_snapshot: "NONE — no run authorized"
+    permitted_model_configuration: "NONE — taksh-foundation-111m as defined in L0.7.4 checkpoint readiness spec would be candidate IF authorization ever granted; not authorized now"
+    permitted_environment: "NONE — no authorized environment exists"
+    max_approved_resource_commitment: "NONE — owner has not approved any budget; this register allocates zero"
+    external_data_acquisition: "EXCLUDED — acquisition remains disabled (L0.7.0)"
+    checkpoint_distribution: "NONE — distribution not authorized; internal restrictive default per L0.4/L0.7.0"
+    expiration_or_revocation: "all internal-research evidence expires with any policy change; owner may revoke at any time"
+    owner_action: "OWNER must issue written training authorization (snapshot, scope, model, environment, budget, distribution, expiry) BEFORE any L0.8.0 work"
+
+  - id: A1.2-internal-research-permission
+    category: training_authorization
+    question: "Is internal research pretraining on the L0.4 corpus evidenced?"
+    status: CONDITIONAL
+    evidence_reference: "l070_license_decisions.yaml#src-taksh-l04-code-corpus (overall APPROVED_WITH_CONDITIONS: 'internal SFT/pretraining on 1.59M Python tokens previously authorized', internal research pretraining scope)"
+    scope: "internal research pretraining ONLY; external/commercial checkpoint release REQUIRES fresh counsel review"
+    external_release_right: "NOT granted"
+    data: "derived from data/l04_code_corpus only; external acquisition remains disabled"
+    owner_action: "owner may restate/renew this permission explicitly, or issue a fresh authorization; until then the residual permission is legacy and applies only to L0.4-class internal research runs — L0.7.5 grants nothing new"
+
+  - id: A2-compute-authorization
+    category: compute
+    question: "Is an authorized, affordable compute environment available for canonical-111M training?"
+    status: MISSING
+    evidence_reference: "l074_resource_strategy.json: host measured 2026-11-11 (4.2 GiB RAM, 95% used, MX150 4 GiB CUDA 11.1 with CPU-only torch build, ~170 GiB disk); GPU present but unusable with the installed stack"
+    available_owner_controlled_environment: "NONE USABLE — MX150 lacks bf16/CUDA-capability for current torch; not adequate"
+    device_identity_and_measured_memory: "MX150 / 4,096 MiB VRAM; RAM total 4,199,780,352 B; available 207,020,032 B (16:03Z 2026-11-11T16:03Z)"
+    external_compute_permitted: "NOT_AUTHORIZED — no spend, provisioning or access approved"
+    maximum_approved_expenditure: "NONE"
+    data_and_checkpoint_storage_boundary: "NOT DEFINED — owner must set residency before any environment is provided"
+    owner_action: "owner must supply (or authorize) a qualified environment: single GPU ≥ 16 GiB VRAM (estimate), ≥ 16 GiB RAM, ≥ 80 GiB disk, current CUDA toolchain; and must authorize corpus residency policy"
+
+  - id: A3.1-internal-research-dataset-permission
+    category: data_legal
+    question: "May the internal L0.4 Python corpus be used for pretraining under the L0.4 license terms?"
+    status: CONDITIONAL
+    evidence_reference: "l070_license_decisions.yaml (axes: source_license/file licenses/ml_training_permissions CONDITIONAL; redistribution+commercial NOT granted; copyright_attribution conditions)"
+    scope: "internal research pretraining; per-slice attribution NOTICE retained in PROVENANCE/dataset manifest"
+    owner_action: "owner must reaffirm or narrow the L0.4 permission for any new run"
+
+  - id: A3.2-external-dataset-legal-review
+    category: data_legal
+    question: "May TAKSH acquire BigCode Stack v1/v2, CodeSearchNet, or PyPI aggregates?"
+    status: HUMAN_LEGAL_REVIEW_REQUIRED
+    evidence_reference: "l070_license_decisions.yaml: BigCode Stack v1/v2 HUMAN_LEGAL_REVIEW_REQUIRED (gated ToU, pass-through licenses); CodeSearchNet HUMAN_LEGAL_REVIEW_REQUIRED; PyPI aggregate REJECTED for training"
+    scope: "NOT AUTHORIZED for acquisition; legal counsel must clear any candidate before any acquisition milestone"
+    owner_action: "owner engages counsel; counsel decisions recorded in new milestone before any acquisition"
+
+  - id: A3.3-commercial-checkpoint-distribution
+    category: data_legal
+    question: "May any resulting checkpoint be distributed commercially or publicly?"
+    status: NOT_AUTHORIZED
+    evidence_reference: "no license grant exists; internal-research condition on the corpus; checkpoints are derivatives of restricted data; market rights absent"
+    owner_action: "requires written counsel opinion AND owner decision before any external distribution; currently forbidden"
+
+  - id: A3.4-external-publication-permission
+    category: data_legal
+    question: "May any model artifact be published (PyPI / Hugging Face / docs)?"
+    status: NOT_AUTHORIZED
+    evidence_reference: "no publication authorization exists or is implied anywhere in this repository"
+    owner_action: "explicit owner decision per artifact; none granted; publication of taksh-foundation-111m blocked"
+
+  - id: A4-ci-authorization
+    category: ci
+    question: "Can genuine GitHub Actions execute on this branch now?"
+    status: OWNER_ACTION_REQUIRED
+    evidence_reference: "ci-l0704-manual-qualification.yml exists on branch (read-only, tests-only) but GitHub exposes no workflow_dispatch except from the default branch (main); production CI triggers are push to develop/main + pull_requests to those branches; dispatch probe returned HTTP 422 / 404; Python 3.11 interpreter unavailable on host"
+    production_ci_trigger_constraints: "push to develop/main only + pull_request; no workflow_dispatch on production CI"
+    manual_qualification_workflow: ".github/workflows/ci-l0704-manual-qualification.yml (this branch; invisible to Actions API while absent from main)"
+    default_branch_visibility_blocker: "confirmed 2026-11-11: HTTP 404 'workflow not found on the default branch'"
+    required_owner_action: "owner pushes the qualification workflow to main (or adds workflow_dispatch to production CI on main, or opens+merges a PR) — then genuine CI executes on this branch's commit"
+    python_311_interpreter: "NOT INSTALLED; runtime compatibility against 3.11 remains static-evidence-only"
+    owner_action: "owner must authorize the default-branch change or invoke the workflow dispatch once present"
+
+  - id: A5-language-scope
+    category: scope
+    question: "Is the full original catalogue in scope?"
+    status: GRANTED
+    evidence_reference: "l051_languages.yaml (53 languages, 20 supporting technologies separate); karkain extension registry pinned; DLCAE unchanged; L0.6.0-R1 alignment preserved"
+    preserved: "53 languages + Karkain as 54th first-class + open-ended DLCAE + eight subsystems + full L0–L3 roadmap"
+    data_limitation_not_scope_change: "current corpus is Python-only — an engineering fact, not a product decision; nothing about this register narrows scope"
+    owner_action: "none — preservation is the mandate; owner may sponsor expansion later"
+
+decision_summary:
+  granted: [A5-language-scope]
+  conditional: [A1.2-internal-research-permission, A3.1-internal-research-dataset-permission]
+  missing: [A1.1-training-authorization, A2-compute-authorization]
+  human_legal_review_required: [A3.2-external-dataset-legal-review]
+  not_authorized: [A3.3-commercial-checkpoint-distribution, A3.4-external-publication-permission]
+  owner_action_required: [A4-ci-authorization]
+  conformance: "Every entry states evidence and required owner action. No entry was created or altered by the coding agent; no approval is implied."

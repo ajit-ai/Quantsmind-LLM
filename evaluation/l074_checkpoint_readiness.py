@@ -77,12 +77,12 @@ def architectures_match(resolved: dict, canonical: dict) -> tuple[bool, list[str
 
 def evaluate_candidate(checkpoint_path: Path | None, *, is_synthetic: bool = False) -> dict:
     """Fail-closed candidate evaluation used by readiness reporting."""
-    if checkpoint_path is None or not Path(checkpoint_path).is_file():
-        return {"accepted": False, "reason": "missing artifact",
-                "classification": "MISSING_ARTIFACT"}
     if is_synthetic:
         return {"accepted": False, "reason": "synthetic fixture is never a production candidate",
                 "classification": "SYNTHETIC_REJECTED"}
+    if checkpoint_path is None or not Path(checkpoint_path).is_file():
+        return {"accepted": False, "reason": "missing artifact",
+                "classification": "MISSING_ARTIFACT"}
     try:
         from serving.local_inference import torch_load_checkpoint, resolve_model_config
 
