@@ -1,0 +1,181 @@
+{
+  "schema": "taksh.l070_observability/1",
+  "generated_by": "evaluation/l070_observability.py",
+  "created": "2026-11-11T06:02:01+00:00",
+  "distinguishing_statuses": [
+    "IMPLEMENTED_AND_TESTED",
+    "SIMULATED",
+    "BLOCKED",
+    "NOT_YET_AUTHORIZED"
+  ],
+  "tools": [
+    {
+      "tool": "source_registry",
+      "section": "4",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_source_registry",
+      "exit_code": 0,
+      "stdout_tail": [
+        "registry valid; 6 sources; status counts: {'ACQUIRED': 1, 'LICENSE_REVIEW': 1, 'PROVENANCE_REVIEW': 1, 'METADATA_REVIEW': 1, 'DEFERRED': 1, 'BLOCKED': 1}",
+        "report written to reports\\l070_source_registry.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "license_qualification",
+      "section": "5",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_license_qualification",
+      "exit_code": 0,
+      "stdout_tail": [
+        "license decisions valid; overall: {'APPROVED_WITH_CONDITIONS': 1, 'HUMAN_LEGAL_REVIEW_REQUIRED': 4, 'REJECTED': 1}",
+        "report written to reports\\l070_license_decisions.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "provenance",
+      "section": "5",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_provenance",
+      "exit_code": 0,
+      "stdout_tail": [
+        "src-pypi-permissive          PARTIALLY_VERIFIED 6/7",
+        "src-karkain-corpus           REJECTED           6/7",
+        "report written to reports\\l070_provenance_assessment.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "coverage_matrix",
+      "section": "7",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_coverage_matrix",
+      "exit_code": 0,
+      "stdout_tail": [
+        "coverage matrix: 54 entries; qualified tokens=1,590,703",
+        "L1 candidates (unverified): 16/16",
+        "report written to reports\\l070_coverage_matrix.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "data_quality",
+      "section": "8",
+      "state": "SIMULATED",
+      "module": "evaluation.l070_data_quality",
+      "exit_code": 0,
+      "stdout_tail": [
+        "data quality: 6 fixtures; flagged=6 human_review=2",
+        "report written to reports\\l070_data_quality.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "contamination",
+      "section": "9",
+      "state": "SIMULATED",
+      "module": "evaluation.l070_contamination",
+      "exit_code": 0,
+      "stdout_tail": [
+        "benchmarks intact; synthetic exact matches caught: 1, near: 1",
+        "report written to reports\\l070_contamination_audit.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "corpus_planner",
+      "section": "10",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_corpus_planner",
+      "exit_code": 0,
+      "stdout_tail": [
+        "quality_weighted               achievable= 1,590,703 unplannable= 53/54 impossible=  0",
+        "hybrid_language_family         achievable=   200,000 unplannable= 53/54 impossible= 52",
+        "report written to reports\\l070_corpus_plan.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "dlcae_sources",
+      "section": "11",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_dlcae_sources",
+      "exit_code": 0,
+      "stdout_tail": [
+        "java     <- src-bigcode-stack-v2       gates=0/6 eligible=False",
+        "karkain  <- src-karkain-corpus         gates=1/6 eligible=False",
+        "report written to reports\\l070_dlcae_sources.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "acquisition_gate",
+      "section": "13",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_acquisition_gate",
+      "exit_code": 0,
+      "stdout_tail": [
+        "execution_enabled=False; template denied as expected",
+        "report written to reports\\l070_acquisition_workflow.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "karkain_strategy",
+      "section": "12",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_karkain_strategy",
+      "exit_code": 0,
+      "stdout_tail": [
+        "karkain strategy valid; requirements=9 (all NOT_INSTANTIATED)",
+        "report written to reports\\l070_karkain_strategy.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "resource_readiness",
+      "section": "14",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_resource_readiness",
+      "exit_code": 0,
+      "stdout_tail": [
+        "free disk: 170.36 GiB; RAM: 3.91 GiB",
+        "report written to reports\\l070_resource_readiness.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "candidate_comparison",
+      "section": "6",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l070_candidate_comparison",
+      "exit_code": 0,
+      "stdout_tail": [
+        "src-pypi-permissive        license=REJECTED provenance=PARTIALLY_VERIFIED -> NOT ACQUISITION-READY",
+        "src-karkain-corpus         license=HUMAN_LEGAL_REVIEW_REQUIRED provenance=REJECTED -> NOT ACQUISITION-READY",
+        "report written to reports\\l070_candidate_comparison.json"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "summary": {
+    "all_exit_zero": true,
+    "acquisition_authorizations": 0,
+    "acquisitions_executed": 0,
+    "bytes_acquired": 0,
+    "external_candidates": "all HUMAN_LEGAL_REVIEW_REQUIRED (BigCode v1/v2, CodeSearchNet) or REJECTED (PyPI aggregate, Karkain corpus)",
+    "qualified_internal_corpus": "python 1,590,703 tokens (l04; licensed; internal)",
+    "other_languages": "zero qualified tokens (52 + Karkain)",
+    "not_yet_authorized": [
+      "dataset acquisition",
+      "training",
+      "gpu",
+      "publication",
+      "network data fetches"
+    ],
+    "contamination": "controls qualified on synthetic fixtures; benchmarks pinned intact",
+    "storage": "no provisioning; host cannot stage TB candidates"
+  },
+  "verdict": "L0.7.0 ACQUISITION-READINESS INFRASTRUCTURE QUALIFIED \u2014 zero sources authorized; nothing downloaded"
+}

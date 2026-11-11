@@ -1,0 +1,1962 @@
+{
+  "schema": "taksh.l070_coverage_matrix/1",
+  "generated_by": "evaluation/l070_coverage_matrix.py",
+  "total_languages": 54,
+  "entries": [
+    {
+      "registry_id": "python",
+      "name": "Python",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".py",
+        ".pyw",
+        ".pyi"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 1590703,
+      "existing_qualified_samples": 384,
+      "qualified_source": "src-taksh-l04-code-corpus (internal, licensed)",
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-pypi-permissive",
+          "evidence": "aggregate package ecosystem; license per package; no dataset; NOT verified",
+          "license_status": "REJECTED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "APPROVED_WITH_CONDITIONS (internal)",
+      "provenance_status": "VERIFIED (internal)",
+      "acquisition_approval_state": "internal_verified",
+      "corpus_gap": "none (partial coverage: Python only)",
+      "recommended_priority": "P1",
+      "blockers": []
+    },
+    {
+      "registry_id": "javascript",
+      "name": "JavaScript",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".js",
+        ".mjs",
+        ".cjs"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "typescript",
+      "name": "TypeScript",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".ts",
+        ".tsx",
+        ".d.ts"
+      ],
+      "toolchain_available_here": "limited-node-type-stripping",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "c",
+      "name": "C",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".c",
+        ".h"
+      ],
+      "toolchain_available_here": "msvc-only",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "cpp",
+      "name": "C++",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".cc",
+        ".cpp",
+        ".cxx",
+        ".hpp",
+        ".hh",
+        ".hxx"
+      ],
+      "toolchain_available_here": "msvc-only",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "java",
+      "name": "Java",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".java"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "csharp",
+      "name": "C#",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".cs"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "go",
+      "name": "Go",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".go"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "rust",
+      "name": "Rust",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".rs"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "php",
+      "name": "PHP",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".php",
+        ".phtml"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "ruby",
+      "name": "Ruby",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".rb",
+        ".rake",
+        ".gemspec"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-codesearchnet",
+          "evidence": "paper arXiv:1909.09436; Go/Java/JavaScript/PHP/Python/Ruby; ~6M functions; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "swift",
+      "name": "Swift",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".swift"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "kotlin",
+      "name": "Kotlin",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".kt",
+        ".kts"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "dart",
+      "name": "Dart",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".dart"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "sql",
+      "name": "SQL",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".sql"
+      ],
+      "toolchain_available_here": "sqlite-only",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "bash",
+      "name": "Bash",
+      "family": "l1_target",
+      "l1_target": true,
+      "extensions": [
+        ".sh",
+        ".bash"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P1",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "vbnet",
+      "name": "Visual Basic .NET",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".vb"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "vba",
+      "name": "VBA",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".bas",
+        ".cls"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "cobol",
+      "name": "COBOL",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".cbl",
+        ".cob",
+        ".cpy"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "fortran",
+      "name": "Fortran",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".f",
+        ".f90",
+        ".f95",
+        ".f03",
+        ".f08"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "delphi",
+      "name": "Delphi / Object Pascal",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".pas",
+        ".dpk",
+        ".dproj"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "perl",
+      "name": "Perl",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".pl",
+        ".pm",
+        ".t"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "groovy",
+      "name": "Groovy",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".groovy",
+        ".gvy",
+        ".gradle"
+      ],
+      "toolchain_available_here": "gradle-bundled-only",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "scala",
+      "name": "Scala",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".scala",
+        ".sc"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "objectivec",
+      "name": "Objective-C",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".m",
+        ".mm",
+        ".h"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "assembly",
+      "name": "Assembly",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".asm",
+        ".s"
+      ],
+      "toolchain_available_here": "msvc-ml-unverified",
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "plsql",
+      "name": "PL/SQL",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".pls",
+        ".pck",
+        ".pks",
+        ".pkb",
+        ".fnc",
+        ".trg"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "tsql",
+      "name": "T-SQL",
+      "family": "enterprise",
+      "l1_target": false,
+      "extensions": [
+        ".sql",
+        ".tsql"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "r",
+      "name": "R",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".r",
+        ".R",
+        ".Rmd"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "matlab",
+      "name": "MATLAB",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".m"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "julia",
+      "name": "Julia",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".jl"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "haskell",
+      "name": "Haskell",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".hs",
+        ".lhs"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "fsharp",
+      "name": "F#",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".fs",
+        ".fsx",
+        ".fsi"
+      ],
+      "toolchain_available_here": true,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "ocaml",
+      "name": "OCaml",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".ml",
+        ".mli"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "elixir",
+      "name": "Elixir",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".ex",
+        ".exs"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "erlang",
+      "name": "Erlang",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".erl",
+        ".hrl"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "clojure",
+      "name": "Clojure",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".clj",
+        ".cljs",
+        ".cljc",
+        ".edn"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "lisp",
+      "name": "Lisp / Scheme",
+      "family": "scientific",
+      "l1_target": false,
+      "extensions": [
+        ".lisp",
+        ".scm",
+        ".lsp",
+        ".rkt"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "zig",
+      "name": "Zig",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".zig"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "ada",
+      "name": "Ada",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".adb",
+        ".ads"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "lua",
+      "name": "Lua",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".lua"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "solidity",
+      "name": "Solidity",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".sol"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-bigcode-stack-v1",
+          "evidence": "The Stack v1 card (358 languages; 2026-11-11); conservative subset shown (niche ids not verified); per-file license pass-through; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        },
+        {
+          "source_id": "src-bigcode-stack-v2",
+          "evidence": "The Stack v2 card (658 languages; 2026-11-11); conservative subset shown (niche ids not verified); SWHID metadata only; NOT verified",
+          "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_status": "METADATA_REVIEW",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P2",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required"
+      ]
+    },
+    {
+      "registry_id": "gdscript",
+      "name": "GDScript",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".gd"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "mojo",
+      "name": "Mojo",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".mojo"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "micropython",
+      "name": "MicroPython",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".py"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "prolog",
+      "name": "Prolog",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".pl",
+        ".pro"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "nim",
+      "name": "Nim",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".nim",
+        ".nims"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "crystal",
+      "name": "Crystal",
+      "family": "systems",
+      "l1_target": false,
+      "extensions": [
+        ".cr"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "gleam",
+      "name": "Gleam",
+      "family": "emerging",
+      "l1_target": false,
+      "extensions": [
+        ".gleam"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "odin",
+      "name": "Odin",
+      "family": "emerging",
+      "l1_target": false,
+      "extensions": [
+        ".odin"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "vlang",
+      "name": "V",
+      "family": "emerging",
+      "l1_target": false,
+      "extensions": [
+        ".v"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "hack",
+      "name": "Hack",
+      "family": "emerging",
+      "l1_target": false,
+      "extensions": [
+        ".hack",
+        ".hh"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "pony",
+      "name": "Pony",
+      "family": "emerging",
+      "l1_target": false,
+      "extensions": [
+        ".pony"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [],
+      "candidate_quality": "none",
+      "license_status": "NO_CANDIDATE",
+      "provenance_status": "NONE",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "P3",
+      "blockers": [
+        "no acquisition authorized",
+        "legal review required",
+        "no known candidate source"
+      ]
+    },
+    {
+      "registry_id": "karkain",
+      "name": "Karkain",
+      "family": "first-class extension (54th language)",
+      "l1_target": false,
+      "extensions": [
+        ".kark"
+      ],
+      "toolchain_available_here": false,
+      "existing_qualified_tokens": 0,
+      "existing_qualified_samples": 0,
+      "qualified_source": null,
+      "candidate_sources": [
+        {
+          "source_id": "src-karkain-corpus",
+          "evidence": "owner-internal; zero corpus; NOT available for ingestion",
+          "license_status": "REJECTED"
+        }
+      ],
+      "candidate_quality": "unverified",
+      "license_status": "REJECTED (owner-internal; not authorized)",
+      "provenance_status": "UNVERIFIED",
+      "acquisition_approval_state": "not_requested",
+      "corpus_gap": "full",
+      "recommended_priority": "BLOCKED",
+      "blockers": [
+        "spec/compiler pinned 1.1.0; kcc broken on this host (0xC0000135)",
+        "owner authorization absent",
+        "zero corpus; zero tokens"
+      ]
+    }
+  ],
+  "groups": {
+    "initial_16_l1_target": [
+      "python",
+      "javascript",
+      "typescript",
+      "c",
+      "cpp",
+      "java",
+      "csharp",
+      "go",
+      "rust",
+      "php",
+      "ruby",
+      "swift",
+      "kotlin",
+      "dart",
+      "sql",
+      "bash"
+    ],
+    "enterprise_legacy": [
+      "vbnet",
+      "vba",
+      "cobol",
+      "fortran",
+      "delphi",
+      "perl",
+      "groovy",
+      "scala",
+      "objectivec",
+      "assembly",
+      "plsql",
+      "tsql"
+    ],
+    "scientific_functional": [
+      "r",
+      "matlab",
+      "julia",
+      "haskell",
+      "fsharp",
+      "ocaml",
+      "elixir",
+      "erlang",
+      "clojure",
+      "lisp"
+    ],
+    "systems_embedded_games_blockchain": [
+      "zig",
+      "ada",
+      "lua",
+      "solidity",
+      "gdscript",
+      "mojo",
+      "micropython",
+      "prolog",
+      "nim",
+      "crystal"
+    ],
+    "emerging_specialist": [
+      "gleam",
+      "odin",
+      "vlang",
+      "hack",
+      "pony"
+    ],
+    "karkain_54th": [
+      "karkain"
+    ]
+  },
+  "group_sizes": {
+    "initial_16_l1_target": 16,
+    "enterprise_legacy": 12,
+    "scientific_functional": 10,
+    "systems_embedded_games_blockchain": 10,
+    "emerging_specialist": 5,
+    "karkain_54th": 1
+  },
+  "accounting": {
+    "qualified_corpus_tokens": 1590703,
+    "qualified_corpus_samples": 384,
+    "candidate_corpus_tokens": 0,
+    "unverified_corpus_tokens": 0,
+    "approved_for_acquisition_tokens": 0,
+    "actually_acquired_tokens": 1590703,
+    "training_eligible_tokens": 1590703,
+    "note": "candidate and unverified corpora are never counted; 1,590,703 Python tokens are the only real number"
+  },
+  "l1_languages_with_unverified_candidates": 16,
+  "supporting_technologies": "tracked separately in configs/feasibility/l051_languages.yaml (20 entries); zero qualified tokens; candidate coverage reported unverified (stacks, not counted)",
+  "verdict": "1/53 languages (+0 Karkain) hold qualified corpora; 52 + 54th unqualified; no acquisition authorized"
+}

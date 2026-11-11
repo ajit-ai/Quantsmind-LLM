@@ -1,0 +1,53 @@
+# TAKSH L0.7.0 — Corpus planning configuration
+#
+# Planning targets are parameters, NOT existence claims. Only Python has
+# measured availability today. Every other target line is marked availability
+# UNKNOWN and will report as impossible until real measurement exists.
+# Strategies are alternatives to compare, not a chosen winner.
+schema: taksh.corpus_plan/1
+id: taksh-corpus-plan-v1
+version: 1
+created: "2026-11-11"
+
+verified_availability:
+  python: { tokens: 1590703, samples: 384, source: "src-taksh-l04-code-corpus (internal, licensed)" }
+  every_other_language: { tokens: 0, samples: 0, source: "none measured; candidates UNVERIFIED" }
+
+target_model:
+  min_tokens_per_l1_language: 200000     # aspirational floor for L1.0 qualification (v1, owner-set)
+  min_tokens_per_roadmap_language: 50000
+  quality_threshold: "verified"          # verified | unverified | unknown
+  balance_strategy: "see strategies"
+
+strategies:
+  equal_language:
+    description: "same token target for every language in scope"
+    target_per_language_tokens: 200000
+    notes: "starves Python? no — inflates scarce languages; exposure risk on unavailable languages; reports IMPOSSIBLE for them"
+  proportional_to_availability:
+    description: "targets proportional to verified available tokens"
+    notes: "honest for current state (Python ~100%); degenerates to python-only until more corpora exist"
+  quality_weighted:
+    description: "weight by quality_weight of available slices"
+    notes: "verified >> unverified >> unknown; equivalent to equal when only one verified language exists"
+  hybrid_language_family:
+    description: "per-family weights (enterprise/scientific/systems/emerging/l1) x availability"
+    family_weights:
+      l1_target: 1.0
+      enterprise: 0.7
+      scientific: 0.6
+      systems: 0.8
+      emerging: 0.4
+    notes: "still bounded by availability; weighting is relative, not absolute"
+
+constraints:
+  max_exposure_per_sample: 4              # same ceiling as L0.6.1
+  source_contribution_limit: 0.5          # no single external source > 50% of any language mix (until owner overrides)
+  require_min_license_eligibility: true
+  require_provenance_eligibility: true
+  forbid_benchmark_contaminated: true
+
+outputs:
+  strategies_compared: [equal_language, proportional_to_availability, quality_weighted, hybrid_language_family]
+  determinism: "fixed seed; identical inputs -> identical plan"
+  report: reports/l070_corpus_plan.json

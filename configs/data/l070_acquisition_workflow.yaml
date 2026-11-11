@@ -1,0 +1,97 @@
+# TAKSH L0.7.0 — Acquisition authorization workflow
+#
+# Stages are ordered and explicit. No tool may advance a source past
+# OWNER_APPROVAL_REQUIRED without a recorded owner decision. Acquisition
+# execution is PERMANENTLY DISABLED in this milestone (acquisition_execution:
+# false). Only the owner may set ACQUISITION_AUTHORIZED, and only through this
+# record path — never by a tool.
+schema: taksh.acquisition_workflow/1
+id: taksh-acquisition-workflow-v1
+version: 1
+created: "2026-11-11"
+
+invariants:
+  acquisition_execution_disabled: true
+  tools_must_fail_closed: true
+  owner_only_transition_to: ACQUISITION_AUTHORIZED
+  no_implicit_network_access: true
+  no_dataset_download_in_this_milestone: true
+
+stages:
+  - stage: SOURCE_DISCOVERY
+    description: "catalogue + basic existence verification (no content access)"
+    outputs: [source_registry_entry]
+    exits_to: [METADATA_REVIEW, REJECTED, DEFERRED, BLOCKED]
+  - stage: TECHNICAL_REVIEW
+    description: "format, integrity, contamination, quality screening (on samples/metadata only)"
+    outputs: [technical_report]
+    exits_to: [LICENSE_REVIEW, BLOCKED]
+  - stage: LEGAL_REVIEW
+    description: "license qualification decision records (see l070_license_decisions.yaml)"
+    outputs: [license_decision_record]
+    exits_to: [PROVENANCE_REVIEW, BLOCKED, REJECTED]
+  - stage: PROVENANCE_REVIEW
+    description: "origin traceability; opt-out/removal mechanics; contamination exclusion"
+    outputs: [provenance_report]
+    exits_to: [OWNER_APPROVAL_REQUIRED, BLOCKED]
+  - stage: OWNER_APPROVAL_REQUIRED
+    description: "human owner reviews full request dossier; decides explicitly"
+    outputs: [acquisition_request_dossier]
+    exits_to: [QUALIFIED_FOR_ACQUISITION, REJECTED, DEFERRED]
+  - stage: QUALIFIED_FOR_ACQUISITION
+    description: "readiness signal only; NOT an authorization and NOT an execution"
+    outputs: [readiness_signal]
+    exits_to: [ACQUISITION_AUTHORIZED, DEFERRED]
+  - stage: ACQUISITION_AUTHORIZED
+    description: "owner grant recorded (out-of-band decision artifact)"
+    outputs: [authorization_record]
+    exits_to: [ACQUIRED, REJECTED]
+  - stage: ACQUISITION_EXECUTION
+    description: "DOWNLOAD/INGEST — disabled in L0.7.0; requires future milestone + owner authorization"
+    outputs: [acquisition_log]
+    exits_to: [POST_ACQUISITION_VERIFICATION]
+  - stage: POST_ACQUISITION_VERIFICATION
+    description: "hashes, sample audit, contamination re-screen, manifest emission"
+    outputs: [verification_report]
+    exits_to: [COMPLETE]
+
+request_dossier_required_fields:
+  - source_id
+  - dataset_snapshot
+  - official_source_url
+  - license_decision_record_id
+  - commercial_use_assessment
+  - training_use_assessment
+  - language_coverage
+  - expected_storage_bytes
+  - acquisition_method
+  - data_handling_plan
+  - exclusion_and_filtering_policy
+  - known_risks
+  - intended_training_use
+  - required_attribution
+  - proposed_acquisition_scope
+  - owner_authorization_id
+
+request_dossier_template:
+  source_id: null
+  dataset_snapshot: null
+  official_source_url: null
+  license_decision_record_id: null
+  commercial_use_assessment: null
+  training_use_assessment: null
+  language_coverage: null
+  expected_storage_bytes: null
+  acquisition_method: null
+  data_handling_plan: null
+  exclusion_and_filtering_policy: null
+  known_risks: null
+  intended_training_use: null
+  required_attribution: null
+  proposed_acquisition_scope: null
+  owner_authorization_id: null
+
+decision_semantics:
+  QUALIFIED_FOR_ACQUISITION: "not an authorization; any tool or pipeline that treats this as a go-ahead is broken by design"
+  ACQUISITION_AUTHORIZED: "only via recorded owner_authorization_id; absence = fail closed"
+  ACQUISITION_EXECUTION: "disabled in L0.7.0 (acquisition_execution_disabled=true); raising this requires a new milestone + owner sign-off"

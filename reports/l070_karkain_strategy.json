@@ -1,0 +1,90 @@
+{
+  "schema": "taksh.l070_karkain_strategy/1",
+  "generated_by": "evaluation/l070_karkain_strategy.py",
+  "valid": true,
+  "spec_version_pinned": "1.1.0",
+  "compiler_version_pinned": "1.1.0 (windows/amd64, Stable Build)",
+  "qualification_status": "DISCOVERED",
+  "corpus_requirements": [
+    {
+      "id": "kark-req-std-examples",
+      "kind": "stdlib canonical examples (async, collections, core, crypto, db, encoding, generics, gpu, http, io, math, net, numerics, string, system, testing)",
+      "source_requirement": "Karkain repository stdlib/ + examples/ (owner-internal)",
+      "validation": "kcc-run each example; expect exit 0 (blocked on this host)",
+      "license_requirement": "owner grant recorded BEFORE any ingestion",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-positive-programs",
+      "kind": "positive compile-pass programs",
+      "validation": "kcc check exit 0",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-negative-programs",
+      "kind": "negative compile-fail programs with expected diagnostics",
+      "validation": "kcc check nonzero + diagnostic match (requires working kcc)",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-borrow-move-cases",
+      "kind": "ownership/borrow/move semantics cases incl. negatives",
+      "validation": "kcc borrow diagnostics",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-codegen-cases",
+      "kind": "code generation output expectations (x86_64-windows native, c-free PE)",
+      "validation": "bitwise/assembly spot checks by kcc",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-debug-repair",
+      "kind": "buggy program + repair pairs for repair-style training",
+      "validation": "kcc diagnostics + repaired program compiles",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-repo-level",
+      "kind": "repository-level example projects (module layout, imports)",
+      "validation": "kcc build of example workspace",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-kir-annotated",
+      "kind": "KIR dumps aligned to source for IR-understanding training",
+      "validation": "kcc kir output matches SPEC",
+      "status": "NOT_INSTANTIATED"
+    },
+    {
+      "id": "kark-req-error-diagnostics",
+      "kind": "diagnostic message corpus for error-explanation training",
+      "validation": "kcc emits expected diagnostic classes",
+      "status": "NOT_INSTANTIATED"
+    }
+  ],
+  "corpus_tokens_measured": 0,
+  "corpus_claim": "NONE \u2014 no counts exist; zero training-eligible Karkain tokens",
+  "compiler_backed_validation": [
+    "no Karkain example enters any training set without a passing kcc validation (or documented toolchain exception)",
+    "model_only vs compiler_assisted evaluation modes stay separate; compiler results never reported as model capability",
+    "any repaired toolchain path (e.g. different host) re-pins spec/compiler versions in this file and the learning contract"
+  ],
+  "synthetic_fixtures": [
+    {
+      "content": "fn main() { print(\"hello karkain\"); }",
+      "label": "SYNTHETIC \u2014 schema test fixture, NOT training data"
+    },
+    {
+      "content": "struct Point { x: Int, y: Int }",
+      "label": "SYNTHETIC \u2014 schema test fixture, NOT training data"
+    },
+    {
+      "content": "fn add(a: Int, b: Int) -> Int { a + b }",
+      "label": "SYNTHETIC \u2014 schema test fixture, NOT training data"
+    }
+  ],
+  "host_blocker": "kcc.exe 0xC0000135 / exit 3 (all compile-pipeline commands; reproduced with fresh compiler)",
+  "frozen_python_benchmark_unchanged": true,
+  "verdict": "KARK STRATEGY QUALIFIED (structure only; no ingestion authorized; no counts exist)"
+}

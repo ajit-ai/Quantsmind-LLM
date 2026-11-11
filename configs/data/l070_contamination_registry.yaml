@@ -1,0 +1,53 @@
+# TAKSH L0.7.0 — Benchmark contamination fingerprint registry
+#
+# Pins the frozen evaluation artifacts by SHA-256 (file level) and defines the
+# normalized-fingerprint recipes used to detect task-level contamination inside
+# candidate corpora. Any candidate file matching a registered fingerprint is
+# excluded; any suspected collision blocks training eligibility pending review.
+schema: taksh.contamination_registry/1
+id: taksh-contamination-registry-v1
+version: 1
+created: "2026-11-11"
+
+benchmarks:
+  - id: frozen-python-bench-v1
+    path: evaluation/l02_python_bench_v1.json
+    sha256: "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6"
+    tasks: 30
+    rule: "never modified; scorer untouched; collisions block training eligibility"
+  - id: multilingual-bench-v1
+    path: evaluation/l051_multilingual_benchmark_v1.json
+    sha256: "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e"
+    tasks: 64
+    rule: "denominator fixed (>=16 executed AND >=50% pass ratio per language)"
+  - id: kark-bench-schema-v1
+    path: reports/l060r1_kark_bench_schema.json
+    sha256: "fe6acbcd9a41d5e113595d4fdb675cc616342da30029401fe16602d6c157d481"
+    tasks: 0
+    rule: "schema only; zero tasks instantiated; Karkain unqualified"
+
+normalization_recipe:
+  steps:
+    - "utf-8 decode (errors -> reject)"
+    - "lowercase"
+    - "strip comments per language where a toolchain exists (python: #; c-family: // and /* */; etc.)"
+    - "collapse all whitespace runs to single space"
+    - "strip leading/trailing whitespace"
+  task_fingerprint: "sha256(normalized task prompt text)"
+  solution_fingerprint: "sha256(normalized reference solution text) when available"
+
+near_duplicate_detection:
+  enabled: true
+  method: "token-shingle Jaccard"
+  shingle_size: 5
+  threshold: 0.8
+  tunable: true
+
+exclusion_lists:
+  source_ids: []            # add external benchmark repos / task files once acquisition is authorized
+  path_patterns: []
+  fingerprint_denylist: []  # append-only; never remove entries
+
+audit:
+  report_path: reports/l070_contamination_audit.json
+  policy: "any registration-triggering match -> contamination audit -> training blocked until resolved"

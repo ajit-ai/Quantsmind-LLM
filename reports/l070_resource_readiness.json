@@ -1,0 +1,81 @@
+{
+  "schema": "taksh.l070_resource_readiness/1",
+  "generated_by": "evaluation/l070_resource_readiness.py",
+  "host": {
+    "disk": {
+      "total_bytes": 578812899328,
+      "used_bytes": 395888586752,
+      "free_bytes": 182924312576,
+      "tool": "shutil.disk_usage",
+      "measured": true
+    },
+    "memory": {
+      "total_bytes": 4199780352,
+      "available_bytes": 662528000,
+      "percent_used": 84.2,
+      "tool": "psutil",
+      "measured": true
+    }
+  },
+  "host_assessment": {
+    "ram_gb": 3.91,
+    "free_disk_gb": 170.36,
+    "verdict": "host cannot stage TB-scale candidates; even the ~1.4TB Stack v1 page footprint exceeds free disk; only small subsets are ever stageable here; paid/cloud storage NOT authorized"
+  },
+  "source_reported_sizes": [
+    {
+      "source_id": "src-bigcode-stack-v1",
+      "reported": "92.36TB raw collected; ~6TB near-dedup (v1.1+); 1.43TB shown on repo page (2026-11-11)",
+      "basis": "dataset card (reported, unverified here)",
+      "download_required_to_verify": true
+    },
+    {
+      "source_id": "src-bigcode-stack-v2",
+      "reported": "67.53TB raw (SWH 2023-09-06); 32.1TB dedup; ~900B tokens; metadata-only SWHID repo; content via SWH S3",
+      "basis": "dataset card (reported, unverified here)",
+      "download_required_to_verify": true
+    },
+    {
+      "source_id": "src-codesearchnet",
+      "reported": "~6M functions; compressed size not confirmed",
+      "basis": "paper arXiv:1909.09436",
+      "download_required_to_verify": true
+    },
+    {
+      "source_id": "src-pypi-permissive",
+      "reported": "aggregate of 500k+ packages; size unknown",
+      "basis": "none \u2014 not a dataset",
+      "download_required_to_verify": true
+    },
+    {
+      "source_id": "src-taksh-l04-code-corpus",
+      "reported": "measured: data/l04_code_corpus (1,590,703 tokens; size in PROVENANCE.md)",
+      "basis": "measured in-repo",
+      "download_required_to_verify": false
+    }
+  ],
+  "example_staging_estimate_1pt4tb": {
+    "raw_corpus": 1503238553600,
+    "dedup_workspace_est": 2254857830400,
+    "manifest_and_metadata": 3006477107,
+    "note": "ESTIMATE (1.5x for dedup workspace; ~2KB metadata per GB) \u2014 not a measured allocation"
+  },
+  "recommended_preprocessing_stages": [
+    "fetch metadata snapshot (no content)",
+    "license/ToU verification against this registry",
+    "content pull (owner-authorized, filtered slice only)",
+    "quarantine + hash on arrival",
+    "license/PII/secret/malware screen (data_quality module)",
+    "benchmark-contamination fingerprint screen (contamination module)",
+    "dedup (exact + near) with workspace",
+    "language identification + label confidence",
+    "emit per-source manifest (L0.6.1 training manifest schema)",
+    "post-acquisition verification audit"
+  ],
+  "reservations": {
+    "paid_storage": "NONE \u2014 not authorized, not created",
+    "cloud_resources": "NONE \u2014 not authorized, not created",
+    "network_downloads": "NONE \u2014 not performed"
+  },
+  "verdict": "STORAGE/RESOURCE READINESS QUALIFIED (planning only; nothing provisioned; nothing downloaded)"
+}

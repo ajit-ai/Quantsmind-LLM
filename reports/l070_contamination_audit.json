@@ -1,0 +1,77 @@
+{
+  "schema": "taksh.l070_contamination_audit/1",
+  "generated_by": "evaluation/l070_contamination.py",
+  "pinned_benchmarks": [
+    {
+      "id": "frozen-python-bench-v1",
+      "path": "evaluation/l02_python_bench_v1.json",
+      "expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "actual": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "intact": true
+    },
+    {
+      "id": "multilingual-bench-v1",
+      "path": "evaluation/l051_multilingual_benchmark_v1.json",
+      "expected": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "actual": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "intact": true
+    },
+    {
+      "id": "kark-bench-schema-v1",
+      "path": "reports/l060r1_kark_bench_schema.json",
+      "expected": "fe6acbcd9a41d5e113595d4fdb675cc616342da30029401fe16602d6c157d481",
+      "actual": "fe6acbcd9a41d5e113595d4fdb675cc616342da30029401fe16602d6c157d481",
+      "intact": true
+    }
+  ],
+  "synthetic_fixture_audit": {
+    "benchmarks_intact": [
+      {
+        "id": "frozen-python-bench-v1",
+        "path": "evaluation/l02_python_bench_v1.json",
+        "expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+        "actual": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+        "intact": true
+      },
+      {
+        "id": "multilingual-bench-v1",
+        "path": "evaluation/l051_multilingual_benchmark_v1.json",
+        "expected": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+        "actual": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+        "intact": true
+      },
+      {
+        "id": "kark-bench-schema-v1",
+        "path": "reports/l060r1_kark_bench_schema.json",
+        "expected": "fe6acbcd9a41d5e113595d4fdb675cc616342da30029401fe16602d6c157d481",
+        "actual": "fe6acbcd9a41d5e113595d4fdb675cc616342da30029401fe16602d6c157d481",
+        "intact": true
+      }
+    ],
+    "benchmark_fingerprints": {
+      "frozen-python-bench-v1": 30,
+      "multilingual-bench-v1": 64
+    },
+    "samples_scanned": 2,
+    "exact_matches": [
+      {
+        "sample_index": 1,
+        "benchmark": "frozen-python-bench-v1",
+        "fingerprint": "c5b7cdcb160f33ba2e4ba4241d644ffb29ad62feec2f536cf2bd745ab9013ccc"
+      }
+    ],
+    "near_duplicates": [
+      {
+        "sample_index": 1,
+        "benchmark_task": 0,
+        "jaccard": 1.0
+      }
+    ],
+    "excluded": 2,
+    "decision": "BLOCKED (contamination found)"
+  },
+  "external_corpus_screening": "NOT PERFORMED \u2014 no corpus exists; acquisition is disabled",
+  "policy": "any exact/near match blocks training eligibility until resolved; fingerprints registry is append-only",
+  "frozen_python_benchmark": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6 (intact)",
+  "verdict": "CONTAMINATION CONTROLS QUALIFIED on synthetic fixtures; benchmarks intact"
+}

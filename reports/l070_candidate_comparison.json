@@ -1,0 +1,136 @@
+{
+  "schema": "taksh.l070_candidate_comparison/1",
+  "generated_by": "evaluation/l070_candidate_comparison.py",
+  "comparison": [
+    {
+      "source_id": "src-taksh-l04-code-corpus",
+      "name": "TAKSH internal l04 verified code corpus",
+      "languages_covered": [
+        "python"
+      ],
+      "reported_size": null,
+      "access_friction": "internal",
+      "license_class": "permissive-per-slice (BSD-3-Clause / MIT / Apache-2.0, verified per record)",
+      "overall_license_verdict": "APPROVED_WITH_CONDITIONS",
+      "provenance_verdict": "VERIFIED",
+      "contamination_risk": "unknown",
+      "acquisition_status": "ACQUIRED",
+      "recommendation": "NOT ACQUISITION-READY"
+    },
+    {
+      "source_id": "src-bigcode-stack-v1",
+      "name": "BigCode The Stack (v1.x, e.g. bigcode/the-stack)",
+      "languages_covered": [
+        "assembly",
+        "batchfile",
+        "c",
+        "cpp",
+        "csharp",
+        "cmake",
+        "css",
+        "dockerfile",
+        "fortran",
+        "go",
+        "haskell",
+        "html",
+        "java",
+        "javascript",
+        "julia",
+        "lua",
+        "makefile",
+        "markdown",
+        "perl",
+        "php",
+        "powershell",
+        "python",
+        "ruby",
+        "rust",
+        "scala",
+        "shell",
+        "sql",
+        "tex",
+        "typescript",
+        "visual-basic",
+        "+ ~327 more (358 total per card)"
+      ],
+      "reported_size": "1.43 TB shown on repo page (2026-11-11); dedup ~6TB v1.1+ (card)",
+      "access_friction": "gated + ToU acceptance",
+      "license_class": "other (pass-through per-file original licenses; Terms-of-Use pass-through; NOT OpenRAIL)",
+      "overall_license_verdict": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_verdict": "PARTIALLY_VERIFIED",
+      "contamination_risk": "high (frozen bench 30 problems exist publicly at scale)",
+      "acquisition_status": "LICENSE_REVIEW",
+      "recommendation": "NOT ACQUISITION-READY"
+    },
+    {
+      "source_id": "src-bigcode-stack-v2",
+      "name": "BigCode The Stack v2 (bigcode/the-stack-v2)",
+      "languages_covered": "1 listed",
+      "reported_size": "67.53TB raw (SWH 2023-09-06); 427 GB metadata+links shown on repo page (2026-11-11)",
+      "access_friction": "gated + ToU acceptance",
+      "license_class": "other (pass-through per-file; SWH principles for language-model training required; SWH+INRIA bulk agreement)",
+      "overall_license_verdict": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_verdict": "PARTIALLY_VERIFIED",
+      "contamination_risk": "high (frozen bench 30 problems exist publicly at scale)",
+      "acquisition_status": "PROVENANCE_REVIEW",
+      "recommendation": "NOT ACQUISITION-READY"
+    },
+    {
+      "source_id": "src-codesearchnet",
+      "name": "CodeSearchNet (github/CodeSearchNet; Microsoft + GitHub)",
+      "languages_covered": [
+        "go",
+        "java",
+        "javascript",
+        "php",
+        "python",
+        "ruby"
+      ],
+      "reported_size": "~6M functions; compressed size not confirmed without download (not downloaded)",
+      "access_friction": "open (repo)",
+      "license_class": "MIT (code and documentation of the repository); corpus files carry original per-file licenses; CodeXGLUE-family datasets note C-UDA (research) in Microsoft README",
+      "overall_license_verdict": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_verdict": "PARTIALLY_VERIFIED",
+      "contamination_risk": "medium",
+      "acquisition_status": "METADATA_REVIEW",
+      "recommendation": "NOT ACQUISITION-READY"
+    },
+    {
+      "source_id": "src-pypi-permissive",
+      "name": "PyPI package source corpus (permissive-licensed packages)",
+      "languages_covered": [
+        "python"
+      ],
+      "reported_size": "unknown; \u2265 hundreds of GB if fully mirrored (estimate only; NOT downloaded)",
+      "access_friction": "no lawful bulk path",
+      "license_class": "per-package (MIT/Apache-2.0/BSD/PSF majority; copyleft minority) \u2014 aggregate cannot be licensed wholesale",
+      "overall_license_verdict": "REJECTED",
+      "provenance_verdict": "PARTIALLY_VERIFIED",
+      "contamination_risk": "unknown",
+      "acquisition_status": "DEFERRED",
+      "recommendation": "NOT ACQUISITION-READY"
+    },
+    {
+      "source_id": "src-karkain-corpus",
+      "name": "Karkain (.kark) source corpus",
+      "languages_covered": [
+        "karkain"
+      ],
+      "reported_size": null,
+      "access_friction": "internal",
+      "license_class": "owner-internal; no redistribution/training ingestion authorized",
+      "overall_license_verdict": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "provenance_verdict": "REJECTED",
+      "contamination_risk": "unknown",
+      "acquisition_status": "BLOCKED",
+      "recommendation": "NOT ACQUISITION-READY"
+    }
+  ],
+  "notes": [
+    "no candidate is recommended for acquisition",
+    "all external candidates require HUMAN_LEGAL_REVIEW_REQUIRED completion",
+    "provenance strength: The Stack v2 (SWHID) > The Stack v1 > CodeSearchNet > PyPI aggregate",
+    "the only acquisition-ready corpus today is the internal l04 Python corpus"
+  ],
+  "verdict": "COMPARISON COMPLETE \u2014 zero external sources qualified"
+}

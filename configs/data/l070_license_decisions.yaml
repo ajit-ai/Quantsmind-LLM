@@ -1,0 +1,166 @@
+# TAKSH L0.7.0 — License qualification decision records
+#
+# One record per source candidate. Five separate axes are assessed; they are
+# deliberately NOT collapsed into a single boolean. Decisions:
+#   APPROVED | APPROVED_WITH_CONDITIONS | HUMAN_LEGAL_REVIEW_REQUIRED | REJECTED | UNKNOWN
+# Unknown or ambiguous rights fail closed. These are engineering records, not
+# legal advice; nothing here overrides a licensed attorney's review.
+schema: taksh.license_qualification/1
+id: taksh-license-decisions-v1
+version: 1
+created: "2026-11-11"
+review_date: "2026-11-11"
+reviewer_responsibility: "TAKSH engineering owner + qualified external counsel before ANY acquisition"
+
+decision_axes:
+  - source_license
+  - file_package_licenses
+  - dependency_licenses
+  - redistribution_restrictions
+  - commercial_use_permissions
+  - derivative_work_restrictions
+  - ml_training_permissions
+  - terms_of_service
+  - dataset_specific_restrictions
+  - copyright_attribution
+
+records:
+  - source_id: src-taksh-l04-code-corpus
+    evidence_source: "data/l04_code_corpus/PROVENANCE.md (in-repo, audited 2026-11-07)"
+    exact_license_id: "per-slice BSD-3-Clause / MIT / Apache-2.0 (verified per record)"
+    official_reference: "data/l04_code_corpus/PROVENANCE.md"
+    axes:
+      source_license: { decision: APPROVED_WITH_CONDITIONS, note: "internal corpus; verified per slice", training_use: true, commercial_use: "per-slice; internal use only under current authorization" }
+      file_package_licenses: { decision: APPROVED_WITH_CONDITIONS, note: "each slice's license verified at build time", training_use: true, commercial_use: true }
+      dependency_licenses: { decision: APPROVED_WITH_CONDITIONS, note: "out of scope for the corpus itself: slices are verbatim source files with no dependency graph; any vendored-dependency injection risk is caught by the license audit at corpus-build time (L0.4)", training_use: true }
+      redistribution_restrictions: { decision: APPROVED_WITH_CONDITIONS, note: "no redistribution outside TAKSH without per-slice review", training_use: true, commercial_use: false }
+      commercial_use_permissions: { decision: APPROVED_WITH_CONDITIONS, note: "internal research use permitted by prior owner authorization (L0.4)", training_use: true, commercial_use: false }
+      derivative_work_restrictions: { decision: APPROVED_WITH_CONDITIONS, note: "checkpoints are derivatives of corpus in the legal sense of memorization; per-slice terms respected", training_use: true }
+      ml_training_permissions: { decision: APPROVED_WITH_CONDITIONS, note: "internal SFT/pretraining on 1.59M Python tokens previously authorized", training_use: true }
+      terms_of_service: { decision: APPROVED, note: "no ToS apply (internal data)", training_use: true }
+      dataset_specific_restrictions: { decision: APPROVED_WITH_CONDITIONS, note: "benchmark-contaminated slices quarantined at build time", training_use: true }
+      copyright_attribution: { decision: APPROVED_WITH_CONDITIONS, note: "PROVENANCE.md retains attribution; carry hashes forward", training_use: true }
+    unresolved_questions:
+      - "external or commercial release of checkpoints trained on this corpus requires fresh counsel review"
+    required_attribution: "PROVENANCE.md + NOTICE per slice"
+    required_exclusions: "frozen-benchmark-overlapping slices (4, quarantined)"
+    owner_approval_state: "APPROVED_WITH_CONDITIONS (internal research use; prior L0.4 authorization)"
+    overall_decision: "APPROVED_WITH_CONDITIONS"
+
+  - source_id: src-bigcode-stack-v1
+    evidence_source: "HF dataset card https://huggingface.co/datasets/bigcode/the-stack (retrieved 2026-11-11; gated)"
+    exact_license_id: "other (per-file pass-through; dataset ToU)"
+    official_reference: "https://huggingface.co/datasets/bigcode/the-stack#terms-of-use-for-the-stack"
+    axes:
+      source_license: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "no single dataset license; ToU passes original licenses through; ToU must be accepted to access", training_use: "unknown" }
+      file_package_licenses: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "193 permissive SPDX licenses (v1.1+); copyleft (MPL/EPL/LGPL) removed in v1.1; detection ~81% failed at ingestion (excluded)", training_use: "unknown" }
+      dependency_licenses: { decision: UNKNOWN, note: "per-file basis; vendored code not separately resolved", training_use: "unknown" }
+      redistribution_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "hosting/sharing must carry ToU + acceptance requirement (ToU clause 3)", training_use: "unknown" }
+      commercial_use_permissions: { decision: UNKNOWN, note: "ToU silent on commercial training; per-file licenses mostly permit but unsigned aggregation is the open question", training_use: "unknown", commercial_use: false }
+      derivative_work_restrictions: { decision: UNKNOWN, note: "ToU silent; per-file licenses govern; memorization-vs-derivative question unresolved", training_use: "unknown" }
+      ml_training_permissions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "dataset explicitly built FOR pretraining (ToU implies it), but no express commercial-training grant exists", training_use: "unknown" }
+      terms_of_service: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "ToU acceptance required; periodic opt-out ablation required to keep usable version", training_use: "conditional" }
+      dataset_specific_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "PII removal SLA is maintainer-side; TAKSH must re-screen; benchmark contamination near-certain at scale", training_use: "conditional" }
+      copyright_attribution: { decision: APPROVED_WITH_CONDITIONS, note: "provenance fields (repo/license) provided per file; attribution obligations inherited per file", training_use: "conditional" }
+    unresolved_questions:
+      - "commercial use of TAKSH checkpoints trained on The Stack — no express grant located"
+      - "opt-out ablation mechanics for an internal mirror (version pinning vs ToU clause 2 freshness)"
+      - "liability allocation for memorized PII or non-redistribution licenses misdetected upstream"
+      - "benchmark contamination: TAKSH must supply own exclusion pipeline before any use"
+    required_attribution: "ToU + per-file NOTICE retention + SBOM-style license manifest"
+    required_exclusions: "files failing TAKSH contamination/PII/secret screening; MPL/EPL/LGPL already absent in v1.1+"
+    owner_approval_state: "not_requested"
+    overall_decision: "HUMAN_LEGAL_REVIEW_REQUIRED"
+
+  - source_id: src-bigcode-stack-v2
+    evidence_source: "HF dataset card https://huggingface.co/datasets/bigcode/the-stack-v2 (retrieved 2026-11-11; gated)"
+    exact_license_id: "other (per-file pass-through; SWH+INRIA agreement for bulk; SWH LLM principles)"
+    official_reference: "https://huggingface.co/datasets/bigcode/the-stack-v2#terms-of-use-for-the-stack-v2"
+    axes:
+      source_license: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "SWHID metadata only; content behind Software Heritage; bulk requires INRIA agreement; license_type field permissive|no_license", training_use: "unknown" }
+      file_package_licenses: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "96.93% of repos lacked repo license; ScanCode file-level SPDX; permissive = Blue Oak + ScanCode list", training_use: "unknown" }
+      dependency_licenses: { decision: UNKNOWN, note: "is_vendor/is_generated flags provided; no dependency resolution", training_use: "unknown" }
+      redistribution_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "content redistribution under SWH agreement; TAKSH cannot redistribute raw content without it", training_use: "unknown" }
+      commercial_use_permissions: { decision: UNKNOWN, note: "SWH principles are use-neutral research principles; commercial scope undefined; INRIA agreement required regardless", training_use: "unknown", commercial_use: false }
+      derivative_work_restrictions: { decision: UNKNOWN, note: "per-file only", training_use: "unknown" }
+      ml_training_permissions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "SWH statement explicitly contemplates LLM-for-code training (2023-10-19); still pass-through per-file and agreement-gated", training_use: "conditional" }
+      terms_of_service: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "SWH+INRIA agreement mandatory for bulk; version freshness via opt-out ablation", training_use: "conditional" }
+      dataset_specific_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "PII retention documented; opt-out is the removal mechanism; near-dup removal mandatory (~40% of permissive files)", training_use: "conditional" }
+      copyright_attribution: { decision: APPROVED_WITH_CONDITIONS, note: "SWHID provenance chain is the strongest available; attribution via provenance metadata retention", training_use: "conditional" }
+    unresolved_questions:
+      - "whether TAKSH may hold a private bulk mirror under the INRIA agreement for commercial purposes"
+      - "exact sla for opt-out propagation into an internal static training snapshot"
+      - "contamination overlap with TAKSH's frozen Python benchmark at task granularity"
+    required_attribution: "SWHID-provenance retention + SPDX manifest + SWH acknowledgement"
+    required_exclusions: "license_type=no_license; is_vendor/is_generated as configured; opt-out revisions; TAKSH benchmark-colliding content"
+    owner_approval_state: "not_requested"
+    overall_decision: "HUMAN_LEGAL_REVIEW_REQUIRED"
+
+  - source_id: src-codesearchnet
+    evidence_source: "GitHub repo https://github.com/github/CodeSearchNet (MIT for code+docs, retrieved 2026-11-11); corpus paper arXiv:1909.09436"
+    exact_license_id: "MIT (repository tooling/docs); corpus = original per-file licenses; CodeXGLUE datasets note C-UDA (research-oriented) — ambiguity documented"
+    official_reference: "https://github.com/github/CodeSearchNet ; https://arxiv.org/abs/1909.09436"
+    axes:
+      source_license: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "tooling MIT ≠ corpus rights; corpus redistribution-derived at ingestion but no blanket dataset license exists", training_use: "unknown" }
+      file_package_licenses: { decision: UNKNOWN, note: "per-file licenses NOT carried in corpus rows; polyglot mix (Go/Java/JS/PHP/Python/Ruby)", training_use: "unknown" }
+      dependency_licenses: { decision: UNKNOWN, note: "n/a (function-level extraction); vendored contexts absent", training_use: "unknown" }
+      redistribution_restrictions: { decision: APPROVED_WITH_CONDITIONS, note: "upstream asserts redistribution-eligible ingestion; TAKSH redistribution still per-file-bound", training_use: "conditional" }
+      commercial_use_permissions: { decision: UNKNOWN, note: "not addressed anywhere authoritative; C-UDA note on derivative dataset products", training_use: "unknown", commercial_use: false }
+      derivative_work_restrictions: { decision: UNKNOWN, note: "per-file", training_use: "unknown" }
+      ml_training_permissions: { decision: UNKNOWN, note: "corpus built for representation learning; model training rights not granted expressly; treat as unverified", training_use: "unknown" }
+      terms_of_service: { decision: APPROVED, note: "GitHub ToS for cloning the tooling repo only; do not bulk-scrape via GitHub", training_use: "unknown" }
+      dataset_specific_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "train/test contamination risk documented in forks (CodeXGLUE warns); TAKSH must benchmark-screen before use", training_use: "conditional" }
+      copyright_attribution: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "no NOTICE files shipped in corpus; attribution requires external reconstruction", training_use: "unknown" }
+    unresolved_questions:
+      - "definitive corpus-level license for the released function/docstring pairs"
+      - "whether C-UDA applies to derivatives (paper predates C-UDA release)"
+      - "per-file license reconstruction strategy and its reliability"
+    required_attribution: "repository citation (arXiv:1909.09436) + per-reconstructed-license NOTICE"
+    required_exclusions: "any pair whose source license cannot be reconstructed as permissive; benchmark-colliding content"
+    owner_approval_state: "not_requested"
+    overall_decision: "HUMAN_LEGAL_REVIEW_REQUIRED"
+
+  - source_id: src-pypi-permissive
+    evidence_source: "PyPI repository policies (https://pypi.org/policies/terms-of-use/, repository ToU only); no dataset exists"
+    exact_license_id: "per-package SPDX (self-reported); aggregate not licensable"
+    official_reference: "https://pypi.org/policies/terms-of-use/"
+    axes:
+      source_license: { decision: REJECTED, note: "no single source license; repository ToU does not grant corpus rights", training_use: false }
+      file_package_licenses: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "per-package audit required; metadata classifiers unreliable", training_use: "unknown" }
+      dependency_licenses: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "vendored wheels drag foreign licenses; must resolve", training_use: "unknown" }
+      redistribution_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "per-package", training_use: "unknown" }
+      commercial_use_permissions: { decision: UNKNOWN, note: "proprietary-incompatible minority exists (e.g. strong copyleft)", training_use: "unknown", commercial_use: false }
+      derivative_work_restrictions: { decision: UNKNOWN, note: "per-package", training_use: "unknown" }
+      ml_training_permissions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "PyPI ToU never authorizes bulk corpus building for model training", training_use: false }
+      terms_of_service: { decision: REJECTED, note: "ToU governs index use; bulk collection for training exceeds it; mirroring needs PyPI-specific authorization", training_use: false }
+      dataset_specific_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "malware/credential/content risks; per-package screening mandatory", training_use: "conditional" }
+      copyright_attribution: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "per-package NOTICE obligations vary", training_use: "unknown" }
+    unresolved_questions:
+      - "legally defensible bulk-ingestion mechanism (license audit at scale) — none exists today"
+    required_attribution: "per-package NOTICE + SBOM"
+    required_exclusions: "non-permissive licenses; malware; leaked credentials; dual-licensed copyleft contamination"
+    owner_approval_state: "not_requested"
+    overall_decision: "REJECTED"
+
+  - source_id: src-karkain-corpus
+    evidence_source: "F:/Codes/Git/Karkain (read-only; e612ede); TAKSH-side contract configs/foundation/l0601_karkain_learning_contract.yaml"
+    exact_license_id: "owner-internal; not public"
+    official_reference: "F:/Codes/Git/Karkain (owner-owned)"
+    axes:
+      source_license: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "owner-internal licensing is the owner's grant to issue — never granted for training", training_use: false }
+      file_package_licenses: { decision: UNKNOWN, note: "SPEC/stdlib/examples each carry repo terms; no audit performed", training_use: false }
+      dependency_licenses: { decision: UNKNOWN, note: "n/a", training_use: false }
+      redistribution_restrictions: { decision: REJECTED, note: "no redistribution authorization ever issued", training_use: false }
+      commercial_use_permissions: { decision: REJECTED, note: "not granted", training_use: false, commercial_use: false }
+      derivative_work_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "owner decision pending; no statement exists", training_use: false }
+      ml_training_permissions: { decision: REJECTED, note: "explicitly NOT authorized; separate kcc/compiler precondition unmet", training_use: false }
+      terms_of_service: { decision: APPROVED, note: "internal governance applies; compliant by construction when untouched", training_use: false }
+      dataset_specific_restrictions: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "SPEC versions drift; contamination vs TAKSH-KARK-BENCH unknown", training_use: false }
+      copyright_attribution: { decision: HUMAN_LEGAL_REVIEW_REQUIRED, note: "owner to specify if/when ingestion is ever authorized", training_use: false }
+    unresolved_questions:
+      - "whether any Karkain corpus may ever enter TAKSH training data — owner decision, no current grant"
+      - "kcc repair path on a supported host"
+    required_attribution: "TBD by owner"
+    required_exclusions: "all content until authorized"
+    owner_approval_state: "not_requested"
+    overall_decision: "HUMAN_LEGAL_REVIEW_REQUIRED"

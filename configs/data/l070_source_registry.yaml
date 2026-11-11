@@ -1,0 +1,281 @@
+# TAKSH L0.7.0 — Dataset source registry v1
+#
+# Versioned, extensible registry of training-data sources. A source enters this
+# registry as DISCOVERED and may only progress through explicit review states.
+# NOTHING in this registry is qualified for acquisition. The owner alone can
+# authorize ACQUISITION_AUTHORIZED, and execution is DISABLED in this milestone.
+#
+# Evidence gathered 2026-11-11 (metadata pages only; NO dataset content accessed):
+#   https://huggingface.co/datasets/bigcode/the-stack          (gated; ToU pass-through)
+#   https://huggingface.co/datasets/bigcode/the-stack-v2       (gated; SWHID-only; SWH+INRIA agreement required)
+#   https://huggingface.co/datasets/bigcode/bigcode-stack-v1   (HTTP 401 — gated/removed; terms unverifiable)
+#   https://github.com/github/CodeSearchNet                    (code+docs: MIT)
+#   https://arxiv.org/abs/1909.09436                           (corpus construction: redistributable-licensed GitHub repos)
+schema: taksh.dataset_source_registry/1
+id: taksh-dataset-source-registry-v1
+version: 1
+created: "2026-11-11"
+
+statuses:
+  - DISCOVERED            # catalogued; nothing verified
+  - METADATA_REVIEW       # license/ToU/provenance metadata being assessed
+  - LICENSE_REVIEW        # legal qualification in progress
+  - PROVENANCE_REVIEW     # source traceability being assessed
+  - TECHNICAL_REVIEW      # format/quality/contamination being assessed
+  - OWNER_APPROVAL_REQUIRED  # all reviews done; awaiting owner sign-off
+  - QUALIFIED_FOR_ACQUISITION # owner-visible readiness signal (not an authorization)
+  - ACQUISITION_AUTHORIZED  # owner decision recorded; execution still disabled this milestone
+  - ACQUIRED              # execution happened under authorization (none in this milestone)
+  - REJECTED              # failed qualification
+  - DEFERRED              # intentionally postponed
+  - BLOCKED               # license/provenance/contamination/safety blocker
+
+sources:
+  - source_id: src-taksh-l04-code-corpus
+    name: "TAKSH internal l04 verified code corpus"
+    publisher: "TAKSH (internal)"
+    official_url: null
+    dataset_version: "l04_code_corpus @ 2026-11-07 (measured)"
+    source_type: "internal-verified-corpus"
+    languages_covered: [python]
+    supporting_technologies_covered: []
+    coverage_estimate:
+      python: { tokens: 1590703, samples: 384, evidence: "measured in L0.4 (PROVENANCE.md)" }
+    description: "Internal licensed, fingerprinted, leakage-scanned Python corpus built in L0.3/L0.4"
+    acquisition_method: "prior-milestone curation under L0.4 supervision (not via the L0.7.0 workflow)"
+    distribution_format: "local sharded jsonl (data/l04_code_corpus/)"
+    license_id: "permissive-per-slice (BSD-3-Clause / MIT / Apache-2.0, verified per record)"
+    license_ref: "data/l04_code_corpus/PROVENANCE.md"
+    attribution_required: true
+    redistribution_restrictions: "internal use only unless per-slice license allows"
+    commercial_use: "license-dependent per slice"
+    derivative_works: "license-dependent per slice"
+    training_use: "permitted for internal research training (L0.4); re-review required for any other use"
+    tos_restrictions: ["none (internal corpus)"]
+    provenance:
+      source: "data/l04_code_corpus"
+      revision: "2026-11-07"
+      license_note: "per-slice license verified; benchmark-leakage scan quarantined 4 colliding slices"
+    integrity:
+      sha256: "content-addressed per slice (see PROVENANCE.md)"
+      expected_size_bytes: null
+    known_exclusions: ["slices overlapping the frozen Python benchmark (quarantined)"]
+    legal_review_status: "INTERNAL_REVIEWED"
+    owner_approval_status: "internal_verified"
+    acquisition_status: "ACQUIRED"
+    legacy: true
+    notes: "Only corpus with qualified token counts today. Python only."
+
+  - source_id: src-bigcode-stack-v1
+    name: "BigCode The Stack (v1.x, e.g. bigcode/the-stack)"
+    publisher: "BigCode (Hugging Face + ServiceNow Research)"
+    official_url: "https://huggingface.co/datasets/bigcode/the-stack"
+    dataset_version: "v1.3 (card changelog 2026-07-29); v1.0/v1.1/v1.2 historical"
+    source_type: "code-corpora (permissive-filtered)"
+    languages_covered: ["assembly", "batchfile", "c", "cpp", "csharp", "cmake", "css", "dockerfile",
+                        "fortran", "go", "haskell", "html", "java", "javascript", "julia", "lua",
+                        "makefile", "markdown", "perl", "php", "powershell", "python", "ruby", "rust",
+                        "scala", "shell", "sql", "tex", "typescript", "visual-basic",
+                        "+ ~327 more (358 total per card)"]
+    supporting_technologies_covered: [html, css, makefile, dockerfile, cmake]
+    coverage_estimate:
+      reported: "358 languages; near-dedup 6TB (v1.1+); full raw 92.36TB collected; 5.28B unique files (reported on card; UNVERIFIED here)"
+      verified: null
+    description: "Permissively-licensed code files (193 SPDX licenses after v1.1) from public GitHub repos, near-deduplicated (MinHash 0.85, 256 permutations)"
+    acquisition_method: "huggingface_hub snapshot download (gated repo: Terms of Use acceptance required)"
+    distribution_format: "parquet"
+    license_id: "other (pass-through per-file original licenses; Terms-of-Use pass-through; NOT OpenRAIL)"
+    license_ref: "https://huggingface.co/datasets/bigcode/the-stack (Terms of Use, accessed 2026-11-11; gated)"
+    attribution_required: "pass-through (original licenses, e.g. Apache-2.0/MIT keep NOTICE terms)"
+    redistribution_restrictions: "hosting/sharing requires including ToU and requiring acceptance (ToU clause 3)"
+    commercial_use: "not prohibited by ToU; bounded by each original file license; no blanket grant; UNVERIFIED for TAKSH's intended use"
+    derivative_works: "bounded by original licenses"
+    training_use: "not explicitly addressed by ToU; downstream use must satisfy pass-through licenses; SWE removal obligation applies"
+    tos_restrictions: [
+      "access requires accepting the Terms of Use (gated repository)",
+      "must enact validated data-removal requests by updating to the most recent usable version (ToU clause 2)",
+      "contact info shared with maintainers on access",
+      "PII may be present; removal SLA is maintainer-side"
+    ]
+    provenance:
+      source: "GHArchive-derived repository set (2015-2022)"
+      revision: "v1.3 (2026-07-29 opt-out sweep)"
+      license_note: "12% GHArchive license metadata; rest via go-license-detector; repo excluded if undetected (~81%)"
+    integrity:
+      sha256: null
+      expected_size_bytes: "1.43 TB shown on repo page (2026-11-11); dedup ~6TB v1.1+ (card)"
+    known_exclusions: [
+      "files that cannot decode / empty / >1MB excluded at curation time",
+      "malicious files removed in v1.2 (not exhaustive — to be re-screened)",
+      "opt-out repositories removed per version"
+    ]
+    legal_review_status: "HUMAN_LEGAL_REVIEW_REQUIRED"
+    owner_approval_status: "not_requested"
+    acquisition_status: "LICENSE_REVIEW"
+    notes: "Gated; ToU pass-through; benchmark contamination likely (repos contain benchmark solutions); commercial-use question unresolved"
+
+  - source_id: src-bigcode-stack-v2
+    name: "BigCode The Stack v2 (bigcode/the-stack-v2)"
+    publisher: "BigCode (Hugging Face + ServiceNow Research)"
+    official_url: "https://huggingface.co/datasets/bigcode/the-stack-v2"
+    dataset_version: "v2.2.0 (opt-out sweep before 2026-07-29)"
+    source_type: "code-corpora (permissive-filtered)"
+    languages_covered: ["658 languages (per card; see language_stats.csv — not fetched)"]
+    supporting_technologies_covered: [html, css, makefile, dockerfile, cmake]
+    coverage_estimate:
+      reported: "67.53TB raw (2023-09-06 SWH graph); dedup 32.1TB; ~900B tokens (reported); SWHID-only metadata repository; content behind Software Heritage S3 with agreement"
+      verified: null
+    description: "SWH-derived code files with provenance per datapoint (blob_id/directory_id/snapshot_id/revision_id); ScanCode+GHArchive license detection; permissive-typed by file; only SWHIDs are published here"
+    acquisition_method: "huggingface_hub for metadata + Software Heritage bulk agreement (datasets@softwareheritage.org) + S3 credentials for content"
+    distribution_format: "parquet (metadata); content via SWH S3 (gzip)"
+    license_id: "other (pass-through per-file; SWH principles for language-model training required; SWH+INRIA bulk agreement)"
+    license_ref: "https://huggingface.co/datasets/bigcode/the-stack-v2 (Terms of Use, accessed 2026-11-11; gated)"
+    attribution_required: "pass-through per file; SWH acknowledgement for dataset lineage"
+    redistribution_restrictions: "content redistribution governed by SWH agreement; original licenses apply; opt-out updates mandatory"
+    commercial_use: "not granted by ToU; bounded by original licenses; requires INRIA agreement"
+    derivative_works: "bounded by original licenses"
+    training_use: "explicitly contemplated by SWH principles for language-model training (https://www.softwareheritage.org/2023/10/19/swh-statement-on-llm-for-code/); per-file obligations remain"
+    tos_restrictions: [
+      "bulk download requires Software Heritage + INRIA agreement (datasets@softwareheritage.org)",
+      "must adhere to SWH principles for language models trained on code",
+      "must update to most recent usable version (opt-out ablation)",
+      "content access requires AWS credentials to softwareheritage bucket",
+      "no benchmark tasks may be included (not enforced by upstream; TAKSH must screen)"
+    ]
+    provenance:
+      source: "Software Heritage archive snapshot 2023-09-06"
+      revision: "v2.2.0"
+      license_note: "96.93% of repos: GHArchive license missing -> ScanCode file-level detection; permissive list = Blue Oak + ScanCode permissive/public-domain"
+    integrity:
+      sha256: null
+      expected_size_bytes: "67.53TB raw (SWH 2023-09-06); 427 GB metadata+links shown on repo page (2026-11-11)"
+    known_exclusions: [
+      "binary/empty/>10MB files excluded at curation time",
+      "opt-out repos removed per version (v2.0.1/v2.1.0/v2.2.0)",
+      "permissively-licensed files ~40% near-duplicates (removed in dedup variants)"
+    ]
+    legal_review_status: "HUMAN_LEGAL_REVIEW_REQUIRED"
+    owner_approval_status: "not_requested"
+    acquisition_status: "PROVENANCE_REVIEW"
+    notes: "Strictest access path; best provenance; training on permissive-file subset still requires own legal review + owner authorization"
+
+  - source_id: src-codesearchnet
+    name: "CodeSearchNet (github/CodeSearchNet; Microsoft + GitHub)"
+    publisher: "Microsoft Research + GitHub"
+    official_url: "https://github.com/github/CodeSearchNet"
+    dataset_version: "canonical release (no versioned releases; snapshot referenced by paper arXiv:1909.09436)"
+    source_type: "code-text pairs (function-docstring)"
+    languages_covered: [go, java, javascript, php, python, ruby]
+    supporting_technologies_covered: []
+    coverage_estimate:
+      reported: "~6M functions; ~2M auto-generated doc queries; 6 languages (reported on card/paper; UNVERIFIED here)"
+      verified: null
+    description: "Function/docstring pairs mined from public, non-fork GitHub repos with licenses explicitly permitting redistribution; used for code-search representation learning"
+    acquisition_method: "tarball download from GitHub repository (code_search_net resources)"
+    distribution_format: "jsonl.gz per language"
+    license_id: "MIT (code and documentation of the repository); corpus files carry original per-file licenses; CodeXGLUE-family datasets note C-UDA (research) in Microsoft README"
+    license_ref: "https://github.com/github/CodeSearchNet (MIT, verified 2026-11-11); https://arxiv.org/abs/1909.09436"
+    attribution_required: "yes (pass-through per file); MIT for tooling"
+    redistribution_restrictions: "corpus redistribution bounded by per-file licenses; repo tooling MIT"
+    commercial_use: "NOT CLEAR — corpus licenses mixed; C-UDA note for derivative dataset products; needs review"
+    derivative_works: "bounded by per-file licenses"
+    training_use: "function-docstring pretraining on code+paired text; commercial model training not clearly authorized"
+    tos_restrictions: [
+      "repository tooling MIT (no ToS conditions)",
+      "dataset files retain original licenses; redistribution legality per file",
+      "paper states selection was redistribution-licensable repos only — necessary but not sufficient for training rights"
+    ]
+    provenance:
+      source: "public GitHub repositories (libraries.io popularity-ranked), license-filtered at ingestion"
+      revision: "paper arXiv:1909.09436 v3; no formal revision pinning on the data release"
+      license_note: "only repos whose license permits redistribution included; per-file license metadata NOT carried in corpus rows"
+    integrity:
+      sha256: null
+      expected_size_bytes: "~6M functions; compressed size not confirmed without download (not downloaded)"
+    known_exclusions: [
+      "repositories without explicit redistribution-permitting license were excluded",
+      "fork repositories excluded",
+      "function/docstring pairs only — not repository-complete coverage"
+    ]
+    legal_review_status: "HUMAN_LEGAL_REVIEW_REQUIRED"
+    owner_approval_status: "not_requested"
+    acquisition_status: "METADATA_REVIEW"
+    notes: "Strong for code-search/instruction-adjacent tasks; limited language set; per-file provenance NOT embedded in the corpus"
+
+  - source_id: src-pypi-permissive
+    name: "PyPI package source corpus (permissive-licensed packages)"
+    publisher: "PyPI community / Python Software Foundation (repository, not corpus)"
+    official_url: "https://pypi.org"
+    dataset_version: "none — aggregate of many package releases; no single version"
+    source_type: "package corpus (derived)"
+    languages_covered: [python]
+    supporting_technologies_covered: []
+    coverage_estimate:
+      reported: "500k+ packages (reported); permissive-license subset size unknown without scraping (NOT scraped)"
+      verified: null
+    description: "Derived corpus of permissively-licensed PyPI packages; would require per-package license triage and dependency/vendor analysis"
+    acquisition_method: "NOT AUTHORIZED — would require index mirror or bulk package download + per-package license audit; neither performed nor authorized"
+    distribution_format: "wheels/sdists (not a distributed dataset)"
+    license_id: "per-package (MIT/Apache-2.0/BSD/PSF majority; copyleft minority) — aggregate cannot be licensed wholesale"
+    license_ref: "https://pypi.org/policies/terms-of-use/ (repository ToU; not a dataset license)"
+    attribution_required: "per-package NOTICE/attribution obligations vary"
+    redistribution_restrictions: "per-package"
+    commercial_use: "per-package; typically permissive for the majority; copyleft minority excluded; aggregate unassessable without audit"
+    derivative_works: "per-package"
+    training_use: "unclear in aggregate; per-package analysis mandatory; PyPI ToU does not grant corpus training rights"
+    tos_restrictions: [
+      "PyPI is a repository of packages, not a dataset; its ToU governs index use, not model training",
+      "no rights are granted to bulk-collect packages for training by repository ToU",
+      "malicious/low-quality packages exist; exclusion pipeline mandatory"
+    ]
+    provenance:
+      source: "PyPI package index (aggregate; not a single snapshot)"
+      revision: "n/a (aggregate)"
+      license_note: "per-package license metadata (classifiers) is self-reported and frequently wrong; requires per-file audit"
+    integrity:
+      sha256: null
+      expected_size_bytes: "unknown; ≥ hundreds of GB if fully mirrored (estimate only; NOT downloaded)"
+    known_exclusions: [
+      "packages with missing/incompatible licenses",
+      "packages with hostile content / credential leaks / malware (must be scanned)",
+      "vendored dependencies must not be double-counted"
+    ]
+    legal_review_status: "HUMAN_LEGAL_REVIEW_REQUIRED"
+    owner_approval_status: "not_requested"
+    acquisition_status: "DEFERRED"
+    notes: "Aggregate candidate only; no legitimate bulk-training grant exists without per-package adjudication — treated as a research question, not a dataset"
+
+  - source_id: src-karkain-corpus
+    name: "Karkain (.kark) source corpus"
+    publisher: "Karkain project (owner-internal repository)"
+    official_url: "https://github.com/ajit-ai/Karkain"
+    dataset_version: "SPEC v1.1.0 / compiler v1.1.0 (pinned); branch feature/v1.2.0-native-independence"
+    source_type: "language-definition corpus (not yet instantiated)"
+    languages_covered: [karkain]
+    supporting_technologies_covered: []
+    coverage_estimate:
+      reported: "SPEC, stdlib, examples/, conformance/ — exists upstream in owner repo; NO corpus counts measured; ZERO training-eligible tokens"
+      verified: null
+    description: "First-class language (54th). Candidate sources: owner-internal repository (SPEC, stdlib, examples, conformance tests) — license/provenance TBD per owner"
+    acquisition_method: "owner-internal access only; training-corpus use requires separate owner authorization (never granted)"
+    distribution_format: "source files (.kark), SPEC.md, stdlib.md"
+    license_id: "owner-internal; no redistribution/training ingestion authorized"
+    license_ref: "configs/foundation/l0601_karkain_learning_contract.yaml"
+    attribution_required: "internal"
+    redistribution_restrictions: "prohibited without owner authorization"
+    commercial_use: "not granted"
+    derivative_works: "not granted"
+    training_use: "NOT authorized; kcc broken on this host (0xC0000135); no compiler-backed validation possible"
+    tos_restrictions: ["owner-internal repository governance applies"]
+    provenance:
+      source: "F:/Codes/Git/Karkain (read-only)"
+      revision: "e612ede"
+      license_note: "owner-internal; no training ingestion authorized"
+    integrity:
+      sha256: "n/a (corpus not instantiated)"
+      expected_size_bytes: null
+    known_exclusions: ["everything — until owner authorizes and kcc (or successor) validates"]
+    legal_review_status: "HUMAN_LEGAL_REVIEW_REQUIRED"
+    owner_approval_status: "not_requested"
+    acquisition_status: "BLOCKED"
+    notes: "First-class commitment preserved; zero corpus; zero claims; compiler-validation precondition unmet on this host"
