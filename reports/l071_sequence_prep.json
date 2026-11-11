@@ -1,0 +1,43 @@
+{
+  "schema": "taksh.l071_sequence_prep/1",
+  "generated_by": "evaluation/l071_packing.py",
+  "context_limit": 2048,
+  "eos_id": 2,
+  "packed_sequences": 3,
+  "total_tokens": 4305,
+  "rejected_sequences": [],
+  "rejected_count": 0,
+  "samples_packed": 5,
+  "all_within_context": true,
+  "boundaries_traceable": true,
+  "pack_manifest_sha256": "0a521469b60da00142eba664c932a1dccab80febd5b02058b92871b1ab3031bc",
+  "boundaries": [
+    {
+      "sample_id": "syn-a",
+      "sequence_offset": 0,
+      "position": 0
+    },
+    {
+      "sample_id": "syn-b",
+      "sequence_offset": 0,
+      "position": 101
+    },
+    {
+      "sample_id": "syn-c",
+      "sequence_offset": 1,
+      "position": 0
+    },
+    {
+      "sample_id": "syn-d",
+      "sequence_offset": 2,
+      "position": 0
+    },
+    {
+      "sample_id": "syn-e",
+      "sequence_offset": 2,
+      "position": 1501
+    }
+  ],
+  "fixtures_label": "synthetic",
+  "policy": "no truncation of source code; oversized samples rejected and accounted"
+}

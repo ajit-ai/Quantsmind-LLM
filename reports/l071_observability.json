@@ -1,0 +1,161 @@
+{
+  "schema": "taksh.l071_observability/1",
+  "generated_by": "evaluation/l071_observability.py",
+  "created": "2026-11-11T07:04:11+00:00",
+  "distinguishing_statuses": [
+    "IMPLEMENTED_AND_TESTED",
+    "SIMULATED",
+    "BLOCKED",
+    "NOT_YET_AUTHORIZED"
+  ],
+  "tools": [
+    {
+      "tool": "ingest",
+      "section": "6",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_ingest",
+      "exit_code": 0,
+      "stdout_tail": [
+        "ingested 378 records (REAL_AUTHORIZED_CORPUS) from src-taksh-l04-code-corpus",
+        "report written to reports\\l071_ingest.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "quality",
+      "section": "8",
+      "state": "SIMULATED",
+      "module": "evaluation.l071_quality",
+      "exit_code": 0,
+      "stdout_tail": [
+        "quality framework ready; 5 synthetic fixtures classified",
+        "report written to reports\\l071_quality.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "dedup",
+      "section": "9",
+      "state": "SIMULATED",
+      "module": "evaluation.l071_dedup",
+      "exit_code": 0,
+      "stdout_tail": [
+        "dedup: 3 groups across 4 synthetic samples; contamination: CLEAN (fixtures only)",
+        "report written to reports\\l071_dedup.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "stats",
+      "section": "10",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_stats",
+      "exit_code": 0,
+      "stdout_tail": [
+        "javascript      0 samples        0 tokens",
+        "karkain         0 samples        0 tokens",
+        "python        378 samples 1,590,326 tokens",
+        "report written to reports\\l071_stats.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "splits",
+      "section": "13",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_splits",
+      "exit_code": 0,
+      "stdout_tail": [
+        "splits assigned; counts={'train': 349, 'test': 16, 'val': 17}; no_leakage=True",
+        "report written to reports\\l071_splits.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "packing",
+      "section": "12",
+      "state": "SIMULATED",
+      "module": "evaluation.l071_packing",
+      "exit_code": 0,
+      "stdout_tail": [
+        "packed 5 samples into 3 sequences; rejected=0",
+        "report written to reports\\l071_sequence_prep.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "snapshot",
+      "section": "14",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_snapshot",
+      "exit_code": 0,
+      "stdout_tail": [
+        "real=378 synthetic=4 tokens=1,590,326",
+        "contamination: CLEAN (fixtures only)",
+        "frozen_for_training=False (owner authorization outstanding)",
+        "artifacts: F:\\Codes\\Git\\Quantsmind-LLM\\artifacts\\l071_l04_snapshot"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "manifest_adapter",
+      "section": "17",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_manifest_adapter",
+      "exit_code": 0,
+      "stdout_tail": [
+        "manifest compatible: train=1,468,951 (344 samples) val=17 test=16",
+        "report written to reports\\l071_training_manifest_check.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "dlcae",
+      "section": "15",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_dlcae",
+      "exit_code": 0,
+      "stdout_tail": [
+        "8. training-eligibility decision                             NOT_DETERMINED \u2014 owner authorization outstanding; nothing tr",
+        "9. corpus statistics feedback                                COMPLETE (1,590,326 per-record tokens measured; see stats)",
+        "10. evaluation feedback                                      NOT RUN \u2014 frozen benchmark unchanged; no model trained; no c",
+        "report written to reports\\l071_dlcae.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "karkain",
+      "section": "16",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_karkain",
+      "exit_code": 0,
+      "stdout_tail": [
+        "karkain adapter valid; synthetic fixtures=3 (labeled); corpus=0",
+        "report written to reports\\l071_karkain_adapter.json"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "summary": {
+    "all_exit_zero": true,
+    "classifications": {
+      "REAL_AUTHORIZED_CORPUS": "python (l04; 378 code records; 377 parseable; 1 INVALID excluded)",
+      "SYNTHETIC_TEST_FIXTURE": "4 fixtures (python/karkain/javascript/c) \u2014 never eligible",
+      "CANDIDATE_SOURCE": "bigcode v1/v2, codesearchnet, pypi (not ingested)",
+      "UNVERIFIED_SOURCE": "everything else",
+      "BLOCKED_SOURCE": "karkain (zero corpus)"
+    },
+    "real_tokens_measured": 1590326,
+    "contamination": "CLEAN (fixtures only)",
+    "frozen_for_training": false,
+    "bytes_acquired": 0,
+    "external_ingestion": "DISABLED",
+    "not_yet_authorized": [
+      "training",
+      "external acquisition",
+      "gpu",
+      "publication"
+    ]
+  },
+  "verdict": "L0.7.1 CORPUS ENGINEERING QUALIFIED \u2014 pipeline real and reproducible; nothing training-eligible; nothing downloaded"
+}

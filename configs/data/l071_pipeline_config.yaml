@@ -1,0 +1,49 @@
+# TAKSH L0.7.1 — corpus engineering pipeline configuration
+schema: taksh.pipeline_config/1
+id: taksh-corpus-pipeline-v1
+version: 1
+created: "2026-11-11"
+pipeline_version: "l071-pipeline/1"
+normalizer_version: "l071-norm/1"
+context_limit: 2048
+
+tokenizer:
+  artifact: tokenizer/taksh_code_bpe_v1.json
+  id: taksh_code_bpe_v1
+  version: "1"
+  committed_blob_sha256: "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7"
+  working_tree_sha256: "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92"
+
+dedup:
+  exact_method: "sha256 of raw bytes"
+  normalized_method: "sha256 of normalized text"
+  near_duplicate_method: "word 5-gram shingle Jaccard"
+  near_duplicate_threshold: 0.7
+  cross_language: true
+  canonical_selection: "deterministic: shortest text, then smallest fingerprint"
+  audit: "exclusions recorded; duplicates never silently deleted"
+
+contamination:
+  registry: configs/data/l070_contamination_registry.yaml
+  on_contamination: "block training eligibility for the sample; audit record required"
+
+splits:
+  train: 0.9
+  val: 0.05
+  test: 0.05
+  assignment: "seeded (sha256 of sample_id, first 8 bytes mod 10000)"
+  duplicate_group_aware: true
+  stratified_reporting: true
+
+resource_guards:
+  max_samples_per_batch: 512
+  max_inflight_mb: 256
+  bounded_parallelism: 1
+  temp_dir_policy: "artifacts/l071_* only; mkdtemp under repo temp"
+  atomic_writes: true
+  no_paid_storage: true
+  no_network: true
+
+quality_gates:
+  batch_bytes_max: 67108864
+  memory_available_floor_bytes: 134217728   # 128 MiB minimum headroom measured before run

@@ -1,0 +1,190 @@
+{
+  "schema": "taksh.l071_stats/1",
+  "generated_by": "evaluation/l071_stats.py",
+  "tokenizer_fingerprint": "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92",
+  "total_records": 382,
+  "real_records": 378,
+  "synthetic_records": 4,
+  "per_language": {
+    "python": {
+      "raw_samples": 378,
+      "unique_fingerprints": 378,
+      "token_count": 1590326,
+      "synthetic_tokens": 16,
+      "avg_tokens_per_sample": 4207.21,
+      "max_sequence_length": 75326,
+      "context_limit": 2048,
+      "exceeding_context": 211,
+      "length_distribution": {
+        "<=64": 0,
+        "65-256": 13,
+        "257-1024": 50,
+        "1025-2048": 104,
+        ">2048": 211
+      },
+      "by_quality": {
+        "VALIDATED_WITH_WARNINGS": 376,
+        "VALIDATED": 2,
+        "INVALID": 1
+      },
+      "by_duplicate_status": {
+        "UNIQUE": 379
+      },
+      "exclusion_reasons": {
+        "QUALITY_INVALID": 1,
+        "SYNTHETIC_TEST_FIXTURE": 1
+      },
+      "synthetic_records": 1
+    },
+    "karkain": {
+      "raw_samples": 0,
+      "unique_fingerprints": 0,
+      "token_count": 0,
+      "synthetic_tokens": 13,
+      "avg_tokens_per_sample": 0,
+      "max_sequence_length": 0,
+      "context_limit": 2048,
+      "exceeding_context": 0,
+      "length_distribution": {
+        "<=64": 0,
+        "65-256": 0,
+        "257-1024": 0,
+        "1025-2048": 0,
+        ">2048": 0
+      },
+      "by_quality": {
+        "VALIDATED_WITH_WARNINGS": 1
+      },
+      "by_duplicate_status": {
+        "UNIQUE": 1
+      },
+      "exclusion_reasons": {
+        "SYNTHETIC_TEST_FIXTURE": 1
+      },
+      "synthetic_records": 1
+    },
+    "javascript": {
+      "raw_samples": 0,
+      "unique_fingerprints": 0,
+      "token_count": 0,
+      "synthetic_tokens": 17,
+      "avg_tokens_per_sample": 0,
+      "max_sequence_length": 0,
+      "context_limit": 2048,
+      "exceeding_context": 0,
+      "length_distribution": {
+        "<=64": 0,
+        "65-256": 0,
+        "257-1024": 0,
+        "1025-2048": 0,
+        ">2048": 0
+      },
+      "by_quality": {
+        "VALIDATED_WITH_WARNINGS": 1
+      },
+      "by_duplicate_status": {
+        "UNIQUE": 1
+      },
+      "exclusion_reasons": {
+        "SYNTHETIC_TEST_FIXTURE": 1
+      },
+      "synthetic_records": 1
+    },
+    "c": {
+      "raw_samples": 0,
+      "unique_fingerprints": 0,
+      "token_count": 0,
+      "synthetic_tokens": 19,
+      "avg_tokens_per_sample": 0,
+      "max_sequence_length": 0,
+      "context_limit": 2048,
+      "exceeding_context": 0,
+      "length_distribution": {
+        "<=64": 0,
+        "65-256": 0,
+        "257-1024": 0,
+        "1025-2048": 0,
+        ">2048": 0
+      },
+      "by_quality": {
+        "VALIDATED_WITH_WARNINGS": 1
+      },
+      "by_duplicate_status": {
+        "UNIQUE": 1
+      },
+      "exclusion_reasons": {
+        "SYNTHETIC_TEST_FIXTURE": 1
+      },
+      "synthetic_records": 1
+    }
+  },
+  "distribution": {
+    "real_corpus_tokens": 1590326,
+    "synthetic_tokens": 65,
+    "real_corpus_tokens_by_family": {
+      "l1_target": 1590326
+    },
+    "languages_with_real_data": [
+      "python"
+    ],
+    "languages_without_data": [
+      "ada",
+      "assembly",
+      "bash",
+      "c",
+      "clojure",
+      "cobol",
+      "cpp",
+      "crystal",
+      "csharp",
+      "dart",
+      "delphi",
+      "elixir",
+      "erlang",
+      "fortran",
+      "fsharp",
+      "gdscript",
+      "gleam",
+      "go",
+      "groovy",
+      "hack",
+      "haskell",
+      "java",
+      "javascript",
+      "julia",
+      "kotlin",
+      "lisp",
+      "lua",
+      "matlab",
+      "micropython",
+      "mojo",
+      "nim",
+      "objectivec",
+      "ocaml",
+      "odin",
+      "perl",
+      "php",
+      "plsql",
+      "pony",
+      "prolog",
+      "r",
+      "ruby",
+      "rust",
+      "scala",
+      "solidity",
+      "sql",
+      "swift",
+      "tsql",
+      "typescript",
+      "vba",
+      "vbnet",
+      "vlang",
+      "zig"
+    ]
+  },
+  "labels": {
+    "l04_python_corpus": "REAL_AUTHORIZED_CORPUS",
+    "fixtures": "SYNTHETIC_TEST_FIXTURE"
+  },
+  "policy": "token counts measured at ingest; synthetic tokens are reported separately; nothing estimated from file sizes"
+}

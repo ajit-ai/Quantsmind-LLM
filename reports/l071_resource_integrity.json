@@ -1,0 +1,79 @@
+{
+  "schema": "taksh.l071_resource_integrity/1",
+  "generated_by": "evaluation/l071_resource_integrity.py",
+  "memory": {
+    "total_bytes": 4199780352,
+    "available_bytes": 619773952,
+    "percent_used": 85.2,
+    "tool": "psutil",
+    "measured": true
+  },
+  "disk": {
+    "total_bytes": 578812899328,
+    "free_bytes": 182919053312,
+    "used_bytes": 395893846016,
+    "measured": true,
+    "tool": "shutil.disk_usage"
+  },
+  "pinned_artifacts": [
+    {
+      "path": "evaluation/l02_python_bench_v1.json",
+      "expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "actual": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "intact": true
+    },
+    {
+      "path": "evaluation/l051_multilingual_benchmark_v1.json",
+      "expected": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "actual": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "intact": true
+    },
+    {
+      "path": "runs/v180_sft/checkpoint_last.pt",
+      "expected": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+      "actual": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+      "intact": true
+    },
+    {
+      "path": "configs/foundation/l060_foundation.yaml",
+      "expected": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+      "actual": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+      "intact": true
+    },
+    {
+      "path": "configs/feasibility/l051_languages.yaml",
+      "expected": "075d4b568f052c8ebede69ccaf21cc4d0fd15a4f01df455f1431505c354ef39d",
+      "actual": "075d4b568f052c8ebede69ccaf21cc4d0fd15a4f01df455f1431505c354ef39d",
+      "intact": true
+    }
+  ],
+  "all_pinned_intact": true,
+  "artifacts": [
+    {
+      "path": "artifacts\\l071_l04_snapshot\\snapshot.json",
+      "exists": true,
+      "sha256": "3655e6216b1b583d3d4a9ed72f443d45d09c522c1238b646c14d6a616c8d81df",
+      "bytes": 7567
+    },
+    {
+      "path": "artifacts\\l071_l04_snapshot\\records_meta.jsonl",
+      "exists": true,
+      "sha256": "3a4b0c1bd00f61a36023bbe515550ff40d62350747f366e434166f57b02ea56f",
+      "bytes": 586999
+    },
+    {
+      "path": "tokenizer/taksh_code_bpe_v1.json",
+      "exists": true,
+      "sha256": "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92",
+      "note": "working-tree CRLF copy; committed LF blob hashed separately in tests",
+      "bytes": 411743
+    }
+  ],
+  "reservations": {
+    "paid_storage": "NONE",
+    "cloud_resources": "NONE",
+    "network_downloads": "NONE",
+    "gpu": "NONE"
+  },
+  "integrity_policy": "read-only verification; hashes recorded before and after the milestone"
+}

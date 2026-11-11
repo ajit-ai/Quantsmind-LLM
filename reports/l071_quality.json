@@ -1,0 +1,120 @@
+{
+  "schema": "taksh.l071_quality/1",
+  "generated_by": "evaluation/l071_quality.py",
+  "classification_states": [
+    "VALIDATED",
+    "VALIDATED_WITH_WARNINGS",
+    "NO_AUTOMATED_FLAGS",
+    "HUMAN_REVIEW_REQUIRED",
+    "INVALID",
+    "BLOCKED",
+    "NOT_CHECKED"
+  ],
+  "fixtures_label": "synthetic",
+  "fixture_results": [
+    {
+      "fixture": "ok",
+      "language": "python",
+      "quality_status": "VALIDATED",
+      "flags": [],
+      "checks": {
+        "non_empty": true,
+        "encoding": true,
+        "syntax": "VALIDATED",
+        "license_marker_present": true
+      }
+    },
+    {
+      "fixture": "bad_syntax",
+      "language": "python",
+      "quality_status": "INVALID",
+      "flags": [
+        "python_syntax_error",
+        "no_license_metadata_in_file"
+      ],
+      "checks": {
+        "non_empty": true,
+        "encoding": true,
+        "syntax": "FAILED",
+        "license_marker_present": false
+      }
+    },
+    {
+      "fixture": "secret",
+      "language": "python",
+      "quality_status": "HUMAN_REVIEW_REQUIRED",
+      "flags": [
+        "secret_pattern:aws-access-key-id",
+        "no_license_metadata_in_file"
+      ],
+      "checks": {
+        "non_empty": true,
+        "encoding": true,
+        "syntax": "VALIDATED",
+        "license_marker_present": false
+      }
+    },
+    {
+      "fixture": "generated",
+      "language": "c",
+      "quality_status": "VALIDATED_WITH_WARNINGS",
+      "flags": [
+        "generated_code_marker",
+        "no_license_metadata_in_file"
+      ],
+      "checks": {
+        "non_empty": true,
+        "encoding": true,
+        "syntax": "NOT_CHECKED (no in-repo toolchain for this language)",
+        "license_marker_present": false
+      }
+    },
+    {
+      "fixture": "minified",
+      "language": "javascript",
+      "quality_status": "VALIDATED_WITH_WARNINGS",
+      "flags": [
+        "extremely_long_lines",
+        "no_license_metadata_in_file"
+      ],
+      "checks": {
+        "non_empty": true,
+        "encoding": true,
+        "syntax": "NOT_CHECKED (no in-repo toolchain for this language)",
+        "license_marker_present": false
+      }
+    }
+  ],
+  "parser_adapters": [
+    {
+      "language": "python",
+      "adapter": "ast.parse",
+      "available": true
+    },
+    {
+      "language": "c",
+      "adapter": null,
+      "available": false,
+      "limitation": "no in-repo toolchain pinned; syntax validation skipped (NOT_CHECKED)"
+    },
+    {
+      "language": "java",
+      "adapter": null,
+      "available": false,
+      "limitation": "no in-repo toolchain pinned; syntax validation skipped (NOT_CHECKED)"
+    },
+    {
+      "language": "haskell",
+      "adapter": null,
+      "available": false,
+      "limitation": "no adapter defined; NOT_CHECKED"
+    },
+    {
+      "language": "karkain",
+      "adapter": null,
+      "available": false,
+      "limitation": "no adapter defined; NOT_CHECKED"
+    }
+  ],
+  "policy": "NO_AUTOMATED_FLAGS is not a quality pass; secrets route to humans; syntax NOT_CHECKED when no toolchain exists"
+}

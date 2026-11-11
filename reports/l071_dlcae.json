@@ -1,0 +1,87 @@
+{
+  "schema": "taksh.l071_dlcae/1",
+  "generated_by": "evaluation/l071_dlcae.py",
+  "flow": [
+    {
+      "step": "1. dynamic language registry lookup",
+      "status": "REGISTERED (python; 53-catalogue + karkain DISCOVERED)",
+      "evidence": "configs/feasibility/l051_languages.yaml"
+    },
+    {
+      "step": "2. language-specific source discovery",
+      "status": "COMPLETE for internal python l04; NOT DONE for others",
+      "evidence": "configs/data/l070_source_registry.yaml"
+    },
+    {
+      "step": "3. source qualification lookup",
+      "status": "COMPLETE (license decisions recorded L0.7.0); external candidates HUMAN_LEGAL_REVIEW_REQUIRED",
+      "evidence": "configs/data/l070_license_decisions.yaml"
+    },
+    {
+      "step": "4. incremental comprehension metadata",
+      "status": "PARTIAL (registry lookup + status recorded; no comprehension jobs run)",
+      "evidence": "evaluation/l062_dlcae_inference_interface.py"
+    },
+    {
+      "step": "5. language-aware normalization",
+      "status": "COMPLETE for processed records (l071-norm/1); provenance preserved",
+      "evidence": "artifacts/l071_l04_snapshot/snapshot.json"
+    },
+    {
+      "step": "6. structured corpus sample generation",
+      "status": "COMPLETE (378 real records; metadata-only records_meta.jsonl; content stays in place)",
+      "evidence": "artifacts/l071_l04_snapshot/records_meta.jsonl"
+    },
+    {
+      "step": "7. provenance and quality validation",
+      "status": "COMPLETE (quality + dedup + contamination + manifest compatibility check)",
+      "evidence": "reports/l071_training_manifest_check.json"
+    },
+    {
+      "step": "8. training-eligibility decision",
+      "status": "NOT_DETERMINED \u2014 owner authorization outstanding; nothing training-eligible yet",
+      "evidence": "snapshot.gates"
+    },
+    {
+      "step": "9. corpus statistics feedback",
+      "status": "COMPLETE (1,590,326 per-record tokens measured; see stats)",
+      "evidence": "reports/l071_stats.json"
+    },
+    {
+      "step": "10. evaluation feedback",
+      "status": "NOT RUN \u2014 frozen benchmark unchanged; no model trained; no capability claim",
+      "evidence": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6"
+    }
+  ],
+  "distinct_states": [
+    "language discovered",
+    "language comprehended",
+    "source discovered",
+    "source qualified",
+    "corpus acquired",
+    "corpus validated",
+    "corpus training-eligible",
+    "model trained",
+    "language functionally qualified",
+    "language engineering qualified"
+  ],
+  "distinct_state_current": {
+    "language discovered": "python (plus 53 catalogued, karkain DISCOVERED)",
+    "language comprehended": "NONE",
+    "source discovered": "python-l04 + candidates (L0.7.0)",
+    "source qualified": "python-l04 internal (APPROVED_WITH_CONDITIONS)",
+    "corpus acquired": "python-l04 internal only",
+    "corpus validated": "python-l04 (this pipeline; 1 INVALID excluded)",
+    "corpus training-eligible": "NONE (owner authorization outstanding)",
+    "model trained": "NO",
+    "language functionally qualified": "NONE",
+    "language engineering qualified": "NONE"
+  },
+  "invariants": [
+    "corpus size never implies capability",
+    "comprehension is not acquisition; acquisition is not learning",
+    "no registry status is upgraded by this pipeline",
+    "knowledge formation remains DLCAE-internal; retrieval augments only"
+  ],
+  "verdict": "DLCAE FLOW WIRED AND AUDITED; zero training-eligible corpora; zero capability changes"
+}

@@ -1,0 +1,53 @@
+# TAKSH L0.7.1 — canonical corpus record schema
+#
+# Every sample that passes through the L0.7.1 pipeline is represented by this
+# immutable record. Provenance is never dropped: normalization derives a NEW
+# transformed record that references the original identity (immutability of
+# source identity, transformation chain preserved).
+schema: taksh.corpus_record_schema/1
+id: taksh-corpus-record-schema-v1
+version: 1
+created: "2026-11-11"
+record_schema: taksh.corpus_record/1
+
+fields:
+  sample_id:            { type: string, required: true, note: "uuid5(source_id + original_fingerprint + index)" }
+  source_id:            { type: string, required: true, ref: "configs/data/l070_source_registry.yaml" }
+  source_version:       { type: string, required: true }
+  snapshot_ref:         { type: string, required: true, note: "snapshot id or 'ungated-local'" }
+  original_ref:         { type: string, required: true, note: "path or URI of the original sample" }
+  original_index:       { type: integer, required: true }
+  original_fingerprint: { type: string, required: true, method: "sha256 of raw bytes" }
+  normalized_fingerprint: { type: string, required: true, method: "sha256 of normalized text" }
+  language:             { type: string, required: true, ref: "configs/feasibility/l051_languages.yaml (+karkain)" }
+  language_family:      { type: string, required: true }
+  supporting_technology: { type: "string|null", required: false }
+  license_id:           { type: string, required: true }
+  license_decision_ref: { type: string, required: true, ref: "configs/data/l070_license_decisions.yaml" }
+  provenance_ref:       { type: string, required: true }
+  content_format:       { type: string, required: true, note: "utf-8 text, jsonl record, kark source, ..." }
+  encoding:             { type: string, required: true }
+  tokenizer_id:         { type: string, required: true }
+  tokenizer_version:    { type: string, required: true }
+  tokenizer_fingerprint: { type: string, required: true }
+  token_count:          { type: integer, required: true }
+  sample_count:         { type: integer, required: true, const: 1 }
+  quality_status:       { type: string, required: true, enum: [VALIDATED, VALIDATED_WITH_WARNINGS, NO_AUTOMATED_FLAGS, HUMAN_REVIEW_REQUIRED, INVALID, BLOCKED, NOT_CHECKED] }
+  duplicate_status:     { type: string, required: true, enum: [UNIQUE, EXACT_DUPLICATE, NEAR_DUPLICATE, NOT_SCANNED] }
+  duplicate_group:      { type: "string|null", required: true }
+  contamination_status: { type: string, required: true, enum: [CLEAN, CONTAMINATED, NOT_SCANNED] }
+  training_eligibility: { type: string, required: true, enum: [ELIGIBLE, INELIGIBLE, NOT_DETERMINED] }
+  split:                { type: string, required: true, enum: [train, val, test, unassigned] }
+  exclusion_reason:     { type: "string|null", required: true }
+  pipeline_version:     { type: string, required: true }
+  normalization_version: { type: string, required: true }
+  processing_timestamp: { type: string, required: true, note: "ISO-8601 UTC" }
+  transformation_history: { type: "array[object]", required: true, note: "append-only: [{step, version, detail}]" }
+
+invariants:
+  - "original_fingerprint and provenance_ref are never rewritten after creation"
+  - "normalization appends to transformation_history; it never deletes steps"
+  - "synthetic fixtures carry source_id with prefix 'synthetic-fixture' and training_eligibility INELIGIBLE"
+  - "excluded samples keep their record with exclusion_reason set (auditability)"
+
+quality_classification_note: "NO_AUTOMATED_FLAGS is a screening outcome, NOT a quality pass; safety classes always route to human review"
