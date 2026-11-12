@@ -59,6 +59,7 @@
 ### 2.6 Evaluation and benchmarks
 - Frozen Python benchmark: `854c7ca833…` (0/30, preserved)
 - Multilingual benchmark: `7a839060…` (64 tasks, unmeasured)
+- Frozen benchmark manifest: [`TAKSH-FROZEN-BENCHMARK-MANIFEST.md`](TAKSH-FROZEN-BENCHMARK-MANIFEST.md); both artifacts `ABSENT` on this ref, no re-scoring
 - `evaluation/eval_code.py` — HumanEval/MBPP harness (never executed against a model)
 
 ## 3. Integration State (as of 2026-11-12)

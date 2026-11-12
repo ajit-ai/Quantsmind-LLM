@@ -1,0 +1,59 @@
+# Frozen benchmark manifest.
+#
+# Pins the exact SHA-256 of the two frozen benchmark artifacts and states
+# whether they are present on this ref. The artifacts are feature-branch
+# evidence and are intentionally absent from develop/main. This manifest never
+# downloads, modifies or re-scores a benchmark.
+#
+# Historical results are recorded for context only. They are not recomputed.
+
+schema: taksh.frozen_benchmark_manifest/1
+created: "2026-11-12"
+policy:
+  download: false
+  modify: false
+  rescore: false
+  capability_claim: false
+  evaluation_requires_owner_authorization: true
+
+benchmarks:
+  - id: l02-python-v1
+    name: "Frozen Python benchmark v1"
+    path: evaluation/l02_python_bench_v1.json
+    expected_sha256: 854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6
+    expected_tasks: 30
+    hash_sources:
+      - .github/workflows/ci-l0704-manual-qualification.yml
+      - evaluation/taksh_cicd_recovery_check.py
+    historical:
+      result: "0/30"
+      measured: true
+      preserved: true
+      re_scored: false
+      evidence:
+        - README.md
+        - docs/roadmap/TAKSH-CAPABILITY-STATEMENT.md
+    status: BLOCKED
+    note: >-
+      Historical 0/30 stands. The artifact is absent on this ref, so integrity
+      cannot be verified here and nothing may be re-measured.
+
+  - id: l051-multilingual-v1
+    name: "Frozen multilingual benchmark v1"
+    path: evaluation/l051_multilingual_benchmark_v1.json
+    expected_sha256: 7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e
+    expected_tasks: 64
+    hash_sources:
+      - .github/workflows/ci-l0704-manual-qualification.yml
+      - evaluation/taksh_cicd_recovery_check.py
+    historical:
+      result: "64 tasks, not measured"
+      measured: false
+      preserved: true
+      re_scored: false
+      evidence:
+        - docs/roadmap/TAKSH-FIVE-VERSION-IMPLEMENTATION-BASELINE.md
+    status: BLOCKED
+    note: >-
+      The suite has never been measured against a canonical TAKSH checkpoint.
+      Absence is not a score and must not be reported as one.

@@ -1,0 +1,106 @@
+{
+  "schema": "taksh.frozen_benchmarks/1",
+  "generated_by": "evaluation/frozen_benchmarks.py",
+  "manifest": "configs/roadmap/frozen_benchmarks.yaml",
+  "status": "BLOCKED",
+  "verdict": "FROZEN_BENCHMARKS_ABSENT",
+  "benchmarks": [
+    {
+      "id": "l02-python-v1",
+      "name": "Frozen Python benchmark v1",
+      "path": "evaluation/l02_python_bench_v1.json",
+      "expected_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "actual_sha256": null,
+      "expected_tasks": 30,
+      "availability": "ABSENT",
+      "status": "BLOCKED",
+      "provenance_ok": true,
+      "provenance": [
+        {
+          "path": ".github/workflows/ci-l0704-manual-qualification.yml",
+          "present": true,
+          "confirms_expected_sha256": true
+        },
+        {
+          "path": "evaluation/taksh_cicd_recovery_check.py",
+          "present": true,
+          "confirms_expected_sha256": true
+        }
+      ],
+      "historical": {
+        "result": "0/30",
+        "measured": true,
+        "preserved": true,
+        "re_scored": false,
+        "evidence": [
+          "README.md",
+          "docs/roadmap/TAKSH-CAPABILITY-STATEMENT.md"
+        ]
+      },
+      "note": "Historical 0/30 stands. The artifact is absent on this ref, so integrity cannot be verified here and nothing may be re-measured."
+    },
+    {
+      "id": "l051-multilingual-v1",
+      "name": "Frozen multilingual benchmark v1",
+      "path": "evaluation/l051_multilingual_benchmark_v1.json",
+      "expected_sha256": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+      "actual_sha256": null,
+      "expected_tasks": 64,
+      "availability": "ABSENT",
+      "status": "BLOCKED",
+      "provenance_ok": true,
+      "provenance": [
+        {
+          "path": ".github/workflows/ci-l0704-manual-qualification.yml",
+          "present": true,
+          "confirms_expected_sha256": true
+        },
+        {
+          "path": "evaluation/taksh_cicd_recovery_check.py",
+          "present": true,
+          "confirms_expected_sha256": true
+        }
+      ],
+      "historical": {
+        "result": "64 tasks, not measured",
+        "measured": false,
+        "preserved": true,
+        "re_scored": false,
+        "evidence": [
+          "docs/roadmap/TAKSH-FIVE-VERSION-IMPLEMENTATION-BASELINE.md"
+        ]
+      },
+      "note": "The suite has never been measured against a canonical TAKSH checkpoint. Absence is not a score and must not be reported as one."
+    }
+  ],
+  "absent": [
+    "l02-python-v1",
+    "l051-multilingual-v1"
+  ],
+  "hash_mismatches": [],
+  "provenance_failures": [],
+  "historical_results": [
+    {
+      "id": "l02-python-v1",
+      "result": "0/30",
+      "measured": true,
+      "preserved": true,
+      "re_scored": false
+    },
+    {
+      "id": "l051-multilingual-v1",
+      "result": "64 tasks, not measured",
+      "measured": false,
+      "preserved": true,
+      "re_scored": false
+    }
+  ],
+  "policy": {
+    "download": false,
+    "modify": false,
+    "rescore": false,
+    "capability_claim": false,
+    "evaluation_requires_owner_authorization": true,
+    "historical_results_immutable": true
+  }
+}
