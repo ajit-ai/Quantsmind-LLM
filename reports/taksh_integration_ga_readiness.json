@@ -1,0 +1,80 @@
+{
+  "schema": "taksh.integration_ga_readiness/1",
+  "generated_by": "L1.0.0 planning milestone",
+  "verified_on": "2026-11-12",
+  "branch": "planning/l1000-integration-and-ga-readiness",
+  "base": {
+    "develop": "0215c6d039fceffd334f8931aa96a3287010a580",
+    "main": "d50de3ea220cbf18eee070e191a507ba70a758bb",
+    "feature": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
+    "merge_base": "a654e5dc13dc77e925b3981d09792bade43a970a",
+    "paths_match_develop_main": true
+  },
+  "divergence": {
+    "feature_only_commits": 19,
+    "develop_only_commits": 6,
+    "content_delta": { "files": 1023, "added": 993, "modified": 30, "deleted": 0 }
+  },
+  "tags": ["v1.0.0"],
+  "verified_truth": {
+    "v1_0_0_ga": "NOT_ESTABLISHED",
+    "canonical_checkpoint": "MISSING",
+    "v180_sft": "GEOMETRY_INCOMPATIBLE",
+    "python_benchmark_score": "0/30",
+    "taksh_kark_bench_tasks": 0,
+    "karkain_status": "DISCOVERED",
+    "kcc_startup_failure": "0xC0000135",
+    "training_CI_gated": true,
+    "training_CI_variable": "TAKSH_ENABLE_TRAINING_CI",
+    "training_CI_default": "UNSET",
+    "A1_1_C": "preparation-only (owner decision 2026-11-11)",
+    "A2_E": "no compute (owner decision 2026-11-11)"
+  },
+  "ci": {
+    "develop_runs_green": ["43151304728", "43151613260", "43152075567", "43152403348", "43151620156"],
+    "develop_runs_failed_with_fixes": ["43147929246", "43150748557"],
+    "workflows": ["CI (.github/workflows/ci.yml)", "CI manual qualification (.github/workflows/ci-l0704-manual-qualification.yml)"],
+    "training_job_gated": "blocked-training-smoke requires vars.TAKSH_ENABLE_TRAINING_CI=true"
+  },
+  "feature_classification": {
+    "A_product_architecture": ["45f0dc9", "1fef89d", "9721aa6", "efcda29", "6065394", "d2f0d14"],
+    "B_model_availability": ["1fef89d", "9721aa6", "da16051", "27c7b3a", "68dc5b7", "262ae69"],
+    "C_coding_capability_evaluation": ["45f0dc9", "efcda29", "6065394", "d2f0d14"],
+    "D_infrastructure_and_CI": ["1fef89d", "9721aa6", "da16051", "27c7b3a", "68dc5b7", "bc3d296", "6c8177f", "84a25ba", "262ae69", "78b6cdf", "efcda29"],
+    "E_docs_governance": ["45f0dc9", "b47fafa", "7b7e5f8", "84888e6", "262ae69"],
+    "F_experimental": ["8c55346", "c601a73"],
+    "G_superseded": ["c601a73", "78b6cdf"],
+    "H_blocked_owner": ["7b7e5f8", "84a25ba", "262ae69", "68dc5b7"],
+    "I_not_suitable": ["8c55346", "c601a73"]
+  },
+  "integration_order_if_authorized": [
+    "PR#1 roadmap registry & governance (84888e6 subset)",
+    "PR#2 DLCAE architecture & registry (45f0dc9)",
+    "PR#3 DLCAE-aware training pipeline (1fef89d)",
+    "PR#4 inference qualification (9721aa6)",
+    "PR#5 L0.7.x evidence (27c7b3a + 68dc5b7 evidence only; no corpus ports)",
+    "PR#6 L0.8.0-PRE preflight (262ae69)",
+    "PR#7 DLCAE runtime ENG1 (efcda29)",
+    "PR#8 semantic validation ENG2 (6065394)",
+    "PR#9 end-to-end integration ENG3 (d2f0d14)"
+  ],
+  "blockers": [
+    "canonical taksh-foundation-111m checkpoint: MISSING (never existed)",
+    "frozen benchmarks: BLOCKED_ARTIFACT_ABSENT on develop; 0/30 stands",
+    "KCC 0xC0000135 (Karkain) — TAKSH-KARK-BENCH 0 tasks",
+    "no capability measurement exists",
+    "owner decisions for: integration PRs, data, compute, capability evaluation, release",
+    "untracked owner artifacts (l051_languages.yaml, evaluation/l051_language_registry.py) committed nowhere"
+  ],
+  "verdict": {
+    "DEVELOP_INTEGRATION_PLAN": "COMPLETE",
+    "MODEL_READINESS": "BLOCKED",
+    "PRODUCT_GA": "NO_GO"
+  },
+  "product_status": {
+    "model_availability": "MODEL_UNAVAILABLE",
+    "actual_coding_capability": "NOT_EVALUATED",
+    "language_qualification": "Karkain DISCOVERED; no language functionally or engineering qualified; benchmark 0/30",
+    "GA": "NOT_ESTABLISHED"
+  }
+}
