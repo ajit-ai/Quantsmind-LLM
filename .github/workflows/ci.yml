@@ -118,11 +118,13 @@ jobs:
           print('code_30m config OK')
           "
 
-      - name: Code LLM — SFT dataset validation
+      - name: Code LLM — SFT dataset validation (non-training; loads repo tokenizer)
         run: |
           python -c "
           import json, tempfile
-          from training.sft import SFTPairDataset, collate_sft
+          from tokenizers import Tokenizer
+          from training.sft import SFTPairDataset
+          tokenizer = Tokenizer.from_file('tokenizer/qm_code_bpe_v0.json')
           samples = [
               {'instruction': 'Write add function', 'response': 'def add(a, b): return a + b'},
               {'instruction': 'Explain decorators', 'response': 'Decorators wrap functions'},
@@ -131,7 +133,7 @@ jobs:
               for s in samples:
                   f.write(json.dumps(s) + '\\n')
               f.flush()
-              ds = SFTPairDataset(f.name, None)
+              ds = SFTPairDataset(f.name, tokenizer)
               assert len(ds) == 2
               print(f'SFT dataset OK: {len(ds)} pairs')
           "
