@@ -108,11 +108,38 @@ def load_registry(path) -> dict:
     return data
 
 
+def _logical_origin(suite: dict) -> str | None:
+    """Portable identity for a suite: the declared relative path as written,
+    or a machine-invariant ``local://<basename>`` for absolute declarations.
+    Absolute machine-specific paths never enter manifests."""
+    declared = suite.get("path")
+    if not declared:
+        return None
+    path = Path(declared)
+    if path.is_absolute():
+        return f"local://{path.name}"
+    return declared
+
+
+def _file_sha256(path: Path) -> str | None:
+    import hashlib
+
+    digest = hashlib.sha256()
+    try:
+        with path.open("rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 22), b""):
+                digest.update(chunk)
+    except (OSError, ValueError):
+        return None
+    return digest.hexdigest()
+
+
 def load_benchmark_records(registry: dict, base_dir=None) -> BenchmarkRecords:
     """Load the locally available benchmark content.
 
     ``base_dir`` resolves relative suite paths against the registry location
-    rather than the process working directory.
+    rather than the process working directory. The *declared* path is what the
+    manifest records — never the resolved absolute path.
     """
     result = BenchmarkRecords()
     for suite in registry.get("suites", []):
@@ -134,6 +161,7 @@ def load_benchmark_records(registry: dict, base_dir=None) -> BenchmarkRecords:
         path = Path(suite["path"])
         if not path.is_absolute() and base_dir is not None:
             path = Path(base_dir) / path
+        origin = _logical_origin(suite)
         if not path.is_file():
             result.provenance.append(
                 {
@@ -141,11 +169,12 @@ def load_benchmark_records(registry: dict, base_dir=None) -> BenchmarkRecords:
                     "version": version,
                     "availability": "unavailable",
                     "problems": 0,
-                    "origin": str(path),
+                    "origin": origin,
                     "note": "configured local file is missing; the suite was not checked",
                 }
             )
             continue
+        content_sha256 = _file_sha256(path)
         fields = tuple(suite.get("fields") or ("prompt", "test"))
         count = 0
         try:
@@ -182,7 +211,8 @@ def load_benchmark_records(registry: dict, base_dir=None) -> BenchmarkRecords:
                     "version": version,
                     "availability": "unavailable",
                     "problems": 0,
-                    "origin": str(path),
+                    "origin": origin,
+                    "content_sha256": content_sha256,
                     "note": f"unreadable: {type(exc).__name__}",
                 }
             )
@@ -193,7 +223,8 @@ def load_benchmark_records(registry: dict, base_dir=None) -> BenchmarkRecords:
                 "version": version,
                 "availability": "available",
                 "problems": count,
-                "origin": str(path),
+                "origin": origin,
+                "content_sha256": content_sha256,
                 "note": suite.get("notes") or "local copy screened",
             }
         )
