@@ -220,6 +220,8 @@ class QMModel(nn.Module):
             if attn_mask.dtype != torch.bool:
                 raise ModelConfigError(
                     f"attn_mask must be boolean, got {attn_mask.dtype}")
+            if attn_mask.shape == (1, 1, t, t) and b != 1:
+                attn_mask = attn_mask.expand(b, 1, t, t)
             if attn_mask.shape != (b, 1, t, t):
                 raise ModelConfigError(
                     f"attn_mask has shape {tuple(attn_mask.shape)}; "
