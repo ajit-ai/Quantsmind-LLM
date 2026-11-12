@@ -1,0 +1,50 @@
+{
+  "schema": "taksh.l110_config_hash_reconciliation/1",
+  "generated_by": "evaluation/l110_reconciliation.py",
+  "recorded_on": "2026-11-12",
+  "historical_evidence": {
+    "path": "reports/l110_native_model_foundation.json",
+    "sha256_lf": "5a8e50591eeabe66c90bb9ff944ed8117d4c1587b059ca2d07a0105564beb6c1",
+    "recorded_foundation_config_sha256": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+    "recorded_tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+    "recorded_hash_method": "sha256 of raw file bytes",
+    "rewritten": false
+  },
+  "current_artifacts": {
+    "foundation_config": {
+      "path": "configs/model/foundation_111m.yaml",
+      "sha256_raw": "744e4f790f15ea15dd17381b4c0619e060c6a29a6381220c1827e3c6b7e4c5d4",
+      "sha256_lf": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+      "line_endings": "CRLF",
+      "bytes": 3628,
+      "matches_historical_raw": false,
+      "matches_historical_lf": true
+    },
+    "tokenizer": {
+      "path": "tokenizer/qm_code_bpe_v0.json",
+      "sha256_raw": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+      "sha256_lf": "b25649ce41302bcd45f1c8247ec216dc4d872866e7e4f859040acaa605515c22",
+      "line_endings": "CRLF",
+      "bytes": 410135,
+      "matches_historical_raw": true,
+      "matches_historical_lf": false
+    }
+  },
+  "findings": {
+    "config_content_drift": false,
+    "tokenizer_content_drift": false,
+    "config_hash_cause": "LINE_ENDING_NORMALISATION",
+    "tokenizer_hash_cause": "NO_HASH_DIFFERENCE",
+    "historical_evidence_rewritten": false,
+    "hash_method_risk": "Raw-byte SHA-256 is line-ending sensitive. The historical foundation-config hash matches LF-normalised bytes, while the working-tree raw hash is CRLF. Recompute both forms when comparing evidence across checkouts.",
+    "recommended_future_method": "Record raw and LF-normalised SHA-256 side by side, or use the git blob id, for every evidence artifact."
+  },
+  "status": "PARTIAL",
+  "verdict": "HISTORICAL_EVIDENCE_PRESERVED",
+  "policy": {
+    "training_authorized": false,
+    "compute_authorized": false,
+    "publication_authorized": false,
+    "historical_reports_are_immutable": true
+  }
+}

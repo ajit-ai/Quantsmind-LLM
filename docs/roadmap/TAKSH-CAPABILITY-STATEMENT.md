@@ -3,7 +3,7 @@
 **Date:** 2026-11-12
 **Product:** Taksh (formerly Quantsmind-LLM)
 **Scope:** `feature/taksh-five-version-ga-program`
-**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/M7_OUTCOME.json`
+**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l110_config_hash_reconciliation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/M7_OUTCOME.json`
 
 ---
 
@@ -64,6 +64,12 @@ Focused regression evidence from the implementation slice:
 five-version component, publication/HF-export, SFT, tokenizer, serving,
 training-core and release-metadata tests. This proves the code paths under
 test; it does not prove model quality.
+
+The apparent 1.1.0 foundation-config hash drift is line-ending normalisation,
+not a configuration-content change: the historical `fd96…` hash matches the
+config's LF-normalised bytes, while the Windows working tree hashes the CRLF
+bytes to `744e…`. `reports/l110_config_hash_reconciliation.json` records both
+forms and confirms that the historical report was not rewritten.
 
 ---
 
