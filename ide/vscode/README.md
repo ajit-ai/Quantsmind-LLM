@@ -13,10 +13,18 @@
 - Running local TAKSH engineering service on `http://127.0.0.1:8000`
 - `taksh.apiKey` configured if the service requires bearer authentication
 
-## Build and test
+## Live service test
 ```bash
+# terminal 1
+$env:TAKSH_ENGINEERING_TOKEN='dev-token'
+$env:TAKSH_TOKEN_SCOPES='read,execute,mutate,memory,audit'
+python -m uvicorn serving.engineering_app:app --host 127.0.0.1 --port 8000
+
+# terminal 2
+$env:TAKSH_BASE_URL='http://127.0.0.1:8000'
+$env:TAKSH_ENGINEERING_TOKEN='dev-token'
 cd ide/vscode
-node ./test/apiClient.test.js
+node ./test/liveService.test.js
 ```
 
 ## Install locally
