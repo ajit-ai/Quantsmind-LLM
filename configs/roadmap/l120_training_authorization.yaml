@@ -1,0 +1,131 @@
+# TAKSH program label 1.2.0 - Training Authorization Packet.
+#
+# This packet is a REQUEST FOR AUTHORIZATION, not an authorization. Every
+# executable gate below is closed. It never trains, acquires data, creates a
+# checkpoint, installs packages, contacts a provider or publishes anything.
+#
+# Status vocabulary is restricted to PASS, PARTIAL, BLOCKED, NOT STARTED and
+# NOT EVALUATED. "Ready to train" requires every gate to be PASS and every
+# owner decision to be GRANTED; no code change can grant an owner decision.
+
+schema: taksh.l120_training_authorization/1
+program_label: "1.2.0"
+name: "Native Model Capability - Training Authorization Packet"
+created: "2026-11-12"
+status: BLOCKED
+
+policy:
+  preparation_only: true
+  training_authorized: false
+  compute_authorized: false
+  dataset_acquisition_authorized: false
+  checkpoint_creation_authorized: false
+  capability_evaluation_authorized: false
+  publication_authorized: false
+  training_ci_enabled: false
+
+model:
+  id: taksh-foundation-111m
+  config: configs/model/foundation_111m.yaml
+  expected_parameters: 110658816
+  tokenizer: tokenizer/qm_code_bpe_v0.json
+  expected_vocab_size: 5822
+  foundation_evidence: reports/l110_native_model_foundation.json
+  forbidden_artifacts:
+    - id: v180_sft
+      reason: >-
+        GEOMETRY_INCOMPATIBLE (d_model 384 vs 768). It must never be loaded,
+        resumed from, substituted or described as a TAKSH foundation artifact.
+
+corpus:
+  source_config: configs/data/approved_code_sources.yaml
+  licence_evidence: data/licence_verification.json
+  manifest: data/code_corpus_v2.manifest.json
+  token_metadata: data/code_corpus_v2.tokens.meta.json
+  payload: data/code_corpus_v2.jsonl
+  tokens: data/code_corpus_v2.tokens.bin
+  frozen_snapshot_required: artifacts/l072_l04_freeze/snapshot.json
+  data_card: data/DATA_CARD_code_v1.md
+  required_tokens: 100000000
+  required_repositories: 20
+  required_unresolved_licences: 0
+  status: BLOCKED
+  note: >-
+    The committed corpus metadata is evidence of a preparation run, not a
+    training authorization. The payload files are gitignored and absent on
+    this ref; the frozen L0.7.2/L0.4 snapshot is absent. Training requires a
+    governed, immutable materialization with checksums.
+
+compute:
+  status: BLOCKED
+  authorization: NOT GRANTED
+  max_budget_usd: 0
+  gpu_hours_authorized: 0
+  local_host_profile: "CPU-only, low memory; not qualified for 111M training"
+  prohibited:
+    - cloud compute without explicit owner authorization
+    - paid APIs without explicit owner authorization
+    - GPU rental without explicit owner authorization
+
+checkpoint:
+  id: taksh-foundation-111m
+  target: checkpoints/taksh-foundation-111m
+  status: BLOCKED
+  creation_authorized: false
+  existing_artifact: null
+  note: >-
+    No canonical checkpoint exists. A checkpoint may only be produced by an
+    authorized training run through training/checkpoint.py with atomic writes,
+    manifest metadata and integrity verification.
+
+acceptance_criteria:
+  - id: A3-1
+    criterion: "Every owner decision in this packet is GRANTED and signed."
+  - id: A3-2
+    criterion: "Corpus licence gate has zero unresolved sources and a data card."
+  - id: A3-3
+    criterion: "Corpus reaches the 100M-token and 20-repository M2.3 targets."
+  - id: A3-4
+    criterion: "A frozen corpus snapshot exists with recorded SHA-256 values."
+  - id: A3-5
+    criterion: "Authorized compute is recorded with provider, budget and limits."
+  - id: A3-6
+    criterion: "Config and tokenizer hashes and 110,658,816 parameters match the canonical contract."
+  - id: A3-7
+    criterion: "Checkpoint is written atomically with a manifest and passes integrity plus geometry load checks."
+  - id: A3-8
+    criterion: "Training log records seed, steps, tokens, finite loss and no NaN events."
+  - id: A3-9
+    criterion: "Capability is measured only on frozen benchmarks with raw outputs preserved."
+  - id: A3-10
+    criterion: "No capability, GA or publication claim is made before A3-9 passes."
+
+owner_decisions:
+  - id: D-TRAIN-1
+    title: "Training authorization"
+    status: NOT GRANTED
+    evidence_required: "Signed owner decision naming the run, scope and stop conditions."
+  - id: D-COMPUTE-2
+    title: "Compute authorization"
+    status: NOT GRANTED
+    evidence_required: "Provider or hardware, budget ceiling, duration and data-egress rules."
+  - id: D-CORPUS-3
+    title: "Corpus and licence authorization"
+    status: NOT GRANTED
+    evidence_required: "Human licence rulings for psf-black and pypa-setuptools; frozen snapshot approval."
+  - id: D-CHECKPOINT-4
+    title: "Checkpoint creation and storage authorization"
+    status: NOT GRANTED
+    evidence_required: "Canonical target path, retention policy and access controls."
+  - id: D-EVAL-5
+    title: "Post-training capability evaluation authorization"
+    status: NOT GRANTED
+    evidence_required: "Frozen benchmark set, evaluation protocol and disclosure policy."
+
+non_actions:
+  - "No training or fine-tuning."
+  - "No optimizer step."
+  - "No checkpoint creation, modification or serialization."
+  - "No dataset acquisition or download."
+  - "No package installation or network access."
+  - "No publication, tag, release or merge."

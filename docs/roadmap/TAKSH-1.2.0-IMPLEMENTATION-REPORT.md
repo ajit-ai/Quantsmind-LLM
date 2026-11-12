@@ -28,9 +28,22 @@ Summary:
 - No training run. No checkpoint creation. No data acquisition. No GPU/cloud access.
 - No capability measurement against frozen benchmarks.
 
+## Training authorization packet (Phase A3)
+
+Added `configs/roadmap/l120_training_authorization.yaml`,
+`evaluation/l120_training_authorization.py`,
+`reports/l120_training_authorization.json` and
+[`TAKSH-1.2.0-TRAINING-AUTHORIZATION-PACKET.md`](TAKSH-1.2.0-TRAINING-AUTHORIZATION-PACKET.md).
+
+Current gate result: `BLOCKED`, `TRAINING_NOT_AUTHORIZED`. Model and tokenizer
+identity checks pass. Corpus licences, corpus scale, corpus payload, compute
+and checkpoint gates remain blocked. Exact blockers and owner decisions are in
+the packet; no training was executed.
+
 ## What would unlock 1.2.0
 
-Owner-written authorization: training run + compute provider + authorized corpus (license-clean, provenance recorded).
+Owner-written decisions `D-TRAIN-1`, `D-COMPUTE-2`, `D-CORPUS-3`,
+`D-CHECKPOINT-4` and `D-EVAL-5`, plus the exit criteria in the packet.
 
 ## Preserved
 

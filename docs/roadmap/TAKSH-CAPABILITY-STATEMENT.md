@@ -3,7 +3,7 @@
 **Date:** 2026-11-12
 **Product:** Taksh (formerly Quantsmind-LLM)
 **Scope:** `feature/taksh-five-version-ga-program`
-**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l110_config_hash_reconciliation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/M7_OUTCOME.json`
+**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l110_config_hash_reconciliation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/l120_training_authorization.json`, `reports/M7_OUTCOME.json`
 
 ---
 
@@ -84,7 +84,7 @@ package remains `1.0.0` until an authorized release. See
 | Version | Status | Meaning |
 |---|---|---|
 | 1.1.0 Native Foundation | `PASS` | Source/config/model/inference contracts are engineering-qualified. No model artifact exists. |
-| 1.2.0 Native Model Capability | `BLOCKED` | Training, compute and corpus authorization are absent; no canonical checkpoint can be produced. |
+| 1.2.0 Native Model Capability | `BLOCKED` | Authorization packet: 2 unresolved licences, 2.24M/100M tokens, no compute authorization and no canonical checkpoint. |
 | 1.3.0 Coding Intelligence | `PARTIAL` | Orchestration, validation and specialist source exists; capability is not evaluated. |
 | 1.4.0 Autonomous Engineering | `PARTIAL` | Project understanding and CLI foundations exist; agentic multi-file editing is not implemented and is blocked by model/tool calling. |
 | 2.0.0 GA | `NOT STARTED` | Requires a qualified model, security/deployment evidence and owner release decisions. |
@@ -128,8 +128,11 @@ It cannot:
 
 This is not a promise of capability; it is the minimum evidence path.
 
-1. **Owner authorization:** training (A1.1-A), compute (A2), and a
-   licence-reviewed corpus.
+1. **Owner authorization:** the five decisions in
+   [`TAKSH-1.2.0-TRAINING-AUTHORIZATION-PACKET.md`](TAKSH-1.2.0-TRAINING-AUTHORIZATION-PACKET.md)
+   - training (A1.1-A), compute (A2), corpus/licence, checkpoint storage and
+   post-training evaluation - plus a licence-reviewed corpus at the required
+   scale.
 2. **Canonical checkpoint:** train or otherwise produce the
    `taksh-foundation-111m` artifact and record its SHA-256.
 3. **Compatibility:** geometry/tokenizer checks pass.

@@ -1,0 +1,205 @@
+{
+  "schema": "taksh.l120_training_authorization_report/1",
+  "generated_by": "evaluation/l120_training_authorization.py",
+  "program_label": "1.2.0",
+  "packet": "configs/roadmap/l120_training_authorization.yaml",
+  "status": "BLOCKED",
+  "verdict": "TRAINING_NOT_AUTHORIZED",
+  "ready_to_train": false,
+  "training_executed": false,
+  "checkpoint_created": false,
+  "authorization": {
+    "preparation_only": true,
+    "training_authorized": false,
+    "compute_authorized": false,
+    "dataset_acquisition_authorized": false,
+    "checkpoint_creation_authorized": false,
+    "capability_evaluation_authorized": false,
+    "publication_authorized": false,
+    "training_ci_enabled": false,
+    "authorization_flags_clear": true
+  },
+  "gates": {
+    "model": {
+      "status": "PASS",
+      "id": "taksh-foundation-111m",
+      "config": "configs/model/foundation_111m.yaml",
+      "sha256_raw": "744e4f790f15ea15dd17381b4c0619e060c6a29a6381220c1827e3c6b7e4c5d4",
+      "sha256_lf": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+      "recorded_sha256_lf": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+      "parameters": 110658816,
+      "expected_parameters": 110658816,
+      "parameters_match": true,
+      "evidence": "reports/l110_native_model_foundation.json"
+    },
+    "tokenizer": {
+      "status": "PASS",
+      "path": "tokenizer/qm_code_bpe_v0.json",
+      "sha256_raw": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+      "vocab_size": 5822,
+      "expected_vocab_size": 5822,
+      "recorded_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988"
+    },
+    "corpus_licences": {
+      "status": "BLOCKED",
+      "evidence": "data/licence_verification.json",
+      "checked": 9,
+      "verified": 7,
+      "verified_with_quarantine": 2,
+      "unresolved": 2,
+      "unresolved_ids": [
+        "psf-black",
+        "pypa-setuptools"
+      ],
+      "required_unresolved": 0,
+      "policy": "verified_with_quarantine remains conditional on the recorded exclusions and is not a human licence ruling."
+    },
+    "corpus_scale": {
+      "status": "BLOCKED",
+      "manifest": "data/code_corpus_v2.manifest.json",
+      "token_metadata": "data/code_corpus_v2.tokens.meta.json",
+      "observed_tokens": 2239771,
+      "required_tokens": 100000000,
+      "token_shortfall": 97760229,
+      "observed_repositories": 9,
+      "required_repositories": 20,
+      "repository_shortfall": 11,
+      "observed_documents": 437,
+      "corpus_sha256": "c02a6223f985e67b5d03661a55b761bed827da9a5cc8dcd5229cbfd8016bc08e",
+      "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988"
+    },
+    "corpus_payload": {
+      "status": "BLOCKED",
+      "manifest_present": true,
+      "token_metadata_present": true,
+      "payload_present": false,
+      "tokens_present": false,
+      "frozen_snapshot_present": false,
+      "data_card_present": true,
+      "payload": "data/code_corpus_v2.jsonl",
+      "tokens": "data/code_corpus_v2.tokens.bin",
+      "frozen_snapshot": "artifacts/l072_l04_freeze/snapshot.json",
+      "note": "Payload and token files are gitignored. Their absence on this ref means no governed training materialization exists here."
+    },
+    "compute": {
+      "status": "BLOCKED",
+      "authorization": "NOT GRANTED",
+      "max_budget_usd": 0.0,
+      "gpu_hours_authorized": 0.0,
+      "local_host_profile": "CPU-only, low memory; not qualified for 111M training",
+      "prohibited": [
+        "cloud compute without explicit owner authorization",
+        "paid APIs without explicit owner authorization",
+        "GPU rental without explicit owner authorization"
+      ]
+    },
+    "checkpoint": {
+      "status": "BLOCKED",
+      "id": "taksh-foundation-111m",
+      "target": "checkpoints/taksh-foundation-111m",
+      "exists": false,
+      "creation_authorized": false,
+      "existing_artifact": null,
+      "forbidden_artifacts": [
+        {
+          "id": "v180_sft",
+          "reason": "GEOMETRY_INCOMPATIBLE (d_model 384 vs 768). It must never be loaded, resumed from, substituted or described as a TAKSH foundation artifact."
+        }
+      ]
+    }
+  },
+  "blockers": [
+    "corpus_licences: BLOCKED",
+    "corpus_scale: BLOCKED",
+    "corpus_payload: BLOCKED",
+    "compute: BLOCKED",
+    "checkpoint: BLOCKED",
+    "D-TRAIN-1 Training authorization: NOT GRANTED",
+    "D-COMPUTE-2 Compute authorization: NOT GRANTED",
+    "D-CORPUS-3 Corpus and licence authorization: NOT GRANTED",
+    "D-CHECKPOINT-4 Checkpoint creation and storage authorization: NOT GRANTED",
+    "D-EVAL-5 Post-training capability evaluation authorization: NOT GRANTED"
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "A3-1",
+      "criterion": "Every owner decision in this packet is GRANTED and signed."
+    },
+    {
+      "id": "A3-2",
+      "criterion": "Corpus licence gate has zero unresolved sources and a data card."
+    },
+    {
+      "id": "A3-3",
+      "criterion": "Corpus reaches the 100M-token and 20-repository M2.3 targets."
+    },
+    {
+      "id": "A3-4",
+      "criterion": "A frozen corpus snapshot exists with recorded SHA-256 values."
+    },
+    {
+      "id": "A3-5",
+      "criterion": "Authorized compute is recorded with provider, budget and limits."
+    },
+    {
+      "id": "A3-6",
+      "criterion": "Config and tokenizer hashes and 110,658,816 parameters match the canonical contract."
+    },
+    {
+      "id": "A3-7",
+      "criterion": "Checkpoint is written atomically with a manifest and passes integrity plus geometry load checks."
+    },
+    {
+      "id": "A3-8",
+      "criterion": "Training log records seed, steps, tokens, finite loss and no NaN events."
+    },
+    {
+      "id": "A3-9",
+      "criterion": "Capability is measured only on frozen benchmarks with raw outputs preserved."
+    },
+    {
+      "id": "A3-10",
+      "criterion": "No capability, GA or publication claim is made before A3-9 passes."
+    }
+  ],
+  "owner_decisions": [
+    {
+      "id": "D-TRAIN-1",
+      "title": "Training authorization",
+      "status": "NOT GRANTED",
+      "evidence_required": "Signed owner decision naming the run, scope and stop conditions."
+    },
+    {
+      "id": "D-COMPUTE-2",
+      "title": "Compute authorization",
+      "status": "NOT GRANTED",
+      "evidence_required": "Provider or hardware, budget ceiling, duration and data-egress rules."
+    },
+    {
+      "id": "D-CORPUS-3",
+      "title": "Corpus and licence authorization",
+      "status": "NOT GRANTED",
+      "evidence_required": "Human licence rulings for psf-black and pypa-setuptools; frozen snapshot approval."
+    },
+    {
+      "id": "D-CHECKPOINT-4",
+      "title": "Checkpoint creation and storage authorization",
+      "status": "NOT GRANTED",
+      "evidence_required": "Canonical target path, retention policy and access controls."
+    },
+    {
+      "id": "D-EVAL-5",
+      "title": "Post-training capability evaluation authorization",
+      "status": "NOT GRANTED",
+      "evidence_required": "Frozen benchmark set, evaluation protocol and disclosure policy."
+    }
+  ],
+  "policy": {
+    "no_training": true,
+    "no_checkpoint": true,
+    "no_dataset_acquisition": true,
+    "no_network_access": true,
+    "no_publication": true,
+    "no_capability_claim": true
+  }
+}
