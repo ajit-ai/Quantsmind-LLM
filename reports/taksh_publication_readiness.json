@@ -363,7 +363,7 @@
         "integration": "OpenCode V2 custom OpenAI-compatible provider in opencode.json",
         "provider_package": "@opencode/ai/providers/openai-compatible",
         "base_url": "http://127.0.0.1:8002/v1",
-        "model_identifier": "taksh-foundation-111m (verify with GET /v1/models)",
+        "model_identifier": "qm-foundation-111m (model.name; verify with GET /v1/models)",
         "tool_calling": "not implemented; HTTP 400",
         "requires": [
           "serving.openai_server",

@@ -55,7 +55,7 @@ Status on 2026-11-12:
 |---|---|
 | GitHub source release | `PARTIAL` |
 | PyPI source package | `PARTIAL` |
-| Hugging Face model repository | `BLOCKED` |
+| Hugging Face model repository | `BLOCKED` (no canonical checkpoint; local exporter implemented) |
 | Hugging Face dataset repository | `BLOCKED` |
 | Local OpenAI-compatible server | `PARTIAL` (chat-only) |
 | Cline | `BLOCKED` (no model, no tool calling) |
@@ -64,6 +64,11 @@ Status on 2026-11-12:
 
 No model, dataset or hosted-API publication is ready. The package is not a
 model release, and the local server is not an agentic coding service.
+
+`evaluation/hf_export.py` prepares a local `safetensors` export only from a
+pre-existing, geometry-compatible checkpoint. Its default is a dry run; it never
+uploads or contacts a network service. It is blocked today because the canonical
+checkpoint is missing, so no export directory or model card has been written.
 
 ## Verdict
 

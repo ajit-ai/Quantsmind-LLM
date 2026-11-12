@@ -52,15 +52,17 @@ are **not** model-capability claims.
 | OpenAI-compatible chat surface | `PARTIAL` | `/health`, `/v1/models`, non-streaming `/v1/chat/completions`; `--ckpt` required; tool calls and streaming rejected |
 | Tool calling | `BLOCKED` | HTTP 400 `unsupported_parameter` |
 | Agentic coding (Cline/OpenCode) | `BLOCKED` | no canonical checkpoint and no tool calling |
-| Hugging Face model artifact | `BLOCKED` | no canonical checkpoint; no `transformers`/`safetensors` export |
+| Hugging Face export preparation | `PARTIAL` | `evaluation/hf_export.py`; dry-run by default, strict compatibility gate, honest model-card template; no checkpoint, so no export written |
+| Hugging Face model artifact | `BLOCKED` | no canonical checkpoint; exporter implemented but never exercised against real weights; no publication authorization |
 | Hugging Face dataset | `BLOCKED` | licence, provenance, PII and contamination review incomplete |
 | Karkain | `BLOCKED` | KCC `0xC0000135`; 0 benchmark tasks |
 | Production security/deployment | `NOT STARTED` | no audit, deployment automation or release decision |
 | 2.0.0 GA | `NOT STARTED` | upstream model and owner decisions outstanding |
 
 Focused regression evidence from the implementation slice:
-`130 passed, 2 skipped` across the foundation, inference, five-version component,
-model, SFT, config and training-core tests. This proves the code paths under
+`276 passed, 3 skipped` across the foundation, inference, model, config,
+five-version component, publication/HF-export, SFT, tokenizer, serving,
+training-core and release-metadata tests. This proves the code paths under
 test; it does not prove model quality.
 
 ---
@@ -92,7 +94,9 @@ With the current branch and no model artifact:
 - orchestrate coding-task stages when a caller supplies a generator;
 - start an OpenAI-compatible **chat** server only if a checkpoint is supplied
   with `--ckpt` (there is no canonical checkpoint);
-- inspect the canonical 111M configuration and tokenizer binding.
+- inspect the canonical 111M configuration and tokenizer binding;
+- plan a local Hugging Face export and generate an honest model card only when a
+  compatible canonical checkpoint exists (currently blocked).
 
 It cannot:
 

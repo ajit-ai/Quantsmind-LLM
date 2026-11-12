@@ -121,11 +121,44 @@ implementation, not a `transformers` architecture. Therefore:
 
 - HF Hub as a **file host** is possible once weights exist;
 - `transformers.from_pretrained(...)` is **NOT IMPLEMENTED**;
-- `safetensors` export is **NOT IMPLEMENTED**;
+- a local `safetensors` exporter is **IMPLEMENTED but BLOCKED**:
+  `evaluation/hf_export.py` is dry-run by default and refuses a missing or
+  geometry-incompatible checkpoint. No canonical checkpoint exists, so no export
+  has been written and no real weights have been exercised;
+- the exported directory can be loaded with
+  `evaluation.hf_export.load_export`, not `AutoModelForCausalLM`;
 - HF Inference Endpoints / Inference Providers are **NOT READY** unless a
   supported architecture export or a custom container is built and tested.
 
-A raw `.pt` checkpoint is not a usable Hugging Face model by itself.
+A raw `.pt` checkpoint is not a usable Hugging Face model by itself. The
+exporter plans these files only after a compatible checkpoint exists:
+
+```
+model.safetensors
+config.json
+tokenizer.json
+tokenizer_config.json
+special_tokens_map.json
+README.md
+SHA256SUMS
+taksh_export_manifest.json
+```
+
+The manifest records the checkpoint and tokenizer hashes, the strict parameter
+names/shapes, the model-card status and an explicit
+`"publication": {"uploaded": false, "network_access": "none"}` block. Writing an
+export is a local packaging action, not publication authorization.
+
+The tool is dry-run by default:
+
+```
+python -m evaluation.hf_export --checkpoint <canonical-checkpoint> --out <dir>
+python -m evaluation.hf_export --checkpoint <canonical-checkpoint> --out <dir> --execute
+python -m evaluation.hf_export --verify <dir>
+```
+
+Because the canonical checkpoint is missing, every planning run currently
+returns `BLOCKED` and writes nothing.
 
 ### Stage 4 — Hugging Face dataset repository (current state: BLOCKED)
 
@@ -192,8 +225,9 @@ Cline supports an "OpenAI Compatible" provider. The intended configuration is:
 - Base URL: `http://127.0.0.1:8002/v1`
 - API key: the same value as `QM_API_KEY` when auth is enabled; otherwise a
   placeholder is sufficient because auth is disabled.
-- Model ID: the exact `id` returned by `GET /v1/models` (the canonical config
-  name is `taksh-foundation-111m`).
+- Model ID: the exact `id` returned by `GET /v1/models`. For the canonical
+  config this is **`qm-foundation-111m`** (the `model.name` field), not the
+  product/config id `taksh-foundation-111m`. Verify before configuring a client.
 
 **Qualification: BLOCKED.** Cline's coding workflow is agentic and requires
 tool calling. Taksh rejects tool calls with HTTP 400. Even if a checkpoint were
@@ -220,7 +254,7 @@ declared in `opencode.jsonc`:
       "models": {
         "taksh-foundation-111m": {
           "name": "Taksh Foundation 111M",
-          "modelID": "taksh-foundation-111m",
+          "modelID": "qm-foundation-111m",
           "limit": { "context": 2048, "output": 512 }
         }
       }
@@ -255,6 +289,11 @@ made until the model and commercial decisions exist.
 ---
 
 ## 5. Model card requirements (when a checkpoint exists)
+
+`evaluation/hf_export.py` contains the model-card template used by the local
+exporter. It states the current capability status and preserves the historical
+negative results; it does not invent a score. No card has been published because
+no canonical checkpoint exists.
 
 A future Hugging Face model card must state, without exaggeration:
 
@@ -302,7 +341,9 @@ Source-package gates are partially prepared.
 
 ## 7. Explicit non-actions in this slice
 
-- No Hugging Face repository or model card was created.
+- No Hugging Face repository or model card was created. The local export tool and
+  model-card template exist, but no export or card was written because the
+  canonical checkpoint is missing.
 - No dataset card or dataset upload was created.
 - No PyPI upload or credential use occurred.
 - No OpenRouter submission occurred.
