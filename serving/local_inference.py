@@ -84,6 +84,19 @@ def load_model(checkpoint_path: str, device: str):
 
 @torch.no_grad()
 def generate(model, tokenizer, prompt: str, max_new_tokens: int = 200, temperature: float = 0.8, top_k: int = 50, device: str = "cpu"):
+    from serving.generation_contract import validate_generation_request
+
+    validate_generation_request(
+        prompt=prompt,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        top_k=top_k,
+        top_p=1.0,
+        stop=None,
+        presence_penalty=0.0,
+        frequency_penalty=0.0,
+        seed=None,
+    )
     model.eval()
     ids = tokenizer.encode(prompt).ids
     x = torch.tensor([ids], dtype=torch.long, device=device)
@@ -184,6 +197,21 @@ def generate_ids(
     the (left-truncated) window. That is correct but slow at long context; see
     docs/OPEN_ISSUES.md.
     """
+    # L1.1.1: strict input validation. Reject instead of silently repairing.
+    from serving.generation_contract import validate_generation_request
+
+    validate_generation_request(
+        prompt=prompt,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        top_k=top_k,
+        top_p=top_p,
+        stop=stop,
+        presence_penalty=presence_penalty,
+        frequency_penalty=frequency_penalty,
+        seed=seed,
+    )
+
     model.eval()
     prompt_ids = tokenizer.encode(prompt).ids
     prompt_tokens = len(prompt_ids)

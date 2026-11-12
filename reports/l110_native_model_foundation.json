@@ -1,0 +1,46 @@
+{
+  "schema": "taksh.l110_native_model_foundation/1",
+  "generated_by": "evaluation/l110_native_foundation.py",
+  "verified_on": "2026-11-12",
+  "foundation_config": {
+    "path": "configs\\model\\foundation_111m.yaml",
+    "id": "taksh-foundation-111m",
+    "name": "taksh-foundation-111m",
+    "parameters": 110658816,
+    "matches_expected": true,
+    "architecture": {
+      "vocab_size": 5822,
+      "d_model": 768,
+      "n_layers": 12,
+      "n_heads": 12,
+      "n_kv_heads": 6,
+      "ffn_dim": 3072,
+      "max_seq_len": 2048,
+      "rope_theta": 10000.0,
+      "tie_embeddings": true
+    }
+  },
+  "tokenizer": {
+    "path": "tokenizer\\qm_code_bpe_v0.json",
+    "vocab_size": 5822,
+    "matches_foundation": true,
+    "fingerprints": {
+      "foundation_config_sha256": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+      "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+      "tokenizer_method": "sha256 of raw file bytes",
+      "v180_sft_present": false,
+      "v180_sft_intact": null,
+      "v180_sft_value_reference": null,
+      "fingerprint_unchanged_files": "not_available"
+    }
+  },
+  "relationships": {
+    "v180_sft": "GEOMETRY_INCOMPATIBLE \u2014 never substituted (d_model 384)",
+    "l060_foundation_yaml": "experimental track (feature branch), different tokenizer; not confused with this config",
+    "toy_ci": "tiny config for focused tests",
+    "code_m3_9m": "8.9M-parameter researched 9M target of the v1.x lineage"
+  },
+  "capability_claim": "none \u2014 engineering qualification only",
+  "training": "NOT GRANTED / A1.1-C / A2-E",
+  "core_ok": true
+}

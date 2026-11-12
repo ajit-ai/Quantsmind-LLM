@@ -1,0 +1,61 @@
+{
+  "schema": "taksh.training_readiness/1",
+  "generated_by": "evaluation/l120_training_readiness.py",
+  "verified_on": "2026-11-12",
+  "artifacts": {
+    "foundation_config": {
+      "path": "configs\\model\\foundation_111m.yaml",
+      "sha256": "744e4f790f15ea15dd17381b4c0619e060c6a29a6381220c1827e3c6b7e4c5d4",
+      "id": "taksh-foundation-111m",
+      "parameters": 110658816,
+      "status": "configuration_complete"
+    },
+    "code_m3_9m_config": {
+      "path": "configs\\model\\code_m3_9m.yaml",
+      "status": "preserved_legacy_research_config"
+    },
+    "tokenizer": {
+      "path": "tokenizer\\qm_code_bpe_v0.json",
+      "sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+      "vocab_size": 5822,
+      "status": "committed_artifact"
+    },
+    "corpus_snapshot": {
+      "path": "artifacts\\l072_l04_freeze\\snapshot.json",
+      "exists": false,
+      "status": "ABSENT_ON_THIS_REF"
+    },
+    "frozen_python_benchmark": {
+      "path": "evaluation\\l02_python_bench_v1.json",
+      "exists": false,
+      "sha256": null,
+      "status": "BLOCKED_ARTIFACT_ABSENT"
+    }
+  },
+  "training_engine": {
+    "pretrain": "implemented (training/pretrain.py)",
+    "sft": "implemented (training/sft.py)",
+    "optimizer": "AdamW (not executed; configuration only)",
+    "scheduler": "cosine with warmup (configuration only)",
+    "validation_loop": "implemented (not executed)",
+    "checkpoint_lifecycle": "implemented (training/checkpoint.py; atomic writes; integrity checks)",
+    "safe_load": "training/geometry.py compatibility inspector"
+  },
+  "requirements_for_training": [
+    "A1.1-A training authorization from owner",
+    "A2 compute authorization (local GPU / owner-provided hardware / external provider)",
+    "Authorized training corpus (legal/license review)",
+    "Checkpoint location and toolchain availability",
+    "Fresh capability evaluation decision"
+  ],
+  "authorization_status": {
+    "A1_1_C_preparation_only": true,
+    "A2_E_no_compute": true,
+    "training_authorized": false,
+    "checkpoint_creation": false,
+    "production_inference": false
+  },
+  "model_availability": "MODEL_UNAVAILABLE",
+  "capability": "ACTUAL_CODING_CAPABILITY_NOT_EVALUATED",
+  "action_required": "owner decision on D-1/D-2/D-3 (training authorization, compute, corpus)"
+}
