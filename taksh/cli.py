@@ -109,6 +109,120 @@ def _cmd_foundation(args):
         print(f"  id: {doc['id']} / params: {doc['model']['d_model']}x{doc['model']['n_layers']}L")
 
 
+def _eng_provider(name, changes_file=None):
+    from taksh.engineering import NativeTakshProvider, DeterministicTestProvider
+
+    if name == "native":
+        return NativeTakshProvider()
+    if name == "deterministic":
+        changes = []
+        if changes_file:
+            import json
+
+            data = json.loads(Path(changes_file).read_text(encoding="utf-8"))
+            from taksh.engineering import FileChange
+
+            changes = [FileChange(**item) for item in data]
+        return DeterministicTestProvider(changes)
+    raise ValueError(f"unknown provider: {name}")
+
+
+def _cmd_eng_inspect(args):
+    from taksh.engineering import inspect_project
+
+    info = inspect_project(args.path)
+    summary = info["summary"]
+    print(f"root: {info['root']}")
+    print(f"files: {summary['total_files']} ({summary['python_files']} Python)")
+    print(f"bytes: {summary['total_bytes']:,}")
+    print(f"symbols indexed: {summary['symbols_indexed']}")
+    print(f"modules with imports: {summary['modules_with_imports']}")
+    print(f"tests discovered: {info['test_count']}")
+
+
+def _cmd_eng_validate(args):
+    from taksh.engineering import validate_project
+
+    result = validate_project(args.path, args.files)
+    print(json.dumps(result, indent=2))
+
+
+def _cmd_eng_test(args):
+    from taksh.engineering import run_tests
+
+    result = run_tests(args.path, timeout=args.timeout)
+    print(json.dumps(result, indent=2))
+
+
+def _cmd_eng_plan(args):
+    from taksh.engineering import create_task, plan_task, review_plan, inspect_project
+
+    provider = _eng_provider(args.provider, args.changes_file)
+    task = create_task(args.task_id, args.objective, args.root)
+    context = inspect_project(args.root)
+    task, plan = plan_task(task, provider, context)
+    if plan is not None:
+        review_plan(plan)
+    if args.json:
+        print(json.dumps({"task": task.to_dict(), "plan": plan.to_dict() if plan else None}, indent=2))
+    else:
+        print(f"state: {task.state.value}")
+        if plan is None:
+            print("plan: none (provider unavailable or failed)")
+        else:
+            print(f"provider: {plan.provider}")
+            print(f"specialist: {plan.specialist}")
+            print(f"changes: {len(plan.changes)}")
+            for change in plan.changes:
+                print(f"  {change.operation} {change.path}: {change.reason}")
+
+
+def _cmd_eng_apply(args):
+    import json as _json
+
+    from taksh.engineering import apply_plan, ChangePlan, FileChange
+
+    data = _json.loads(Path(args.plan_file).read_text(encoding="utf-8"))
+    plan = ChangePlan(
+        task_id=data["task_id"],
+        root=args.root,
+        changes=[FileChange(**item) for item in data.get("changes", [])],
+        approved=data.get("approved", False),
+    )
+    result = apply_plan(args.root, plan, approved=args.approve)
+    print(_json.dumps(result.to_dict(), indent=2))
+
+
+def _cmd_eng_run(args):
+    import json as _json
+
+    from taksh.engineering import (
+        create_task,
+        inspect_project,
+        run_engineering_task,
+        engineering_report,
+    )
+
+    provider = _eng_provider(args.provider, args.changes_file)
+    task = create_task(args.task_id, args.objective, args.root, max_repair_iterations=args.max_repairs)
+    task = run_engineering_task(
+        task,
+        provider,
+        apply=args.apply,
+        validate=args.validate,
+        run_project_tests=args.test,
+    )
+    report = engineering_report(task)
+    if args.json:
+        print(_json.dumps(report, indent=2))
+    else:
+        print(f"state: {task.state.value}")
+        print(f"validation: {task.validation.get('status') if task.validation else 'none'}")
+        if task.test_result:
+            print(f"tests: {task.test_result.get('status')}")
+        print(f"capability_claim: {task.capability_claim}")
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="taksh", description="TAKSH developer CLI")
     parser.add_argument("--version", action="version", version=f"Taksh {_load_version()}")
@@ -141,6 +255,52 @@ def build_parser():
 
     p = sub.add_parser("capability", help="report the honest capability state")
     p.set_defaults(func=_cmd_capability)
+
+    # ---- engineering platform (DLCAE-integrated, model-independent) ----
+    p = sub.add_parser("engineer", help="integrated multi-file engineering platform")
+    eng_sub = p.add_subparsers(dest="eng_cmd")
+
+    q = eng_sub.add_parser("inspect", help="inspect a project root")
+    q.add_argument("path", nargs="?", default=".")
+    q.set_defaults(func=_cmd_eng_inspect)
+
+    q = eng_sub.add_parser("validate", help="validate Python files in a project")
+    q.add_argument("path", nargs="?", default=".")
+    q.add_argument("--files", nargs="*", default=None)
+    q.set_defaults(func=_cmd_eng_validate)
+
+    q = eng_sub.add_parser("test", help="discover and run project tests")
+    q.add_argument("path", nargs="?", default=".")
+    q.add_argument("--timeout", type=int, default=120)
+    q.set_defaults(func=_cmd_eng_test)
+
+    q = eng_sub.add_parser("plan", help="plan a coding task")
+    q.add_argument("--task-id", required=True)
+    q.add_argument("--objective", required=True)
+    q.add_argument("--root", required=True)
+    q.add_argument("--provider", choices=["native", "deterministic"], default="native")
+    q.add_argument("--changes-file", default=None)
+    q.add_argument("--json", action="store_true")
+    q.set_defaults(func=_cmd_eng_plan)
+
+    q = eng_sub.add_parser("apply", help="apply an approved plan JSON file")
+    q.add_argument("--plan-file", required=True)
+    q.add_argument("--root", required=True)
+    q.add_argument("--approve", action="store_true")
+    q.set_defaults(func=_cmd_eng_apply)
+
+    q = eng_sub.add_parser("run", help="run an engineering task end to end")
+    q.add_argument("--task-id", required=True)
+    q.add_argument("--objective", required=True)
+    q.add_argument("--root", required=True)
+    q.add_argument("--provider", choices=["native", "deterministic"], default="native")
+    q.add_argument("--changes-file", default=None)
+    q.add_argument("--apply", action="store_true")
+    q.add_argument("--validate", action="store_true", default=True)
+    q.add_argument("--test", action="store_true")
+    q.add_argument("--max-repairs", type=int, default=3)
+    q.add_argument("--json", action="store_true")
+    q.set_defaults(func=_cmd_eng_run)
 
     return parser
 

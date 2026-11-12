@@ -47,6 +47,16 @@ Added `configs/roadmap/multifile_engineering_contract.yaml`,
 Multi-file editing remains unimplemented. The contract is fail-closed and
 requires approval, sandboxing, validation, rollback and capability evidence.
 
+## Integrated engineering platform (Phase D)
+
+Added `taksh/engineering.py`, CLI `engineer` commands, and
+`tests/test_engineering_platform.py`.
+
+Implements project inspection, task planning, specialist routing, safe
+multi-file patch application, conflict detection, rollback, validation, test
+execution, bounded repair and reporting. Uses deterministic test providers only;
+does not claim native model capability.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.

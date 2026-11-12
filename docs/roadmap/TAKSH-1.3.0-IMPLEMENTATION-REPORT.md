@@ -34,6 +34,11 @@ Capability remains `NOT EVALUATED`. The contract is fail-closed: no canonical
 checkpoint, no frozen benchmarks and no owner authorization means no evaluation
 and no score. Historical results are preserved, not reused.
 
+## Integrated engineering platform (Phase D)
+
+Added `taksh/engineering.py` and focused tests. This improves coding
+orchestration and validation, but capability remains `NOT_EVALUATED`.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.

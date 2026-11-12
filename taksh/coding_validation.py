@@ -60,9 +60,11 @@ def check_syntax(source: str) -> ValidationResult:
     return ValidationResult(status="PASS" if not issues else "FAIL", issues=issues)
 
 
-def check_imports(source: str) -> ValidationResult:
+def check_imports(source: str, extra_allowed: set[str] | None = None) -> ValidationResult:
     issues: list[ValidationIssue] = []
     available = set(dir(builtins)) | set(sys.stdlib_module_names)
+    if extra_allowed:
+        available = available | set(extra_allowed)
     try:
         tree = ast.parse(source)
     except SyntaxError:
@@ -107,10 +109,29 @@ def check_semantics(source: str) -> ValidationResult:
             defined.add(name)
 
     for node in ast.walk(tree):
-        if isinstance(node, ast.FunctionDef):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                add(alias.asname or alias.name.split(".")[0])
+        elif isinstance(node, ast.ImportFrom):
+            for alias in node.names:
+                if alias.name != "*":
+                    add(alias.asname or alias.name)
+        elif isinstance(node, ast.FunctionDef):
             add(node.name)
+            for arg in node.args.args + node.args.posonlyargs + node.args.kwonlyargs:
+                add(arg.arg)
+            if node.args.vararg:
+                add(node.args.vararg.arg)
+            if node.args.kwarg:
+                add(node.args.kwarg.arg)
         elif isinstance(node, ast.AsyncFunctionDef):
             add(node.name)
+            for arg in node.args.args + node.args.posonlyargs + node.args.kwonlyargs:
+                add(arg.arg)
+            if node.args.vararg:
+                add(node.args.vararg.arg)
+            if node.args.kwarg:
+                add(node.args.kwarg.arg)
         elif isinstance(node, ast.ClassDef):
             add(node.name)
         elif isinstance(node, ast.Assign):
@@ -166,12 +187,12 @@ def check_tests(source: str, test_root: str) -> ValidationResult:
 CODE_CLASSES = {"function", "class", "variable", "import", "module"}
 
 
-def full_validate(source: str, test_root: str | None = None) -> ValidationResult:
+def full_validate(source: str, test_root: str | None = None, extra_allowed: set[str] | None = None) -> ValidationResult:
     syntax = check_syntax(source)
     if syntax.status == "FAIL":
         return syntax
 
-    imports = check_imports(source)
+    imports = check_imports(source, extra_allowed=extra_allowed)
     semantics = check_semantics(source)
 
     issues = imports.issues + semantics.issues
