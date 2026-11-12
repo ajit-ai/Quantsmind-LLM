@@ -324,7 +324,8 @@ def main():
             batch = [dataset[i] for i in indices]
             x, y = collate_sft(batch)
             x, y = x.to(device), y.to(device)
-            _, loss = model(x, targets=y)
+            lengths = (x != 0).sum(dim=1).to(device)   # pad_id 0 == <pad>
+            _, loss = model(x, targets=y, lengths=lengths, pad_id=0)
             (loss / accum).backward()
             loss_val += loss.item() / accum
 

@@ -3,6 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+class ModelConfigError(ValueError):
+    """The model configuration is invalid or unsupported."""
+
+
 class RMSNorm(nn.Module):
     def __init__(self, dim: int, eps: float = 1e-5):
         super().__init__()
@@ -26,6 +30,39 @@ def build_rope(seq_len: int, head_dim: int, theta: float, device, dtype):
     return freqs.cos().to(dtype), freqs.sin().to(dtype)
 
 
+def build_causal_padding_mask(lengths: torch.Tensor, seq_len: int) -> torch.Tensor:
+    """Boolean causal + padding attention mask of shape (batch, 1, seq_len, seq_len).
+
+    Kept positions are ``True``; masked positions are ``False``. ``lengths[b]``
+    tells how many real tokens sequence ``b`` has; everything past it is treated
+    as padding and is not visible to or visible from any position.
+    """
+    causal = torch.tril(torch.ones(seq_len, seq_len, dtype=torch.bool,
+                                   device=lengths.device))
+    batch = lengths.shape[0]
+    pad = torch.arange(seq_len, device=lengths.device).unsqueeze(0) < lengths.unsqueeze(1)
+    return (causal.unsqueeze(0).unsqueeze(0)
+            & pad.unsqueeze(1).unsqueeze(2)
+            & pad.unsqueeze(1).unsqueeze(3))
+
+
+_rope_cache: dict[tuple, tuple[torch.Tensor, torch.Tensor]] = {}
+_ROPE_CACHE_MAX = 64
+
+
+def build_rope_cached(seq_len: int, head_dim: int, theta: float, device, dtype):
+    key = (int(seq_len), int(head_dim), float(theta),
+           str(device), str(dtype))
+    cached = _rope_cache.get(key)
+    if cached is not None:
+        return cached
+    cos, sin = build_rope(seq_len, head_dim, theta, device, dtype)
+    if len(_rope_cache) >= _ROPE_CACHE_MAX:
+        _rope_cache.clear()
+    _rope_cache[key] = (cos, sin)
+    return cos, sin
+
+
 def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
     half = x.shape[-1] // 2
     x1 = x[..., :half]
@@ -36,11 +73,23 @@ def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.T
 class Attention(nn.Module):
     def __init__(self, d_model: int, n_heads: int, n_kv_heads: int, rope_theta: float):
         super().__init__()
-        assert d_model % n_heads == 0, "d_model must be divisible by n_heads"
-        assert n_heads % n_kv_heads == 0, "n_heads must be divisible by n_kv_heads"
+        if d_model <= 0 or n_heads <= 0 or n_kv_heads <= 0:
+            raise ModelConfigError(
+                f"dimensions must be positive: d_model={d_model}, "
+                f"n_heads={n_heads}, n_kv_heads={n_kv_heads}")
+        if d_model % n_heads != 0:
+            raise ModelConfigError(
+                f"d_model must be divisible by n_heads: {d_model} % {n_heads} != 0")
+        if n_heads % n_kv_heads != 0:
+            raise ModelConfigError(
+                f"n_heads must be divisible by n_kv_heads: {n_heads} % {n_kv_heads} != 0")
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
         self.head_dim = d_model // n_heads
+        if self.head_dim % 2 != 0:
+            raise ModelConfigError(
+                f"head_dim must be even for rotary embeddings: {self.head_dim} "
+                f"(d_model={d_model}, n_heads={n_heads})")
         self.rope_theta = rope_theta
         self.wq = nn.Linear(d_model, n_heads * self.head_dim, bias=False)
         self.wk = nn.Linear(d_model, n_kv_heads * self.head_dim, bias=False)
@@ -114,7 +163,11 @@ def _coerce_numeric_cfg(cfg: dict) -> dict:
         if field not in cfg:
             continue
         value = cfg[field]
-        if isinstance(value, bool) or not isinstance(value, (int, float)):
+        if isinstance(value, bool):
+            raise ModelConfigError(
+                f"model config field {field!r} is a bool ({value!r}); a boolean "
+                f"would be silently stored as 0/1 — refusing to guess")
+        if not isinstance(value, (int, float)):
             try:
                 value = float(value)
             except (TypeError, ValueError) as exc:
@@ -148,9 +201,6 @@ class QMModel(nn.Module):
         if isinstance(m, (nn.Linear, nn.Embedding)):
             nn.init.normal_(m.weight, mean=0.0, std=0.02)
 
-    def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
-        return self.decode(self.embed(idx), targets=targets)
-
     def embed(self, idx: torch.Tensor) -> torch.Tensor:
         return self.tok_emb(idx)
 
@@ -165,7 +215,15 @@ class QMModel(nn.Module):
         head_dim = d // self.cfg["n_heads"]
         theta = self.cfg.get("rope_theta", 10000.0)
         dtype = self.tok_emb.weight.dtype
-        cos, sin = build_rope(t, head_dim, theta, x.device, dtype)
+        cos, sin = build_rope_cached(t, head_dim, theta, x.device, dtype)
+        if attn_mask is not None:
+            if attn_mask.dtype != torch.bool:
+                raise ModelConfigError(
+                    f"attn_mask must be boolean, got {attn_mask.dtype}")
+            if attn_mask.shape != (b, 1, t, t):
+                raise ModelConfigError(
+                    f"attn_mask has shape {tuple(attn_mask.shape)}; "
+                    f"expected ({b}, 1, {t}, {t})")
         for blk in self.blocks:
             x = blk(x, cos, sin, attn_mask)
         x = self.norm(x)
@@ -173,7 +231,9 @@ class QMModel(nn.Module):
         loss = None
         if targets is not None:
             loss = F.cross_entropy(
-                logits.view(-1, logits.size(-1)).float(), targets.reshape(-1)
+                logits.view(-1, logits.size(-1)).float(),
+                targets.reshape(-1),
+                ignore_index=-100,
             )
         return logits, loss
 
@@ -191,3 +251,28 @@ class QMModel(nn.Module):
             n -= self.tok_emb.weight.numel()
             n -= self.lm_head.weight.numel()
         return n
+
+    def forward(
+        self,
+        idx: torch.Tensor,
+        targets: torch.Tensor | None = None,
+        attn_mask: torch.Tensor | None = None,
+        lengths: torch.Tensor | None = None,
+        pad_id: int | None = None,
+    ):
+        if attn_mask is None and lengths is not None:
+            if pad_id is None:
+                raise ModelConfigError(
+                    "pad_id is required when a lengths tensor is provided")
+            if lengths.shape[0] != idx.shape[0]:
+                raise ModelConfigError(
+                    f"lengths batch mismatch: {lengths.shape} vs {idx.shape}")
+            if lengths.max() > idx.shape[1]:
+                raise ModelConfigError(
+                    f"lengths exceed sequence dimension {idx.shape[1]}: "
+                    f"max length is {int(lengths.max())}")
+            attn_mask = build_causal_padding_mask(lengths, idx.shape[1])
+        elif attn_mask is not None and lengths is not None:
+            raise ModelConfigError(
+                "provide either attn_mask or lengths, not both")
+        return self.decode(self.embed(idx), targets=targets, attn_mask=attn_mask)

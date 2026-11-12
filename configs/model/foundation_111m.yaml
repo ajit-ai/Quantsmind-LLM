@@ -1,0 +1,81 @@
+# TAKSH — Foundation model configuration (L1.1.0, 2026-11-12)
+#
+# First-class product asset: the native TAKSH foundation model.
+# NOT a research snapshot; NOT an interchangeable provider.
+#
+# Geometry: 110,658,816 parameters exactly (computed from the model fields —
+# formulaic, not measured; see training/model.py num_params()).
+#   vocab 5822 × 768 (tied lm_head)     4,471,296
+#   per layer                          8,848,896
+#     attn: q 589,824 + k 294,912 + v 294,912 + o 589,824
+#     ffn (SwiGLU, 4× d_model): 3 × 768 × 3072 = 7,077,888
+#     two RMSNorms                        1,536
+#   12 × 8,848,896                   106,186,752
+#   final norm                            768
+#   total                             110,658,816
+#
+# Binding contract:
+#   tokenizer:  tokenizer/qm_code_bpe_v0.json (vocab 5,822) — the production
+#               TAKSH code tokenizer (never a different vocab without a new,
+#               clearly documented decision; in particular the v1.0.0 tag and
+#               all v1.x/v2.x milestone configurations use this artifact).
+#   relation to `code_m3_9m.yaml`: the 9.36M researched M3 model is the proven
+#               training target of the v1.x lineage; `foundation_111m.yaml` is
+#               the intended product target. They share architecture and
+#               vocabulary and differ only in scale.
+#   relation to `configs/foundation/l060_foundation.yaml` (feature-branch
+#               L0.x experimental track): different experiment, same geometry,
+#               different tokenizer artifact (taksh_code_bpe_v1.json). Do NOT
+#               mix the two tracks or their artifacts.
+#   v180_sft:   GEOMETRY_INCOMPATIBLE with this config — never load, resume,
+#               or substitute. 28.8M, d_model 384, n_heads 8, n_kv_heads 4,
+#               ffn 1536.
+#
+# Training: A1.1-C (preparation-only) / A2-E (no compute) remain in force.
+# This configuration authorizes nothing; it describes an intended target.
+# Every training act requires a separate, recorded owner decision.
+#
+# Initialization: torch.nn.init.normal_(std=0.02) for Linear/Embedding;
+#   RMSNorm weights initialised to ones; seed policy deterministic.
+
+schema: taksh.foundation_config/1
+id: taksh-foundation-111m
+name: taksh-foundation-111m
+version: 1
+created: "2026-11-12"
+status: "INTENDED-TARGET — configuration only; no checkpoint, no training"
+
+model:
+  name: qm-foundation-111m
+  vocab_size: 5822          # must equal tokenizer/qm_code_bpe_v0.json exactly
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 6             # GQA 2:1 query:kv (matches the 9M researched variant)
+  ffn_dim: 3072             # 4 × d_model (SwiGLU)
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true
+
+tokenizer:
+  path: tokenizer/qm_code_bpe_v0.json
+  vocab_size: 5822
+  report: tokenizer/qm_code_bpe_v0.report.json
+
+intended_role: foundation-product-target
+relationship:
+  - "code_m3_9m.yaml: M3 researched 9.36M target of the v1.x lineage"
+  - "code_tiny.yaml: v1 setup harness artifact"
+  - "code_30m.yaml: orphan config retained for reproducibility; never used"
+
+initialization:
+  weight_std: 0.02
+  method: "torch.nn.init.normal_(std=0.02) for Linear/Embedding; norm weights initialised to ones"
+  seed_policy: "deterministic; requires a training act with a recorded seed"
+
+encoding:
+  eos: "<eos>"              # ids 2; <pad>=0, <bos>=1, <unk>=3
+  pad: "<pad>"
+  bos: "<bos>"
+  instruction_format: "Q: ...\nA: ..."   # v1.1.0 CONTRACT_V1 (plain) — no role markers assumed
