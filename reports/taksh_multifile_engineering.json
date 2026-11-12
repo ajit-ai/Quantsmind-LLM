@@ -1,0 +1,89 @@
+{
+  "schema": "taksh.multifile_engineering_contract_report/1",
+  "generated_by": "evaluation/multifile_engineering.py",
+  "contract_manifest": "configs/roadmap/multifile_engineering_contract.yaml",
+  "status": "PARTIAL",
+  "verdict": "MULTIFILE_ENGINEERING_NOT_IMPLEMENTED",
+  "multifile_editing_supported": false,
+  "ready": false,
+  "policy": {
+    "multifile_editing_supported": false,
+    "fail_closed": true,
+    "partial_apply_allowed": false,
+    "rollback_required": true,
+    "approval_required": true,
+    "sandbox_required": true,
+    "capability_required": true,
+    "owner_authorization_required": true
+  },
+  "contract": {
+    "workflows": [
+      "discover",
+      "plan",
+      "patch",
+      "review",
+      "apply",
+      "validate",
+      "rollback"
+    ],
+    "patch_format": "unified_diff",
+    "apply": {
+      "requires_approval": true,
+      "requires_sandbox": true,
+      "max_files_per_change": 20,
+      "no_unreviewed_apply": true,
+      "no_partial_apply": true
+    },
+    "validation": {
+      "tests_required": true,
+      "static_checks_required": true,
+      "no_network": true,
+      "bounded_time": true
+    },
+    "rollback": {
+      "required": true,
+      "automatic_on_validation_failure": true,
+      "preserves_original_tree": true
+    },
+    "forbidden": [
+      "arbitrary_code_execution_without_sandbox",
+      "unapproved_patch_application",
+      "silent_partial_apply",
+      "capability_claim_without_evaluation",
+      "unbounded_file_modification"
+    ]
+  },
+  "prerequisites": {
+    "capability_evaluation": {
+      "status": "PARTIAL",
+      "verdict": "CAPABILITY_NOT_EVALUATED"
+    },
+    "owner_authorization": {
+      "decision": "D-EVAL-5",
+      "status": "NOT GRANTED"
+    }
+  },
+  "gates": {
+    "contract_schema": "PASS",
+    "fail_closed_policy": "PASS",
+    "approval_policy": "PASS",
+    "rollback_policy": "PASS",
+    "implementation": "BLOCKED",
+    "sandbox_approval": "BLOCKED",
+    "capability_prerequisite": "BLOCKED",
+    "owner_authorization": "BLOCKED"
+  },
+  "blockers": [
+    "implementation: no multi-file apply workflow is implemented",
+    "sandbox_approval: no sandbox approval recorded",
+    "capability_prerequisite: capability is not evaluated",
+    "owner_authorization: multi-file engineering is not authorized"
+  ],
+  "policy_result": {
+    "no_repository_mutation": true,
+    "no_unapproved_apply": true,
+    "no_partial_side_effects": true,
+    "no_capability_claim": true,
+    "no_publication": true
+  }
+}

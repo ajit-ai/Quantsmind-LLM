@@ -1,0 +1,57 @@
+# Multi-file engineering contract (Phase B2 / program label 1.4.0).
+#
+# This is a design and gating artifact only. No multi-file edit, patch apply,
+# rollback or sandboxed validation is implemented. Fail-closed means an
+# unsupported, unapproved or un-sandboxed workflow is rejected before any
+# repository mutation.
+
+schema: taksh.multifile_engineering_contract/1
+status: PARTIAL
+created: "2026-11-12"
+
+policy:
+  multifile_editing_supported: false
+  fail_closed: true
+  partial_apply_allowed: false
+  rollback_required: true
+  approval_required: true
+  sandbox_required: true
+  capability_required: true
+  owner_authorization_required: true
+
+contract:
+  workflows:
+    - discover
+    - plan
+    - patch
+    - review
+    - apply
+    - validate
+    - rollback
+  patch_format: unified_diff
+  apply:
+    requires_approval: true
+    requires_sandbox: true
+    max_files_per_change: 20
+    no_unreviewed_apply: true
+    no_partial_apply: true
+  validation:
+    tests_required: true
+    static_checks_required: true
+    no_network: true
+    bounded_time: true
+  rollback:
+    required: true
+    automatic_on_validation_failure: true
+    preserves_original_tree: true
+  forbidden:
+    - arbitrary_code_execution_without_sandbox
+    - unapproved_patch_application
+    - silent_partial_apply
+    - capability_claim_without_evaluation
+    - unbounded_file_modification
+
+notes:
+  - "Project understanding primitives exist, but multi-file apply is not implemented."
+  - "Task orchestration primitives exist, but approval and rollback are not implemented."
+  - "No repository mutation, test execution or capability claim is made by this contract."

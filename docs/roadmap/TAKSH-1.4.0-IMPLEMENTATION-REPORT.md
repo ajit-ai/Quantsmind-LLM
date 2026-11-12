@@ -37,6 +37,16 @@ unsupported, fail-closed, and aligned with the serving profile. No tool is
 implemented and no tool call is executed; the server continues to reject
 tool requests with HTTP 400. 1.4.0 remains `PARTIAL`.
 
+## Multi-file engineering contract (Phase B2)
+
+Added `configs/roadmap/multifile_engineering_contract.yaml`,
+`evaluation/multifile_engineering.py`,
+`reports/taksh_multifile_engineering.json` and
+[`TAKSH-MULTIFILE-ENGINEERING-CONTRACT.md`](TAKSH-MULTIFILE-ENGINEERING-CONTRACT.md).
+
+Multi-file editing remains unimplemented. The contract is fail-closed and
+requires approval, sandboxing, validation, rollback and capability evidence.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.

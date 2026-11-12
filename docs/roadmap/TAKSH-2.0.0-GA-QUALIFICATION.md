@@ -22,7 +22,7 @@
 - [ ] Permission model documented (who can apply patches, run tests, execute commands)
 - [ ] Capability prerequisite satisfied (canonical checkpoint and frozen-benchmark evaluation)
 - [ ] Owner authorization recorded for tool calling
-- [ ] No partial side effects or silent ignoring of unsupported requests
+- [ ] Multi-file engineering contract documented (`configs/roadmap/multifile_engineering_contract.yaml`, `reports/taksh_multifile_engineering.json`)
 
 - [ ] Documented local CPU deployment profile
 - [ ] Optional local GPU profile (if a compatible artifact exists and owner authorizes)
