@@ -1,0 +1,108 @@
+{
+  "schema": "taksh.capability_evaluation_contract_report/1",
+  "generated_by": "evaluation/capability_evaluation.py",
+  "contract_manifest": "configs/roadmap/capability_evaluation_contract.yaml",
+  "status": "PARTIAL",
+  "verdict": "CAPABILITY_NOT_EVALUATED",
+  "evaluation_executed": false,
+  "capability_claimed": false,
+  "score": null,
+  "raw_outputs": null,
+  "policy": {
+    "evaluation_executed": false,
+    "capability_claimed": false,
+    "fail_closed": true,
+    "partial_scoring_allowed": false,
+    "silent_skip_allowed": false,
+    "requires_canonical_checkpoint": true,
+    "requires_frozen_benchmarks": true,
+    "requires_owner_authorization": true,
+    "requires_raw_outputs": true,
+    "preserves_historical_results": true
+  },
+  "contract": {
+    "api_style": "local_evaluation",
+    "supported_benchmarks": [
+      "l02-python-v1",
+      "l051-multilingual-v1"
+    ],
+    "scoring": {
+      "method": "frozen_benchmark_only",
+      "raw_outputs_required": true,
+      "score_without_raw_outputs": false,
+      "reuse_historical_score": false
+    },
+    "prerequisites": [
+      "canonical_checkpoint_present",
+      "checkpoint_geometry_verified",
+      "checkpoint_tokenizer_verified",
+      "frozen_benchmarks_present_and_verified",
+      "owner_authorization_recorded",
+      "sandbox_policy_approved"
+    ],
+    "fail_closed_rules": [
+      "missing_checkpoint_blocks_evaluation",
+      "missing_benchmark_blocks_evaluation",
+      "missing_authorization_blocks_evaluation",
+      "no_partial_scores",
+      "no_capability_claim_before_evaluation",
+      "historical_results_never_reused_as_new_scores"
+    ],
+    "evidence_levels": [
+      "RUNTIME_WORKS",
+      "GENERATION_WORKS",
+      "SYNTAX_CAPABILITY_DEMONSTRATED",
+      "FUNCTIONAL_CAPABILITY_DEMONSTRATED",
+      "INSTRUCTION_FOLLOWING_DEMONSTRATED"
+    ]
+  },
+  "prerequisites": {
+    "canonical_checkpoint": {
+      "status": "BLOCKED",
+      "target": "checkpoints/taksh-foundation-111m",
+      "exists": false
+    },
+    "model_identity": {
+      "status": "PASS",
+      "id": "taksh-foundation-111m",
+      "parameters": 110658816
+    },
+    "frozen_benchmarks": {
+      "status": "BLOCKED",
+      "absent": [
+        "l02-python-v1",
+        "l051-multilingual-v1"
+      ],
+      "hash_mismatches": []
+    },
+    "owner_authorization": {
+      "decision": "D-EVAL-5",
+      "status": "NOT GRANTED",
+      "authorization_flag": false
+    }
+  },
+  "gates": {
+    "contract_schema": "PASS",
+    "fail_closed_policy": "PASS",
+    "checkpoint_prerequisite": "BLOCKED",
+    "model_identity_prerequisite": "PASS",
+    "frozen_benchmark_prerequisite": "BLOCKED",
+    "owner_authorization": "BLOCKED",
+    "implementation": "BLOCKED",
+    "historical_result_preservation": "PASS",
+    "raw_output_policy": "PASS"
+  },
+  "blockers": [
+    "checkpoint_prerequisite: no canonical checkpoint",
+    "frozen_benchmark_prerequisite: frozen benchmarks absent or unverified",
+    "owner_authorization: capability evaluation not authorized",
+    "implementation: no capability evaluation has been executed"
+  ],
+  "policy_result": {
+    "no_evaluation_executed": true,
+    "no_capability_claim": true,
+    "no_partial_score": true,
+    "historical_results_preserved": true,
+    "no_publication": true
+  }
+}

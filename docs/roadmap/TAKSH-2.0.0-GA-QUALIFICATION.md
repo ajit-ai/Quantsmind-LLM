@@ -41,7 +41,7 @@
 
 - [ ] Frozen Python benchmark remains 0/30 (manifest: `reports/taksh_frozen_benchmarks.json`; artifacts `ABSENT` on this ref; preserved, never re-scored without owner authorization)
 - [ ] Multilingual benchmark artifacts absent/available with SHA-256 verification
-- [ ] Every release decision signed by owner
+- [ ] Capability evaluation contract documented (`configs/roadmap/capability_evaluation_contract.yaml`, `reports/taksh_capability_evaluation.json`)
 - [ ] Release notes distinguish model readiness from package readiness
 
 ## Blocked / not ready

@@ -23,6 +23,17 @@
 - Task engine records outcomes; it does not apply patches or execute tests as a delivered capability.
 - No capability claim is advanced by this milestone.
 
+## Capability evaluation contract (Phase B1)
+
+Added `configs/roadmap/capability_evaluation_contract.yaml`,
+`evaluation/capability_evaluation.py`,
+`reports/taksh_capability_evaluation.json` and
+[`TAKSH-CAPABILITY-EVALUATION-CONTRACT.md`](TAKSH-CAPABILITY-EVALUATION-CONTRACT.md).
+
+Capability remains `NOT EVALUATED`. The contract is fail-closed: no canonical
+checkpoint, no frozen benchmarks and no owner authorization means no evaluation
+and no score. Historical results are preserved, not reused.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.

@@ -3,7 +3,7 @@
 **Date:** 2026-11-12
 **Product:** Taksh (formerly Quantsmind-LLM)
 **Scope:** `feature/taksh-five-version-ga-program`
-**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l110_config_hash_reconciliation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/l120_training_authorization.json`, `reports/taksh_frozen_benchmarks.json`, `reports/taksh_tool_calling_contract.json`, `reports/M7_OUTCOME.json`
+**Evidence:** `reports/taksh_publication_readiness.json`, `reports/l110_native_model_foundation.json`, `reports/l110_config_hash_reconciliation.json`, `reports/l111_native_inference.json`, `reports/l120_training_readiness.json`, `reports/l120_training_authorization.json`, `reports/taksh_frozen_benchmarks.json`, `reports/taksh_tool_calling_contract.json`, `reports/taksh_capability_evaluation.json`, `reports/M7_OUTCOME.json`
 
 ---
 
@@ -20,7 +20,7 @@ dataset, or a production service.**
 | Canonical checkpoint | **MISSING** |
 | Historical M7 result | **0/40** syntax-valid, **0/8** functional, evidence level **0** |
 | Frozen Python benchmark | **0/30** preserved; artifact `ABSENT` on this ref; not re-scored |
-| Tool calling | `BLOCKED` (fail-closed contract design only; no implementation) |
+| Capability evaluation | `NOT EVALUATED` (contract design only; no checkpoint or frozen benchmarks) |
 | Karkain | `DISCOVERED`; KCC `0xC0000135`; KARK-BENCH 0 tasks |
 | Production GA | `NOT STARTED` |
 | Training authorization | **NOT GRANTED** (A1.1-C) |

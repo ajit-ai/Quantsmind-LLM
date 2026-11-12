@@ -1,0 +1,58 @@
+# Capability-evaluation contract (Phase B1 / program label 1.3.0).
+#
+# This is a design and gating artifact only. It does not evaluate a model,
+# run a benchmark, train, create a checkpoint or publish anything. Capability
+# remains NOT EVALUATED until every prerequisite below is PASS and an owner
+# authorizes the run.
+
+schema: taksh.capability_evaluation_contract/1
+status: PARTIAL
+created: "2026-11-12"
+
+policy:
+  evaluation_executed: false
+  capability_claimed: false
+  fail_closed: true
+  partial_scoring_allowed: false
+  silent_skip_allowed: false
+  requires_canonical_checkpoint: true
+  requires_frozen_benchmarks: true
+  requires_owner_authorization: true
+  requires_raw_outputs: true
+  preserves_historical_results: true
+
+contract:
+  api_style: local_evaluation
+  supported_benchmarks:
+    - l02-python-v1
+    - l051-multilingual-v1
+  scoring:
+    method: frozen_benchmark_only
+    raw_outputs_required: true
+    score_without_raw_outputs: false
+    reuse_historical_score: false
+  prerequisites:
+    - canonical_checkpoint_present
+    - checkpoint_geometry_verified
+    - checkpoint_tokenizer_verified
+    - frozen_benchmarks_present_and_verified
+    - owner_authorization_recorded
+    - sandbox_policy_approved
+  fail_closed_rules:
+    - missing_checkpoint_blocks_evaluation
+    - missing_benchmark_blocks_evaluation
+    - missing_authorization_blocks_evaluation
+    - no_partial_scores
+    - no_capability_claim_before_evaluation
+    - historical_results_never_reused_as_new_scores
+  evidence_levels:
+    - RUNTIME_WORKS
+    - GENERATION_WORKS
+    - SYNTAX_CAPABILITY_DEMONSTRATED
+    - FUNCTIONAL_CAPABILITY_DEMONSTRATED
+    - INSTRUCTION_FOLLOWING_DEMONSTRATED
+
+notes:
+  - "The frozen Python benchmark remains 0/30 historically; that result is preserved, not recomputed."
+  - "The multilingual suite has 64 tasks and has never been measured."
+  - "A missing prerequisite blocks the whole evaluation; no partial score is reported."
