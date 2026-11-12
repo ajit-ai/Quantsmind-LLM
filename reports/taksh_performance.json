@@ -1,0 +1,40 @@
+{
+  "schema": "taksh.performance_benchmark/1",
+  "root": "C:\\Users\\Lenovo\\.local\\share\\opencode\\worktree\\545eb7\\integration\\taksh-cicd-recovery",
+  "iterations": 3,
+  "results": {
+    "project_indexing": {
+      "iterations": 3,
+      "min_seconds": 7.57259939999858,
+      "max_seconds": 8.29493469999943,
+      "mean_seconds": 7.8735532666651125,
+      "median_seconds": 7.753125699997327
+    },
+    "validation": {
+      "iterations": 3,
+      "min_seconds": 6.742093200002273,
+      "max_seconds": 7.313058299998374,
+      "mean_seconds": 7.040075466666167,
+      "median_seconds": 7.065074899997853
+    },
+    "memory_retrieval": {
+      "iterations": 3,
+      "min_seconds": 0.00011240000094403513,
+      "max_seconds": 0.00018540000019129366,
+      "mean_seconds": 0.00014276666721949974,
+      "median_seconds": 0.00013050000052317046
+    },
+    "patch_application": {
+      "iterations": 3,
+      "min_seconds": 0.012255600002390565,
+      "max_seconds": 0.3936939999985043,
+      "mean_seconds": 0.22832253333278155,
+      "median_seconds": 0.2790179999974498
+    }
+  },
+  "environment": {
+    "python": "3.14.7",
+    "platform": "win32"
+  },
+  "note": "Baseline measurements only; no performance claims are made."
+}
