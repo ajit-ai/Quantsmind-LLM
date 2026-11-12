@@ -22,6 +22,20 @@ Use `taksh.deployment.validate_environment()`, `health_check()` and
 - `GET /v1/health` returns service status.
 - `readiness_check()` validates environment and project.
 
+## Environment configuration
+
+Protected engineering endpoints require `TAKSH_ENGINEERING_TOKEN`. Optional scopes are configured with `TAKSH_TOKEN_SCOPES` (default `read`). Available scopes: `read`, `execute`, `mutate`, `memory`, `audit`. `/v1/health` is public; every other endpoint is protected. Without a configured token, protected endpoints deny access.
+
+Example:
+```env
+TAKSH_ENGINEERING_TOKEN=<strong-random-token>
+TAKSH_TOKEN_SCOPES=read,execute
+TAKSH_BIND_HOST=127.0.0.1
+TAKSH_BIND_PORT=8000
+```
+
+Never commit real tokens. Rotate any token that was ever logged or shared.
+
 ## Operational notes
 
 - No cloud account is required.

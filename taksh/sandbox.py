@@ -1,4 +1,11 @@
-"""Controlled execution sandbox for TAKSH engineering."""
+"""Controlled execution sandbox for TAKSH engineering.
+
+This is an APPLICATION-LEVEL safeguard, not OS-grade or container-grade isolation.
+It provides workspace canonicalization, command allowlisting, timeouts, bounded
+output, environment filtering and working-directory restrictions. It does NOT
+provide kernel namespaces, seccomp, container isolation or process sandboxing.
+Operations requiring stronger isolation must fail closed.
+"""
 
 from __future__ import annotations
 
@@ -39,6 +46,8 @@ class ExecutionResult:
 
 
 class Sandbox:
+    isolation_level = "application"
+
     def __init__(self, policy: SandboxPolicy) -> None:
         self.policy = policy
 

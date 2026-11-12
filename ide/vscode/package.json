@@ -1,0 +1,51 @@
+{
+  "name": "taksh-engineering",
+  "displayName": "TAKSH Engineering",
+  "description": "Local client for the TAKSH engineering service. Does not apply changes without explicit approval.",
+  "version": "0.1.0",
+  "publisher": "taksh-local",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:taksh.inspectProject",
+    "onCommand:taksh.createTask",
+    "onCommand:taksh.applyApprovedPatch"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "taksh.inspectProject",
+        "title": "TAKSH: Inspect Project"
+      },
+      {
+        "command": "taksh.createTask",
+        "title": "TAKSH: Create Engineering Task"
+      },
+      {
+        "command": "taksh.applyApprovedPatch",
+        "title": "TAKSH: Apply Approved Patch"
+      }
+    ],
+    "configuration": {
+      "title": "TAKSH",
+      "properties": {
+        "taksh.baseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8000",
+          "description": "Base URL of the local TAKSH engineering service."
+        },
+        "taksh.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Optional bearer token for the TAKSH service."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node ./test/apiClient.test.js"
+  }
+}
