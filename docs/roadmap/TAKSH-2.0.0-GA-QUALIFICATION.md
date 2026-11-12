@@ -6,7 +6,7 @@
 
 ## Security and privacy
 
-- [ ] Workspace sandboxing for generated code (network-disabled, filesystem-jailed or explicit allowlist)
+- [ ] GA security contract documented (`configs/roadmap/ga_security_contract.yaml`, `reports/taksh_ga_security_contract.json`)
 - [ ] Permission model documented (who can apply patches, run tests, execute commands)
 - [ ] Secret scanner configuration (no credentials in repo, logs, or artifacts)
 - [ ] Dependency audit (licenses, known CVEs)

@@ -1,0 +1,75 @@
+{
+  "schema": "taksh.ga_security_contract_report/1",
+  "generated_by": "evaluation/ga_security_contract.py",
+  "contract_manifest": "configs/roadmap/ga_security_contract.yaml",
+  "ga_status": "NOT STARTED",
+  "status": "PARTIAL",
+  "verdict": "GA_NOT_READY",
+  "ga_ready": false,
+  "policy": {
+    "ga_ready": false,
+    "security_review_completed": false,
+    "sandbox_approved": false,
+    "deployment_automated": false,
+    "fail_closed": true,
+    "no_publication": true
+  },
+  "contract": {
+    "security": {
+      "workspace_sandboxing": "required",
+      "network_disabled_by_default": true,
+      "filesystem_jailed_or_allowlisted": true,
+      "permission_model_documented": "required",
+      "secret_scanner_configured": "required",
+      "dependency_audit": "required",
+      "supply_chain_provenance": "required"
+    },
+    "sandbox": {
+      "network": "disabled",
+      "filesystem": "jailed",
+      "timeout_seconds": 30,
+      "no_untrusted_code_execution": true,
+      "no_secret_leakage": true
+    },
+    "deployment": {
+      "local_cpu_profile": "required",
+      "health_endpoints": [
+        "/health",
+        "/v1/models"
+      ],
+      "container_definition": "optional",
+      "gpu_profile": "optional_owner_authorized"
+    },
+    "fail_closed_rules": [
+      "unapproved_sandbox_rejected",
+      "missing_secret_scan_rejected",
+      "unresolved_dependency_audit_rejected",
+      "unautomated_deployment_rejected",
+      "no_publication_without_owner_authorization"
+    ]
+  },
+  "gates": {
+    "contract_schema": "PASS",
+    "fail_closed_policy": "PASS",
+    "security_review": "BLOCKED",
+    "sandbox_approval": "BLOCKED",
+    "dependency_audit": "BLOCKED",
+    "deployment_automation": "BLOCKED",
+    "capability_prerequisite": "BLOCKED",
+    "owner_authorization": "BLOCKED"
+  },
+  "blockers": [
+    "security_review: not completed",
+    "sandbox_approval: not recorded",
+    "dependency_audit: not completed",
+    "deployment_automation: not implemented",
+    "capability_prerequisite: capability not evaluated",
+    "owner_authorization: GA release not authorized"
+  ],
+  "policy_result": {
+    "no_security_claim": true,
+    "no_deployment_claim": true,
+    "no_publication": true,
+    "no_ga_readiness_claim": true
+  }
+}

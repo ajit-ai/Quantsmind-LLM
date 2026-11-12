@@ -1,0 +1,51 @@
+# GA security, sandbox and deployment contract (Phase C1).
+#
+# This is a design and gating artifact only. It does not perform a security
+# review, approve a sandbox, automate deployment or publish anything. GA remains
+# NOT STARTED.
+
+schema: taksh.ga_security_contract/1
+status: NOT STARTED
+created: "2026-11-12"
+
+policy:
+  ga_ready: false
+  security_review_completed: false
+  sandbox_approved: false
+  deployment_automated: false
+  fail_closed: true
+  no_publication: true
+
+contract:
+  security:
+    workspace_sandboxing: required
+    network_disabled_by_default: true
+    filesystem_jailed_or_allowlisted: true
+    permission_model_documented: required
+    secret_scanner_configured: required
+    dependency_audit: required
+    supply_chain_provenance: required
+  sandbox:
+    network: disabled
+    filesystem: jailed
+    timeout_seconds: 30
+    no_untrusted_code_execution: true
+    no_secret_leakage: true
+  deployment:
+    local_cpu_profile: required
+    health_endpoints:
+      - /health
+      - /v1/models
+    container_definition: optional
+    gpu_profile: optional_owner_authorized
+  fail_closed_rules:
+    - unapproved_sandbox_rejected
+    - missing_secret_scan_rejected
+    - unresolved_dependency_audit_rejected
+    - unautomated_deployment_rejected
+    - no_publication_without_owner_authorization
+
+notes:
+  - "GA is NOT STARTED and remains so until all upstream capability and security gates pass."
+  - "No container, GPU profile or publication is authorized by this contract."
+  - "The local OpenAI-compatible server remains chat-only and tool-free."
