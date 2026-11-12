@@ -1,0 +1,110 @@
+{
+  "schema": "taksh.l101_owner_decisions/1",
+  "generated_by": "L1.0.1 owner-decision checkpoint (agent-authored, owner-owned decisions)",
+  "verified_on": "2026-11-12",
+  "baseline": {
+    "branch": "checkpoint/l101-owner-decisions",
+    "parent_branch": "planning/l1000-integration-and-ga-readiness",
+    "planning_head": "6662cce2765d47b5a9f173fc9d4c9ca09dba37a9",
+    "develop": "0215c6d039fceffd334f8931aa96a3287010a580",
+    "main": "d50de3ea220cbf18eee070e191a507ba70a758bb",
+    "feature": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1"
+  },
+  "restrictions": {
+    "TAKSH_ENABLE_TRAINING_CI": "must remain unset",
+    "A1_1_C": "preparation-only (owner decision 2026-11-11) — remains in force",
+    "A2_E": "no compute (owner decision 2026-11-11) — remains in force",
+    "training": "prohibited", "compute_spend": "prohibited", "data_acquisition": "prohibited",
+    "publication": "prohibited", "merges_to_main": "prohibited", "merges_to_develop": "prohibited in this checkpoint",
+    "karkain_changes": "prohibited", "v180_sft_substitution": "prohibited",
+    "python_benchmark_0_30": "preserved; never re-scored without owner authorization"
+  },
+  "decided_reference_decisions": [
+    {"id": "D-0001", "authority": "owner", "decision": "A1.1-C preparation and preflight only; no training", "dated": "2026-11-11", "reference": "TAKSH-OWNER-DECISION-2026-11-11", "status": "OWNER_APPROVED"},
+    {"id": "D-0002", "authority": "owner", "decision": "A2-E no compute authorization of any kind", "dated": "2026-11-11", "reference": "TAKSH-OWNER-DECISION-2026-11-11", "status": "OWNER_APPROVED"},
+    {"id": "D-0003", "authority": "owner", "decision": "L0.8.0 entry contract defined (docs/L075_L080_ENTRY_CONTRACT.md); owner decision is preparation-only A1.1-C — training explicitly not authorized", "dated": "2026-11-11", "reference": "docs/L075_L080_ENTRY_CONTRACT.md + docs/L080PRE_EXECUTION_BOUNDARY.md + docs/L075_L080_OWNER_DECISION_RECORD.md", "status": "OWNER_APPROVED"},
+    {"id": "D-0004", "authority": "owner", "decision": "v1.0.0 source release published 2026-10-21; PyPI upload blocked on registry credentials", "dated": "2026-10-21", "reference": "CHANGELOG.md + docs/RELEASE-GOVERNANCE.md (as of v1.0.0)", "status": "OWNER_APPROVED"},
+    {"id": "D-0005", "authority": "owner", "decision": "develop→main merged by owner 2026-11-12T04:56Z (d50de3e, PR #1) integrating CI recovery (PRs #2/#3)", "dated": "2026-11-12", "reference": "PR #1", "status": "OWNER_APPROVED"}
+  ],
+  "pending_decisions": {
+    "A_integration_sequence": {
+      "items": [
+        {"id": "A-01", "commit": "84888e6", "item": "roadmap docs & governance PR", "agent_recommendation": "approve", "status": "NOT_DECIDED"},
+        {"id": "A-02", "commit": "45f0dc9", "item": "DLCAE architecture and registry", "agent_recommendation": "approve_conditionally_on_C_decision", "status": "NOT_DECIDED"},
+        {"id": "A-03", "commit": "1fef89d", "item": "L0.6.1 training pipeline", "agent_recommendation": "approve_with_owner_diff_review", "status": "NOT_DECIDED"},
+        {"id": "A-04", "commit": "9721aa6", "item": "L0.6.2 inference qualification", "agent_recommendation": "approve_excluding_CRLF_serving_file", "status": "NOT_DECIDED"},
+        {"id": "A-05", "commit": "27c7b3a+68dc5b7", "item": "L0.7.x evidence bundle (reports only)", "agent_recommendation": "approve_scope_restricted_no_corpus", "status": "NOT_DECIDED"},
+        {"id": "A-06", "commit": "262ae69", "item": "L0.8.0-PRE preflight", "agent_recommendation": "approve_with_NO-GO_semantics_intact", "status": "NOT_DECIDED"},
+        {"id": "A-07", "commit": "efcda29", "item": "DLCAE runtime ENG1", "agent_recommendation": "blocked_on_C_decision", "status": "NOT_DECIDED"},
+        {"id": "A-08", "commit": "6065394", "item": "semantic validation ENG2", "agent_recommendation": "defer (depends_on_A-07)", "status": "NOT_DECIDED"},
+        {"id": "A-09", "commit": "d2f0d14", "item": "end-to-end coding integration ENG3", "agent_recommendation": "defer (depends_on_A-08)", "status": "NOT_DECIDED"},
+        {"id": "A-recovery", "commit": "78b6cdf", "item": "recovery duplicate", "agent_recommendation": "do_not_port_superseded", "status": "NOT_DECIDED"},
+        {"id": "A-publication", "commit": "8c55346+c601a73", "item": "publication-ready snapshot", "agent_recommendation": "reject_never_integrate", "status": "NOT_DECIDED"}
+      ],
+      "summary": "the nine-step integration sequence is proposed by agent; requires explicit per-step owner sign-off"
+    },
+    "B_benchmark_artifacts": {
+      "options": ["B-01 integrate_now", "B-02 feature_branch_isolated_workflow", "B-03 defer_until_model_availability", "B-04 reject_replacement"],
+      "frozen_python_benchmark": {"sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6", "tasks": 30, "historical_score": "0/30", "status": "PROTECTED"},
+      "multilingual_benchmark": {"sha256": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e", "tasks": 64, "status": "NOT_EVALUATED"},
+      "status": "NOT_DECIDED"
+    },
+    "C_language_registry_dependencies": {
+      "files": [
+        {"path": "configs/feasibility/l051_languages.yaml", "sha256": "075d4b568f052c8ebede69ccaf21cc4d0fd15a4f01df455f1431505c354ef39d", "bytes": 30924, "exists": true, "committed_on_any_branch": false},
+        {"path": "evaluation/l051_language_registry.py", "sha256": "6f1610b5ff5c6515d54b154b54d58cb316061614eb88b9b1213f06cf30858fb1", "bytes": 6755, "exists": true, "committed_on_any_branch": false}
+      ],
+      "options": ["C-01 owner supplies & approves original artifacts", "C-02 owner authorizes a separately-scoped recovery task", "C-03 defer A-07 indefinitely", "C-04 adopt alternative integration strategy (exclude dependency)"],
+      "status": "NOT_DECIDED"
+    },
+    "D_canonical_model_and_compute": {
+      "canonical": {"model_id": "taksh-foundation-111m", "parameters": 110658816, "vocab": 5822, "d_model": 768, "n_layers": 12, "n_heads": 12, "n_kv_heads": 6, "ffn_dim": 3072, "context": 2048, "rope_theta": 10000, "tied_embeddings": true, "config_sha256": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3"},
+      "v180_sft": {"sha256": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666", "geometry": "28.8M-class; d_model 384; heads 8; n_kv_heads 4; ffn 1536", "status": "GEOMETRY_INCOMPATIBLE — never substitutable"},
+      "canonical_artifact": "MISSING — never created",
+      "options": ["D-01 owner-provided compatible checkpoint", "D-02 owner-authorized training on suitable infrastructure (A1.1-A + A2 decision required)", "D-03 separately funded external compute & artifact production", "D-04 continue infrastructure without a model", "D-05 pause model-dependent product work"],
+      "estimates_not_guarantees": {"fp32_optimizer_state_bytes": 1770541056, "fp32_weights_bytes": 442631264, "bf16_mixed_state_bytes_estimate": 1400000000, "minimum_practical_gpu_vram_gib": 16, "estimated_host_ram_gb": 16, "estimated_disk_gb": 80},
+      "status": "NOT_DECIDED"
+    },
+    "E_karkain_and_multilingual": {
+      "karkain": {"status": "DISCOVERED", "spec_pin": "1.1.0", "kcc_startup_failure": "0xC0000135", "kark_bench_tasks": 0, "corpus_tokens": 0, "capability_evidence": "none"},
+      "options": ["E-01 defer Karkain until compiler/runtime prerequisites and benchmark are separately qualified", "E-02 authorize separate adapter-readiness assessment only", "E-03 remove Karkain from the immediate product scope", "E-04 preserve as future language-extension target"],
+      "multilingual_benchmark_policy": "frozen, unmeasured, isolated; no multilingual claim is authorized",
+      "status": "NOT_DECIDED"
+    },
+    "F_next_milestone": {
+      "proposal": "Candidate 1: L2.0.0-DOCS-GOV — documentation/governance integration (six files, documentation-only)",
+      "scope": "roadmap registry + release governance + validator + one test file",
+      "excludes": ["integration of 8c55346/c601a73", "all Karkain work", "any downstream candidate until candidate 1 is green and owner approves", "all model/compute/capability acts"],
+      "status": "NOT_DECIDED"
+    }
+  },
+  "agent_recommendations_NOT_DECISIONS": {
+    "integration": "approve A-01..A-09 as sequential develop-only PRs with per-PR owner review; refuse A-recovery and A-publication",
+    "benchmarks": "prefer B-02 or B-03; preserve 0/30; never claim scores",
+    "registry": "resolve C-01/C-02 (provenance evidence) before A-07 proceeds",
+    "model": "D-04 or D-05 available today; D-01..D-03 require A1.1/A2-class owner authorization",
+    "karkain": "E-01 or E-04; E-02 optional diagnostic only",
+    "next_milestone": "Candidate 1 only, if and only if the owner explicitly authorizes it"
+  },
+  "required_owner_answers": [
+    "INTEGRATION_SEQUENCE — yes/no on A-01..A-09 as a sequence of develop-only PRs",
+    "BENCHMARKS — B-01/B-02/B-03/B-04 for Python; same for the multilingual artifact",
+    "L051_DEPENDENCIES — C-01/C-02/C-03/C-04",
+    "CANONICAL_MODEL — D-01/D-02/D-03/D-04/D-05",
+    "KARKAIN_SCOPE — E-01/E-02/E-03/E-04",
+    "NEXT_MILESTONE — Candidate 1 authorization or replacement",
+    "PRODUCT_RELEASE — explicit reiteration that no tags/releases/publication occur without a separate written decision"
+  ],
+  "verdict": {
+    "L1_0_1_CHECKPOINT": "COMPLETE",
+    "INTEGRATION_AUTHORIZATION": "NOT_GRANTED",
+    "MODEL_EXECUTION_AUTHORIZATION": "NOT_GRANTED",
+    "PRODUCT_GA": "NO_GO"
+  },
+  "product_status": {
+    "model_availability": "MODEL_UNAVAILABLE",
+    "actual_coding_capability": "NOT_EVALUATED",
+    "language_qualification": "Karkain DISCOVERED; no language qualified; benchmark 0/30",
+    "v1_0_0_GA": "NOT_ESTABLISHED"
+  }
+}
