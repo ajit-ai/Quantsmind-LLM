@@ -12,7 +12,17 @@
 - [ ] Dependency audit (licenses, known CVEs)
 - [ ] Supply-chain provenance for published wheels (if any are ever produced)
 
-## Deployment
+## Tool calling and agent security
+
+- [ ] Fail-closed tool-calling contract documented (`configs/roadmap/tool_calling_contract.yaml`)
+- [ ] Contract report generated (`reports/taksh_tool_calling_contract.json`)
+- [ ] Server profile alignment verified (`serving/agent_profile.py`)
+- [ ] No tool is advertised as supported until implemented
+- [ ] Sandbox approval recorded (network-disabled, filesystem-jailed, bounded time)
+- [ ] Permission model documented (who can apply patches, run tests, execute commands)
+- [ ] Capability prerequisite satisfied (canonical checkpoint and frozen-benchmark evaluation)
+- [ ] Owner authorization recorded for tool calling
+- [ ] No partial side effects or silent ignoring of unsupported requests
 
 - [ ] Documented local CPU deployment profile
 - [ ] Optional local GPU profile (if a compatible artifact exists and owner authorizes)

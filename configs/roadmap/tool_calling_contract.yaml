@@ -1,0 +1,61 @@
+# Fail-closed tool-calling contract design (A5).
+#
+# The contract documents what a future tool-calling surface would have to
+# satisfy. It is a design artifact only: no tool is implemented, no tool call
+# is executed, and the server continues to reject tool requests with HTTP 400.
+#
+# Fail-closed means an unsupported, malformed, unauthorized or un-sandboxed
+# request is rejected before any side effect. Silent ignoring is prohibited.
+
+schema: taksh.tool_calling_contract/1
+status: PARTIAL
+created: "2026-11-12"
+
+policy:
+  tool_calling_supported: false
+  fail_closed: true
+  partial_execution_allowed: false
+  silent_ignore_allowed: false
+  requires_canonical_checkpoint: true
+  requires_capability_evaluation: true
+  requires_owner_authorization: true
+  requires_sandbox_approval: true
+
+contract:
+  api_style: openai_chat_completions
+  request_fields:
+    - tools
+    - tool_choice
+    - functions
+    - function_call
+  rejection:
+    http_status: 400
+    error_type: invalid_request_error
+    code: tool_calling_not_implemented
+  allowed_tools: []
+  approval_required_for_mutation: true
+  sandbox:
+    network: disabled
+    filesystem: jailed
+    timeout_seconds: 30
+    no_untrusted_code_execution: true
+  input_validation:
+    - schema_validation
+    - tool_allowlist
+    - argument_size_limits
+    - permission_check
+  output_handling:
+    - no_unsanitized_tool_output_in_prompt
+    - audit_log_required
+  fail_closed_rules:
+    - unknown_tool_rejected
+    - invalid_schema_rejected
+    - missing_permission_rejected
+    - sandbox_unavailable_rejected
+    - checkpoint_unavailable_rejected
+    - no_partial_side_effects
+
+notes:
+  - "The OpenAI-compatible server rejects tools/functions/tool_choice with an explicit error."
+  - "No tool is implemented and no tool call is executed."
+  - "Tool calling remains blocked by model capability, security and owner authorization."

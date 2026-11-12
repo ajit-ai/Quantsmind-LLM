@@ -25,6 +25,18 @@
 - VS Code extension — architecture only; no implementation without distribution authorization.
 - Web workspace — not implemented.
 
+## Fail-closed tool-calling contract design (Phase A5)
+
+Added `configs/roadmap/tool_calling_contract.yaml`,
+`evaluation/tool_calling_contract.py`,
+`reports/taksh_tool_calling_contract.json` and updated
+[`TAKSH-2.0.0-GA-QUALIFICATION.md`](TAKSH-2.0.0-GA-QUALIFICATION.md).
+
+The contract is a design artifact only. It records that tool calling is
+unsupported, fail-closed, and aligned with the serving profile. No tool is
+implemented and no tool call is executed; the server continues to reject
+tool requests with HTTP 400. 1.4.0 remains `PARTIAL`.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.

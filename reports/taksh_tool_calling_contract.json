@@ -1,0 +1,85 @@
+{
+  "schema": "taksh.tool_calling_contract_report/1",
+  "generated_by": "evaluation/tool_calling_contract.py",
+  "contract_manifest": "configs/roadmap/tool_calling_contract.yaml",
+  "status": "PARTIAL",
+  "verdict": "TOOL_CALLING_NOT_IMPLEMENTED",
+  "contract_supported": false,
+  "tool_calling_supported": false,
+  "fail_closed": true,
+  "ready": false,
+  "policy": {
+    "tool_calling_supported": false,
+    "fail_closed": true,
+    "partial_execution_allowed": false,
+    "silent_ignore_allowed": false,
+    "requires_canonical_checkpoint": true,
+    "requires_capability_evaluation": true,
+    "requires_owner_authorization": true,
+    "requires_sandbox_approval": true
+  },
+  "contract": {
+    "request_fields": [
+      "tools",
+      "tool_choice",
+      "functions",
+      "function_call"
+    ],
+    "rejection": {
+      "http_status": 400,
+      "error_type": "invalid_request_error",
+      "code": "tool_calling_not_implemented"
+    },
+    "allowed_tools": [],
+    "approval_required_for_mutation": true,
+    "sandbox": {
+      "network": "disabled",
+      "filesystem": "jailed",
+      "timeout_seconds": 30,
+      "no_untrusted_code_execution": true
+    },
+    "input_validation": [
+      "schema_validation",
+      "tool_allowlist",
+      "argument_size_limits",
+      "permission_check"
+    ],
+    "output_handling": [
+      "no_unsanitized_tool_output_in_prompt",
+      "audit_log_required"
+    ],
+    "fail_closed_rules": [
+      "unknown_tool_rejected",
+      "invalid_schema_rejected",
+      "missing_permission_rejected",
+      "sandbox_unavailable_rejected",
+      "checkpoint_unavailable_rejected",
+      "no_partial_side_effects"
+    ]
+  },
+  "server_profile": {
+    "tool_calling_supported": false,
+    "tool_calling_status": "unsupported: the server rejects tools/functions/tool_choice with an explicit error rather than ignoring them"
+  },
+  "gates": {
+    "contract_schema": "PASS",
+    "fail_closed_policy": "PASS",
+    "server_profile_alignment": "PASS",
+    "implementation": "BLOCKED",
+    "sandbox_approval": "BLOCKED",
+    "capability_prerequisite": "BLOCKED",
+    "owner_authorization": "BLOCKED"
+  },
+  "blockers": [
+    "implementation: no tool is implemented",
+    "sandbox_approval: no sandbox approval recorded",
+    "capability_prerequisite: no canonical checkpoint or capability evaluation",
+    "owner_authorization: tool calling is not authorized"
+  ],
+  "policy_result": {
+    "no_tool_execution": true,
+    "no_partial_side_effects": true,
+    "no_capability_claim": true,
+    "no_publication": true
+  }
+}
