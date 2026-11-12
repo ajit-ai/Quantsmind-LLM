@@ -57,6 +57,18 @@ multi-file patch application, conflict detection, rollback, validation, test
 execution, bounded repair and reporting. Uses deterministic test providers only;
 does not claim native model capability.
 
+## Tool-calling runtime, sandbox, memory and agent workflow (Phase E)
+
+Added `taksh/tools.py`, `taksh/permissions.py`, `taksh/sandbox.py`,
+`taksh/memory.py`, `taksh/agent.py`, `taksh/service.py`,
+`serving/engineering_api.py`, and focused tests.
+
+Implements typed tool definitions, registry, argument validation, permission
+checks, audit history, controlled execution sandbox, project-scoped persistent
+memory, agent workflow orchestration, shared service layer and REST router.
+
+All tests pass; native model capability remains `NOT_EVALUATED`.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.
