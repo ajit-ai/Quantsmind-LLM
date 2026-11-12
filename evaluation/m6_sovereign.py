@@ -150,7 +150,7 @@ def _estimate_scale(scale_id: str) -> tuple[int, int]:
     return int(params), int(memory["total_bytes"])
 
 
-def estimate_scales() -> list[ScaleEstimate]:
+def estimate_scales(memory: dict | None = None) -> list[ScaleEstimate]:
     """Estimate memory and data appetite for each proposed scale.
 
     Two verdicts are recorded, because they differ sharply on a shared machine:
@@ -158,10 +158,13 @@ def estimate_scales() -> list[ScaleEstimate]:
     ``fits_available_ram`` compares against what is actually free. A training
     run needs the second to be true, and this host is regularly near zero
     available.
+
+    ``memory`` (optional, for deterministic tests): dict-like with
+    ``total_bytes`` and ``available_bytes``. Defaults to a live measurement.
     """
     from training.preflight import system_memory
 
-    memory_info = system_memory()
+    memory_info = memory if memory is not None else system_memory()
     total_ram = memory_info.get("total_bytes") or 0
     available_ram = memory_info.get("available_bytes") or 0
     out = []

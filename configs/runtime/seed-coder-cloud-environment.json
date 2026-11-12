@@ -1,0 +1,67 @@
+{
+  "milestone": "D3.1",
+  "purpose": "Reproducible cloud GPU execution preparation for Seed-Coder-8B-Instruct",
+  "model": {
+    "provider": "seed-coder-8b-instruct",
+    "model_id": "ByteDance-Seed/Seed-Coder-8B-Instruct",
+    "revision": "1c5af72afa21c22c9272a0b60a3a404195e88fcd",
+    "source": "https://huggingface.co/ByteDance-Seed/Seed-Coder-8B-Instruct",
+    "license_or_rights": "MIT; pending final legal review",
+    "context_length": 32768,
+    "local_only": true,
+    "trust_remote_code": false,
+    "implicit_downloads": false
+  },
+  "runtime": {
+    "python_preferred": "3.12.x",
+    "python_accepted": [">=3.10", "<3.15"],
+    "cuda": "12.8",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.1",
+    "accelerate": "1.12.0",
+    "requirements_file": "configs/runtime/seed-coder-cloud-requirements.txt",
+    "install_in_existing_windows_environment": "forbidden"
+  },
+  "execution_controls": {
+    "default_max_new_tokens": 64,
+    "maximum_generation_tokens": 512,
+    "default_context_length": 8192,
+    "maximum_context_length": 32768,
+    "batch_size": 1,
+    "generation_timeout_seconds": 600,
+    "evaluation_timeout_seconds": 1800,
+    "explicit_model_path_required": true,
+    "explicit_execution_directory_required": true,
+    "automatic_downloads": false,
+    "provider_fallback": false,
+    "stop_on_cuda_oom": true,
+    "stop_on_provider_error": true,
+    "partial_result_export": true
+  },
+  "hardware": {
+    "minimum_vram_gib": 16.0,
+    "recommended_vram_gib": 24.0,
+    "minimum_system_ram_gib": 16.0,
+    "recommended_system_ram_gib": 32.0,
+    "minimum_free_disk_gib": 40.0,
+    "current_windows_host_conclusion": "not practical for useful 8B inference; MX150 has 4 GiB VRAM and torch is CPU-only"
+  },
+  "data_protection": {
+    "upload_training_corpus": false,
+    "upload_existing_model_checkpoints": false,
+    "upload_credentials": false,
+    "upload_personal_data": false,
+    "upload_proprietary_source": false,
+    "benchmark_inputs": ["AD-1", "C1 frozen suite", "C2 frozen suite", "C3 development/held-out suites"],
+    "separate_result_directory": true,
+    "separate_model_artifact_directory": true
+  },
+  "approval_required": {
+    "cloud_provider": "not selected",
+    "gpu_configuration": "not selected",
+    "spending_limit": "not set",
+    "model_artifact_download": "not authorized",
+    "hosted_inference": "not authorized",
+    "external_uploads": "not authorized"
+  }
+}

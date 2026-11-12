@@ -179,7 +179,14 @@ def lr_at(step: int, total: int, peak: float, warmup: int, min_ratio: float) -> 
     return peak * (min_ratio + (1 - min_ratio) * 0.5 * (1 + math.cos(math.pi * progress)))
 
 
-def save_checkpoint(path: Path, model, optimizer, step: int, cfg: dict, extra: dict | None = None):
+def save_checkpoint(path: Path, model, optimizer, step: int, cfg: dict,
+                    extra: dict | None = None, provenance: dict | None = None):
+    """Write a checkpoint. Supplying ``provenance`` upgrades the file to schema /2.
+
+    Schema /1 is kept for callers that cannot yet supply a tokenizer/contract
+    identity (historical tooling); new training code must pass provenance, and
+    the loader treats /1 as the explicit legacy contract.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     payload = {
@@ -189,6 +196,14 @@ def save_checkpoint(path: Path, model, optimizer, step: int, cfg: dict, extra: d
         "config": cfg,
         "schema": "quantsmind.checkpoint/1",
     }
+    if provenance is not None:
+        from training.checkpoint_schema import SCHEMA_V2, validate_provenance
+
+        problems = validate_provenance(provenance)
+        if problems:
+            raise ValueError("incomplete checkpoint provenance: " + "; ".join(problems))
+        payload["schema"] = SCHEMA_V2
+        payload["provenance"] = provenance
     if extra:
         payload.update(extra)
     torch.save(payload, tmp)
@@ -384,10 +399,20 @@ def load_checkpoint_full(path: Path, model, optimizer):
             f"{type(ckpt).__name__}); refusing to resume"
         )
     schema = ckpt.get("schema")
-    if schema != "quantsmind.checkpoint/1":
+    if schema not in ("quantsmind.checkpoint/1", "quantsmind.checkpoint/2"):
         raise CheckpointIncompatible(
-            f"{path} has schema {schema!r}, expected 'quantsmind.checkpoint/1'"
+            f"{path} has schema {schema!r}, expected 'quantsmind.checkpoint/1' "
+            "or 'quantsmind.checkpoint/2'"
         )
+    if schema == "quantsmind.checkpoint/2":
+        from training.checkpoint_schema import validate_provenance
+
+        problems = validate_provenance(ckpt.get("provenance"))
+        if problems:
+            raise CheckpointIncompatible(
+                f"{path} is schema /2 but its provenance is incomplete: "
+                + "; ".join(problems)
+            )
     state = ckpt.get("model")
     if state is None:
         raise CheckpointIncompatible(

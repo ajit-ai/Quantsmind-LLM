@@ -105,6 +105,30 @@ def resolve_device():
     return "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def verify_serving_contract(ckpt_path: str, tokenizer) -> str:
+    """Prove the checkpoint and tokenizer belong to the same prompt contract.
+
+    Schema /2 must match exactly: a ``ContractMismatch`` propagates and the server
+    refuses to start. Schema /1 predates contracts and is served under the
+    documented legacy contract, with a warning that it is not a v2 artifact.
+    """
+    from training.checkpoint_schema import SCHEMA_V2, verify_against
+    from training.tokenizer_contract import CONTRACT_V1, detect_contract
+
+    from serving.local_inference import torch_load_checkpoint
+
+    metadata = torch_load_checkpoint(str(ckpt_path))
+    detected = detect_contract(tokenizer)
+    if metadata.get("schema") == SCHEMA_V2:
+        verify_against(metadata["provenance"], tokenizer=tokenizer, contract_id=detected)
+        return detected
+    print(
+        "WARNING: checkpoint has no provenance contract (schema /1); serving under "
+        f"the documented legacy contract {CONTRACT_V1}"
+    )
+    return CONTRACT_V1
+
+
 def load_trusted_state(ckpt: str, tokenizer: str, device: str):
     """Load a checkpoint from operator-supplied startup configuration.
 
@@ -133,6 +157,7 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
             "token ids would index outside the embedding table."
         )
 
+    verify_serving_contract(str(ckpt_path), tok)
     return model, model_cfg, tok
 
 

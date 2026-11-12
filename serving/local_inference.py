@@ -68,15 +68,17 @@ def resolve_model_config(ckpt):
 
 
 def load_model(checkpoint_path: str, device: str):
+    from training.checkpoint import load_model_weights
     from training.model import QMModel
 
     ckpt = torch_load_checkpoint(checkpoint_path)
     model_cfg = resolve_model_config(ckpt)
 
     model = QMModel(model_cfg)
-    model.load_state_dict(ckpt["model"])
+    report = load_model_weights(model, ckpt["model"], source=str(checkpoint_path))
     step = ckpt.get("step", "?")
-    print(f"loaded checkpoint step={step} params={model.num_params():,}")
+    print(f"loaded checkpoint step={step} params={model.num_params():,} "
+          f"tensors={len(report.loaded)}")
     return model.to(device).eval(), model_cfg
 
 
@@ -85,6 +87,10 @@ def generate(model, tokenizer, prompt: str, max_new_tokens: int = 200, temperatu
     model.eval()
     ids = tokenizer.encode(prompt).ids
     x = torch.tensor([ids], dtype=torch.long, device=device)
+    # v1.5.0: the terminator is the tokenizer's own end-of-document token.
+    # The previous check looked for a token literally named "[EOS]", which no
+    # tokenizer in this repository registers, so early stopping never fired.
+    eos_id = tokenizer.token_to_id("<eos>")
 
     for _ in range(max_new_tokens):
         idx_cond = x if x.size(1) <= model.cfg["max_seq_len"] else x[:, -model.cfg["max_seq_len"] :]
@@ -99,7 +105,7 @@ def generate(model, tokenizer, prompt: str, max_new_tokens: int = 200, temperatu
         next_id = torch.multinomial(probs, num_samples=1)
         x = torch.cat([x, next_id], dim=1)
 
-        if next_id.item() == tokenizer.token_to_id("[EOS]") if hasattr(tokenizer, "token_to_id") else False:
+        if eos_id is not None and next_id.item() == eos_id:
             break
 
     return tokenizer.decode(x[0].tolist())
@@ -137,9 +143,12 @@ def _filter_logits(logits, temperature, top_k, top_p):
         # Remove tokens whose *preceding* cumulative mass already exceeds top_p,
         # always keeping the single most likely token.
         remove = (cumulative - sorted_probs) > top_p
-        remove[0] = False
+        # v1.8.0: the nucleus mask belongs to the vocabulary dimension, and the
+        # most likely token must always survive. Scattering along dimension 0
+        # raised "index out of bounds" for any request with top_p < 1.
+        remove[:, 0] = False
         sorted_probs = sorted_probs.masked_fill(remove, 0.0)
-        probs = torch.zeros_like(probs).scatter_(0, sorted_idx, sorted_probs)
+        probs = torch.zeros_like(probs).scatter_(1, sorted_idx, sorted_probs)
     return probs
 
 
@@ -157,13 +166,19 @@ def generate_ids(
     frequency_penalty: float = 0.0,
     device: str = "cpu",
     seed: int | None = None,
+    binding_repair: bool = True,
 ):
     """Single shared sampling implementation for every serving surface.
 
     Returns a dict with ``text`` (completion only, prompt stripped), ``token_ids``,
     ``finish_reason`` (``"stop"`` for EOS or a stop sequence, ``"length"`` when the
-    token budget is exhausted) and accurate ``prompt_tokens`` / ``completion_tokens``
-    counts.
+    token budget is exhausted), prompt/completion token counts and a structured
+    ``repair`` diagnostic.
+
+    The repair is deterministic, configurable and fail-closed. Ambiguous,
+    unsafe, malformed or whole-function outputs are left as the raw completion.
+    ``binding_repair=False`` is retained for A/B qualification. Generated code
+    is never executed by this layer.
 
     There is no KV cache in this model, so each step re-runs a full forward pass over
     the (left-truncated) window. That is correct but slow at long context; see
@@ -213,13 +228,46 @@ def generate_ids(
                 break
 
     completion = tokenizer.decode(generated)
+    raw_completion = completion
+    repair_diagnostic: dict = {
+        "enabled": bool(binding_repair),
+        "applied": False,
+        "status": "repaired" if binding_repair else "disabled",
+        "reason": "repair enabled" if binding_repair else "repair disabled",
+        "mapping": {},
+        "changed": False,
+        "raw_preserved": True,
+    }
+    if binding_repair:
+        try:
+            from training.binding_repair import repair_from_prompt_info
+
+            info = repair_from_prompt_info(prompt, completion)
+            completion = info.completion
+            repair_diagnostic.update({
+                "applied": bool(info.changed),
+                "status": info.status,
+                "reason": info.reason,
+                "mapping": dict(info.mapping),
+                "changed": bool(info.changed),
+            })
+        except Exception as exc:  # keep raw output and explain the failure
+            repair_diagnostic.update({
+                "applied": False,
+                "status": "repair_failed",
+                "reason": f"{type(exc).__name__}: {exc}",
+                "changed": False,
+            })
+            completion = raw_completion
     return {
         "text": completion,
+        "raw_text": raw_completion,
         "token_ids": generated,
         "finish_reason": finish_reason,
         "prompt_tokens": prompt_tokens,
         "completion_tokens": len(generated),
         "eos_id": eos_id,
+        "repair": repair_diagnostic,
     }
 
 

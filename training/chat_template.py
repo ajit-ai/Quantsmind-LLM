@@ -28,8 +28,21 @@ checkpoints; that is a deliberate, separate decision and is not taken here.
 
 from __future__ import annotations
 
+from training.tokenizer_contract import (
+    CONTRACT_V1,
+    CONTRACT_V2,
+    detect_contract,
+    require_contract,
+)
+
 BOS = "<bos>"
 EOS = "<eos>"
+
+#: Contract used for all new training and serving. v1 remains renderable so the
+#: historical M7 checkpoint can be reproduced and served through its documented
+#: legacy path, but new artifacts must record v2.
+CONTRACT_ID = CONTRACT_V2
+LEGACY_CONTRACT_ID = CONTRACT_V1
 
 #: Rendered as ``BOS + system + "\\n\\n" + instruction + "\\n\\n" + response + EOS``.
 #: Placeholder names are kept as ``system``/``instruction``/``response`` so existing
@@ -94,23 +107,116 @@ def validate_chat_template(tokenizer) -> dict:
     return resolved
 
 
-def render_prompt(system: str, user: str) -> str:
+def _render_v2(system: str, user: str, assistant: str | None) -> str:
+    """Contract v2: explicit single-token role markers and an explicit end-of-turn.
+
+    The prompt half is still a literal prefix of the completion; the assistant
+    marker is emitted by the prompt so the model is conditioned to answer, and
+    the completion adds the response plus the end-of-turn token it must learn.
+    """
+    text = (
+        "<|system|>" + system + "<|end_of_turn|>"
+        + "<|user|>" + user + "<|end_of_turn|>"
+        + "<|assistant|>"
+    )
+    if assistant is not None:
+        text += assistant + "<|end_of_turn|>"
+    return text
+
+
+def render_prompt(
+    system: str, user: str, *, contract_id: str = LEGACY_CONTRACT_ID
+) -> str:
     """Prompt half of the template: everything the model must not be trained to emit.
 
-    Ends without ``<eos>`` so it is a literal prefix of :func:`render_completion`.
+    ``contract_id`` defaults to the legacy v1 layout so historical callers keep
+    their exact bytes. New code should call :func:`render_for`, which derives the
+    contract from the tokenizer instead of assuming one.
     """
-    return _render(system, user, None)
+    if contract_id == CONTRACT_V2:
+        return _render_v2(system, user, None)
+    if contract_id == CONTRACT_V1:
+        return _render(system, user, None)
+    raise ValueError(f"unknown prompt contract: {contract_id!r}")
 
 
-def render_completion(system: str, user: str, assistant: str) -> str:
-    """Full training example, ending with the ``<eos>`` the model must learn to emit."""
-    return _render(system, user, assistant)
+def render_completion(
+    system: str, user: str, assistant: str, *, contract_id: str = LEGACY_CONTRACT_ID
+) -> str:
+    """Full training example under the requested prompt contract."""
+    if contract_id == CONTRACT_V2:
+        return _render_v2(system, user, assistant)
+    if contract_id == CONTRACT_V1:
+        return _render(system, user, assistant)
+    raise ValueError(f"unknown prompt contract: {contract_id!r}")
 
 
-def prompt_token_length(tokenizer, system: str, user: str) -> int:
+def render_for(
+    tokenizer, system: str, user: str, assistant: str | None = None
+) -> str:
+    """Render using the strongest contract ``tokenizer`` actually supports.
+
+    This is the single entry point training and serving should use: the contract
+    is a property of the tokenizer, not a caller opinion, so the two sides cannot
+    disagree about which layout is in force.
+    """
+    contract = detect_contract(tokenizer)
+    require_contract(tokenizer, contract)
+    if assistant is None:
+        return render_prompt(system, user, contract_id=contract)
+    return render_completion(system, user, assistant, contract_id=contract)
+
+
+def prompt_token_length(
+    tokenizer, system: str, user: str, *, contract_id: str = LEGACY_CONTRACT_ID
+) -> int:
     """Length of the prompt prefix in tokens, using the same renderer as training.
 
     Returned value is the count of *supervised* tokens to mask, consistent with
     ``input_ids = ids[:-1]`` / ``labels = ids[1:]``.
     """
-    return len(tokenizer.encode(render_prompt(system, user)).ids) - 1
+    prompt = render_prompt(system, user, contract_id=contract_id)
+    return len(tokenizer.encode(prompt).ids) - 1
+
+
+def render_chat(tokenizer, messages, default_system: str | None = None) -> str:
+    """Render an ordered role/content list under the tokenizer's contract.
+
+    Serving must not invent a second layout for multi-turn input. v2 renders each
+    role as its reserved single token; v1 cannot express roles or turns, so it is
+    restricted to a single user turn and refuses rather than emitting delimiters
+    the tokenizer would shred.
+    """
+    contract = detect_contract(tokenizer)
+    require_contract(tokenizer, contract)
+
+    def role_of(message):
+        return message.get("role") if isinstance(message, dict) else getattr(message, "role", None)
+
+    def content_of(message):
+        return message.get("content") if isinstance(message, dict) else getattr(message, "content", "")
+
+    system_parts = [content_of(m) for m in messages if role_of(m) == "system"]
+    turns = [m for m in messages if role_of(m) in ("user", "assistant")]
+    if not turns:
+        raise ValueError("messages must contain at least one user or assistant turn")
+    if role_of(turns[0]) != "user":
+        raise ValueError("the first non-system turn must be a user turn")
+
+    system = "\n".join(system_parts) if system_parts else (default_system or "")
+    if contract == CONTRACT_V1:
+        if len(turns) != 1:
+            raise ValueError(
+                "the legacy contract qm.plain_instruction/1 supports a single "
+                "user turn only; multi-turn requires qm.chat_instruction/2"
+            )
+        return render_prompt(system, content_of(turns[0]), contract_id=CONTRACT_V1)
+
+    parts = []
+    if system:
+        parts.append("<|system|>" + system + "<|end_of_turn|>")
+    for turn in turns:
+        marker = "<|user|>" if role_of(turn) == "user" else "<|assistant|>"
+        parts.append(marker + content_of(turn) + "<|end_of_turn|>")
+    parts.append("<|assistant|>")
+    return "".join(parts)

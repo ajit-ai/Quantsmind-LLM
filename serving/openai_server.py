@@ -45,8 +45,8 @@ from pydantic import BaseModel, Field
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from taksh import __version__
-from serving.code_chat import CODE_SYSTEM_PROMPT, format_prompt
-from serving.local_inference import generate_ids
+from training.chat_template import SYSTEM_PROMPT, render_chat
+from serving.local_inference import generate_ids, torch_load_checkpoint
 from serving.server_security import (
     add_standard_args,
     api_key_from_env,
@@ -83,6 +83,14 @@ class State:
     checkpoint_step = None
     ckpt_path = None
     api_key = None
+    contract_id = None
+    #: "base" for a pretraining checkpoint, "chat" for an instruction-qualified one.
+    prompt_surface = "chat"
+    #: The tokenizer object the surface decision was derived for. If a different
+    #: tokenizer is installed, the surface is re-derived instead of serving a
+    #: stale process-global decision.
+    surface_tokenizer = None
+    chat_qualified = False
 
 
 state = State()
@@ -180,6 +188,7 @@ async def list_models():
                     "context_window": state.model_cfg.get("max_seq_len"),
                     "vocab_size": state.model_cfg.get("vocab_size"),
                     "n_params_non_embedding": state.model.num_params(),
+                    "prompt_contract": state.contract_id,
                 },
             }
         ],
@@ -193,36 +202,77 @@ async def health():
         "version": __version__,
         "model_loaded": state.model is not None,
         "model_id": state.model_id,
+        "prompt_contract": state.contract_id,
         "context_window": (state.model_cfg or {}).get("max_seq_len"),
     }
 
 
+def _field(message, name, default=""):
+    if isinstance(message, dict):
+        return message.get(name, default)
+    return getattr(message, name, default)
+
+
+def _base_prompt(messages):
+    """Serve raw text to a pretraining checkpoint, refusing turn shapes."""
+    user_turns = [
+        _field(m, "content") for m in messages if _field(m, "role") == "user"
+    ]
+    assistant_turns = [
+        _field(m, "content") for m in messages if _field(m, "role") == "assistant"
+    ]
+    if len(user_turns) != 1 or assistant_turns:
+        # A base completion model cannot represent turns, so a multi-turn
+        # history is refused rather than silently flattened.
+        raise ValueError(
+            "a base checkpoint serves a single user turn; multi-turn input "
+            "needs a checkpoint qualified on the chat contract"
+        )
+    system_parts = [
+        _field(m, "content") for m in messages if _field(m, "role") == "system"
+    ]
+    parts = list(system_parts) + [user_turns[0]]
+    return "\n\n".join(part for part in parts if part)
+
+
 def build_prompt(messages):
-    """Convert OpenAI chat messages into this model's prompt format.
+    """Render through the contract-aware renderer for the loaded checkpoint.
 
-    Reuses ``serving.code_chat.format_prompt`` (already covered by
-    tests/test_code_serving.py) for the single user-turn case and extends it for
-    multi-turn histories, which ``format_prompt`` does not model.
+    v1.1.0 removed the hand-built legacy "<|system|>..." string: the markers
+    were never tokens, so multi-turn input silently became byte fragments. The
+    renderer now refuses shapes the loaded contract cannot express.
+
+    v1.5.0 adds the prompt *surface*: a base (pretraining) checkpoint is
+    served raw text, because wrapping an instruction in a chat template the
+    model never saw during training is a prompt-surface mismatch, not a
+    capability. A checkpoint that declares chat qualification keeps the
+    canonical renderer.
+
+    The surface is scoped to the tokenizer it was derived for. A caller that
+    installs a different tokenizer (a reload, a contract-specific test) gets a
+    surface derived from that tokenizer rather than the previous checkpoint's
+    decision, so no process-global state can leak across models.
     """
-    system_parts = [m.content for m in messages if m.role == "system"]
-    turns = [m for m in messages if m.role in ("user", "assistant")]
+    from training.tokenizer_contract import (
+        CONTRACT_V1,
+        CONTRACT_V2,
+        TokenizerContractError,
+        detect_contract,
+    )
 
-    if not turns:
-        raise ValueError("messages must contain at least one user or assistant turn")
-
-    # Only delegate to format_prompt when there is no caller-supplied system prompt.
-    # format_prompt hardcodes CODE_SYSTEM_PROMPT, so delegating unconditionally
-    # would silently discard the caller's system message.
-    if len(turns) == 1 and turns[0].role == "user" and not system_parts:
-        return format_prompt(turns[0].content, "python")
-
-    system = "\n".join(system_parts) if system_parts else CODE_SYSTEM_PROMPT
-    parts = [f"<|system|>{system}\n"]
-    for turn in turns:
-        tag = "<|user|>" if turn.role == "user" else "<|assistant|>"
-        parts.append(f"{tag}\n{turn.content}\n")
-    parts.append("<|assistant|>\n")
-    return "".join(parts)
+    tokenizer = state.tokenizer
+    if tokenizer is not None and tokenizer is not getattr(
+        state, "surface_tokenizer", None
+    ):
+        try:
+            contract = detect_contract(tokenizer)
+        except (AttributeError, TokenizerContractError):
+            contract = None
+        if contract in (CONTRACT_V1, CONTRACT_V2):
+            return render_chat(tokenizer, messages, default_system=SYSTEM_PROMPT)
+    if getattr(state, "prompt_surface", "chat") == "base":
+        return _base_prompt(messages)
+    return render_chat(state.tokenizer, messages, default_system=SYSTEM_PROMPT)
 
 
 @app.post("/v1/chat/completions")
@@ -258,6 +308,19 @@ async def chat_completions(payload: ChatCompletionRequest):
                 param="messages",
                 code="unsupported_role",
             )
+
+    # v1.5.0: an unknown model identifier is refused instead of being echoed.
+    # The previous behaviour accepted any string and answered with it, so a
+    # client could believe it was talking to a model that was never loaded.
+    if payload.model is not None and payload.model != state.model_id:
+        return _err(
+            400,
+            f"Model '{payload.model}' is not loaded. This endpoint serves "
+            f"'{state.model_id}'.",
+            "invalid_request_error",
+            param="model",
+            code="model_not_found",
+        )
 
     try:
         prompt = build_prompt(payload.messages)
@@ -344,6 +407,34 @@ def load_state(ckpt: str, tokenizer: str) -> None:
         step = torch.load(ckpt, map_location="cpu", weights_only=False).get("step")
     except Exception:  # pragma: no cover - metadata only, never fatal
         step = None
+
+    # v1.1.0: the served contract is a property of the checkpoint, not of the
+    # server's mood. A /2 checkpoint must match the tokenizer exactly; a legacy
+    # /1 file is explicitly identified as qm.plain_instruction/1 and warned about.
+    from training.checkpoint_schema import SCHEMA_V2, verify_against
+    from training.tokenizer_contract import CONTRACT_V1, detect_contract
+
+    metadata = torch_load_checkpoint(ckpt)
+    provenance = metadata.get("provenance") or {}
+    # v1.5.0: the prompt surface follows the checkpoint's recorded training
+    # mode. A pretraining checkpoint is a completion model; serving it through
+    # a chat template it never saw is a prompt-surface mismatch.
+    training_mode = provenance.get("training_mode", "pretrain")
+    state.prompt_surface = "chat" if training_mode == "instruction" else "base"
+    state.surface_tokenizer = tok
+    state.chat_qualified = bool(provenance.get("chat_qualified", False))
+    if metadata.get("schema") == SCHEMA_V2:
+        state.contract_id = detect_contract(tok)
+        verify_against(
+            metadata["provenance"], tokenizer=tok, contract_id=state.contract_id
+        )
+    else:
+        state.contract_id = CONTRACT_V1
+        print(
+            "WARNING: checkpoint has no provenance contract (schema /1); serving "
+            f"under the documented legacy contract {CONTRACT_V1}. Do not treat "
+            "this as a v2 artifact."
+        )
 
     state.model = model
     state.model_cfg = model_cfg
