@@ -424,11 +424,15 @@ def test_g10_geometry_inspector_rejects_the_s3_orphan():
     assert report.problems
 
 
-def test_g10_geometry_inspector_accepts_the_s2_triple():
+def test_g10_geometry_inspector_accepts_the_s2_triple(tmp_path):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from fixture_s2_checkpoint import build_s2_checkpoint
     from training.geometry import inspect
 
     report = inspect(
-        checkpoint_path=REPO_ROOT / "runs" / "m7_pretrain" / "checkpoint_last.pt",
+        checkpoint_path=build_s2_checkpoint(tmp_path),
         tokenizer_path=TOKENIZER,
         model_config_path=REPO_ROOT / "configs" / "model" / "code_m3_9m.yaml",
     )

@@ -1,5 +1,26 @@
 name: CI
 
+# Ownership: repository automation for develop/main PRs and pushes.
+#
+# HISTORY/FIX (2026-11-12, isolated integration): this workflow no longer executes
+# training. The historical steps (`scripts/smoke_pipeline.sh`,
+# `training.pretrain`, `training.train_mm`) update weights and create checkpoints,
+# which owner decisions A1.1-C (preparation-only) and A2-E (no compute) prohibit.
+# They are preserved verbatim below `blocked-training-smoke` and can only execute
+# when the owner sets the repository variable `TAKSH_ENABLE_TRAINING_CI=true`.
+# Until then they run zero times and are reported as blocked, never as passed.
+#
+# Visibility limitation (verified 2026-11-12): this workflow triggers only on
+# pushes to develop/main and on PRs. Pushes to a feature branch execute no remote
+# CI. `ci-l0704-manual-qualification.yml` is the manual qualification path and is
+# dispatchable only from the default branch (GitHub policy). See
+# docs/audit/TAKSH-CICD-DOCUMENTATION-RECOVERY.md.
+# Node: runs-on=ubuntu-latest (Ubuntu 26 migration pending upstream); actions
+# Node-24-forced; cosmetic upstream annotations, not defects.
+
+permissions:
+  contents: read
+
 on:
   push:
     branches: [develop, main]
@@ -62,18 +83,13 @@ jobs:
       - name: UI module import check
         run: python -c "import serving.app"
 
-      - name: End-to-end smoke pipeline (tiny CPU train)
-        run: bash scripts/smoke_pipeline.sh
+      # REMOVED FROM DEFAULT EXECUTION — training-dependent (A1.1-C / A2-E):
+      #   End-to-end smoke pipeline (trains a toy model, writes runs/smoke/*)
+      #   Resume-from-checkpoint check (training.pretrain --resume)
+      #   M1.1 multimodal hermetic smoke (training.train_mm)
+      # See blocked-training-smoke below; definitions preserved verbatim.
 
-      - name: Resume-from-checkpoint check
-        run: python -m training.pretrain --config configs/train/smoke_toy.yaml --out-dir runs/smoke --tokens runs/smoke/tokens.bin --resume --max-steps 40
-
-      - name: M1.1 multimodal hermetic smoke (tiny CPU)
-        run: |
-          python scripts/synth_images.py --out runs/mm_synth/data.npz --n 8
-          python -m training.train_mm --config configs/train/mm_fit_check.yaml --out-dir runs/mm_smoke --max-steps 3
-
-      - name: Code LLM — tokenizer round-trip check
+      - name: Code LLM — tokenizer round-trip check   # non-training: trains a tokenizer, never model weights
         run: |
           python -c "
           from tokenizer.train_tokenizer import train_tokenizer, sanity_report
@@ -153,6 +169,44 @@ jobs:
               resolve_bind_host('0.0.0.0', allow_remote=False)
           print('loopback default enforced')
           "
+
+  # -----------------------------------------------------------------------
+  # BLOCKED_OWNER_AUTHORIZATION_REQUIRED (A1.1-C / A2-E) — do not re-enable
+  # without an explicit owner authorization recorded via
+  # docs/L075_L080_OWNER_DECISION_RECORD.md (absent; not committed
+  # on this branch) or the repository variable `TAKSH_ENABLE_TRAINING_CI=true`.
+  #
+  # A1.1-C authorizes preparation and preflight only; A2-E grants no compute.
+  # These steps update weights and create checkpoints; running them is a
+  # training act. They are preserved verbatim for future authorized use.
+  # -----------------------------------------------------------------------
+  blocked-training-smoke:
+    if: ${{ vars.TAKSH_ENABLE_TRAINING_CI == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (CPU torch)
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: End-to-end smoke pipeline (tiny CPU train) — BLOCKED until owner authorizes training CI
+        run: bash scripts/smoke_pipeline.sh
+
+      - name: Resume-from-checkpoint check — BLOCKED until owner authorizes training CI
+        run: python -m training.pretrain --config configs/train/smoke_toy.yaml --out-dir runs/smoke --tokens runs/smoke/tokens.bin --resume --max-steps 40
+
+      - name: M1.1 multimodal hermetic smoke (tiny CPU) — BLOCKED until owner authorizes training CI
+        run: |
+          python scripts/synth_images.py --out runs/mm_synth/data.npz --n 8
+          python -m training.train_mm --config configs/train/mm_fit_check.yaml --out-dir runs/mm_smoke --max-steps 3
 
       - uses: actions/upload-artifact@v4
         if: always()

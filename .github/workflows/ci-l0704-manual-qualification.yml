@@ -1,0 +1,93 @@
+name: CI (manual qualification)
+
+# Manual qualification path for the develop branch. Does NOT replace, alter or
+# bypass the production `CI` workflow. Read-only: no releases, no publication,
+# and — critically — no training. Every training-dependent check of `CI` is
+# intentionally absent here; this path never creates weights or checkpoints.
+#
+# Triggerable only from the default branch (GitHub policy):
+#   gh workflow run "CI (manual qualification)" --ref develop --repo ajit-ai/Quantsmind-LLM
+# It is dispatch-only, least-privilege, and never runs on push or PR.
+#
+# Its suite is limited to tests that exist on develop. When future milestones
+# land, extend the focused chain in the milestone's own recovery.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to qualify (branch, tag or SHA)'
+        required: false
+        default: 'develop'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-manual-qualification-${{ inputs.ref }}
+  cancel-in-progress: false      # qualification runs must execute to completion
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies (CPU torch)
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Version consistency
+        run: python scripts/check_version_consistency.py
+
+      - name: Focused CI + historical-failure chain
+        run: |
+          python -m pytest \
+            tests/test_ci_workflows.py \
+            tests/test_m5_adapters_syntax.py::test_external_adapter_does_not_download_by_default \
+            tests/test_m6_sovereign.py::test_available_ram_is_the_binding_constraint \
+            tests/test_v120_python_data.py::test_g7_manifest_has_no_timestamp_or_absolute_path \
+            tests/test_v150_coding_foundation.py::test_geometry_inspector_reports_a_matching_triple \
+            tests/test_v150_coding_foundation.py::test_tokenizer_artifact_and_model_geometry_are_unchanged \
+            tests/test_v160_authorization_and_baseline.py::test_g10_geometry_inspector_accepts_the_s2_triple \
+            tests/test_v180_corpus_qualification.py::test_sampled_decoding_is_reproducible_with_a_seed \
+            -q
+
+      # Tests requiring untracked local runs/ artifacts (not in a bare checkout):
+      #   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
+      #   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
+      #   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
+      # On develop these remain absent (develop has no L0.x milestone suites);
+      # the full suite here runs everything that exists.
+      - name: Full test suite
+        run: python -m pytest tests -q
+
+      - name: Frozen benchmark hashes (fail closed when artifacts absent)
+        run: |
+          python - <<'EOF'
+          import hashlib, sys
+          expected = {
+              "evaluation/l02_python_bench_v1.json": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+              "evaluation/l051_multilingual_benchmark_v1.json": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
+          }
+          import os
+          missing = [p for p in expected if not os.path.isfile(p)]
+          if missing:
+              print(f"BLOCKED: frozen benchmark artifact(s) absent on this branch: {missing}")
+              print("Integrity cannot be verified; qualification here is NOT confirmed either way.")
+              sys.exit(2)
+          for path, want in expected.items():
+              got = hashlib.sha256(open(path, "rb").read()).hexdigest()
+              assert got == want, f"{path}: {got} != {want}"
+          print("frozen benchmarks intact")
+          EOF
