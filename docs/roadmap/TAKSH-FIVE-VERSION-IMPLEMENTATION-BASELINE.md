@@ -100,6 +100,11 @@
 > uses a longer `v1.0.0`–`v3.0.0` index with different responsibilities. The two
 > must not be conflated. The master roadmap remains the long-range plan until
 > the owner reconciles the labels; this branch does not silently redefine it.
+> The control matrix is
+> [`TAKSH-PROGRAM-VERSION-GATES.md`](TAKSH-PROGRAM-VERSION-GATES.md), backed by
+> `configs/roadmap/five_version_program.yaml` and
+> `reports/taksh_version_gates.json`. Program labels are not package versions;
+> the package remains `1.0.0` until an authorized release.
 
 | Version | Authorization required | Status |
 |---|---|---|

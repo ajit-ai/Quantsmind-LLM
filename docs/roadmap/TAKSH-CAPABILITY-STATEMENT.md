@@ -75,6 +75,12 @@ forms and confirms that the historical report was not rewritten.
 
 ## 3. Version status
 
+The program labels below are execution labels, not package versions. The
+package remains `1.0.0` until an authorized release. See
+[`TAKSH-PROGRAM-VERSION-GATES.md`](TAKSH-PROGRAM-VERSION-GATES.md) and
+`reports/taksh_version_gates.json`; the current gate report says
+`NO_RELEASE_AUTHORIZED`.
+
 | Version | Status | Meaning |
 |---|---|---|
 | 1.1.0 Native Foundation | `PASS` | Source/config/model/inference contracts are engineering-qualified. No model artifact exists. |

@@ -1,0 +1,203 @@
+{
+  "schema": "taksh.version_gates/1",
+  "generated_by": "evaluation/version_gates.py",
+  "program": "Five-Version Consolidated Implementation Program",
+  "branch": "feature/taksh-five-version-ga-program",
+  "package": {
+    "authoritative_source": "taksh/__init__.py::__version__",
+    "current_version": "1.0.0",
+    "release_status": "final",
+    "release_authorized": false,
+    "bump_policy": "Bump only as part of an authorized release. A program label does not automatically become a package version. The package stays at 1.0.0 until the owner authorizes a release and the version-consistency check is rerun."
+  },
+  "namespaces": {
+    "package_version": {
+      "meaning": "Published/installable Taksh package version; authoritative source is taksh.__version__.",
+      "example": "1.0.0"
+    },
+    "master_roadmap": {
+      "meaning": "Long-range approved forward-development index; remains canonical.",
+      "path": "docs/roadmap/TAKSH_MASTER_DEVELOPMENT_ROADMAP.md",
+      "example": "v1.2.0 (Python data and tokenizer foundation)"
+    },
+    "program_label": {
+      "meaning": "Execution label for one of the five consolidated implementation slices.",
+      "example": "1.2.0 (Native Model Capability) \u2014 not master-roadmap v1.2.0"
+    }
+  },
+  "versions": [
+    {
+      "id": "1.1.0",
+      "label": "Native Foundation",
+      "kind": "program_label",
+      "status": "PASS",
+      "scope": "Native model configuration, tokenizer binding, model/inference contracts",
+      "artifact": "source/config only",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v1.0.0 baseline plus v1.1.0 prerequisites (indicative)",
+      "exit_gate": "Source/config/model/inference contracts are engineering-qualified; no model artifact is claimed.",
+      "blocked_by": []
+    },
+    {
+      "id": "1.1.1",
+      "label": "Native Inference Mechanics",
+      "kind": "program_label",
+      "status": "PASS",
+      "scope": "Generation contract, safe deserialisation, EOS handling, inference mechanics tests",
+      "artifact": "source/tests only",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v1.1.0 prerequisites (indicative)",
+      "exit_gate": "Inference mechanics pass focused tests; production inference remains blocked.",
+      "blocked_by": [
+        "canonical model artifact",
+        "production serving qualification"
+      ]
+    },
+    {
+      "id": "1.2.0",
+      "label": "Native Model Capability",
+      "kind": "program_label",
+      "status": "BLOCKED",
+      "scope": "Training readiness, canonical checkpoint, measured model capability",
+      "artifact": "canonical taksh-foundation-111m checkpoint",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v1.1.0-v1.4.0 training/data/pretraining/syntax work (indicative)",
+      "exit_gate": "A canonical checkpoint exists, geometry/tokenizer checks pass, and training evidence is recorded.",
+      "blocked_by": [
+        "training authorization (A1.1-A)",
+        "compute authorization (A2)",
+        "training-authorized, licence-reviewed corpus",
+        "canonical checkpoint"
+      ]
+    },
+    {
+      "id": "1.3.0",
+      "label": "Coding Intelligence",
+      "kind": "program_label",
+      "status": "PARTIAL",
+      "scope": "Coding orchestration, validation, specialists, project understanding",
+      "artifact": "evaluation report against a canonical checkpoint",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v1.5.0-v1.7.0 instruction/functional/debug work (indicative)",
+      "exit_gate": "A frozen benchmark is run against a canonical checkpoint with raw outputs and an honest score.",
+      "blocked_by": [
+        "canonical checkpoint",
+        "frozen benchmark artifacts",
+        "capability evaluation authorization"
+      ]
+    },
+    {
+      "id": "1.4.0",
+      "label": "Autonomous Engineering",
+      "kind": "program_label",
+      "status": "PARTIAL",
+      "scope": "Multi-file engineering, tool calling, permissioned agentic workflows",
+      "artifact": "qualified agentic engineering surface",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v1.8.0 developer workflows and v2.8.0 repo-aware engineering (indicative)",
+      "exit_gate": "Tool calling and multi-file agentic workflows are qualified end-to-end with sandboxing and permissions.",
+      "blocked_by": [
+        "1.3.0 capability evidence",
+        "tool-calling implementation",
+        "security and sandbox approval"
+      ]
+    },
+    {
+      "id": "2.0.0",
+      "label": "Production GA",
+      "kind": "program_label",
+      "status": "NOT STARTED",
+      "scope": "Production qualification, security, deployment, release",
+      "artifact": "GA release (not created)",
+      "package_version": "1.0.0",
+      "release_version": null,
+      "master_roadmap_relationship": "v2.9.0-v3.0.0 production qualification (indicative)",
+      "exit_gate": "Security, deployment, licensing and owner release gates all pass.",
+      "blocked_by": [
+        "1.4.0 qualification",
+        "security audit",
+        "deployment automation",
+        "owner release authorization"
+      ]
+    }
+  ],
+  "status_counts": {
+    "PASS": 2,
+    "PARTIAL": 2,
+    "BLOCKED": 1,
+    "NOT STARTED": 1,
+    "NOT EVALUATED": 0
+  },
+  "blocked_versions": [
+    {
+      "id": "1.2.0",
+      "label": "Native Model Capability",
+      "status": "BLOCKED",
+      "blocked_by": [
+        "training authorization (A1.1-A)",
+        "compute authorization (A2)",
+        "training-authorized, licence-reviewed corpus",
+        "canonical checkpoint"
+      ]
+    },
+    {
+      "id": "1.3.0",
+      "label": "Coding Intelligence",
+      "status": "PARTIAL",
+      "blocked_by": [
+        "canonical checkpoint",
+        "frozen benchmark artifacts",
+        "capability evaluation authorization"
+      ]
+    },
+    {
+      "id": "1.4.0",
+      "label": "Autonomous Engineering",
+      "status": "PARTIAL",
+      "blocked_by": [
+        "1.3.0 capability evidence",
+        "tool-calling implementation",
+        "security and sandbox approval"
+      ]
+    },
+    {
+      "id": "2.0.0",
+      "label": "Production GA",
+      "status": "NOT STARTED",
+      "blocked_by": [
+        "1.4.0 qualification",
+        "security audit",
+        "deployment automation",
+        "owner release authorization"
+      ]
+    }
+  ],
+  "release_ready": false,
+  "closed_gates": [
+    "authorization.training is false",
+    "authorization.compute is false",
+    "authorization.publication is false",
+    "authorization.merge_to_develop_or_main is false",
+    "authorization.tags_or_releases is false",
+    "package.release_authorized is false"
+  ],
+  "verdict": "NO_RELEASE_AUTHORIZED",
+  "policy": {
+    "program_label_is_not_package_version": true,
+    "master_roadmap_remains_canonical": true,
+    "training_authorized": false,
+    "compute_authorized": false,
+    "publication_authorized": false,
+    "merge_authorized": false,
+    "tags_or_releases_authorized": false
+  },
+  "master_roadmap": {
+    "path": "docs/roadmap/TAKSH_MASTER_DEVELOPMENT_ROADMAP.md",
+    "status": "CANONICAL"
+  }
+}
