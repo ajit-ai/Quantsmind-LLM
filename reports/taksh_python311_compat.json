@@ -1,0 +1,56 @@
+{
+  "schema": "taksh.python_compat/1",
+  "generated_by": "evaluation/python_compat.py",
+  "target": "Python 3.11",
+  "requires_python": ">=3.10",
+  "ci": {
+    "workflow": ".github/workflows/ci.yml",
+    "python_versions": [
+      "3.11"
+    ],
+    "status": "CONFIGURED",
+    "note": "CI unit-and-smoke is configured for Python 3.11, but this feature-branch push does not trigger remote CI."
+  },
+  "syntax_check": {
+    "interpreter": "~/AppData/Local/Programs/Python/Python311/python.exe",
+    "interpreter_version": "Python 3.11.9",
+    "interpreter_error": null,
+    "roots": [
+      "taksh",
+      "evaluation",
+      "serving",
+      "training",
+      "scripts",
+      "tests"
+    ],
+    "command": [
+      "~/AppData/Local/Programs/Python/Python311/python.exe",
+      "-m",
+      "compileall",
+      "-q",
+      "taksh",
+      "evaluation",
+      "serving",
+      "training",
+      "scripts",
+      "tests"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stderr_tail": null
+  },
+  "runtime_tests": {
+    "status": "NOT EVALUATED",
+    "reason": "Local Python 3.11 lacks the project test dependencies; no packages were installed and no remote branch CI was run."
+  },
+  "status": "PARTIAL",
+  "verdict": "SYNTAX_COMPATIBLE_RUNTIME_UNVERIFIED",
+  "policy": {
+    "dependency_install": false,
+    "network_access": "none",
+    "training_authorized": false,
+    "compute_authorized": false,
+    "publication_authorized": false,
+    "syntax_check_is_not_runtime_qualification": true
+  }
+}

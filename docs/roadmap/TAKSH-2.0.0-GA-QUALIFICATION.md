@@ -21,7 +21,7 @@
 
 ## Compatibility and quality
 
-- [ ] Supported Python version matrix (local host is 3.14.7; 3.11 never executed)
+- [ ] Supported Python version matrix (Python 3.11 syntax compilation: `PASS` in `reports/taksh_python311_compat.json`; runtime suite: `NOT EVALUATED`; 3.11 branch CI not triggered)
 - [ ] Provider compatibility matrix
 - [ ] API version policy (`/v1/*`)
 - [ ] CLI exit-code policy
