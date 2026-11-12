@@ -1,0 +1,41 @@
+{
+  "schema": "taksh.l111_native_inference/1",
+  "generated_by": "evaluation/l111_native_inference.py",
+  "verified_on": "2026-11-12",
+  "git": {
+    "branch": "feature/l111-native-inference-mechanics"
+  },
+  "foundation": {
+    "path": "configs/model/foundation_111m.yaml",
+    "parameters": 110658816,
+    "sha256": "fd96b1bfc816a7653fc4ae61c5575d690354fe8b0f57c91bbe73e8be1add1eb6",
+    "note": "parameters recorded as verified formula value from L1.1.0"
+  },
+  "tokenizer": {
+    "path": "tokenizer\\qm_code_bpe_v0.json",
+    "sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+    "vocab_size": 5822,
+    "special_token_ids": {
+      "<pad>": 0,
+      "<bos>": 1,
+      "<eos>": 2,
+      "<unk>": 3
+    }
+  },
+  "loop_mechanics": {
+    "max_new_tokens": 2,
+    "produced_tokens": 2,
+    "finish_reason": "length",
+    "ok": true,
+    "note": "random-weight fixture \u2014 not capability evidence"
+  },
+  "evidence": {
+    "v180_sft_present": false,
+    "v180_sft_intact": null,
+    "v180_sft_substituted": false
+  },
+  "capability_claim": "none \u2014 inference mechanics qualification only; no coding capability is claimed",
+  "training": "NOT GRANTED (A1.1-C / A2-E)",
+  "verdict": "L1.1.1 NATIVE INFERENCE MECHANICS QUALIFIED (engineering verification only; no capability claim)",
+  "core_ok": true
+}
