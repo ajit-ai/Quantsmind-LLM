@@ -9,8 +9,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import sys
 from pathlib import Path
 
 from taksh.project_understanding import project_summary
@@ -24,7 +22,9 @@ def _load_version() -> str:
 
         return md.version("taksh")
     except Exception:
-        return "1.0.0 (unknown metadata)"
+        from taksh import __release_status__, __version__
+
+        return f"{__version__} ({__release_status__})"
 
 
 def _cmd_inspect(args):
@@ -61,9 +61,38 @@ def _cmd_specialists(args):
 
 
 def _cmd_validate_task(args):
-    from taksh.coding_engine import TaskEngine, TaskSpec
-
     print("inline coding task validation is available via tests/test_l130_five_version_components.py")
+
+
+def _cmd_publication(args):
+    from evaluation.publication_readiness import evaluate
+
+    report = evaluate()
+    if args.json:
+        print(json.dumps(report, indent=2))
+        return
+    print(f"product: {report['product']['name']} {report['product']['version']}")
+    print(f"model:   {report['capability']['model_availability']}")
+    print(f"coding:  {report['capability']['actual_coding_capability']}")
+    print("channels:")
+    for channel in report["channels"]:
+        print(f"  {channel['status']:<12} {channel['name']}")
+    print(f"verdict: {report['verdict']['code']}")
+
+
+def _cmd_capability(args):
+    from evaluation.publication_readiness import evaluate
+
+    capability = evaluate()["capability"]
+    print(f"model_availability: {capability['model_availability']}")
+    print(f"actual_coding_capability: {capability['actual_coding_capability']}")
+    history = capability["historical_m7"]
+    if history.get("exists"):
+        print(f"historical M7: {history['locked_syntax']}; {history['functional']}; "
+              f"evidence level {history['evidence_level']}")
+    print(f"frozen Python benchmark: {capability['frozen_python_benchmark']['status']} "
+          f"({capability['frozen_python_benchmark']['historical_result']})")
+    print(f"production GA: {capability['production_ga']['status']}")
 
 
 def _cmd_foundation(args):
@@ -106,6 +135,13 @@ def build_parser():
     p = sub.add_parser("task", help="report coding-task integration status")
     p.set_defaults(func=_cmd_validate_task)
 
+    p = sub.add_parser("publication", help="report distribution and publication readiness")
+    p.add_argument("--json", action="store_true", help="emit the full machine-readable report")
+    p.set_defaults(func=_cmd_publication)
+
+    p = sub.add_parser("capability", help="report the honest capability state")
+    p.set_defaults(func=_cmd_capability)
+
     return parser
 
 
@@ -116,3 +152,7 @@ def main(argv=None):
         parser.print_help()
         return
     args.func(args)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,424 @@
+{
+  "schema": "taksh.publication_readiness/1",
+  "generated_by": "evaluation/publication_readiness.py",
+  "generated_on": "2026-11-12",
+  "product": {
+    "name": "Taksh",
+    "version": "1.0.0",
+    "license": "Apache-2.0",
+    "package": "taksh"
+  },
+  "program": {
+    "branch": "feature/taksh-five-version-ga-program",
+    "implementation_version": "1.1.0",
+    "package_version": "1.0.0",
+    "versions": [
+      "1.1.0",
+      "1.2.0",
+      "1.3.0",
+      "1.4.0",
+      "2.0.0"
+    ]
+  },
+  "policy": {
+    "publication_authorized": false,
+    "publication_executed": false,
+    "network_access": "none",
+    "training_authorized": false,
+    "compute_authorized": false,
+    "model_weights_published": false,
+    "datasets_published": false,
+    "allowed_statuses": [
+      "PASS",
+      "PARTIAL",
+      "BLOCKED",
+      "NOT STARTED",
+      "NOT EVALUATED"
+    ]
+  },
+  "capability": {
+    "model_availability": "MODEL_UNAVAILABLE",
+    "actual_coding_capability": "NOT EVALUATED",
+    "frozen_python_benchmark": {
+      "path": "evaluation/l02_python_bench_v1.json",
+      "exists": false,
+      "sha256": null,
+      "status": "BLOCKED",
+      "historical_result": "0/30 preserved; not re-scored",
+      "detail": "frozen benchmark artifact is absent on this ref"
+    },
+    "historical_m7": {
+      "source": "reports/M7_OUTCOME.json",
+      "exists": true,
+      "outcome": "TRAINING_COMPLETED_CAPABILITY_NOT_DEMONSTRATED",
+      "locked_syntax": "0/40 syntax-valid",
+      "functional": "0/8 functional",
+      "evidence_level": 0
+    },
+    "repository_tooling": {
+      "status": "PARTIAL",
+      "detail": "engineering-qualified indexing, validation and orchestration; no quality claim"
+    },
+    "karkain": {
+      "status": "BLOCKED",
+      "state": "DISCOVERED",
+      "detail": "KCC 0xC0000135; TAKSH-KARK-BENCH 0 tasks"
+    },
+    "production_ga": {
+      "status": "NOT STARTED"
+    }
+  },
+  "channels": [
+    {
+      "id": "github_source_release",
+      "name": "GitHub source release",
+      "audience": "Developers and researchers who build from source",
+      "status": "PARTIAL",
+      "summary": "The v1.0.0 source package was published; a new tag or release from this branch is not authorized and has not been prepared.",
+      "evidence": {
+        "package": {
+          "pyproject": {
+            "path": "pyproject.toml",
+            "exists": true,
+            "bytes": 1490,
+            "sha256": "058cfb8251e7a9c3cd626cabbf7ea5fb16afd2474507b3ea8373e5628ab975d9"
+          },
+          "license": {
+            "path": "LICENSE",
+            "exists": true,
+            "bytes": 11558,
+            "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+          },
+          "notice": {
+            "path": "NOTICE",
+            "exists": true,
+            "bytes": 229,
+            "sha256": "614e55c969919449969ddedb68a86d142966731483a21db0ede7983f4ba00d29"
+          },
+          "readme": {
+            "path": "README.md",
+            "exists": true,
+            "bytes": 21251,
+            "sha256": "79a0f82c869c9681cabeb072f4c8f3261526f3d4d761c94484fea91ccb5e766d"
+          },
+          "changelog": {
+            "path": "CHANGELOG.md",
+            "exists": true,
+            "bytes": 1642,
+            "sha256": "cc0e313b345be668bc257f294908a0cff1166810e7f88a2759e2e6113ed934b4"
+          },
+          "release_procedure": {
+            "path": "docs/RELEASING.md",
+            "exists": true,
+            "bytes": 5578,
+            "sha256": "3fdd95d9fe71d1f1978c98b1c1a2b14e76b7c8375abcce1a19c891318842f0b6"
+          },
+          "version": "1.0.0",
+          "release_status": "final"
+        },
+        "historical_release": "v1.0.0 GitHub source release published 2026-10-21",
+        "historical_pypi": "blocked on registry credentials"
+      },
+      "missing": [
+        "owner authorization for a new tag or GitHub release",
+        "verified release commit and fresh release evidence for this branch"
+      ],
+      "owner_gate": "OWNER_RELEASE_DECISION",
+      "first_action": "Run scripts/prepare_release.py after the owner authorizes a release."
+    },
+    {
+      "id": "pypi",
+      "name": "PyPI source package",
+      "audience": "Python developers installing with pip",
+      "status": "PARTIAL",
+      "summary": "Package metadata, Apache-2.0 licensing and release tooling exist. No upload is authorized and credentials have not been used.",
+      "evidence": {
+        "package": {
+          "pyproject": {
+            "path": "pyproject.toml",
+            "exists": true,
+            "bytes": 1490,
+            "sha256": "058cfb8251e7a9c3cd626cabbf7ea5fb16afd2474507b3ea8373e5628ab975d9"
+          },
+          "license": {
+            "path": "LICENSE",
+            "exists": true,
+            "bytes": 11558,
+            "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+          },
+          "notice": {
+            "path": "NOTICE",
+            "exists": true,
+            "bytes": 229,
+            "sha256": "614e55c969919449969ddedb68a86d142966731483a21db0ede7983f4ba00d29"
+          },
+          "readme": {
+            "path": "README.md",
+            "exists": true,
+            "bytes": 21251,
+            "sha256": "79a0f82c869c9681cabeb072f4c8f3261526f3d4d761c94484fea91ccb5e766d"
+          },
+          "changelog": {
+            "path": "CHANGELOG.md",
+            "exists": true,
+            "bytes": 1642,
+            "sha256": "cc0e313b345be668bc257f294908a0cff1166810e7f88a2759e2e6113ed934b4"
+          },
+          "release_procedure": {
+            "path": "docs/RELEASING.md",
+            "exists": true,
+            "bytes": 5578,
+            "sha256": "3fdd95d9fe71d1f1978c98b1c1a2b14e76b7c8375abcce1a19c891318842f0b6"
+          },
+          "version": "1.0.0",
+          "release_status": "final"
+        },
+        "build_tooling": "scripts/prepare_release.py; twine check; isolated wheel install",
+        "contains_weights": false,
+        "contains_data": false
+      },
+      "missing": [
+        "registry credentials (historical upload was blocked on them)",
+        "owner upload authorization",
+        "fresh wheel/sdist build and isolated-install evidence for this branch"
+      ],
+      "owner_gate": "OWNER_PYPI_DECISION",
+      "first_action": "Build with scripts/prepare_release.py; upload only after explicit owner approval."
+    },
+    {
+      "id": "huggingface_model",
+      "name": "Hugging Face model repository",
+      "audience": "Model users (transformers, inference endpoints, hosted providers)",
+      "status": "BLOCKED",
+      "summary": "There is no canonical taksh-foundation-111m checkpoint to upload. The legacy v180_sft checkpoint is geometry-incompatible and must not be substituted.",
+      "evidence": {
+        "foundation": {
+          "path": "configs/model/foundation_111m.yaml",
+          "exists": true,
+          "sha256": "744e4f790f15ea15dd17381b4c0619e060c6a29a6381220c1827e3c6b7e4c5d4",
+          "id": "taksh-foundation-111m",
+          "parameters": 110658816,
+          "status": "PASS",
+          "evidence_drift": "reports/l110_native_model_foundation.json records a different foundation-config hash; regenerate evidence before publication",
+          "detail": "canonical foundation geometry is committed"
+        },
+        "tokenizer": {
+          "path": "tokenizer/qm_code_bpe_v0.json",
+          "exists": true,
+          "sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+          "vocab_size": 5822,
+          "status": "PASS",
+          "detail": "canonical tokenizer, vocab matches the foundation config"
+        },
+        "checkpoints": [
+          {
+            "path": "runs/taksh-foundation-111m/checkpoint_last.pt",
+            "role": "canonical_candidate_last",
+            "exists": false,
+            "bytes": null,
+            "sha256": "NOT_HASHED_WEIGHT_FILE"
+          },
+          {
+            "path": "runs/taksh-foundation-111m/checkpoint_best.pt",
+            "role": "canonical_candidate_best",
+            "exists": false,
+            "bytes": null,
+            "sha256": "NOT_HASHED_WEIGHT_FILE"
+          },
+          {
+            "path": "runs/v180_sft/checkpoint_last.pt",
+            "role": "legacy_incompatible_candidate",
+            "exists": false,
+            "bytes": null,
+            "sha256": "NOT_HASHED_WEIGHT_FILE"
+          },
+          {
+            "path": "runs/m7_sft/checkpoint_best.pt",
+            "role": "historical_m7_candidate",
+            "exists": false,
+            "bytes": null,
+            "sha256": "NOT_HASHED_WEIGHT_FILE"
+          }
+        ],
+        "expected_parameters": 110658816,
+        "legacy_v180_sft": "GEOMETRY_INCOMPATIBLE (d_model 384 vs 768); never substituted",
+        "checkpoint_format": "PyTorch state_dict for the custom QMModel",
+        "transformers_compatible": false,
+        "inference_endpoint_ready": false,
+        "model_card": null,
+        "capability_evaluation": null,
+        "safetensors_export": null,
+        "ready": false
+      },
+      "missing": [
+        "canonical taksh-foundation-111m checkpoint",
+        "model card with architecture, tokenizer, training data and limits",
+        "capability evidence against a frozen benchmark",
+        "transformers-compatible export or a custom inference container",
+        "weight-license decision and owner upload authorization"
+      ],
+      "owner_gate": "OWNER_MODEL_RELEASE_DECISION",
+      "first_action": "Do not upload. First produce and evaluate a canonical checkpoint under owner authorization."
+    },
+    {
+      "id": "huggingface_dataset",
+      "name": "Hugging Face dataset repository",
+      "audience": "Researchers who want to reproduce or audit the corpus",
+      "status": "BLOCKED",
+      "summary": "The corpus record is research-only and the snapshot is not present on this ref. Licence, provenance and PII review are not complete, so no dataset card or upload can be honest.",
+      "evidence": {
+        "frozen_research_corpus": {
+          "path": "artifacts/l072_l04_freeze/snapshot.json",
+          "exists": false,
+          "bytes": null,
+          "sha256": null
+        },
+        "frozen_corpus_scope": "Python-only research corpus; not a product training corpus",
+        "contamination_audit": {
+          "path": "data/contamination_audit.json",
+          "exists": true,
+          "bytes": 1912,
+          "sha256": "fd561ec3dc30c9171ecfc8c191c420b55ac5a845afa08acb3c89ceacada656fd"
+        },
+        "licence_gate": {
+          "path": "data/verify_licenses.py",
+          "exists": true,
+          "bytes": 19403,
+          "sha256": "fbcd66882f641f3e4e584079ee4ff706165725af243a929649fc8058b8ada416"
+        }
+      },
+      "missing": [
+        "licence and provenance clearance for every source",
+        "PII/secret review completion",
+        "published-benchmark decontamination evidence",
+        "dataset card and owner upload authorization"
+      ],
+      "owner_gate": "OWNER_DATA_RELEASE_DECISION",
+      "first_action": "Keep private. Publish only after a documented licence and privacy review."
+    },
+    {
+      "id": "openai_compatible_local",
+      "name": "Local OpenAI-compatible server",
+      "audience": "Cline, OpenCode and any OpenAI-compatible client",
+      "status": "PARTIAL",
+      "summary": "The OpenAI-compatible surface exists, but --ckpt is required at startup and there is no canonical checkpoint to load. It cannot serve a usable Taksh model yet.",
+      "evidence": {
+        "entry_point": "taksh-openai = serving.openai_server:main",
+        "routes": [
+          "GET /health",
+          "GET /v1/models",
+          "POST /v1/chat/completions"
+        ],
+        "surface_complete": true,
+        "model_loaded": false,
+        "unavailable_behavior": "GET /v1/models returns an empty list with unavailable_reason; POST /v1/chat/completions returns HTTP 503",
+        "checkpoint_argument": "--ckpt (required)",
+        "default_bind": "127.0.0.1:8002",
+        "chat_completions": "non-streaming only",
+        "streaming": "rejected with HTTP 400 (not implemented)",
+        "tool_calling": "rejected with HTTP 400 (not implemented)"
+      },
+      "missing": [
+        "canonical checkpoint loaded with --ckpt",
+        "tool-calling and streaming support for agentic clients",
+        "capability evaluation of the served model",
+        "security review before exposing beyond localhost"
+      ],
+      "owner_gate": "OWNER_RUNTIME_AND_MODEL_AUTHORIZATION",
+      "first_action": "Start the server only when a canonical checkpoint exists; keep it bound to localhost."
+    },
+    {
+      "id": "cline",
+      "name": "Cline (VS Code coding agent)",
+      "audience": "Developers using Cline with a custom OpenAI-compatible provider",
+      "status": "BLOCKED",
+      "summary": "Cline can point at an OpenAI-compatible base URL, but Taksh rejects tool calls. Cline's agentic coding loop therefore cannot run against Taksh today, even if a checkpoint is loaded.",
+      "evidence": {
+        "integration": "OpenAI-compatible base URL",
+        "base_url": "http://127.0.0.1:8002/v1",
+        "model_identifier": "read from GET /v1/models after the server loads a checkpoint",
+        "tool_calling": "not implemented; HTTP 400",
+        "requires": [
+          "serving.openai_server",
+          "canonical checkpoint",
+          "tool calling"
+        ]
+      },
+      "missing": [
+        "canonical checkpoint",
+        "tool-calling support or a documented chat-only mode",
+        "end-to-end request test from Cline",
+        "documented context window and tool-calling limitations"
+      ],
+      "owner_gate": "OWNER_INTEGRATION_DECISION",
+      "first_action": "Document the base URL and model id; test only against a canonical checkpoint."
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "audience": "Developers using OpenCode with a custom provider",
+      "status": "BLOCKED",
+      "summary": "OpenCode supports custom OpenAI-compatible providers, but Taksh rejects tool calls. The agentic coding loop cannot run against Taksh today, even if a checkpoint is loaded.",
+      "evidence": {
+        "integration": "OpenCode V2 custom OpenAI-compatible provider in opencode.json",
+        "provider_package": "@opencode/ai/providers/openai-compatible",
+        "base_url": "http://127.0.0.1:8002/v1",
+        "model_identifier": "taksh-foundation-111m (verify with GET /v1/models)",
+        "tool_calling": "not implemented; HTTP 400",
+        "requires": [
+          "serving.openai_server",
+          "canonical checkpoint",
+          "tool calling"
+        ]
+      },
+      "missing": [
+        "canonical checkpoint",
+        "tool-calling support or a documented chat-only mode",
+        "end-to-end request test from OpenCode",
+        "documented compatibility and context limits"
+      ],
+      "owner_gate": "OWNER_INTEGRATION_DECISION",
+      "first_action": "Document the provider block; test only against a canonical checkpoint."
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "audience": "Users of a hosted, paid model marketplace",
+      "status": "NOT STARTED",
+      "summary": "OpenRouter lists models served by hosting providers; it does not run a local checkpoint. Taksh has no hosted endpoint, no pricing/terms decision and no capability evidence, so no listing can be submitted.",
+      "evidence": {
+        "requires_hosted_inference": true,
+        "requires_model_or_provider_weights": true,
+        "requires_pricing_and_terms": true,
+        "requires_capability_evidence": true,
+        "submission_status": "none"
+      },
+      "missing": [
+        "hosted inference endpoint or provider partnership",
+        "commercial terms and pricing decision",
+        "capability and safety evidence suitable for a public listing",
+        "owner authorization to publish or submit"
+      ],
+      "owner_gate": "OWNER_COMMERCIAL_AND_RELEASE_DECISION",
+      "first_action": "Do not submit. Revisit only after a hosted, evaluated model exists."
+    }
+  ],
+  "readiness_summary": {
+    "github_source_release": "PARTIAL",
+    "pypi": "PARTIAL",
+    "huggingface_model": "BLOCKED",
+    "huggingface_dataset": "BLOCKED",
+    "openai_compatible_local": "PARTIAL",
+    "cline": "BLOCKED",
+    "opencode": "BLOCKED",
+    "openrouter": "NOT STARTED"
+  },
+  "verdict": {
+    "code": "NO_MODEL_OR_DATASET_CHANNEL_READY",
+    "source_package": "PARTIAL",
+    "model": "BLOCKED",
+    "dataset": "BLOCKED",
+    "hosted_api": "NOT STARTED",
+    "statement": "Taksh is not publishable as a model or dataset, and it is not ready for agentic coding clients. Only the source package and a chat-only local OpenAI-compatible surface are prepared, and neither may be published without explicit owner authorization."
+  }
+}

@@ -7,7 +7,8 @@
 ## What was implemented
 
 - `taksh/project_understanding.py` — `discover_files`, `index_symbols`, `dependency_graph`, `project_summary`.
-- `taksh/cli.py` — new subcommands: `inspect`, `providers`, `validate`, `specialists`, `foundation`, `task`.
+- `taksh/cli.py` — new subcommands: `inspect`, `providers`, `validate`,
+  `specialists`, `foundation`, `task`, `publication`, `capability`.
 - `taksh/specialists.py` — reusable specialist interface used by both 1.3.0 and 1.4.0 surfaces.
 - `taksh/coding_validation.py` — shared validation primitives consumed by CLI and future SDK.
 
