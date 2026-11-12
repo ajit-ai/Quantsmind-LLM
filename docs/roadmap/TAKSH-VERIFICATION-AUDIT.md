@@ -1,7 +1,7 @@
 # TAKSH Verification and Release-Readiness Audit
 
 **Branch:** `feature/taksh-five-version-ga-program`
-**HEAD:** `8cd3f2d82a33eb01bc736a268783e5723e16dc5b`
+**HEAD:** `13161852571e48603754308e9118df0da9d832df`
 **Base:** `develop` at `0215c6d039fceffd334f8931aa96a3287010a580`
 **Date:** 2026-11-12
 **Verdict:** `NO_RELEASE_AUTHORIZED`
@@ -12,7 +12,7 @@
 
 | Check | Result |
 |---|---|
-| Full test suite | **1511 passed, 43 skipped, 0 failed** |
+| Full test suite | **1542 passed, 43 skipped, 0 failed** |
 | Version consistency | **PASS** (`taksh.__version__ = 1.0.0`) |
 | Python 3.11 compileall | **PASS** (`taksh`, `evaluation`, `serving`, `training`, `scripts`, `tests`) |
 | Program version gate report | `NO_RELEASE_AUTHORIZED` |
@@ -36,6 +36,9 @@
 12. `153a490` - fail-closed GA security and deployment contract
 13. `e97e95d` - batch-invariant attention-mask broadcast fix
 14. `8cd3f2d` - integrated TAKSH coding platform and multi-file workflows
+15. `32aa850` - tool runtime, sandbox, memory, agent workflow, service layer
+16. `dcb77ee` - deployment helpers and performance baselines
+17. `1316185` - IDE client, REST authentication and authorization, deployment configuration
 
 ## 3. Program gate status
 
@@ -63,6 +66,7 @@ versions, and do not renumber the master roadmap.
 - `reports/taksh_multifile_engineering.json`
 - `reports/taksh_ga_security_contract.json`
 - `reports/taksh_publication_readiness.json`
+- `reports/taksh_performance.json`
 - `reports/M7_OUTCOME.json`
 
 ## 5. Preserved constraints
@@ -83,8 +87,8 @@ versions, and do not renumber the master roadmap.
   corpus, frozen corpus snapshot, canonical checkpoint.
 - `1.3.0`: canonical checkpoint, frozen benchmark artifacts, capability
   evaluation authorization.
-- `1.4.0`: tool-calling implementation, sandbox approval, multi-file
-  engineering implementation, capability evidence.
+- `1.4.0`: product qualification, sandbox approval, capability evidence, IDE
+  integration hardening and owner authorization.
 - `2.0.0`: security review, deployment automation, licensing, owner release
   authorization.
 

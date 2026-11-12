@@ -20,7 +20,7 @@ dataset, or a production service.**
 | Canonical checkpoint | **MISSING** |
 | Historical M7 result | **0/40** syntax-valid, **0/8** functional, evidence level **0** |
 | Frozen Python benchmark | **0/30** preserved; artifact `ABSENT` on this ref; not re-scored |
-| Tool runtime | Implemented (fail-closed, audited) |
+| IDE integration | Local client extension implemented; not autonomous capability |
 | Karkain | `DISCOVERED`; KCC `0xC0000135`; KARK-BENCH 0 tasks |
 | Production GA | `NOT STARTED` |
 | Training authorization | **NOT GRANTED** (A1.1-C) |

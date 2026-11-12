@@ -69,6 +69,13 @@ memory, agent workflow orchestration, shared service layer and REST router.
 
 All tests pass; native model capability remains `NOT_EVALUATED`.
 
+## IDE integration and REST security (Phase F)
+
+Added `ide/vscode/`, `serving/engineering_api.py` authentication and authorization,
+token-scope enforcement and audit logging. IDE extension is a client only and does
+not claim autonomous capability. REST endpoints require a configured token and
+scoped authorization.
+
 ## Preserved
 
 Same freeze list: v180_sft GEOMETRY_INCOMPATIBLE; benchmarks intact; owner CRLF preserved; develop/main untouched.
