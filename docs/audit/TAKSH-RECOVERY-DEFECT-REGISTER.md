@@ -1,12 +1,13 @@
 # TAKSH — Recovery Defect Register (2026-11-11)
 
-**Integration note (2026-11-12).** This register documents the feature-branch recovery. On this
-branch (`integration/taksh-cicd-recovery`, based on `develop`): the seven Historical Failure Set
-001 defects are re-verified passing (R-H1..R-H7, 77.98s); R-H2's fix landed in this branch's
-`evaluation/m6_sovereign.py` (`estimate_scales(memory=…)` injectable) and R-CI-01/R-CI-03/R-CI-04
-carried over. Frozen benchmark artifacts do not exist on `develop`, so benchmark-hash pins are
-`BLOCKED_ARTIFACT_ABSENT` here, never a silent pass. Rows referencing non-ported milestone files
-describe feature-branch state — not this branch.
+**Integration note (2026-11-12).** This register documents the feature-branch recovery. The
+ordered base of this branch is `develop`:
+- The seven Historical Failure Set 001 defects are re-verified passing (R-H1..R-H7, CI green).
+- R-H2's fix landed in this branch's `evaluation/m6_sovereign.py` (`estimate_scales(memory=…)` injectable) and R-CI-01/R-CI-03/R-CI-04 were ported.
+- R-H1's actual fix (`evaluation/m5_adapters.py` — licence → dependency-free discovery → RAM → transformers) and R-H3's actual fix (`data/python_v1/benchmarks.py` — portable origin + content SHA, absolute paths never enter manifests) were ported as part of the integration (PR #2), since the earlier feature-branch record described their semantics but the files were never in `develop`.
+- SFT dataset validation step (CI) had rotted and was fixed the same way (repository tokenizer no longer `None`).
+- Frozen benchmark artifacts do not exist on `develop`, so benchmark-hash pins are `BLOCKED_ARTIFACT_ABSENT` here, never a silent pass.
+- **Merged into `develop` as PR #2 (`8f1fbda`); develop CI is green post-merge.** See section H.
 
 **Milestone:** CI/CD & Documentation Recovery. **Baseline:** `d2f0d1443ddb959429a2232a8d240457c2f90590`.
 **Scope rules:** nothing here authorizes training/release/merge/publishing; Historical Failure Set 001 is tracked as seven individually traceable defects. No defect is silently dropped.
@@ -81,3 +82,34 @@ Original failing context: `CI` → `unit-and-smoke` on `develop` (runs `42144960
 | Documentation defects evaluated | 6 (2 RESOLVED, 1 DEFERRED, 1 BY-DESIGN, 2 OPEN) |
 | Critical severity | none |
 | Production truth | GA NOT established; capability NOT_EVALUATED; Karkain DISCOVERED; 0/30 benchmark; develop/main untouched |
+
+---
+
+## H. Post-merge reconciliation (2026-11-12 — PR #2)
+
+External event set:
+
+- 2026-11-12T03:23:54Z — PR #2 opened (`integration/taksh-cicd-recovery` → `develop`).
+- 2026-11-12T03:23:54Z — CI run `43147929246`: unit-and-smoke FAILED — Unit tests: R-H1 and R-H3 re-reproduced (adapter preflight order + manifest origin leak); 5/7 passed.
+- 2026-11-12T03:49:33Z — CI run `43150748557`: unit-and-smoke FAILED — Unit tests now PASS; `Code LLM — SFT dataset validation` failed (`SFTPairDataset(path, None)` → `validate_chat_template(None)` → `AttributeError`). Latent defect: the develop CI never got past Unit tests since 2026-10-21, so this step had bit-rotted unobserved.
+- 2026-11-12T03:54:42Z — CI run `43151304728`: **ALL CHECKS GREEN** — guard 2s, unit-and-smoke 1m52s, blocked-training-smoke SKIPPED (owner var unset). PR #2 mergeable/CLEAN.
+- 2026-11-12T03:57:35Z — **PR #2 MERGED** into develop; merge commit `8f1fbda2d25cf19c0acbd1c835c9efc903981eea`.
+- 2026-11-12T03:57:37Z — CI run `43151613260` on develop push (merge): **GREEN** — guard 3s, unit-and-smoke 1m52s, blocked-training-smoke SKIPPED. First green develop CI since 2026-09-28.
+- `main` UNCHANGED (`cb9b81ef7ecdfed07ef1a7f69324bf04c8bd24c4`). No tags, no releases, no publication, no training executed anywhere, no checkpoints created, no downloads, no GPU usage, no spend.
+
+Post-merge resolutions of previously-open register entries:
+
+| ID | Previous status | Post-merge status |
+|---|---|---|
+| R-CI-02 | BLOCKED (owner): remote CI impossible from feature branch | SUPERSEDED — remote CI now executes on `develop` (push + PR triggers; `43151613260` green). Manual `workflow_dispatch` qualification is available on develop (fails closed; frozen benchmarks absent) |
+| R-CI-03 | focused chain L0.6.0→L1.0.0-ENG3 + port | RESOLVED — develop chain = recovery-focused (`test_ci_workflows.py`, H1..H7) + full suite |
+| R-H1 | RESOLVED (feature-branch only, "present at HEAD" — imprecise) | **RESOLVED BY REMOTE** — fix to `evaluation/m5_adapters.py` re-verified by remote CI (`43151304728`, `43151613260` green) |
+| R-H3 | RESOLVED (feature-branch only — imprecise) | **RESOLVED BY REMOTE** — fix to `data/python_v1/benchmarks.py` re-verified by remote CI (green) |
+| R-H08 | full suite > 30m budget | PARTIALLY SUPERSEDED — unit tests run ~37–52s on runner; 30m budget comfortable; training steps split out of default path |
+| R-H09 | Node forced 24 / ubuntu-26 migration | unchanged (upstream annotations only) |
+| R-H10 | smoke artifacts missing | moot — smoke/training steps behind `blocked-training-smoke` (owner-blocked by design) |
+| SFT-ci-01 | (new) `SFTPairDataset(path, None)` crashes before validation | RESOLVED — step loads `tokenizer/qm_code_bpe_v0.json`; non-training; remote CI green |
+
+Frozen-artifact status on develop: `BLOCKED_ARTIFACT_ABSENT` unchanged. The recovery checker (`evaluation/taksh_cicd_recovery_check.py`) reports it honestly per branch.
+
+Product status: **UNCHANGED** — GA NOT established; MODEL_UNAVAILABLE; ACTUAL_CODING_CAPABILITY NOT_EVALUATED; Karkain DISCOVERED (KARK-BENCH 0 tasks); frozen Python benchmark 0/30 (feature branch; absent on develop); A1.1-C / A2-E enforced.
