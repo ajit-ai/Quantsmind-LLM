@@ -42,6 +42,10 @@
 - [ ] Frozen Python benchmark remains 0/30 (manifest: `reports/taksh_frozen_benchmarks.json`; artifacts `ABSENT` on this ref; preserved, never re-scored without owner authorization)
 - [ ] Multilingual benchmark artifacts absent/available with SHA-256 verification
 - [ ] Capability evaluation contract documented (`configs/roadmap/capability_evaluation_contract.yaml`, `reports/taksh_capability_evaluation.json`)
+- [ ] Deployment helpers documented and tested (`taksh/deployment.py`, `docs/roadmap/TAKSH-DEPLOYMENT.md`)
+- [ ] REST authentication and authorization tests pass
+- [ ] VS Code client extension implemented and client-tested
+- [ ] Known limitations register present (`docs/roadmap/TAKSH-KNOWN-LIMITATIONS.md`)
 - [ ] Release notes distinguish model readiness from package readiness
 
 ## Blocked / not ready
