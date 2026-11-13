@@ -1,0 +1,733 @@
+{
+  "schema": "taksh.l05_compute_estimate/1",
+  "generated_by": "evaluation/l05_compute_estimator.py",
+  "method": {
+    "flops": "training FLOPs = 6 x parameters x training tokens (standard forward+backward approximation)",
+    "limitations": [
+      "attention-quadratic term ignored (valid for d_model <= 2048, seq <= 2048-4096)",
+      "activation memory is a rule-of-thumb (34 x bsz x seq x d x layers), not a profiler measurement",
+      "no comm/checkpoint I/O overhead included",
+      "GPU durations carry no utilization claim; only CPU duration is anchored to measurement"
+    ],
+    "assumptions": [
+      "dense (non-MoE) transformer; all params trained",
+      "fp32 or bf16 mixed precision; ~16 bytes/parameter working set either way",
+      "Adam(W) optimizer with fp32 state"
+    ]
+  },
+  "cpu_anchor": {
+    "measured_from": "runs/l03_pretrain/loss_log.jsonl + run_manifest.json (~9.3 s/step, 2048 tokens/step)",
+    "tokens_per_second": 215,
+    "range": [
+      180,
+      260
+    ]
+  },
+  "gpu_price_per_hour": null,
+  "matrix": {
+    "existing_28.8M": {
+      "params": 28787328,
+      "by_token_ratio": [
+        {
+          "tokens_per_param": 20,
+          "tokens": 575746560,
+          "flops_6xPxT": 9.944523040555008e+16,
+          "memory": {
+            "weights_fp32_bytes": 115149312,
+            "weights_bf16_bytes": 57574656,
+            "grads_fp32_bytes": 115149312,
+            "adam_m_v_bytes": 230298624,
+            "training_working_set_fp32_bytes": 460597248,
+            "training_working_set_bf16_bytes": 460597248,
+            "activation_estimate_bytes": 320864256,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 115149312,
+            "checkpoint_with_optimizer_bytes": 518171904,
+            "checkpoint_model_bf16_bytes": 57574656
+          },
+          "checkpoint_model_only_gb": 0.115
+        },
+        {
+          "tokens_per_param": 50,
+          "tokens": 1439366400,
+          "flops_6xPxT": 2.486130760138752e+17,
+          "memory": {
+            "weights_fp32_bytes": 115149312,
+            "weights_bf16_bytes": 57574656,
+            "grads_fp32_bytes": 115149312,
+            "adam_m_v_bytes": 230298624,
+            "training_working_set_fp32_bytes": 460597248,
+            "training_working_set_bf16_bytes": 460597248,
+            "activation_estimate_bytes": 320864256,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 115149312,
+            "checkpoint_with_optimizer_bytes": 518171904,
+            "checkpoint_model_bf16_bytes": 57574656
+          },
+          "checkpoint_model_only_gb": 0.115
+        },
+        {
+          "tokens_per_param": 100,
+          "tokens": 2878732800,
+          "flops_6xPxT": 4.972261520277504e+17,
+          "memory": {
+            "weights_fp32_bytes": 115149312,
+            "weights_bf16_bytes": 57574656,
+            "grads_fp32_bytes": 115149312,
+            "adam_m_v_bytes": 230298624,
+            "training_working_set_fp32_bytes": 460597248,
+            "training_working_set_bf16_bytes": 460597248,
+            "activation_estimate_bytes": 320864256,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 115149312,
+            "checkpoint_with_optimizer_bytes": 518171904,
+            "checkpoint_model_bf16_bytes": 57574656
+          },
+          "checkpoint_model_only_gb": 0.115
+        },
+        {
+          "tokens_per_param": 200,
+          "tokens": 5757465600,
+          "flops_6xPxT": 9.944523040555008e+17,
+          "memory": {
+            "weights_fp32_bytes": 115149312,
+            "weights_bf16_bytes": 57574656,
+            "grads_fp32_bytes": 115149312,
+            "adam_m_v_bytes": 230298624,
+            "training_working_set_fp32_bytes": 460597248,
+            "training_working_set_bf16_bytes": 460597248,
+            "activation_estimate_bytes": 320864256,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 115149312,
+            "checkpoint_with_optimizer_bytes": 518171904,
+            "checkpoint_model_bf16_bytes": 57574656
+          },
+          "checkpoint_model_only_gb": 0.115
+        }
+      ],
+      "for_reference_full_l04_epoch": {
+        "tokens": 3182359,
+        "flops_6xPxT": 549669674080512.0,
+        "memory": {
+          "weights_fp32_bytes": 115149312,
+          "weights_bf16_bytes": 57574656,
+          "grads_fp32_bytes": 115149312,
+          "adam_m_v_bytes": 230298624,
+          "training_working_set_fp32_bytes": 460597248,
+          "training_working_set_bf16_bytes": 460597248,
+          "activation_estimate_bytes": 320864256,
+          "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+          "checkpoint_model_only_bytes": 115149312,
+          "checkpoint_with_optimizer_bytes": 518171904,
+          "checkpoint_model_bf16_bytes": 57574656
+        }
+      }
+    },
+    "candidate_A_110M": {
+      "params": 110658816,
+      "by_token_ratio": [
+        {
+          "tokens_per_param": 20,
+          "tokens": 2213176320,
+          "flops_6xPxT": 1.4694448270226227e+18,
+          "memory": {
+            "weights_fp32_bytes": 442635264,
+            "weights_bf16_bytes": 221317632,
+            "grads_fp32_bytes": 442635264,
+            "adam_m_v_bytes": 885270528,
+            "training_working_set_fp32_bytes": 1770541056,
+            "training_working_set_bf16_bytes": 1770541056,
+            "activation_estimate_bytes": 641728512,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 442635264,
+            "checkpoint_with_optimizer_bytes": 1991858688,
+            "checkpoint_model_bf16_bytes": 221317632
+          },
+          "checkpoint_model_only_gb": 0.443
+        },
+        {
+          "tokens_per_param": 50,
+          "tokens": 5532940800,
+          "flops_6xPxT": 3.673612067556557e+18,
+          "memory": {
+            "weights_fp32_bytes": 442635264,
+            "weights_bf16_bytes": 221317632,
+            "grads_fp32_bytes": 442635264,
+            "adam_m_v_bytes": 885270528,
+            "training_working_set_fp32_bytes": 1770541056,
+            "training_working_set_bf16_bytes": 1770541056,
+            "activation_estimate_bytes": 641728512,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 442635264,
+            "checkpoint_with_optimizer_bytes": 1991858688,
+            "checkpoint_model_bf16_bytes": 221317632
+          },
+          "checkpoint_model_only_gb": 0.443
+        },
+        {
+          "tokens_per_param": 100,
+          "tokens": 11065881600,
+          "flops_6xPxT": 7.347224135113114e+18,
+          "memory": {
+            "weights_fp32_bytes": 442635264,
+            "weights_bf16_bytes": 221317632,
+            "grads_fp32_bytes": 442635264,
+            "adam_m_v_bytes": 885270528,
+            "training_working_set_fp32_bytes": 1770541056,
+            "training_working_set_bf16_bytes": 1770541056,
+            "activation_estimate_bytes": 641728512,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 442635264,
+            "checkpoint_with_optimizer_bytes": 1991858688,
+            "checkpoint_model_bf16_bytes": 221317632
+          },
+          "checkpoint_model_only_gb": 0.443
+        },
+        {
+          "tokens_per_param": 200,
+          "tokens": 22131763200,
+          "flops_6xPxT": 1.4694448270226227e+19,
+          "memory": {
+            "weights_fp32_bytes": 442635264,
+            "weights_bf16_bytes": 221317632,
+            "grads_fp32_bytes": 442635264,
+            "adam_m_v_bytes": 885270528,
+            "training_working_set_fp32_bytes": 1770541056,
+            "training_working_set_bf16_bytes": 1770541056,
+            "activation_estimate_bytes": 641728512,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 442635264,
+            "checkpoint_with_optimizer_bytes": 1991858688,
+            "checkpoint_model_bf16_bytes": 221317632
+          },
+          "checkpoint_model_only_gb": 0.443
+        }
+      ],
+      "for_reference_full_l04_epoch": {
+        "tokens": 3182359,
+        "flops_6xPxT": 2112936474161664.0,
+        "memory": {
+          "weights_fp32_bytes": 442635264,
+          "weights_bf16_bytes": 221317632,
+          "grads_fp32_bytes": 442635264,
+          "adam_m_v_bytes": 885270528,
+          "training_working_set_fp32_bytes": 1770541056,
+          "training_working_set_bf16_bytes": 1770541056,
+          "activation_estimate_bytes": 641728512,
+          "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+          "checkpoint_model_only_bytes": 442635264,
+          "checkpoint_with_optimizer_bytes": 1991858688,
+          "checkpoint_model_bf16_bytes": 221317632
+        }
+      }
+    },
+    "candidate_B_289M": {
+      "params": 289115136,
+      "by_token_ratio": [
+        {
+          "tokens_per_param": 20,
+          "tokens": 5782302720,
+          "flops_6xPxT": 1.003050742371582e+19,
+          "memory": {
+            "weights_fp32_bytes": 1156460544,
+            "weights_bf16_bytes": 578230272,
+            "grads_fp32_bytes": 1156460544,
+            "adam_m_v_bytes": 2312921088,
+            "training_working_set_fp32_bytes": 4625842176,
+            "training_working_set_bf16_bytes": 4625842176,
+            "activation_estimate_bytes": 1283457024,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 1156460544,
+            "checkpoint_with_optimizer_bytes": 5204072448,
+            "checkpoint_model_bf16_bytes": 578230272
+          },
+          "checkpoint_model_only_gb": 1.156
+        },
+        {
+          "tokens_per_param": 50,
+          "tokens": 14455756800,
+          "flops_6xPxT": 2.507626855928955e+19,
+          "memory": {
+            "weights_fp32_bytes": 1156460544,
+            "weights_bf16_bytes": 578230272,
+            "grads_fp32_bytes": 1156460544,
+            "adam_m_v_bytes": 2312921088,
+            "training_working_set_fp32_bytes": 4625842176,
+            "training_working_set_bf16_bytes": 4625842176,
+            "activation_estimate_bytes": 1283457024,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 1156460544,
+            "checkpoint_with_optimizer_bytes": 5204072448,
+            "checkpoint_model_bf16_bytes": 578230272
+          },
+          "checkpoint_model_only_gb": 1.156
+        },
+        {
+          "tokens_per_param": 100,
+          "tokens": 28911513600,
+          "flops_6xPxT": 5.01525371185791e+19,
+          "memory": {
+            "weights_fp32_bytes": 1156460544,
+            "weights_bf16_bytes": 578230272,
+            "grads_fp32_bytes": 1156460544,
+            "adam_m_v_bytes": 2312921088,
+            "training_working_set_fp32_bytes": 4625842176,
+            "training_working_set_bf16_bytes": 4625842176,
+            "activation_estimate_bytes": 1283457024,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 1156460544,
+            "checkpoint_with_optimizer_bytes": 5204072448,
+            "checkpoint_model_bf16_bytes": 578230272
+          },
+          "checkpoint_model_only_gb": 1.156
+        },
+        {
+          "tokens_per_param": 200,
+          "tokens": 57823027200,
+          "flops_6xPxT": 1.003050742371582e+20,
+          "memory": {
+            "weights_fp32_bytes": 1156460544,
+            "weights_bf16_bytes": 578230272,
+            "grads_fp32_bytes": 1156460544,
+            "adam_m_v_bytes": 2312921088,
+            "training_working_set_fp32_bytes": 4625842176,
+            "training_working_set_bf16_bytes": 4625842176,
+            "activation_estimate_bytes": 1283457024,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 1156460544,
+            "checkpoint_with_optimizer_bytes": 5204072448,
+            "checkpoint_model_bf16_bytes": 578230272
+          },
+          "checkpoint_model_only_gb": 1.156
+        }
+      ],
+      "for_reference_full_l04_epoch": {
+        "tokens": 3182359,
+        "flops_6xPxT": 5520408930514944.0,
+        "memory": {
+          "weights_fp32_bytes": 1156460544,
+          "weights_bf16_bytes": 578230272,
+          "grads_fp32_bytes": 1156460544,
+          "adam_m_v_bytes": 2312921088,
+          "training_working_set_fp32_bytes": 4625842176,
+          "training_working_set_bf16_bytes": 4625842176,
+          "activation_estimate_bytes": 1283457024,
+          "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+          "checkpoint_model_only_bytes": 1156460544,
+          "checkpoint_with_optimizer_bytes": 5204072448,
+          "checkpoint_model_bf16_bytes": 578230272
+        }
+      }
+    },
+    "candidate_C_1019M": {
+      "params": 1018624000,
+      "by_token_ratio": [
+        {
+          "tokens_per_param": 20,
+          "tokens": 20372480000,
+          "flops_6xPxT": 1.2451138240512e+20,
+          "memory": {
+            "weights_fp32_bytes": 4074496000,
+            "weights_bf16_bytes": 2037248000,
+            "grads_fp32_bytes": 4074496000,
+            "adam_m_v_bytes": 8148992000,
+            "training_working_set_fp32_bytes": 16297984000,
+            "training_working_set_bf16_bytes": 16297984000,
+            "activation_estimate_bytes": 2281701376,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 4074496000,
+            "checkpoint_with_optimizer_bytes": 18335232000,
+            "checkpoint_model_bf16_bytes": 2037248000
+          },
+          "checkpoint_model_only_gb": 4.074
+        },
+        {
+          "tokens_per_param": 50,
+          "tokens": 50931200000,
+          "flops_6xPxT": 3.112784560128e+20,
+          "memory": {
+            "weights_fp32_bytes": 4074496000,
+            "weights_bf16_bytes": 2037248000,
+            "grads_fp32_bytes": 4074496000,
+            "adam_m_v_bytes": 8148992000,
+            "training_working_set_fp32_bytes": 16297984000,
+            "training_working_set_bf16_bytes": 16297984000,
+            "activation_estimate_bytes": 2281701376,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 4074496000,
+            "checkpoint_with_optimizer_bytes": 18335232000,
+            "checkpoint_model_bf16_bytes": 2037248000
+          },
+          "checkpoint_model_only_gb": 4.074
+        },
+        {
+          "tokens_per_param": 100,
+          "tokens": 101862400000,
+          "flops_6xPxT": 6.225569120256e+20,
+          "memory": {
+            "weights_fp32_bytes": 4074496000,
+            "weights_bf16_bytes": 2037248000,
+            "grads_fp32_bytes": 4074496000,
+            "adam_m_v_bytes": 8148992000,
+            "training_working_set_fp32_bytes": 16297984000,
+            "training_working_set_bf16_bytes": 16297984000,
+            "activation_estimate_bytes": 2281701376,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 4074496000,
+            "checkpoint_with_optimizer_bytes": 18335232000,
+            "checkpoint_model_bf16_bytes": 2037248000
+          },
+          "checkpoint_model_only_gb": 4.074
+        },
+        {
+          "tokens_per_param": 200,
+          "tokens": 203724800000,
+          "flops_6xPxT": 1.2451138240512e+21,
+          "memory": {
+            "weights_fp32_bytes": 4074496000,
+            "weights_bf16_bytes": 2037248000,
+            "grads_fp32_bytes": 4074496000,
+            "adam_m_v_bytes": 8148992000,
+            "training_working_set_fp32_bytes": 16297984000,
+            "training_working_set_bf16_bytes": 16297984000,
+            "activation_estimate_bytes": 2281701376,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 4074496000,
+            "checkpoint_with_optimizer_bytes": 18335232000,
+            "checkpoint_model_bf16_bytes": 2037248000
+          },
+          "checkpoint_model_only_gb": 4.074
+        }
+      ],
+      "for_reference_full_l04_epoch": {
+        "tokens": 3182359,
+        "flops_6xPxT": 1.9449763524096e+16,
+        "memory": {
+          "weights_fp32_bytes": 4074496000,
+          "weights_bf16_bytes": 2037248000,
+          "grads_fp32_bytes": 4074496000,
+          "adam_m_v_bytes": 8148992000,
+          "training_working_set_fp32_bytes": 16297984000,
+          "training_working_set_bf16_bytes": 16297984000,
+          "activation_estimate_bytes": 2281701376,
+          "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+          "checkpoint_model_only_bytes": 4074496000,
+          "checkpoint_with_optimizer_bytes": 18335232000,
+          "checkpoint_model_bf16_bytes": 2037248000
+        }
+      }
+    }
+  },
+  "hardware_feasibility": {
+    "existing_28.8M": {
+      "params": 28787328,
+      "training_working_set_fp32_bytes": 460597248,
+      "activation_estimate_bytes": 320864256,
+      "verdicts": [
+        {
+          "hardware": "CPU-only (this environment)",
+          "vram_gb": 0,
+          "usable_vram_bytes_for_training": 0,
+          "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+          "fits_training": false,
+          "fits_inference": false
+        },
+        {
+          "hardware": "MX150 4 GB",
+          "vram_gb": 4,
+          "usable_vram_bytes_for_training": 3221225472,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "8 GB VRAM class",
+          "vram_gb": 8,
+          "usable_vram_bytes_for_training": 6442450944,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "16 GB VRAM class",
+          "vram_gb": 16,
+          "usable_vram_bytes_for_training": 12884901888,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "24 GB VRAM class",
+          "vram_gb": 24,
+          "usable_vram_bytes_for_training": 19327352832,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "48 GB VRAM class",
+          "vram_gb": 48,
+          "usable_vram_bytes_for_training": 38654705664,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "80 GB VRAM class",
+          "vram_gb": 80,
+          "usable_vram_bytes_for_training": 64424509440,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        }
+      ]
+    },
+    "candidate_A_110M": {
+      "params": 110658816,
+      "training_working_set_fp32_bytes": 1770541056,
+      "activation_estimate_bytes": 641728512,
+      "verdicts": [
+        {
+          "hardware": "CPU-only (this environment)",
+          "vram_gb": 0,
+          "usable_vram_bytes_for_training": 0,
+          "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+          "fits_training": false,
+          "fits_inference": false
+        },
+        {
+          "hardware": "MX150 4 GB",
+          "vram_gb": 4,
+          "usable_vram_bytes_for_training": 3221225472,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "8 GB VRAM class",
+          "vram_gb": 8,
+          "usable_vram_bytes_for_training": 6442450944,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "16 GB VRAM class",
+          "vram_gb": 16,
+          "usable_vram_bytes_for_training": 12884901888,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "24 GB VRAM class",
+          "vram_gb": 24,
+          "usable_vram_bytes_for_training": 19327352832,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "48 GB VRAM class",
+          "vram_gb": 48,
+          "usable_vram_bytes_for_training": 38654705664,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "80 GB VRAM class",
+          "vram_gb": 80,
+          "usable_vram_bytes_for_training": 64424509440,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        }
+      ]
+    },
+    "candidate_B_289M": {
+      "params": 289115136,
+      "training_working_set_fp32_bytes": 4625842176,
+      "activation_estimate_bytes": 1283457024,
+      "verdicts": [
+        {
+          "hardware": "CPU-only (this environment)",
+          "vram_gb": 0,
+          "usable_vram_bytes_for_training": 0,
+          "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+          "fits_training": false,
+          "fits_inference": false
+        },
+        {
+          "hardware": "MX150 4 GB",
+          "vram_gb": 4,
+          "usable_vram_bytes_for_training": 3221225472,
+          "verdict": "Inference-only; full training working set does not fit",
+          "fits_training": false,
+          "fits_inference": true
+        },
+        {
+          "hardware": "8 GB VRAM class",
+          "vram_gb": 8,
+          "usable_vram_bytes_for_training": 6442450944,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "16 GB VRAM class",
+          "vram_gb": 16,
+          "usable_vram_bytes_for_training": 12884901888,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "24 GB VRAM class",
+          "vram_gb": 24,
+          "usable_vram_bytes_for_training": 19327352832,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "48 GB VRAM class",
+          "vram_gb": 48,
+          "usable_vram_bytes_for_training": 38654705664,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "80 GB VRAM class",
+          "vram_gb": 80,
+          "usable_vram_bytes_for_training": 64424509440,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        }
+      ]
+    },
+    "candidate_C_1019M": {
+      "params": 1018624000,
+      "training_working_set_fp32_bytes": 16297984000,
+      "activation_estimate_bytes": 2281701376,
+      "verdicts": [
+        {
+          "hardware": "CPU-only (this environment)",
+          "vram_gb": 0,
+          "usable_vram_bytes_for_training": 0,
+          "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+          "fits_training": false,
+          "fits_inference": false
+        },
+        {
+          "hardware": "MX150 4 GB",
+          "vram_gb": 4,
+          "usable_vram_bytes_for_training": 3221225472,
+          "verdict": "DOES NOT FIT for from-scratch training (weights alone exceed budget)",
+          "fits_training": false,
+          "fits_inference": false
+        },
+        {
+          "hardware": "8 GB VRAM class",
+          "vram_gb": 8,
+          "usable_vram_bytes_for_training": 6442450944,
+          "verdict": "Inference-only; full training working set does not fit",
+          "fits_training": false,
+          "fits_inference": true
+        },
+        {
+          "hardware": "16 GB VRAM class",
+          "vram_gb": 16,
+          "usable_vram_bytes_for_training": 12884901888,
+          "verdict": "Inference-only; full training working set does not fit",
+          "fits_training": false,
+          "fits_inference": true
+        },
+        {
+          "hardware": "24 GB VRAM class",
+          "vram_gb": 24,
+          "usable_vram_bytes_for_training": 19327352832,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "48 GB VRAM class",
+          "vram_gb": 48,
+          "usable_vram_bytes_for_training": 38654705664,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        },
+        {
+          "hardware": "80 GB VRAM class",
+          "vram_gb": 80,
+          "usable_vram_bytes_for_training": 64424509440,
+          "verdict": "FITS training working set + activations with >= 25% headroom",
+          "fits_training": true,
+          "fits_inference": true
+        }
+      ]
+    }
+  },
+  "cpu_duration_estimates": {
+    "existing_28.8M": {
+      "cpu_anchor_tokens_per_second": 215,
+      "cpu_range_tokens_per_second": [
+        180,
+        260
+      ],
+      "cpu_seconds_central": 13389455,
+      "cpu_seconds_fast": 11072049,
+      "cpu_seconds_slow": 15992960,
+      "flops": 4.972261520277504e+17,
+      "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+      "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+      "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+    },
+    "candidate_A_110M": {
+      "cpu_anchor_tokens_per_second": 215,
+      "cpu_range_tokens_per_second": [
+        180,
+        260
+      ],
+      "cpu_seconds_central": 51469217,
+      "cpu_seconds_fast": 42561083,
+      "cpu_seconds_slow": 61477120,
+      "flops": 7.347224135113114e+18,
+      "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+      "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+      "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+    },
+    "candidate_B_289M": {
+      "cpu_anchor_tokens_per_second": 215,
+      "cpu_range_tokens_per_second": [
+        180,
+        260
+      ],
+      "cpu_seconds_central": 134472156,
+      "cpu_seconds_fast": 111198129,
+      "cpu_seconds_slow": 160619520,
+      "flops": 5.01525371185791e+19,
+      "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+      "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+      "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+    },
+    "candidate_C_1019M": {
+      "cpu_anchor_tokens_per_second": 215,
+      "cpu_range_tokens_per_second": [
+        180,
+        260
+      ],
+      "cpu_seconds_central": 473778605,
+      "cpu_seconds_fast": 391778462,
+      "cpu_seconds_slow": 565902222,
+      "flops": 6.225569120256e+20,
+      "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+      "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+      "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+    }
+  }
+}

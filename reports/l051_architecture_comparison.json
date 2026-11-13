@@ -1,0 +1,115 @@
+{
+  "schema": "taksh.l051_architecture_comparison/1",
+  "generated_by": "evaluation/l051_architecture_comparison.py",
+  "basis": {
+    "base_params_measured": 28787328,
+    "adapter_rank": 8,
+    "adapter_params_per_language": 811008,
+    "n_l1_languages": 16,
+    "n_family_groups": 8,
+    "measured_anchors": [
+      "L0.2: 28.8M model, 260-example SFT, 0/30 unseen pass@1 (capability ~zero)",
+      "L0.3: continued pretraining on 20M tokens -> code-val 6.87 -> 5.41, still 0/30",
+      "L0.4: code-dense warmstart -> code-val 5.06-5.51, still 0/30"
+    ]
+  },
+  "options": [
+    {
+      "id": "A",
+      "name": "One shared multilingual model",
+      "params_total": 28787328,
+      "checkpoint_storage_bytes": 115149312,
+      "inference_memory_fp32_bytes": 115149312,
+      "training_complexity": "lowest: single run, single corpus mixture; no adapter bookkeeping",
+      "maintainability": "excellent: one artifact, one tokenizer, one checkpoint lineage",
+      "cross_language_transfer": "positive by construction (shared parameters learn common structure); strongest for syntactically close languages (C/C++/C#/Java/Go/Rust)",
+      "language_interference": "real: one shared distribution must serve all 16; weaker languages risk dilution (documented in multilingual literature)",
+      "local_deployment": "best: one 115 MB fp32 checkpoint; CPU inference feasible (verified, L0.1)",
+      "checkpoint_compatibility": "direct: existing v180_sft / l03_pretrain / l04 checkpoints are drop-in continuation targets",
+      "ops_complexity": "lowest",
+      "evidence_for": "only approach compatible with zero new architecture work; matches existing verified inference stack",
+      "evidence_against": "unproven at 28.8M; interference unmeasured (no multilingual benchmark exists yet)",
+      "verdict": "PREFERRED HYPOTHESIS (not proven); consistent with all current evidence"
+    },
+    {
+      "id": "B",
+      "name": "Shared foundation + language-specific adapters",
+      "params_total": 41763456,
+      "adapter_params_total": 12976128,
+      "checkpoint_storage_bytes": 167053824,
+      "inference_memory_fp32_bytes": 118393344,
+      "training_complexity": "moderate: shared pretraining + per-language SFT; 16 adapter lifecycles to version",
+      "maintainability": "moderate: 17 artifacts (1 base + 16 adapters); rollback per adapter possible",
+      "cross_language_transfer": "partial: shared trunk transfers; adapters memorize language-specific surface forms",
+      "language_interference": "low: adapters isolate language-specific directions; dilution mostly avoided",
+      "local_deployment": "good: base + 1/16th adapter per language; adapter load adds ~1.2 MB",
+      "checkpoint_compatibility": "base reusable; adapters trained from scratch (no existing adapters)",
+      "ops_complexity": "medium: adapter registry, routing/selection at inference, per-language eval",
+      "evidence_for": "adapters are proven for parameter-efficient specialisation; inference cost barely changes",
+      "evidence_against": "routing logic needed at inference (language detection); adapters cannot fix a weak shared trunk (we have one)",
+      "verdict": "FALLBACK IF A's shared trunk shows destructive interference at scale; NOT FIRST CHOICE today"
+    },
+    {
+      "id": "C",
+      "name": "Shared foundation + language-family adapters",
+      "params_total": 35275392,
+      "adapter_params_total": 6488064,
+      "checkpoint_storage_bytes": 141101568,
+      "inference_memory_fp32_bytes": 118393344,
+      "training_complexity": "moderate: family assignment decisions (which language goes where); 8 adapters",
+      "maintainability": "good: 9 artifacts; coarser specialisation than B",
+      "cross_language_transfer": "high within family (C/C++/C#/Java transfer strongly); zero across distant families except through trunk",
+      "language_interference": "low-medium: family adapters absorb broad regularities; individual languages still diluted within family",
+      "local_deployment": "good: base + one family adapter; routing needs family detection",
+      "checkpoint_compatibility": "base reusable; family adapters trained from scratch",
+      "ops_complexity": "medium-low",
+      "evidence_for": "family granularity matches known software ecosystems (Curly-brace C-family vs scripting vs FP vs SQL)",
+      "evidence_against": "family assignment is judgement, not measurement; no family-annotated corpus exists here yet",
+      "verdict": "VIABLE VARIANT OF B; useful if B's 16 adapters are operationally heavy; not proven either"
+    },
+    {
+      "id": "D",
+      "name": "Separate per-language models",
+      "params_total": 460597248,
+      "checkpoint_storage_bytes": 1842388992,
+      "inference_memory_fp32_bytes": 115149312,
+      "training_complexity": "highest: 16 independent runs, 16 data pools, 16 eval cycles",
+      "maintainability": "poor: 16 model lifecycles; no shared capability; regression per language invisible to others",
+      "cross_language_transfer": "zero by construction",
+      "language_interference": "none (each model isolated) \u2014 the only guaranteed isolation method, at maximal cost",
+      "local_deployment": "poor: 1.84 GB total checkpoints; user must choose a model per language",
+      "checkpoint_compatibility": "none shared; each trained separately; no reuse of this repo's verified pipeline gains",
+      "ops_complexity": "highest by far",
+      "evidence_for": "only valid when interference is proven severe at A scale AND per-language data suffices (none does today)",
+      "evidence_against": "we cannot train even one competent model at 28.8M; 16 is absurd at current data/compute",
+      "verdict": "REJECTED for now; keep as documented last-resort fallback"
+    }
+  ],
+  "decision_matrix": {
+    "dimensions": [
+      "params_storage",
+      "training_complexity",
+      "inference_memory",
+      "maintenance",
+      "cross_language_transfer",
+      "interference_risk",
+      "local_deployment",
+      "checkpoint_compatibility",
+      "ops_complexity"
+    ],
+    "summary": "A wins on storage/complexity/deployment; B/C win on isolation (unproven benefit today); D dominated on cost",
+    "preference_order": [
+      "A",
+      "C",
+      "B",
+      "D"
+    ],
+    "preference_caveat": "preference is an engineering hypothesis, not a measured result; A must be validated on the multilingual benchmark before lock-in"
+  },
+  "conclusions": [
+    "do not redesign the architecture before the multilingual benchmark shows interference (unavailable data)",
+    "A is the starting point; if A fails with clear interference signatures, fall back to C before B before D",
+    "adapter strategies cannot be evaluated until a shared base demonstrates any capability at all (0/30 today)",
+    "all four options are blocked on the same resource: licensed multilingual data at scale"
+  ]
+}

@@ -1,0 +1,60 @@
+# TAKSH L0.5.1 — Multilingual training-distribution scenarios (WP4)
+#
+# All numbers are explicit, user-overridable assumptions. Defaults are
+# MEASURED facts from this repository where available, else 0_VERIFY_UNKNOWN.
+# The tool NEVER invents token counts for unmeasured languages.
+#
+# Override any value by re-running the tool with --config <your yaml>.
+schema: taksh.l051_training_scenarios/1
+created: 2026-11-11
+
+measurements:
+  python_verified_tokens_in_repo: 1590703   # data/l04_code_corpus/dataset_manifest.json (measured)
+  general_text_tokens_in_repo: 19629683     # data/l03_corpus (CC-BY-SA/PD; not code)
+  code_doc_languages_in_repo: { python: 241 } # every other language: zero in-repo code
+
+# Unique-token supply estimates per L1.0 language, with provenance. Zero here
+# means "no measured, licensed supply in-repo", NOT "impossible to license".
+uniqueness:
+  python:       { tokens: 1590703,  provenance: "measured, data/l04_code_corpus (L0.4)" }
+  javascript:   { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  typescript:   { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  c:            { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  cpp:          { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  java:         { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  csharp:       { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  go:           { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  rust:         { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  php:          { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  ruby:         { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  swift:        { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  kotlin:       { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  dart:         { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  sql:          { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+  bash:         { tokens: 0,        provenance: "unmeasured - in-repo supply is zero" }
+
+# Policy caps and floors (tokens per language per epoch, configurable)
+caps:
+  max_share: 0.40        # no language dominates > 40% of an epoch
+  min_share: 0.002       # every L1.0 language >= 0.2% of an epoch (floor)
+  max_repeat_exposure: 4 # no example seen more than 4 times per run
+
+# General-text vs code mixture targets
+mixtures:
+  l04_mixture:   { code_share: 0.50, note: "L0.4 experimental coding corpus (50/50, measured)" }
+  l03_mixture:   { code_share: 0.10, note: "L0.3 geometry: 10% code / 90% general English (measured)" }
+  code_first:    { code_share: 0.85, note: "proposed for the L1.0 multilingual coding assistant" }
+
+# Language families (for imbalance accounting)
+families:
+  c_family:     [c, cpp, csharp, go, rust, zig, odin, vlang]
+  commercial:   [java, csharp, kotlin, scala, groovy, hack]
+  scripting:    [python, javascript, typescript, ruby, php, perl, bash, lua, gdscript, mojo, micropython]
+  fp_family:    [haskell, fsharp, ocaml, elixir, erlang, clojure, lisp, gleam]
+  apple_ml:     [swift, objectivec]
+  scientific:   [r, matlab, julia, fortran, ada, prolog]
+  enterprise:   [vbnet, vba, cobol, delphi]
+  hdl:          []
+  sql_family:   [sql, plsql, tsql]
+  blockchain:   [solidity]
+  shell:        [bash, zsh, powershell]

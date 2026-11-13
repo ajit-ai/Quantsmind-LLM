@@ -1,0 +1,1129 @@
+{
+  "schema": "taksh.l051_acceptance_gates/1",
+  "generated_by": "evaluation/l051_acceptance_gates.py",
+  "frozen_python_bar": {
+    "path": "evaluation/l02_python_bench_v1.json",
+    "sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "hash_matches": true,
+    "unchanged": true,
+    "requirements": {
+      "functional_correctness": ">= 15/30 problems",
+      "syntax_valid_rate": ">= 0.80",
+      "execution_rate": ">= 0.60",
+      "category_coverage": "every A/B/C category >= 30%",
+      "repeat_consistency": "100% byte-identical greedy",
+      "safety": "zero violations"
+    }
+  },
+  "multilingual_proposed_thresholds": {
+    "functional_correctness": ">= 8/16 starter tasks per language",
+    "syntax_valid_rate": ">= 0.75",
+    "execution_rate": ">= 0.50",
+    "category_coverage": "all instantiated families >= 25% correct",
+    "repeat_consistency": "100% byte-identical greedy",
+    "safety": "zero violations",
+    "justification": "fixed before any evaluation; floor is 50% of the starter set per language; deliberately stricter than L0.5's general Python bar proportionally; cannot be lowered after seeing results"
+  },
+  "promotion_rules": [
+    "a language is promoted to 'supported' only when every gate passes on the multilingual benchmark",
+    "tokenizer success or compiler availability alone is NEVER sufficient for 'supported'",
+    "Python promotion requires the frozen benchmark pass; the multilingual bar does not replace it",
+    "demotion on any regression is mandatory",
+    "no soft claims in UI/marketing: supported = benchmark passed; else 'experimental' or 'excluded'"
+  ],
+  "gates": [
+    [
+      "tokenizer_correctness",
+      "tokenizer_audit.json",
+      "audit exists for this language; roundtrip exact on the sample"
+    ],
+    [
+      "dataset_qualification",
+      "dataset_feasibility.json",
+      "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean"
+    ],
+    [
+      "training_exposure",
+      "run_manifest.json",
+      "documented steps, tokens, mixture %, seed, final loss + val loss curve"
+    ],
+    [
+      "syntax_validity",
+      "benchmark_run.jsonl",
+      "at least 75% of generations parse under the language's own parser/compiler"
+    ],
+    [
+      "compilation_or_interpretation",
+      "benchmark_run.jsonl",
+      "at least 50% of generations execute without environment failure"
+    ],
+    [
+      "execution_success",
+      "benchmark_run.jsonl",
+      "at least 50% of generations run to completion under timeout"
+    ],
+    [
+      "functional_correctness",
+      "benchmark_run.jsonl",
+      "at least 50% of tasks pass all unit assertions"
+    ],
+    [
+      "test_coverage",
+      "benchmark_run.jsonl",
+      "every benchmark task assertion executed and recorded"
+    ],
+    [
+      "determinism",
+      "repeat_run.jsonl",
+      "100% byte-identical greedy completions across repeated runs"
+    ],
+    [
+      "safety",
+      "sandbox_log",
+      "zero sandbox escapes, zero unsafe generation incidents"
+    ]
+  ],
+  "per_language": {
+    "python": {
+      "language": "python",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "javascript": {
+      "language": "javascript",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "typescript": {
+      "language": "typescript",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "c": {
+      "language": "c",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "cpp": {
+      "language": "cpp",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "java": {
+      "language": "java",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "csharp": {
+      "language": "csharp",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "go": {
+      "language": "go",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "rust": {
+      "language": "rust",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "php": {
+      "language": "php",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "ruby": {
+      "language": "ruby",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "swift": {
+      "language": "swift",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "kotlin": {
+      "language": "kotlin",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "dart": {
+      "language": "dart",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "sql": {
+      "language": "sql",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    },
+    "bash": {
+      "language": "bash",
+      "gates": {
+        "tokenizer_correctness": {
+          "requirement": "audit exists for this language; roundtrip exact on the sample",
+          "evidence_source": "tokenizer_audit.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "dataset_qualification": {
+          "requirement": "legal review + in-repo or authorized verified corpus per slice; secrets scrubbed; leakage scan clean",
+          "evidence_source": "dataset_feasibility.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "training_exposure": {
+          "requirement": "documented steps, tokens, mixture %, seed, final loss + val loss curve",
+          "evidence_source": "run_manifest.json",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "syntax_validity": {
+          "requirement": "at least 75% of generations parse under the language's own parser/compiler",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "compilation_or_interpretation": {
+          "requirement": "at least 50% of generations execute without environment failure",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "execution_success": {
+          "requirement": "at least 50% of generations run to completion under timeout",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "functional_correctness": {
+          "requirement": "at least 50% of tasks pass all unit assertions",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "test_coverage": {
+          "requirement": "every benchmark task assertion executed and recorded",
+          "evidence_source": "benchmark_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "determinism": {
+          "requirement": "100% byte-identical greedy completions across repeated runs",
+          "evidence_source": "repeat_run.jsonl",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        },
+        "safety": {
+          "requirement": "zero sandbox escapes, zero unsafe generation incidents",
+          "evidence_source": "sandbox_log",
+          "status_today": "NOT_MET",
+          "note": "no multilingual model has been trained or evaluated; capability is unmeasured and unverified"
+        }
+      }
+    }
+  },
+  "status_today": "ALL_GATES_NOT_MET (no multilingual model has been trained or evaluated)"
+}

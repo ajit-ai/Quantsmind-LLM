@@ -1,0 +1,439 @@
+{
+  "tokenizer": {
+    "path": "tokenizer\\taksh_code_bpe_v1.json",
+    "vocab_size": 5822,
+    "specials": {
+      "<pad>": 0,
+      "<bos>": 1,
+      "<eos>": 2,
+      "<unk>": 3
+    }
+  },
+  "token_inventory": {
+    "python_keywords": {
+      "def": 1,
+      "return": 1,
+      "if": 1,
+      "elif": 2,
+      "else": 2,
+      "for": 1,
+      "while": 2,
+      "class": 1,
+      "import": 1,
+      "from": 1,
+      "as": 1,
+      "with": 1,
+      "try": 1,
+      "except": 2,
+      "finally": 2,
+      "raise": 2,
+      "assert": 1,
+      "lambda": 1,
+      "pass": 1,
+      "break": 2,
+      "continue": 2,
+      "yield": 2,
+      "global": 2,
+      "nonlocal": 2,
+      "del": 2,
+      "in": 1,
+      "is": 1,
+      "not": 1,
+      "and": 1,
+      "or": 1,
+      "None": 1,
+      "True": 1,
+      "False": 1
+    },
+    "python_builtins": {
+      "self": 1,
+      "print": 1,
+      "len": 1,
+      "range": 1,
+      "enumerate": 2,
+      "zip": 1,
+      "dict": 1,
+      "list": 1,
+      "set": 1,
+      "tuple": 1,
+      "str": 1,
+      "int": 1,
+      "float": 1,
+      "bool": 1,
+      "open": 1,
+      "sum": 1,
+      "min": 1,
+      "max": 1,
+      "abs": 1,
+      "sorted": 1,
+      "isinstance": 2,
+      "super": 2,
+      "type": 1,
+      "input": 1
+    },
+    "english_words": {
+      "the": 1,
+      "of": 1,
+      "and": 1,
+      "to": 1,
+      "in": 1,
+      "is": 1,
+      "that": 1,
+      "for": 1,
+      "on": 1,
+      "as": 1,
+      "with": 1,
+      "they": 2,
+      "at": 1,
+      "be": 1,
+      "this": 1,
+      "have": 2,
+      "from": 1,
+      "or": 1,
+      "an": 1,
+      "by": 1,
+      "not": 1,
+      "are": 1,
+      "but": 1,
+      "what": 2,
+      "all": 1,
+      "were": 2,
+      "we": 1,
+      "when": 2,
+      "your": 2,
+      "can": 1,
+      "there": 2,
+      "use": 1,
+      "each": 2,
+      "which": 1,
+      "she": 2,
+      "how": 1,
+      "their": 2,
+      "if": 1,
+      "will": 2,
+      "up": 1,
+      "other": 1,
+      "about": 2,
+      "out": 1,
+      "many": 2,
+      "then": 1,
+      "them": 2,
+      "these": 2,
+      "so": 1
+    },
+    "multi_char_operators": {
+      "==": 2,
+      "!=": 1,
+      "<=": 2,
+      ">=": 2,
+      "->": 2,
+      "**": 1,
+      "//": 1,
+      "<<": 2,
+      ">>": 2,
+      "+=": 2,
+      "-=": 2,
+      "*=": 2,
+      "/=": 2,
+      ":=": 2
+    },
+    "single_char_operators": {
+      "(": 1,
+      ")": 1,
+      "[": 1,
+      "]": 1,
+      "{": 1,
+      "}": 1,
+      ":": 1,
+      ",": 1,
+      ".": 1,
+      "+": 1,
+      "-": 1,
+      "*": 1,
+      "/": 1,
+      "%": 1,
+      "=": 1,
+      "@": 1,
+      "&": 1,
+      "|": 1,
+      "^": 1,
+      "<": 1,
+      ">": 1,
+      "!": 1
+    },
+    "single_token_rate": {
+      "python_keywords": 0.6364,
+      "python_builtins": 0.875,
+      "english_words": 0.6875,
+      "multi_char_operators": 0.2143,
+      "single_char_operators": 1.0
+    },
+    "sample_code_line_tokens": 15,
+    "sample_english_line_tokens": 21
+  },
+  "indentation": {
+    "4 spaces": {
+      "ids": [
+        261
+      ],
+      "n_tokens": 1,
+      "pieces": [
+        "    "
+      ]
+    },
+    "8 spaces": {
+      "ids": [
+        322
+      ],
+      "n_tokens": 1,
+      "pieces": [
+        "        "
+      ]
+    },
+    "tab": {
+      "ids": [
+        201
+      ],
+      "n_tokens": 1,
+      "pieces": [
+        "\t"
+      ]
+    },
+    "4sp+x": {
+      "ids": [
+        263,
+        1090
+      ],
+      "n_tokens": 2,
+      "pieces": [
+        "   ",
+        " x"
+      ]
+    },
+    "4sp+if": {
+      "ids": [
+        263,
+        317
+      ],
+      "n_tokens": 2,
+      "pieces": [
+        "   ",
+        " if"
+      ]
+    }
+  },
+  "mix_l03_train": {
+    "documents": {
+      "general": 9119,
+      "code": 381
+    },
+    "chars": {
+      "general": 46901765,
+      "code": 5268919
+    },
+    "document_share": {
+      "general": 0.9599,
+      "code": 0.0401
+    },
+    "char_share": {
+      "general": 0.899,
+      "code": 0.101
+    }
+  },
+  "identifiers_l03_code": {
+    "identifiers_sampled": 427874,
+    "avg_identifier_chars": 6.675,
+    "avg_tokens_per_identifier": 1.966,
+    "fraction_single_token": 0.553,
+    "fraction_three_plus_token": 0.2485
+  },
+  "documents_l03_code": {
+    "code_documents": 381,
+    "chars": {
+      "min": 221,
+      "median": 7872,
+      "max": 259429,
+      "mean": 13829.2
+    },
+    "tokens": {
+      "min": 77,
+      "median": 2327,
+      "p90": 8551,
+      "max": 75326,
+      "mean": 4199.3
+    },
+    "documents_over_512_tokens": 350,
+    "documents_over_2048_tokens": 214,
+    "python_parseable_docs": "190/381"
+  },
+  "separators_l03_train": {
+    "tokens_total": 19629683,
+    "eos_count": 9537,
+    "eos_fraction": 0.000486,
+    "eos_per_document": 1.0039,
+    "first_id": 339,
+    "last_id": 680
+  },
+  "code_syntax_parse": {
+    "parseable": 190,
+    "total": 381
+  },
+  "model_probes": {
+    "code_eval": {
+      "prompt_tokens": 28,
+      "next_token_entropy_nats": 5.1392,
+      "top1_prob": 0.1909,
+      "top8": [
+        {
+          "token": "_",
+          "p": 0.1909
+        },
+        {
+          "token": ".",
+          "p": 0.061
+        },
+        {
+          "token": "\n",
+          "p": 0.0399
+        },
+        {
+          "token": "(",
+          "p": 0.0396
+        },
+        {
+          "token": ":",
+          "p": 0.0382
+        },
+        {
+          "token": " =",
+          "p": 0.0318
+        },
+        {
+          "token": "\",",
+          "p": 0.0272
+        },
+        {
+          "token": ",",
+          "p": 0.0213
+        }
+      ]
+    },
+    "code_def": {
+      "prompt_tokens": 13,
+      "next_token_entropy_nats": 5.7575,
+      "top1_prob": 0.0384,
+      "top8": [
+        {
+          "token": "ar",
+          "p": 0.0384
+        },
+        {
+          "token": "ent",
+          "p": 0.0293
+        },
+        {
+          "token": "er",
+          "p": 0.0287
+        },
+        {
+          "token": "an",
+          "p": 0.0252
+        },
+        {
+          "token": "or",
+          "p": 0.0207
+        },
+        {
+          "token": ".",
+          "p": 0.0203
+        },
+        {
+          "token": "ill",
+          "p": 0.0193
+        },
+        {
+          "token": "ra",
+          "p": 0.0189
+        }
+      ]
+    },
+    "english_general": {
+      "prompt_tokens": 17,
+      "next_token_entropy_nats": 5.2326,
+      "top1_prob": 0.1358,
+      "top8": [
+        {
+          "token": " the",
+          "p": 0.1358
+        },
+        {
+          "token": " a",
+          "p": 0.0555
+        },
+        {
+          "token": " be",
+          "p": 0.0374
+        },
+        {
+          "token": " h",
+          "p": 0.0241
+        },
+        {
+          "token": " he",
+          "p": 0.0201
+        },
+        {
+          "token": " in",
+          "p": 0.0188
+        },
+        {
+          "token": " it",
+          "p": 0.0187
+        },
+        {
+          "token": " not",
+          "p": 0.0163
+        }
+      ]
+    },
+    "english_econ": {
+      "prompt_tokens": 23,
+      "next_token_entropy_nats": 5.5694,
+      "top1_prob": 0.0834,
+      "top8": [
+        {
+          "token": " the",
+          "p": 0.0834
+        },
+        {
+          "token": " a",
+          "p": 0.0503
+        },
+        {
+          "token": " in",
+          "p": 0.0301
+        },
+        {
+          "token": " to",
+          "p": 0.0244
+        },
+        {
+          "token": " be",
+          "p": 0.023
+        },
+        {
+          "token": " by",
+          "p": 0.0202
+        },
+        {
+          "token": " h",
+          "p": 0.0177
+        },
+        {
+          "token": " s",
+          "p": 0.015
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,611 @@
+{
+  "tokenizer": {
+    "path": "tokenizer/taksh_code_bpe_v1.json",
+    "vocab_size": 5822,
+    "specials": {
+      "<pad>": 0,
+      "<bos>": 1,
+      "<eos>": 2,
+      "<unk>": 3
+    }
+  },
+  "programs": [
+    {
+      "name": "trivial_function",
+      "chars": 32,
+      "tokens": 14,
+      "tokens_per_char": 0.4375,
+      "decode_roundtrip_exact": true,
+      "first_ids": [
+        350,
+        1007,
+        11,
+        68,
+        15,
+        321,
+        394,
+        202,
+        263,
+        337,
+        302,
+        438
+      ],
+      "token_stream_preview": [
+        "def",
+        " add",
+        "(",
+        "a",
+        ",",
+        " b",
+        "):",
+        "\n",
+        "   ",
+        " return",
+        " a",
+        " +",
+        " b",
+        "\n"
+      ]
+    },
+    {
+      "name": "loop_and_condition",
+      "chars": 132,
+      "tokens": 44,
+      "tokens_per_char": 0.3333,
+      "decode_roundtrip_exact": true,
+      "first_ids": [
+        350,
+        977,
+        66,
+        4722,
+        11,
+        474,
+        394,
+        202,
+        263,
+        977,
+        277,
+        416
+      ],
+      "token_stream_preview": [
+        "def",
+        " count",
+        "_",
+        "vowels",
+        "(",
+        "text",
+        "):",
+        "\n",
+        "   ",
+        " count",
+        " =",
+        " 0",
+        "\n",
+        "   ",
+        " for",
+        " ch",
+        " in",
+        " text",
+        ":",
+        "\n",
+        "       ",
+        " if",
+        " ch",
+        "."
+      ]
+    },
+    {
+      "name": "class_with_method",
+      "chars": 135,
+      "tokens": 42,
+      "tokens_per_char": 0.3111,
+      "decode_roundtrip_exact": true,
+      "first_ids": [
+        804,
+        2646,
+        29,
+        202,
+        263,
+        502,
+        777,
+        1241,
+        1740,
+        589,
+        394,
+        202
+      ],
+      "token_stream_preview": [
+        "class",
+        " Counter",
+        ":",
+        "\n",
+        "   ",
+        " def",
+        " __",
+        "init",
+        "__(",
+        "self",
+        "):",
+        "\n",
+        "       ",
+        " self",
+        ".",
+        "total",
+        " =",
+        " 0",
+        "\n",
+        "\n",
+        "   ",
+        " def",
+        " add",
+        "("
+      ]
+    },
+    {
+      "name": "list_comprehension",
+      "chars": 70,
+      "tokens": 26,
+      "tokens_per_char": 0.3714,
+      "decode_roundtrip_exact": true,
+      "first_ids": [
+        350,
+        305,
+        485,
+        3958,
+        11,
+        1013,
+        394,
+        202,
+        263,
+        337,
+        410,
+        89
+      ],
+      "token_stream_preview": [
+        "def",
+        " s",
+        "qu",
+        "ares",
+        "(",
+        "values",
+        "):",
+        "\n",
+        "   ",
+        " return",
+        " [",
+        "v",
+        " *",
+        " v",
+        " for",
+        " v",
+        " in",
+        " values",
+        " if",
+        " v",
+        " %",
+        " 2",
+        " ==",
+        " 0"
+      ]
+    },
+    {
+      "name": "exception_handling",
+      "chars": 98,
+      "tokens": 33,
+      "tokens_per_char": 0.3367,
+      "decode_roundtrip_exact": true,
+      "first_ids": [
+        350,
+        5771,
+        11,
+        68,
+        15,
+        321,
+        394,
+        202,
+        263,
+        934,
+        29,
+        202
+      ],
+      "token_stream_preview": [
+        "def",
+        " divide",
+        "(",
+        "a",
+        ",",
+        " b",
+        "):",
+        "\n",
+        "   ",
+        " try",
+        ":",
+        "\n",
+        "       ",
+        " return",
+        " a",
+        " /",
+        " b",
+        "\n",
+        "   ",
+        " except",
+        " ",
+        "Z",
+        "er",
+        "o"
+      ]
+    }
+  ],
+  "key_token_ids": {
+    "def": {
+      "ids": [
+        350
+      ],
+      "n_tokens": 1
+    },
+    "return": {
+      "ids": [
+        1644
+      ],
+      "n_tokens": 1
+    },
+    "if": {
+      "ids": [
+        400
+      ],
+      "n_tokens": 1
+    },
+    "elif": {
+      "ids": [
+        515,
+        400
+      ],
+      "n_tokens": 2
+    },
+    "else": {
+      "ids": [
+        515,
+        272
+      ],
+      "n_tokens": 2
+    },
+    "for": {
+      "ids": [
+        1284
+      ],
+      "n_tokens": 1
+    },
+    "while": {
+      "ids": [
+        3492,
+        817
+      ],
+      "n_tokens": 2
+    },
+    "class": {
+      "ids": [
+        804
+      ],
+      "n_tokens": 1
+    },
+    "import": {
+      "ids": [
+        607
+      ],
+      "n_tokens": 1
+    },
+    "from": {
+      "ids": [
+        496
+      ],
+      "n_tokens": 1
+    },
+    "try": {
+      "ids": [
+        2853
+      ],
+      "n_tokens": 1
+    },
+    "except": {
+      "ids": [
+        297,
+        833
+      ],
+      "n_tokens": 2
+    },
+    "raise": {
+      "ids": [
+        313,
+        569
+      ],
+      "n_tokens": 2
+    },
+    "with": {
+      "ids": [
+        1276
+      ],
+      "n_tokens": 1
+    },
+    "as": {
+      "ids": [
+        325
+      ],
+      "n_tokens": 1
+    },
+    "in": {
+      "ids": [
+        265
+      ],
+      "n_tokens": 1
+    },
+    "is": {
+      "ids": [
+        369
+      ],
+      "n_tokens": 1
+    },
+    "not": {
+      "ids": [
+        630
+      ],
+      "n_tokens": 1
+    },
+    "and": {
+      "ids": [
+        339
+      ],
+      "n_tokens": 1
+    },
+    "or": {
+      "ids": [
+        271
+      ],
+      "n_tokens": 1
+    },
+    "self": {
+      "ids": [
+        589
+      ],
+      "n_tokens": 1
+    },
+    "__init__": {
+      "ids": [
+        477,
+        1241,
+        477
+      ],
+      "n_tokens": 3
+    },
+    "print": {
+      "ids": [
+        2199
+      ],
+      "n_tokens": 1
+    }
+  },
+  "indentation": {
+    "1 level": {
+      "ids": [
+        261
+      ],
+      "n_tokens": 1
+    },
+    "2 levels": {
+      "ids": [
+        322
+      ],
+      "n_tokens": 1
+    },
+    "3 levels": {
+      "ids": [
+        1382
+      ],
+      "n_tokens": 1
+    },
+    "4 levels": {
+      "ids": [
+        579
+      ],
+      "n_tokens": 1
+    },
+    "tab": {
+      "ids": [
+        201
+      ],
+      "n_tokens": 1
+    }
+  },
+  "punctuation": {
+    "(": {
+      "ids": [
+        11
+      ],
+      "n_tokens": 1
+    },
+    ")": {
+      "ids": [
+        12
+      ],
+      "n_tokens": 1
+    },
+    "[": {
+      "ids": [
+        62
+      ],
+      "n_tokens": 1
+    },
+    "]": {
+      "ids": [
+        64
+      ],
+      "n_tokens": 1
+    },
+    "{": {
+      "ids": [
+        94
+      ],
+      "n_tokens": 1
+    },
+    "}": {
+      "ids": [
+        96
+      ],
+      "n_tokens": 1
+    },
+    ":": {
+      "ids": [
+        29
+      ],
+      "n_tokens": 1
+    },
+    ",": {
+      "ids": [
+        15
+      ],
+      "n_tokens": 1
+    },
+    ".": {
+      "ids": [
+        17
+      ],
+      "n_tokens": 1
+    },
+    "+": {
+      "ids": [
+        14
+      ],
+      "n_tokens": 1
+    },
+    "-": {
+      "ids": [
+        16
+      ],
+      "n_tokens": 1
+    },
+    "*": {
+      "ids": [
+        13
+      ],
+      "n_tokens": 1
+    },
+    "/": {
+      "ids": [
+        18
+      ],
+      "n_tokens": 1
+    },
+    "%": {
+      "ids": [
+        8
+      ],
+      "n_tokens": 1
+    },
+    "=": {
+      "ids": [
+        32
+      ],
+      "n_tokens": 1
+    },
+    "==": {
+      "ids": [
+        32,
+        32
+      ],
+      "n_tokens": 2
+    },
+    "!=": {
+      "ids": [
+        907
+      ],
+      "n_tokens": 1
+    },
+    "<": {
+      "ids": [
+        31
+      ],
+      "n_tokens": 1
+    },
+    ">": {
+      "ids": [
+        33
+      ],
+      "n_tokens": 1
+    },
+    "<=": {
+      "ids": [
+        31,
+        32
+      ],
+      "n_tokens": 2
+    },
+    ">=": {
+      "ids": [
+        33,
+        32
+      ],
+      "n_tokens": 2
+    },
+    "->": {
+      "ids": [
+        16,
+        33
+      ],
+      "n_tokens": 2
+    },
+    "::": {
+      "ids": [
+        29,
+        29
+      ],
+      "n_tokens": 2
+    },
+    "**": {
+      "ids": [
+        1058
+      ],
+      "n_tokens": 1
+    },
+    "//": {
+      "ids": [
+        4207
+      ],
+      "n_tokens": 1
+    },
+    "+=": {
+      "ids": [
+        14,
+        32
+      ],
+      "n_tokens": 2
+    },
+    "-=": {
+      "ids": [
+        16,
+        32
+      ],
+      "n_tokens": 2
+    },
+    "@": {
+      "ids": [
+        35
+      ],
+      "n_tokens": 1
+    }
+  },
+  "packing": {
+    "l03_code_docs": 381,
+    "l03_code_docs_over_512": 350,
+    "l03_code_docs_over_2048": 214,
+    "l04_code_val_tokens": 320388,
+    "note": "code documents are far longer than seq_len 512; windows split functions across boundaries; the model rarely observes a complete function in one window at seq_len=512"
+  },
+  "conclusions": [
+    "17/23 Python keywords/identifiers are single tokens (self/__init__/print included).",
+    "21/28 single- and multi-char punctuation marks are single tokens.",
+    "Indentation is perfectly single-token at all four levels and tab.",
+    "Decode roundtrip on representative programs is byte-exact: True.",
+    "Tokenizer is adequate for code at the syntax level; fragmentation is concentrated in longer identifiers (56% single-token, avg 2.0 pieces/identifier) and in multi-char operators (e.g. '==' is two tokens).",
+    "Bottleneck identified: not the tokenizer. The material gap is code-token share (L0.3: 10%; L0.4: 50%) and windowing (92% of code docs exceed seq_len 512).",
+    "Migration to a new tokenizer is NOT justified by current evidence; any change would invalidate existing checkpoints and is explicitly out of scope."
+  ]
+}

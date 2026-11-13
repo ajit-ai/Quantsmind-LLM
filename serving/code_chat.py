@@ -113,9 +113,9 @@ def main():
     from tokenizers import Tokenizer
     tokenizer = Tokenizer.from_file(args.tokenizer)
 
-    print(f"Starting Taksh Coder on http://localhost:{args.port}")
+    print(f"Starting Taksh Coder on http://127.0.0.1:{args.port}")
     ui = create_code_chat_ui(model, tokenizer, device)
-    ui.launch(server_name="0.0.0.0", server_port=args.port)
+    ui.launch(server_name="127.0.0.1", server_port=args.port, share=False)
 
 
 if __name__ == "__main__":

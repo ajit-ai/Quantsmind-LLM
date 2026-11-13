@@ -1,0 +1,791 @@
+# TAKSH L0.5.1 — Multilingual language registry (53 languages)
+#
+# Single source of truth for the long-term language catalogue. The initial
+# L1.0 target is exactly 16 languages (marked l1_target: true). All other
+# languages are roadmap items with explicit qualification status.
+#
+# Supporting technologies (markup/config/HDL/etc.) are deliberately kept
+# separate from the 53 general-purpose programming languages: they are tracked
+# in `supporting_technologies` below and do NOT count towards the 53.
+#
+# Validation rules enforced by evaluation/l051_language_registry.py:
+#   * unique language ids
+#   * category in the allowed set
+#   * exactly 16 L1.0 targets
+#   * required fields present
+#   * supporting_technologies entries never appear in `languages`
+
+schema: taksh.l051_languages/1
+created: 2026-11-11
+
+categories:
+  l1_target: "L1.0 initial target (16 languages)"
+  enterprise: "Enterprise, business and legacy"
+  scientific: "Scientific, mathematical and functional"
+  systems: "Systems, embedded, games and blockchain"
+  emerging: "Emerging and specialist"
+
+languages:
+  - id: python
+    name: Python
+    category: l1_target
+    l1_target: true
+    extensions: [".py", ".pyw", ".pyi"]
+    runtime: "CPython 3.x (reference: 3.14.7 in this environment)"
+    ecosystem: "pip / PyPI; venv; pytest; django/flask/FastAPI; numpy/pandas"
+    execution_requirements: "interpreter; no build step; sqlite3 via stdlib"
+    execution_available_here: true
+    tokenizer_status: "audited-L0.4"
+    dataset_status: "qualified-in-repo (1.59M tokens, L0.4)"
+    benchmark_status: "frozen-l02-bench (30 problems, 0/30 for all checkpoints)"
+    limitations: "whitespace-significant; indentation is single-token in shipped tokenizer"
+
+  - id: javascript
+    name: JavaScript
+    category: l1_target
+    l1_target: true
+    extensions: [".js", ".mjs", ".cjs"]
+    runtime: "Node.js v24.18.1 (this environment)"
+    ecosystem: "npm; vitest/jest; browsers; deno/bun"
+    execution_requirements: "interpreter; node runtime"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo (no licensed corpus)"
+    benchmark_status: "not-yet-specified"
+    limitations: "prototype semantics; dynamic typing; ASI rules"
+
+  - id: typescript
+    name: TypeScript
+    category: l1_target
+    l1_target: true
+    extensions: [".ts", ".tsx", ".d.ts"]
+    runtime: "Node.js type stripping (experimental, this environment); tsc not installed"
+    ecosystem: "tsc; ts-node; vitest; next.js/angular"
+    execution_requirements: "interpreter for stripped types; full projects need tsc (not installed)"
+    execution_available_here: "limited-node-type-stripping"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "static types over JS; structural typing; no full compiler available locally"
+
+  - id: c
+    name: C
+    category: l1_target
+    l1_target: true
+    extensions: [".c", ".h"]
+    runtime: "MSVC 19.44.35229 / gcc / clang (this environment: MSVC only, via vsdevcmd)"
+    ecosystem: "MSBuild; make; cmake; vcpkg"
+    execution_requirements: "compiler; links against CRT; vsdevcmd environment required"
+    execution_available_here: "msvc-only"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "manual memory management; pointers; UB is lexically invisible"
+
+  - id: cpp
+    name: C++
+    category: l1_target
+    l1_target: true
+    extensions: [".cc", ".cpp", ".cxx", ".hpp", ".hh", ".hxx"]
+    runtime: "MSVC 19.44.35229 / gcc / clang (this environment: MSVC only)"
+    ecosystem: "MSBuild; cmake; conan; vcpkg"
+    execution_requirements: "compiler; vsdevcmd environment required"
+    execution_available_here: "msvc-only"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "templates; RAII; overload resolution; ODR subtleties"
+
+  - id: java
+    name: Java
+    category: l1_target
+    l1_target: true
+    extensions: [".java"]
+    runtime: "OpenJDK 21.0.2 LTS (this environment)"
+    ecosystem: "Maven/Gradle; Spring; JUnit; JVM bytecode"
+    execution_requirements: "JDK compiler+runtime"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "verbose; exceptions; generics erasure"
+
+  - id: csharp
+    name: C#
+    category: l1_target
+    l1_target: true
+    extensions: [".cs"]
+    runtime: ".NET 10.0.400 (this environment)"
+    ecosystem: "dotnet CLI; NuGet; ASP.NET; xunit/NUnit"
+    execution_requirements: "dotnet SDK + runtime (net10.0)"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: ".NET ecosystem tie-in; LINQ; async/await"
+
+  - id: go
+    name: Go
+    category: l1_target
+    l1_target: true
+    extensions: [".go"]
+    runtime: "Go 1.27.0 (this environment)"
+    ecosystem: "go modules; stdlib; go test"
+    execution_requirements: "Go toolchain"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "simplicity by design; interfaces; goroutines"
+
+  - id: rust
+    name: Rust
+    category: l1_target
+    l1_target: true
+    extensions: [".rs"]
+    runtime: "Rust 1.98.0 (this environment: ~/.cargo/bin)"
+    ecosystem: "cargo; crates.io; ownership/borrow checker"
+    execution_requirements: "rustc/cargo; long compile times for large crates"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "ownership/borrowing; lifetimes; macro system"
+
+  - id: php
+    name: PHP
+    category: l1_target
+    l1_target: true
+    extensions: [".php", ".phtml"]
+    runtime: "not available in this environment"
+    ecosystem: "Composer; WordPress; Laravel/Symfony; PHPUnit"
+    execution_requirements: "PHP CLI runtime"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "web heritage; dynamic typing; mixed HTML templates"
+
+  - id: ruby
+    name: Ruby
+    category: l1_target
+    l1_target: true
+    extensions: [".rb", ".rake", ".gemspec"]
+    runtime: "not available in this environment"
+    ecosystem: "RubyGems; bundler; Rails; RSpec"
+    execution_requirements: "Ruby interpreter"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "dynamic typing; metaprogramming; DSLs"
+
+  - id: swift
+    name: Swift
+    category: l1_target
+    l1_target: true
+    extensions: [".swift"]
+    runtime: "not available in this environment"
+    ecosystem: "Xcode/SwiftPM; Apple ecosystem; Vapor"
+    execution_requirements: "Swift toolchain (Apple platforms or Linux)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Apple ecosystem tie-in; protocol-oriented design; ARC"
+
+  - id: kotlin
+    name: Kotlin
+    category: l1_target
+    l1_target: true
+    extensions: [".kt", ".kts"]
+    runtime: "kotlinc-jvm 2.2.10 + JRE 21.0.2 (this environment)"
+    ecosystem: "Gradle/Maven; Android Studio; kotlinx; Kotest/JUnit"
+    execution_requirements: "JDK + kotlinc (JVM target; Native/JS targets exist)"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "JVM semantics; null safety; coroutines"
+
+  - id: dart
+    name: Dart
+    category: l1_target
+    l1_target: true
+    extensions: [".dart"]
+    runtime: "not available in this environment"
+    ecosystem: "pub; Flutter (mobile/desktop/web); dart test"
+    execution_requirements: "Dart SDK (or Flutter SDK)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Flutter gravity; async-first; sound null safety"
+
+  - id: sql
+    name: SQL
+    category: l1_target
+    l1_target: true
+    extensions: [".sql"]
+    runtime: "SQLite 3.50.4 via Python sqlite3 module (this environment)"
+    ecosystem: "psql/mysql/sqlite; dbt; migration tools"
+    execution_requirements: "DBMS runtime or embedded engine; dialects diverge (dialect-specific audits)"
+    execution_available_here: "sqlite-only"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "declarative; dialect fragmentation (SQLite/T-SQL/PL-SQL/MySQL/Postgres); beyond-stdlib concerns"
+
+  - id: bash
+    name: Bash
+    category: l1_target
+    l1_target: true
+    extensions: [".sh", ".bash"]
+    runtime: "Git Bash 5.2.37 (this environment); WSL unavailable"
+    ecosystem: "coreutils; curl; sed/awk; make"
+    execution_requirements: "bash interpreter; POSIX userland varies by host"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "significant dependencies on userland; quoting pitfalls"
+
+  - id: vbnet
+    name: Visual Basic .NET
+    category: enterprise
+    l1_target: false
+    extensions: [".vb"]
+    runtime: ".NET 10.0.400 (this environment: VB.NET compiler ships with SDK)"
+    ecosystem: "dotnet CLI; WinForms/WPF; legacy enterprise"
+    execution_requirements: "dotnet SDK"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "legacy enterprise gravity; verbosity"
+
+  - id: vba
+    name: VBA
+    category: enterprise
+    l1_target: false
+    extensions: [".bas", ".cls"]
+    runtime: "Microsoft Office (not available in this environment)"
+    ecosystem: "Excel/Access/Word macros; COM"
+    execution_requirements: "Office application host (Windows-only)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Office-hosted; no portable runtime; heavy legacy dats"
+
+  - id: cobol
+    name: COBOL
+    category: enterprise
+    l1_target: false
+    extensions: [".cbl", ".cob", ".cpy"]
+    runtime: "GnuCOBOL not available in this environment"
+    ecosystem: "IBM mainframe (z/OS); CICS/IMS; banking/government"
+    execution_requirements: "GnuCOBOL (cobc) or mainframe toolchain"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "verbatim legacy corpora scarce; fixed-format variants; EBCDIC vs ASCII"
+
+  - id: fortran
+    name: Fortran
+    category: enterprise
+    l1_target: false
+    extensions: [".f", ".f90", ".f95", ".f03", ".f08"]
+    runtime: "MSVC-adjacent gfortran not available; LLVM flang not available"
+    ecosystem: "netlib; LAPACK/BLAS; HPC compilers"
+    execution_requirements: "gfortran/flang or Intel/NVIDIA HPC compilers"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "fixed vs free form; legacy scientific codebases"
+
+  - id: delphi
+    name: Delphi / Object Pascal
+    category: enterprise
+    l1_target: false
+    extensions: [".pas", ".dpk", ".dproj"]
+    runtime: "Free Pascal 3.2.2 not available in this environment"
+    ecosystem: "Embarcadero RAD Studio; Lazarus/FPC; VCL"
+    execution_requirements: "Free Pascal (fpclaz) or Embarcadero compiler"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "proprietary Embarcadero; RAD legacy; strong typing"
+
+  - id: perl
+    name: Perl
+    category: enterprise
+    l1_target: false
+    extensions: [".pl", ".pm", ".t"]
+    runtime: "not available in this environment"
+    ecosystem: "CPAN; text processing; legacy sysadmin"
+    execution_requirements: "Perl 5/7 runtime"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "line noise reputation; TIMTOWTDI; CPAN licensing heterogeneity"
+
+  - id: groovy
+    name: Groovy
+    category: enterprise
+    l1_target: false
+    extensions: [".groovy", ".gvy", ".gradle"]
+    runtime: "Groovy 5.x not available; Gradle bundles its own Groovy"
+    ecosystem: "Gradle/Maven; Jenkins pipelines; Spring"
+    execution_requirements: "JVM + groovy jar"
+    execution_available_here: "gradle-bundled-only"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "JVM scripting flavor; DSL-heavy usage"
+
+  - id: scala
+    name: Scala
+    category: enterprise
+    l1_target: false
+    extensions: [".scala", ".sc"]
+    runtime: "Scala 3.x not available; sbt not available"
+    ecosystem: "sbt/maven; Akka; Spark; type safety"
+    execution_requirements: "JVM + scala compiler/sbt or scala-cli"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "powerful type system; implicits/givens; FP/OO duality"
+
+  - id: objectivec
+    name: Objective-C
+    category: enterprise
+    l1_target: false
+    extensions: [".m", ".mm", ".h"]
+    runtime: "Apple toolchain (not available in this environment)"
+    ecosystem: "Cocoa/AppKit/UIKit; Xcode"
+    execution_requirements: "Apple platforms only"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Apple platforms only; message-passing syntax; legacy iOS/macOS"
+
+  - id: assembly
+    name: Assembly
+    category: enterprise
+    l1_target: false
+    extensions: [".asm", ".s"]
+    runtime: "MSVC ml64/as far as available; ml.exe status unknown"
+    ecosystem: "MSVC ml64; NASM/GNU as; MASM"
+    execution_requirements: "assembler + linker; architecture-specific"
+    execution_available_here: "msvc-ml-unverified"
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "architecture-specific (x86/x64/ARM); readable only with training"
+
+  - id: plsql
+    name: PL/SQL
+    category: enterprise
+    l1_target: false
+    extensions: [".pls", ".pck", ".pks", ".pkb", ".fnc", ".trg"]
+    runtime: "Oracle Database client (not available in this environment)"
+    ecosystem: "Oracle DB; SQL*Plus; Oracle APEX"
+    execution_requirements: "Oracle Database runtime + client"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Oracle-specific dialect; embedded SQL+PL; huge legacy codebases"
+
+  - id: tsql
+    name: T-SQL
+    category: enterprise
+    l1_target: false
+    extensions: [".sql", ".tsql"]
+    runtime: "SQL Server Express LocalDB not available; sqlite3 incompatible dialect"
+    ecosystem: "SQL Server; SSMS; Azure SQL; mssql-tools"
+    execution_requirements: "SQL Server or Azure SQL"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "proprietary Microsoft dialect; DDL/procs-heavy corpus; sqlite cannot emulate"
+
+  - id: r
+    name: R
+    category: scientific
+    l1_target: false
+    extensions: [".r", ".R", ".Rmd"]
+    runtime: "R 4.x not available in this environment"
+    ecosystem: "CRAN; tidyverse; RStudio/Shiny"
+    execution_requirements: "R interpreter; CRAN packages"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "statistics-first; lazy evaluation; S3/R6 classes"
+
+  - id: matlab
+    name: MATLAB
+    category: scientific
+    l1_target: false
+    extensions: [".m"]
+    runtime: "MATLAB not available (proprietary); GNU Octave not available"
+    ecosystem: "MathWorks toolboxes; Simulink"
+    execution_requirements: "MATLAB or Octave license"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "proprietary; Octave divergence; .m collision with Objective-C"
+
+  - id: julia
+    name: Julia
+    category: scientific
+    l1_target: false
+    extensions: [".jl"]
+    runtime: "Julia not available in this environment"
+    ecosystem: "Pkg; multiple dispatch; DifferentialEquations"
+    execution_requirements: "Julia runtime (expensive first-call JIT)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "JIT warmup; multiple dispatch; package precompilation"
+
+  - id: haskell
+    name: Haskell
+    category: scientific
+    l1_target: false
+    extensions: [".hs", ".lhs"]
+    runtime: "GHC not available in this environment"
+    ecosystem: "Stack/Cabal; Hackage; pure FP"
+    execution_requirements: "GHC compiler (large downloads)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "strong FP; lazy evaluation; monads; type inference"
+
+  - id: fsharp
+    name: F#
+    category: scientific
+    l1_target: false
+    extensions: [".fs", ".fsx", ".fsi"]
+    runtime: ".NET 10.0.400 (this environment: F# compiler ships with SDK)"
+    ecosystem: "dotnet CLI; Paket; type providers; FAKE"
+    execution_requirements: "dotnet SDK"
+    execution_available_here: true
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "functional-first; pipelines; .NET ecosystem ties"
+
+  - id: ocaml
+    name: OCaml
+    category: scientific
+    l1_target: false
+    extensions: [".ml", ".mli"]
+    runtime: "OCaml/flambda not available in this environment"
+    ecosystem: "opam; Dune; strong static typing"
+    execution_requirements: "OCaml toolchain"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "module system; functors; camlp4 tooling remnants"
+
+  - id: elixir
+    name: Elixir
+    category: scientific
+    l1_target: false
+    extensions: [".ex", ".exs"]
+    runtime: "Elixir not available; BEAM (erlang) also missing"
+    ecosystem: "Mix; Hex; Phoenix; OTP"
+    execution_requirements: "Erlang OTP + Elixir"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "BEAM/OTP heritage; metaprogramming; actor model"
+
+  - id: erlang
+    name: Erlang
+    category: scientific
+    l1_target: false
+    extensions: [".erl", ".hrl"]
+    runtime: "Erlang/OTP not available in this environment"
+    ecosystem: "rebar3; OTP; telecom-grade concurrency"
+    execution_requirements: "Erlang/OTP runtime"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "BEAM VM; actor model; tail recursion; hot code loading"
+
+  - id: clojure
+    name: Clojure
+    category: scientific
+    l1_target: false
+    extensions: [".clj", ".cljs", ".cljc", ".edn"]
+    runtime: "Clojure JVM not available; clj not available"
+    ecosystem: "Leiningen/tools.deps; Rich Hickey's FP Lisp"
+    execution_requirements: "JVM + clojure jar or clj CLI"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Lisp syntax; immutability-by-default; JVM host"
+
+  - id: lisp
+    name: Lisp / Scheme
+    category: scientific
+    l1_target: false
+    extensions: [".lisp", ".scm", ".lsp", ".rkt"]
+    runtime: "SBCL/Racket not available in this environment"
+    ecosystem: "SBCL; Guile; Racket; Common Lisp"
+    execution_requirements: "CL/Scheme/Racket implementation"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "macro system; parentheses readability; dialect fragmentation"
+
+  - id: zig
+    name: Zig
+    category: systems
+    l1_target: false
+    extensions: [".zig"]
+    runtime: "Zig not available in this environment"
+    ecosystem: "build.zig; C interop by design"
+    execution_requirements: "Zig compiler"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "explicit memory; comptime; C interoperability"
+
+  - id: ada
+    name: Ada
+    category: systems
+    l1_target: false
+    extensions: [".adb", ".ads"]
+    runtime: "GNAT not available in this environment"
+    ecosystem: "GNAT; SPARK; AdaCore; DO-178C avionics"
+    execution_requirements: "GNAT toolchain (FSL/GM78)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "safety-critical niches; strong typing; contracts"
+
+  - id: lua
+    name: Lua
+    category: systems
+    l1_target: false
+    extensions: [".lua"]
+    runtime: "Lua not available in this environment"
+    ecosystem: "lua/luajit; Neovim plugins; game scripting (Roblox)"
+    execution_requirements: "lua or luajit interpreter"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "embedded scripting gravity; 1-indexed tables; JIT divergence"
+
+  - id: solidity
+    name: Solidity
+    category: systems
+    l1_target: false
+    extensions: [".sol"]
+    runtime: "solc not available in this environment"
+    ecosystem: "Ethereum; Hardhat/Foundry; EVM"
+    execution_requirements: "solc compiler + EVM client or remix"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "EVM semantics; gas costs; security-critical (audits required)"
+
+  - id: gdscript
+    name: GDScript
+    category: systems
+    l1_target: false
+    extensions: [".gd"]
+    runtime: "Godot not available in this environment"
+    ecosystem: "Godot engine; game projects"
+    execution_requirements: "Godot 4 runtime/editor"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Godot-specific; engine API coupling; game-jam corpora"
+
+  - id: mojo
+    name: Mojo
+    category: systems
+    l1_target: false
+    extensions: [".mojo"]
+    runtime: "Mojo SDK not available in this environment"
+    ecosystem: "Modular MAX; Python-superset ambitions"
+    execution_requirements: "Mojo toolchain (early access)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "young language; breaking changes; small corpus"
+
+  - id: micropython
+    name: MicroPython
+    category: systems
+    l1_target: false
+    extensions: [".py"]
+    runtime: "micropython not available in this environment"
+    ecosystem: "Microcontrollers (ESP32/RP2040); WebREPL"
+    execution_requirements: "micropython firmware or Unix port"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "hardware-target gravity; stdlib subset; .py collision with Python"
+
+  - id: prolog
+    name: Prolog
+    category: systems
+    l1_target: false
+    extensions: [".pl", ".pro"]
+    runtime: "SWI-Prolog not available in this environment"
+    ecosystem: "SWI-Prolog; logic programming; constraint solving"
+    execution_requirements: "Prolog runtime (SWI/GNU-Prolog)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "declarative; unification; cut (!); .pl collision with Perl"
+
+  - id: nim
+    name: Nim
+    category: systems
+    l1_target: false
+    extensions: [".nim", ".nims"]
+    runtime: "Nim not available in this environment"
+    ecosystem: "nimble; systems compiles-to-C; Python-lookalike"
+    execution_requirements: "Nim compiler (usually requires C toolchain)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "small corpus; macro system; GC vs ARC tradeoffs"
+
+  - id: crystal
+    name: Crystal
+    category: systems
+    l1_target: false
+    extensions: [".cr"]
+    runtime: "Crystal not available in this environment"
+    ecosystem: "shards; C-bindings; Ruby-lookalike static typing"
+    execution_requirements: "Crystal compiler (needs LLVM)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "small corpus; Ruby syntax familiarity vs different semantics"
+
+  - id: gleam
+    name: Gleam
+    category: emerging
+    l1_target: false
+    extensions: [".gleam"]
+    runtime: "Gleam not available; BEAM missing"
+    ecosystem: "BEAM/OTP targeting Elixir; typesafe FP"
+    execution_requirements: "BEAM/OTP or JavaScript backend + Gleam"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "young; tiny corpus; JS backend possible"
+
+  - id: odin
+    name: Odin
+    category: emerging
+    l1_target: false
+    extensions: [".odin"]
+    runtime: "Odin not available in this environment"
+    ecosystem: "C-replacement; vendoring; game dev"
+    execution_requirements: "Odin compiler (requires LLVM/clang)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "very young; tiny corpus; explicit memory"
+
+  - id: vlang
+    name: V
+    category: emerging
+    l1_target: false
+    extensions: [".v"]
+    runtime: "V compiler not available in this environment"
+    ecosystem: "V; self-hosting; C-interop; batteries included"
+    execution_requirements: "V toolchain (requires C compiler)"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "young; tiny corpus; fast iteration breaking changes"
+
+  - id: hack
+    name: Hack
+    category: emerging
+    l1_target: false
+    extensions: [".hack", ".hh"]
+    runtime: "HHVM not available in this environment"
+    ecosystem: "Meta's PHP superset; HHVM runtime"
+    execution_requirements: "HHVM runtime"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "Meta-internal-adjacent; HHVM-specific; PHP divergence"
+
+  - id: pony
+    name: Pony
+    category: emerging
+    l1_target: false
+    extensions: [".pony"]
+    runtime: "Pony compiler not available in this environment"
+    ecosystem: "actor-model; reference capabilities; deny capabilities"
+    execution_requirements: "Pony toolchain"
+    execution_available_here: false
+    tokenizer_status: "audit-pending-L0.5.1"
+    dataset_status: "unqualified-in-repo"
+    benchmark_status: "not-yet-specified"
+    limitations: "extremely tiny corpus; niche actor model; ref-cap type system"
+
+supporting_technologies:
+  - { name: HTML, category: markup, note: "not general-purpose; paired with JS/CSS" }
+  - { name: CSS, category: style, note: "not general-purpose; paired with HTML" }
+  - { name: SCSS, category: style, note: "preprocessor; not general-purpose" }
+  - { name: JSON, category: data_interchange, note: "serialization format; not code" }
+  - { name: YAML, category: data_interchange, note: "configuration; not code" }
+  - { name: XML, category: markup, note: "not general-purpose" }
+  - { name: TOML, category: config, note: "configuration; not code" }
+  - { name: GraphQL, category: query, note: "schema/query language; not general-purpose" }
+  - { name: Terraform HCL, category: iac, note: "infrastructure-as-code DSL; not general-purpose" }
+  - { name: Nix, category: config, note: "purely-functional package language; specialist" }
+  - { name: CMake, category: build, note: "build system DSL; not general-purpose" }
+  - { name: Makefiles, category: build, note: "build DSL; not general-purpose" }
+  - { name: Gradle DSL, category: build, note: "Kotlin/Groovy-typed build DSL" }
+  - { name: PowerShell, category: shell, note: "object pipeline shell; Windows-first; documented separately" }
+  - { name: Zsh, category: shell, note: "POSIX-family shell; portable-ish but userland-dependent" }
+  - { name: OpenAPI, category: schema, note: "specification format; not code" }
+  - { name: Protocol Buffers, category: schema, note: "IDL; generated code is the deliverable" }
+  - { name: Verilog, category: hdl, note: "hardware description; not general-purpose" }
+  - { name: SystemVerilog, category: hdl, note: "hardware description; not general-purpose" }
+  - { name: VHDL, category: hdl, note: "hardware description; not general-purpose" }

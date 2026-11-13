@@ -1,8 +1,8 @@
-"""Native TAKSH provider adapter over serving.inference_engine.
+"""Native TAKSH provider adapter over serving.foundation_inference.
 
-This adapter is selectable but remains unqualified until a compatible trained
-111M checkpoint exists and is evaluated. Missing or incompatible checkpoints are
-reported as unavailable; there is no fallback checkpoint.
+This adapter selects the L0.6 foundation implementation. It fails closed when
+checkpoint/tokenizer are missing or incompatible, and never falls back to an
+unrelated checkpoint or calls a hosted provider.
 """
 
 from __future__ import annotations
@@ -10,17 +10,13 @@ from __future__ import annotations
 import os
 import time
 from pathlib import Path
-from typing import Any, Callable
 
-from serving.inference_engine import (
+from serving.foundation_inference import (
     ConfigurationError,
+    CheckpointIncompatibleError,
     GenerationFailedError,
-    InferenceRequest,
-    InferenceResponse,
-    LoadState,
-    ModelLoader,
-    ResourceBlockedError,
-    SamplingParams,
+    generate_bounded,
+    load_foundation,
 )
 from serving.providers import (
     GenerationConfig,
@@ -43,15 +39,17 @@ def _native_paths():
 class NativeTakshProvider:
     name = "native-taksh"
 
-    def __init__(self, checkpoint_path: str | Path | None = None, tokenizer_path: str | Path | None = None, *, device: str = "cpu") -> None:
-        checkpoint, tokenizer = _native_paths()
-        self.checkpoint_path = Path(checkpoint_path or checkpoint) if (checkpoint_path or checkpoint) else None
-        self.tokenizer_path = Path(tokenizer_path or tokenizer) if (tokenizer_path or tokenizer) else None
+    def __init__(self, checkpoint_path=None, tokenizer_path=None, *, device: str = "cpu") -> None:
+        env_checkpoint, env_tokenizer = _native_paths()
+        checkpoint = checkpoint_path or env_checkpoint
+        tokenizer = tokenizer_path or env_tokenizer
+        self.checkpoint_path = Path(checkpoint) if checkpoint else None
+        self.tokenizer_path = Path(tokenizer) if tokenizer else None
         self.device = device
         self._identity = ProviderModelIdentity(
             provider=self.name,
             model_id="taksh-foundation-111m",
-            revision="unverified",
+            revision="unqualified",
             source=str(self.checkpoint_path) if self.checkpoint_path is not None else "unconfigured",
             license_or_rights="source Apache-2.0; native weights not cleared for redistribution",
             artifact_sha256=None,
@@ -70,20 +68,10 @@ class NativeTakshProvider:
             offline=True,
             modes=("local",) if available else (),
             max_context_tokens=2048,
-            notes="Experimental/unqualified native backend; architecture compatibility and evaluation were not established.",
+            notes="Native L0.6 foundation backend; not capability-qualified without a compatible trained checkpoint and evaluation.",
         )
 
-    def _build_loader(self) -> ModelLoader:
-        if not self.checkpoint_path or not self.tokenizer_path:
-            raise ProviderUnavailableError("native checkpoint/tokenizer are not configured")
-        if not Path(self.checkpoint_path).is_file():
-            raise ProviderUnavailableError(f"native checkpoint not found: {self.checkpoint_path}")
-        if not Path(self.tokenizer_path).is_file():
-            raise ProviderUnavailableError(f"native tokenizer not found: {self.tokenizer_path}")
-        return ModelLoader(self.checkpoint_path, self.tokenizer_path, self.device)
-
     def _require_paths(self):
-        identity = self.identity()
         if not self.checkpoint_path or not self.tokenizer_path:
             raise ProviderUnavailableError(
                 "native checkpoint/tokenizer are not configured; set TAKSH_NATIVE_CHECKPOINT and TAKSH_NATIVE_TOKENIZER"
@@ -97,49 +85,35 @@ class NativeTakshProvider:
         request.validated()
         started = time.perf_counter()
         self._require_paths()
-        loader = self._build_loader()
-        report = loader.preflight()
-        if report.get("decision") != "PROCEED":
-            raise ProviderUnavailableError(
-                "native checkpoint blocked by preflight: " + "; ".join(report.get("problems", ["not ready"]))
+        try:
+            model, tokenizer, meta = load_foundation(str(self.checkpoint_path), str(self.tokenizer_path), self.device)
+            result = generate_bounded(
+                model,
+                tokenizer,
+                request.prompt,
+                max_new_tokens=min(request.config.max_new_tokens, 256),
+                temperature=request.config.temperature,
+                top_k=request.config.top_k,
+                device=self.device,
+                seed=request.config.seed,
             )
-        try:
-            loaded = loader.load(allow_full_model=True)
-        except (ResourceBlockedError, ConfigurationError, GenerationFailedError, Exception) as exc:
-            raise ProviderUnavailableError(f"native engine load failed: {type(exc).__name__}: {exc}") from exc
-        if isinstance(loaded, dict) and loaded.get("state") != LoadState.READY.value:
-            raise ProviderUnavailableError(str(loaded.get("reason") or "native engine did not become READY"))
+        except (ConfigurationError, CheckpointIncompatibleError, GenerationFailedError) as exc:
+            raise ProviderUnavailableError(f"native inference failed: {exc}") from exc
+        except Exception as exc:  # noqa: BLE001 - fail closed, never fallback
+            raise ProviderUnavailableError(f"native inference failed: {type(exc).__name__}: {exc}") from exc
 
-        params = SamplingParams(
-            temperature=float(request.config.temperature),
-            top_k=int(request.config.top_k) if request.config.top_k >= 0 else 0,
-            top_p=float(request.config.top_p),
-            seed=request.config.seed,
-            max_new_tokens=int(request.config.max_new_tokens),
-        ).validate()
-        engine_request = InferenceRequest(
-            prompt=request.prompt,
-            sampling=params,
-            stop=list(request.config.stop or []),
-            timeout_seconds=request.config.timeout_seconds,
-            mode="model_only",
-        )
-        try:
-            response = loader.generate(engine_request)
-        except Exception as exc:  # noqa: BLE001
-            raise ProviderUnavailableError(f"native generation failed: {type(exc).__name__}: {exc}") from exc
         return GenerationResult(
             provider=self.name,
             model_id="taksh-foundation-111m",
             revision=Path(self.checkpoint_path).name,
-            text=response.text,
-            raw_text=response.text,
-            finish_reason=response.finish_reason,
-            prompt_tokens=int(response.prompt_tokens),
-            completion_tokens=int(response.completion_tokens),
+            text=str(result.get("text", "")),
+            raw_text=str(result.get("raw_text", result.get("text", ""))),
+            finish_reason=str(result.get("finish_reason", "unknown")),
+            prompt_tokens=int(result.get("prompt_tokens", 0) or 0),
+            completion_tokens=int(result.get("completion_tokens", 0) or 0),
             latency_seconds=time.perf_counter() - started,
-            repair={"enabled": bool(request.config.binding_repair), "status": "native-engine"},
-            metadata={"checkpoint": str(self.checkpoint_path), "artifact_compatible": True},
+            repair={"enabled": bool(request.config.binding_repair), "status": "native-foundation"},
+            metadata={"checkpoint": str(self.checkpoint_path), "meta": meta},
         )
 
 

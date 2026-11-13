@@ -165,6 +165,28 @@ def collate_sft(batch, pad_id=0):
     return input_ids, labels
 
 
+def resolve_sft_tokenizer_path(cfg) -> str:
+    """Tokenizer path for an SFT run.
+
+    Historical configs hardcoded ``tokenizer/qm_code_bpe_v0.json`` regardless of
+    their ``data.tokenizer`` key; the config is now the source of truth, with
+    the historical value as the default.
+    """
+    return cfg.get("data", {}).get("tokenizer", "tokenizer/qm_code_bpe_v0.json")
+
+
+def resolve_sft_seq_len(cfg) -> int:
+    """Sequence length for an SFT run. Historical configs use either
+    ``seq_len`` or ``max_length``; accept both, default 2048."""
+    return int(cfg["data"].get("seq_len", cfg["data"].get("max_length", 2048)))
+
+
+def resolve_model_config_path(cfg) -> str:
+    """Model config path for an SFT run. Historical configs use either
+    ``run.model_config`` or ``run.base_model_config``."""
+    return cfg["run"].get("model_config") or cfg["run"]["base_model_config"]
+
+
 def main():
     p = argparse.ArgumentParser(description="Quantsmind SFT training loop")
     p.add_argument("--config", required=True)
@@ -216,11 +238,21 @@ def main():
 
     from tokenizers import Tokenizer
 
-    tokenizer = Tokenizer.from_file("tokenizer/qm_code_bpe_v0.json")
-    dataset = SFTPairDataset(args.sft_data, tokenizer, cfg["data"]["seq_len"])
+    tokenizer_path = resolve_sft_tokenizer_path(cfg)
+    print(f"tokenizer: {tokenizer_path}")
+    tokenizer = Tokenizer.from_file(tokenizer_path)
+    seq_len = resolve_sft_seq_len(cfg)
+    dataset = SFTPairDataset(args.sft_data, tokenizer, seq_len)
     print(f"SFT pairs: {len(dataset)}")
 
-    model_cfg = load_yaml(cfg["run"]["model_config"])["model"]
+    model_config_path = resolve_model_config_path(cfg)
+    model_cfg = load_yaml(model_config_path)["model"]
+    if int(model_cfg.get("vocab_size", -1)) != tokenizer.get_vocab_size():
+        raise SystemExit(
+            f"Tokenizer {tokenizer_path} has vocab {tokenizer.get_vocab_size()}, but "
+            f"model config {model_config_path} declares vocab_size "
+            f"{model_cfg.get('vocab_size')}. Refusing to train on mismatched artifacts."
+        )
     model = QMModel(model_cfg).to(device)
 
     provenance = build_provenance(
@@ -230,7 +262,7 @@ def main():
         config=cfg,
         seed=seed,
         tokenizer=tokenizer,
-        tokenizer_path="tokenizer/qm_code_bpe_v0.json",
+        tokenizer_path=tokenizer_path,
         corpus_manifest=args.sft_data,
     )
 
@@ -272,7 +304,7 @@ def main():
     batch_cfg = cfg["batch"]
     micro_bs = batch_cfg["micro_batch_size"]
     accum = batch_cfg.get("grad_accum_steps", 1)
-    seq_len = cfg["data"]["seq_len"]
+    seq_len = resolve_sft_seq_len(cfg)
 
     log_every = train_cfg.get("log_every_steps", 10)
     ckpt_every = train_cfg.get("checkpoint_every_steps", 500)

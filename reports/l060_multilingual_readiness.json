@@ -1,0 +1,126 @@
+{
+  "schema": "taksh.l060_multilingual_readiness/1",
+  "generated_by": "evaluation/l060_multilingual_readiness.py",
+  "benchmark": {
+    "path": "evaluation\\l051_multilingual_benchmark_v1.json",
+    "name": "Taksh L0.5.1 Multilingual Coding Benchmark (starter)",
+    "version": "1.0.0",
+    "qualification_block_present": true,
+    "task_count": 64,
+    "per_language": {
+      "bash": 4,
+      "c": 4,
+      "cpp": 4,
+      "csharp": 4,
+      "dart": 4,
+      "go": 4,
+      "java": 4,
+      "javascript": 4,
+      "kotlin": 4,
+      "php": 4,
+      "python": 4,
+      "ruby": 4,
+      "rust": 4,
+      "sql": 4,
+      "swift": 4,
+      "typescript": 4
+    },
+    "families_defined": [
+      "1",
+      "10",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "audit": {
+      "task_count": 64,
+      "per_language": {
+        "bash": 4,
+        "c": 4,
+        "cpp": 4,
+        "csharp": 4,
+        "dart": 4,
+        "go": 4,
+        "java": 4,
+        "javascript": 4,
+        "kotlin": 4,
+        "php": 4,
+        "python": 4,
+        "ruby": 4,
+        "rust": 4,
+        "sql": 4,
+        "swift": 4,
+        "typescript": 4
+      },
+      "families_defined": [
+        "1",
+        "10",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "checks_run": 19,
+      "checks_failed": 0,
+      "failed_checks": [],
+      "verdict": "PASS"
+    }
+  },
+  "denominator_resolution": {
+    "problem": "4 tasks per language cannot establish an 8-pass threshold",
+    "resolution": {
+      "per_language_scoring": "proportion of executed tasks that pass all unit assertions",
+      "min_tasks_per_language": 16,
+      "min_pass_ratio": 0.5,
+      "languages_with_4_tasks": "NOT eligible for qualification (insufficient_task_count)",
+      "additional_tasks_needed": 192,
+      "additional_tasks_needed_per_language": 12,
+      "instantiated_families": "1-4",
+      "missing_families": "5-10 (specified; instances to be authored as tasks are added)"
+    }
+  },
+  "python_frozen_benchmark": {
+    "path": "evaluation/l02_python_bench_v1.json",
+    "sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "unchanged": true
+  },
+  "execution_readiness": {
+    "toolchain_available": [
+      "python",
+      "javascript",
+      "c",
+      "cpp",
+      "java",
+      "csharp",
+      "go",
+      "rust",
+      "kotlin",
+      "bash",
+      "sql",
+      "typescript"
+    ],
+    "missing_toolchain": [
+      "php",
+      "ruby",
+      "swift",
+      "dart"
+    ],
+    "harness_note": "per-language sandboxed harness is an L1.0 work item; not implemented or claimed here"
+  },
+  "scoring_interfaces": [
+    "score_task",
+    "score_language",
+    "score_benchmark"
+  ],
+  "verdict": "MULTILINGUAL READINESS QUALIFIED (spec corrected; no capability claimed)"
+}

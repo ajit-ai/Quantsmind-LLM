@@ -1,0 +1,549 @@
+{
+  "schema": "taksh.l02_overfit_bench/1",
+  "name": "Taksh L0.2 Phase-B overfitting benchmark",
+  "version": "1.0.0",
+  "provenance": "Original examples authored for Taksh L0.2 Phase B (2026-11-10). Train and evaluation share the same 24 examples ON PURPOSE: this is a memorization gate, not a generalization measurement.",
+  "problems": [
+    {
+      "id": "OF00",
+      "category": "OF",
+      "name": "hello_world",
+      "instruction": "Write a Python function named hello_world() that returns the string 'Hello, world!'.",
+      "entry_point": "hello_world",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [],
+          "expected": "Hello, world!"
+        }
+      ]
+    },
+    {
+      "id": "OF01",
+      "category": "OF",
+      "name": "add_two",
+      "instruction": "Write a Python function named add_two(a, b) that returns the sum of the two numbers a and b.",
+      "entry_point": "add_two",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "ints",
+          "args": [
+            2,
+            3
+          ],
+          "expected": 5
+        },
+        {
+          "name": "negatives",
+          "args": [
+            -1,
+            1
+          ],
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "id": "OF02",
+      "category": "OF",
+      "name": "is_even",
+      "instruction": "Write a Python function named is_even(n) that returns True if n is even and False otherwise.",
+      "entry_point": "is_even",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "even",
+          "args": [
+            4
+          ],
+          "expected": true
+        },
+        {
+          "name": "odd",
+          "args": [
+            7
+          ],
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "OF03",
+      "category": "OF",
+      "name": "is_odd",
+      "instruction": "Write a Python function named is_odd(n) that returns True if n is odd and False otherwise.",
+      "entry_point": "is_odd",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "odd",
+          "args": [
+            3
+          ],
+          "expected": true
+        },
+        {
+          "name": "even",
+          "args": [
+            10
+          ],
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "OF04",
+      "category": "OF",
+      "name": "max_of_two",
+      "instruction": "Write a Python function named max_of_two(a, b) that returns the larger of the two numbers a and b.",
+      "entry_point": "max_of_two",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "a_larger",
+          "args": [
+            9,
+            4
+          ],
+          "expected": 9
+        },
+        {
+          "name": "b_larger",
+          "args": [
+            2,
+            8
+          ],
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "id": "OF05",
+      "category": "OF",
+      "name": "reverse_string",
+      "instruction": "Write a Python function named reverse_string(text) that returns the reversed string.",
+      "entry_point": "reverse_string",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "hello"
+          ],
+          "expected": "olleh"
+        }
+      ]
+    },
+    {
+      "id": "OF06",
+      "category": "OF",
+      "name": "sum_list",
+      "instruction": "Write a Python function named sum_list(numbers) that returns the sum of the list of numbers. Return 0 for an empty list.",
+      "entry_point": "sum_list",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 6
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "id": "OF07",
+      "category": "OF",
+      "name": "factorial",
+      "instruction": "Write a Python function named factorial(n) that returns n! (n factorial) using a loop. factorial(0) is 1.",
+      "entry_point": "factorial",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "zero",
+          "args": [
+            0
+          ],
+          "expected": 1
+        },
+        {
+          "name": "five",
+          "args": [
+            5
+          ],
+          "expected": 120
+        }
+      ]
+    },
+    {
+      "id": "OF08",
+      "category": "OF",
+      "name": "fibonacci",
+      "instruction": "Write a Python function named fibonacci(n) that returns the n-th Fibonacci number, with fibonacci(0) equal to 0 and fibonacci(1) equal to 1, using a loop.",
+      "entry_point": "fibonacci",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "zero",
+          "args": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "name": "seven",
+          "args": [
+            7
+          ],
+          "expected": 13
+        }
+      ]
+    },
+    {
+      "id": "OF09",
+      "category": "OF",
+      "name": "square_number",
+      "instruction": "Write a Python function named square_number(n) that returns n squared.",
+      "entry_point": "square_number",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            7
+          ],
+          "expected": 49
+        }
+      ]
+    },
+    {
+      "id": "OF10",
+      "category": "OF",
+      "name": "cube_number",
+      "instruction": "Write a Python function named cube_number(n) that returns n cubed.",
+      "entry_point": "cube_number",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            3
+          ],
+          "expected": 27
+        }
+      ]
+    },
+    {
+      "id": "OF11",
+      "category": "OF",
+      "name": "absolute_value",
+      "instruction": "Write a Python function named absolute_value(n) that returns the absolute value of n.",
+      "entry_point": "absolute_value",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "negative",
+          "args": [
+            -5
+          ],
+          "expected": 5
+        },
+        {
+          "name": "positive",
+          "args": [
+            5
+          ],
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "id": "OF12",
+      "category": "OF",
+      "name": "largest_of_three",
+      "instruction": "Write a Python function named largest_of_three(a, b, c) that returns the largest of the three numbers a, b and c.",
+      "entry_point": "largest_of_three",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "first",
+          "args": [
+            7,
+            2,
+            3
+          ],
+          "expected": 7
+        },
+        {
+          "name": "third",
+          "args": [
+            1,
+            5,
+            9
+          ],
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "id": "OF13",
+      "category": "OF",
+      "name": "countdown_from",
+      "instruction": "Write a Python function named countdown_from(n) that returns a list with the integers from n down to 1.",
+      "entry_point": "countdown_from",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "five",
+          "args": [
+            5
+          ],
+          "expected": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "name": "one",
+          "args": [
+            1
+          ],
+          "expected": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OF14",
+      "category": "OF",
+      "name": "is_prime",
+      "instruction": "Write a Python function named is_prime(n) that returns True if n is a prime number, otherwise False. n less than 2 is not prime.",
+      "entry_point": "is_prime",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "prime",
+          "args": [
+            7
+          ],
+          "expected": true
+        },
+        {
+          "name": "composite",
+          "args": [
+            9
+          ],
+          "expected": false
+        },
+        {
+          "name": "tiny",
+          "args": [
+            1
+          ],
+          "expected": false
+        }
+      ]
+    },
+    {
+      "id": "OF15",
+      "category": "OF",
+      "name": "swap_values",
+      "instruction": "Write a Python function named swap_values(a, b) that returns a list with b first and a second.",
+      "entry_point": "swap_values",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            1,
+            "x"
+          ],
+          "expected": [
+            "x",
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OF16",
+      "category": "OF",
+      "name": "double_list",
+      "instruction": "Write a Python function named double_list(numbers) that returns a list with every number doubled.",
+      "entry_point": "double_list",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OF17",
+      "category": "OF",
+      "name": "average_of_two",
+      "instruction": "Write a Python function named average_of_two(a, b) that returns the average of the two numbers a and b.",
+      "entry_point": "average_of_two",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            4,
+            8
+          ],
+          "expected": 6.0
+        }
+      ]
+    },
+    {
+      "id": "OF18",
+      "category": "OF",
+      "name": "char_count",
+      "instruction": "Write a Python function named char_count(text, ch) that returns how many times the single character ch occurs in text.",
+      "entry_point": "char_count",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana",
+            "a"
+          ],
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "id": "OF19",
+      "category": "OF",
+      "name": "repeat_text",
+      "instruction": "Write a Python function named repeat_text(text, times) that returns text repeated times times with no separator.",
+      "entry_point": "repeat_text",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "ab",
+            3
+          ],
+          "expected": "ababab"
+        },
+        {
+          "name": "zero",
+          "args": [
+            "ab",
+            0
+          ],
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "id": "OF20",
+      "category": "OF",
+      "name": "greet",
+      "instruction": "Write a Python function named greet(name) that returns 'Hello, ' followed by name and a '!'.",
+      "entry_point": "greet",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "Taksh"
+          ],
+          "expected": "Hello, Taksh!"
+        }
+      ]
+    },
+    {
+      "id": "OF21",
+      "category": "OF",
+      "name": "increment_by_two",
+      "instruction": "Write a Python function named increment_by_two(n) that returns n + 2.",
+      "entry_point": "increment_by_two",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            5
+          ],
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "id": "OF22",
+      "category": "OF",
+      "name": "first_char",
+      "instruction": "Write a Python function named first_char(text) that returns the first character of text, or an empty string if text is empty.",
+      "entry_point": "first_char",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "abc"
+          ],
+          "expected": "a"
+        },
+        {
+          "name": "empty",
+          "args": [
+            ""
+          ],
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "id": "OF23",
+      "category": "OF",
+      "name": "square_of_sum",
+      "instruction": "Write a Python function named square_of_sum(a, b) that returns the square of (a + b).",
+      "entry_point": "square_of_sum",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            1,
+            2
+          ],
+          "expected": 9
+        }
+      ]
+    }
+  ]
+}

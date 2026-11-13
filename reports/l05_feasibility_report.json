@@ -1,0 +1,1896 @@
+{
+  "schema": "taksh.l05_feasibility_report/1",
+  "generated_by": "evaluation/l05_feasibility.py",
+  "created": "2026-11-11T01:59:15+00:00",
+  "mission": "L0.5 \u2014 determine the technical and economic feasibility of developing TAKSH into an independent, useful coding model. Feasibility gate, not a training milestone.",
+  "preservation": {
+    "collected_at": "2026-11-11T01:59:13+00:00",
+    "branch": "main",
+    "head": "c601a73716d527dfa100291461c06cefde760a05",
+    "main": "c601a73716d527dfa100291461c06cefde760a05",
+    "develop": "8c553465216dcaa5d36f73022b0db55aa3254e1f",
+    "working_tree": [
+      "M serving/code_chat.py",
+      " M serving/local_inference.py",
+      " M taksh-hf-publication/upload_manifest.json",
+      " M training/manifest.py",
+      " M training/pretrain.py",
+      " M training/sft.py",
+      "?? configs/feasibility/",
+      "?? configs/train/overfit.yaml",
+      "?? configs/train/pretrain_l03.yaml",
+      "?? configs/train/pretrain_l03_gpu.yaml",
+      "?? configs/train/pretrain_l04_e1.yaml",
+      "?? configs/train/pretrain_l04_e3.yaml",
+      "?? configs/train/pretrain_l04_e4.yaml",
+      "?? configs/train/sft_l02.yaml",
+      "?? configs/train/sft_l02_hp.yaml",
+      "?? configs/train/sft_l02_r2.yaml",
+      "?? data/l02_overfit/",
+      "?? data/l02_sft/",
+      "?? data/l03_corpus/",
+      "?? data/l04_code_corpus/",
+      "?? evaluation/l02_overfit_bench_v1.json",
+      "?? evaluation/l02_python_bench_v1.json",
+      "?? evaluation/l02_runner.py",
+      "?? evaluation/l04_diagnostic_report.json",
+      "?? evaluation/l04_diagnostics.py",
+      "?? evaluation/l04_tokenizer_report.json",
+      "?? evaluation/l04_tokenizer_report.py",
+      "?? evaluation/l05_architecture_audit.py",
+      "?? evaluation/l05_benchmark_audit.py",
+      "?? evaluation/l05_compute_estimator.py",
+      "?? evaluation/l05_data_feasibility.py",
+      "?? evaluation/l05_feasibility.py",
+      "?? evaluation/l05_training_strategy.py",
+      "?? export_hf.ps1",
+      "?? export_hf.py",
+      "?? hf_export/",
+      "?? rebuild_manifest.py",
+      "?? reports/l05_architecture_audit.json",
+      "?? reports/l05_benchmark_audit.json",
+      "?? reports/l05_compute_estimate.json",
+      "?? reports/l05_data_feasibility.json",
+      "?? reports/l05_training_strategy.json",
+      "?? scripts/build_l02_overfit.py",
+      "?? scripts/build_l02_sft.py",
+      "?? scripts/build_l03_corpus.py",
+      "?? scripts/build_l04_corpus.py",
+      "?? scripts/compare_checkpoint_params.py",
+      "?? scripts/run_taksh_local.ps1",
+      "?? serving/local_assistant.py",
+      "?? tests/test_l02_pipeline.py",
+      "?? tests/test_l03_pipeline.py",
+      "?? tests/test_l04_pipeline.py",
+      "?? tests/test_local_assistant_l01.py",
+      "?? verify_hashes.py",
+      "?? verify_pub.py"
+    ],
+    "checkpoints_preserved_sha256": {
+      "runs/v160_pretrain/checkpoint_last.pt": "0ff8ccb96cee359477eb7bf02f59e44e57d7613c9c132ab3a44a070e1a4de092",
+      "runs/v180_sft/checkpoint_last.pt": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+      "runs/l02_sft/checkpoint_last.pt": "66ab9fa88092cf6c2b465d6f93fb66a577088ca2f881ec2033b615c60900cd27",
+      "runs/l02_sft_hp/checkpoint_last.pt": "5182f82ce4a4b790eab889e1615c2619203dadc8fd34e4291ca1fc78991f3572",
+      "runs/l02_overfit/checkpoint_last.pt": "2ce5a48f8c54fb288c2cd53b54396cb7875bd32b219e7f3d450f5d873be4d15d",
+      "runs/l03_pretrain/checkpoint_last.pt": "90c3a72e4d439ee1bdd09303931d6ac0c237a420f975f0d678808fd75bf4dd6e",
+      "runs/l03_pretrain/checkpoint_best.pt": "8a4364c0c5e46533c85cf1328b81b7c885314abea646bc962b28c0142e8fdde0",
+      "runs/l04_e1/checkpoint_last.pt": "d01aa82010c3a6612a3ab7dbc9ad86ac97936bc34385ad4a377f6307a9e405f8",
+      "runs/l04_e2/checkpoint_last.pt": "07e270526e6dacad3e840bd31eac2a583eaf5cba2b1b9760549244d0f896f1cf",
+      "runs/l04_e3/checkpoint_last.pt": "c30066d3833c908e3d6d5b11e3f3190a767af02aa0badb94da1609ff58fc3581"
+    },
+    "tokenizer": {
+      "path": "tokenizer/taksh_code_bpe_v1.json",
+      "vocab_size": 5822,
+      "specials": {
+        "<pad>": 0,
+        "<bos>": 1,
+        "<eos>": 2,
+        "<unk>": 3
+      },
+      "committed_artifact_sha256": "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7",
+      "working_tree_sha256_crlf": "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92"
+    },
+    "frozen_benchmark_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "frozen_benchmark_expected": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "package_version": "1.0.0 (taksh == 1.0.0, unchanged)",
+    "publication": "taksh-hf-publication/ untouched (upload_manifest.json modification pre-exists this session)"
+  },
+  "sub_reports": {
+    "architecture_audit": "reports\\l05_architecture_audit.json",
+    "data_feasibility": "reports\\l05_data_feasibility.json",
+    "training_strategy": "reports\\l05_training_strategy.json",
+    "compute_estimate": "reports\\l05_compute_estimate.json",
+    "benchmark_audit": "reports\\l05_benchmark_audit.json"
+  },
+  "architecture_audit": {
+    "schema": "taksh.l05_architecture_audit/1",
+    "generated_by": "evaluation/l05_architecture_audit.py",
+    "current_baseline": {
+      "name": "existing_baseline",
+      "config": {
+        "name": "qm-code-v160-15m",
+        "vocab_size": 5822,
+        "d_model": 384,
+        "n_layers": 12,
+        "n_heads": 8,
+        "n_kv_heads": 4,
+        "ffn_dim": 1536,
+        "max_seq_len": 2048,
+        "rope_theta": 10000.0,
+        "norm_eps": 1e-05,
+        "tie_embeddings": true,
+        "rope_base": 10000.0,
+        "measured_params": 28787328,
+        "measured_file_bytes": 345596357
+      },
+      "family": {
+        "architecture": "decoder-only causal transformer (RMSNorm + RoPE + GQA + SwiGLU)",
+        "vocab_size": 5822,
+        "d_model": 384,
+        "n_layers": 12,
+        "n_heads": 8,
+        "n_kv_heads": 4,
+        "gqa": "n_heads:n_kv_heads = 8:4",
+        "ffn_dim": 1536,
+        "ffn_activation": "SwiGLU (gate * SiLU(up))",
+        "max_seq_len": 2048,
+        "rope_theta": 10000.0,
+        "norm": "RMSNorm (eps=1e-05)",
+        "attention_impl": "F.scaled_dot_product_attention (is_causal=True)",
+        "positional": "RoPE (half-dim interleaved), no learned positional embeddings",
+        "residuals": "pre-norm transformer with residual connections",
+        "loss": "next-token cross-entropy, ignore_index=-100",
+        "initialization": "nn.init.normal_(std=0.02) for Linear/Embedding"
+      },
+      "params": {
+        "embedding": 2235648,
+        "lm_head": 0,
+        "tie_embeddings": true,
+        "per_layer": {
+          "attention": 442368,
+          "mlp": 1769472,
+          "norms": 768,
+          "total": 2212608
+        },
+        "layers_total": 26551296,
+        "final_norm": 384,
+        "total_params": 28787328,
+        "head_dim": 48,
+        "checkpoint_bytes_fp32": 115149312,
+        "checkpoint_bytes_bf16": 57574656,
+        "optimizer_bytes_adamw_fp32_state": 230298624,
+        "training_bytes_fp32_weights_grads_adam": 460597248
+      },
+      "measured_params": 28787328,
+      "analytic_vs_measured": "EXACT MATCH",
+      "checkpoint_bytes_measured": 345596357,
+      "compatible_checkpoints": [
+        "runs/v160_pretrain/checkpoint_last.pt",
+        "runs/v180_sft/checkpoint_last.pt",
+        "runs/l02_sft_hp/checkpoint_last.pt",
+        "runs/l03_pretrain/checkpoint_last.pt",
+        "runs/l04_e1/checkpoint_last.pt",
+        "runs/l04_e2/checkpoint_last.pt",
+        "runs/l04_e3/checkpoint_last.pt"
+      ],
+      "notes": [
+        "Tied embeddings: lm_head reuses tok_emb; only one vocab x d matrix is counted/stored.",
+        "GQA: 8 query heads, 4 KV heads, head_dim 48.",
+        "12 layers x (attn 442,368 + mlp 1,769,472 + norms 768) = 26,551,296 + tied embedding 2,235,552 + final norm 384 = 28,787,328."
+      ]
+    },
+    "scenarios": [
+      {
+        "scenario": "A",
+        "name": "candidate_A_100M",
+        "config": {
+          "d_model": 768,
+          "n_layers": 12,
+          "n_heads": 12,
+          "n_kv_heads": 6,
+          "ffn_dim": 3072,
+          "max_seq_len": 2048,
+          "vocab_size": 5822,
+          "tie_embeddings": true,
+          "rope_theta": 10000.0
+        },
+        "params": {
+          "embedding": 4471296,
+          "lm_head": 0,
+          "tie_embeddings": true,
+          "per_layer": {
+            "attention": 1769472,
+            "mlp": 7077888,
+            "norms": 1536,
+            "total": 8848896
+          },
+          "layers_total": 106186752,
+          "final_norm": 768,
+          "total_params": 110658816,
+          "head_dim": 64,
+          "checkpoint_bytes_fp32": 442635264,
+          "checkpoint_bytes_bf16": 221317632,
+          "optimizer_bytes_adamw_fp32_state": 885270528,
+          "training_bytes_fp32_weights_grads_adam": 1770541056
+        },
+        "params_ratio_vs_baseline": 3.844,
+        "headroom_note": "~111M (12-layer trim of a 128M 14-layer variant); closest honest match to the 100M target without arbitrary shrinking",
+        "architecture_changes_required": [
+          "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+          "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+        ],
+        "checkpoint_compatibility": {
+          "warmstart_from_existing": false,
+          "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+          "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+        },
+        "risks": [
+          "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+          "same recipe family; gains come from data and compute, not architecture"
+        ]
+      },
+      {
+        "scenario": "B",
+        "name": "candidate_B_300M",
+        "config": {
+          "d_model": 1024,
+          "n_layers": 18,
+          "n_heads": 16,
+          "n_kv_heads": 8,
+          "ffn_dim": 4096,
+          "max_seq_len": 4096,
+          "vocab_size": 5822,
+          "tie_embeddings": true,
+          "rope_theta": 10000.0
+        },
+        "params": {
+          "embedding": 5961728,
+          "lm_head": 0,
+          "tie_embeddings": true,
+          "per_layer": {
+            "attention": 3145728,
+            "mlp": 12582912,
+            "norms": 2048,
+            "total": 15730688
+          },
+          "layers_total": 283152384,
+          "final_norm": 1024,
+          "total_params": 289115136,
+          "head_dim": 64,
+          "checkpoint_bytes_fp32": 1156460544,
+          "checkpoint_bytes_bf16": 578230272,
+          "optimizer_bytes_adamw_fp32_state": 2312921088,
+          "training_bytes_fp32_weights_grads_adam": 4625842176
+        },
+        "params_ratio_vs_baseline": 10.043,
+        "headroom_note": "~300M class; context raised to 4096 (RoPE extrapolation not validated past 2048)",
+        "architecture_changes_required": [
+          "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+          "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+        ],
+        "checkpoint_compatibility": {
+          "warmstart_from_existing": false,
+          "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+          "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+        },
+        "risks": [
+          "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+          "same recipe family; gains come from data and compute, not architecture"
+        ]
+      },
+      {
+        "scenario": "C",
+        "name": "candidate_C_1B",
+        "config": {
+          "d_model": 2048,
+          "n_layers": 16,
+          "n_heads": 16,
+          "n_kv_heads": 8,
+          "ffn_dim": 8192,
+          "max_seq_len": 4096,
+          "vocab_size": 5822,
+          "tie_embeddings": true,
+          "rope_theta": 10000.0
+        },
+        "params": {
+          "embedding": 11923456,
+          "lm_head": 0,
+          "tie_embeddings": true,
+          "per_layer": {
+            "attention": 12582912,
+            "mlp": 50331648,
+            "norms": 4096,
+            "total": 62918656
+          },
+          "layers_total": 1006698496,
+          "final_norm": 2048,
+          "total_params": 1018624000,
+          "head_dim": 128,
+          "checkpoint_bytes_fp32": 4074496000,
+          "checkpoint_bytes_bf16": 2037248000,
+          "optimizer_bytes_adamw_fp32_state": 8148992000,
+          "training_bytes_fp32_weights_grads_adam": 16297984000
+        },
+        "params_ratio_vs_baseline": 35.384,
+        "headroom_note": "~1B class; head_dim 128; requires multi-epoch passes or a bigger corpus",
+        "architecture_changes_required": [
+          "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+          "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+        ],
+        "checkpoint_compatibility": {
+          "warmstart_from_existing": false,
+          "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+          "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+        },
+        "risks": [
+          "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+          "same recipe family; gains come from data and compute, not architecture"
+        ]
+      }
+    ],
+    "feasibility_verdict": {
+      "architecture_blocks": false,
+      "reason": "The architecture family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings) scales to 100M/300M/1B by changing width/depth/ffn only. No module family change is required. Existing checkpoints cannot warmstart the scaled models (all weights change shape) but the tokenizer is fully reusable.",
+      "architecture_risk_items": [
+        "RoPE beyond 2048 context unvalidated \u2014 validated only to 2048",
+        "GQA ratio 2:1 retained at all three scales; nothing else changes",
+        "vocab 5,822 is small; output projection stays tied and cheap"
+      ]
+    }
+  },
+  "data_feasibility": {
+    "schema": "taksh.l05_data_feasibility/1",
+    "generated_by": "evaluation/l05_data_feasibility.py",
+    "token_supply": {
+      "code_tokens": 1590703,
+      "code_val_tokens": 320388,
+      "general_tokens_l03": 19629683,
+      "general_tokens_l04": 1591655,
+      "total_l04_train": 3182359,
+      "corpus_v0_total": 9993983,
+      "notes": "Counts are measured with tokenizer/taksh_code_bpe_v1.json except corpus_v0, whose documented figure is with the obsolete 49,152-vocab tokenizer."
+    },
+    "token_supply_disclosure": [
+      "code supply (1,590,703) is licence-verified in-repo code (M3 MIT/BSD + Apache-2.0 repo snapshot).",
+      "general supply (l03 ~19.6M) is English Wikipedia/Gutenberg (CC-BY-SA-3.0 / Public Domain); it is not code.",
+      "corpus_v0's 9,993,983-token figure uses the obsolete 49,152-vocab tokenizer; re-encoded equivalent would be ~9-11M tokens.",
+      "counting repeated epochs as new data is not done anywhere in this analysis."
+    ],
+    "requirements_grid": [
+      {
+        "scenario": "current",
+        "params": 28787328,
+        "tokens_per_param": 20,
+        "required_unique_tokens": 575746560,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 574155857,
+        "code_supply_coverage": 0.002763,
+        "best_mix_coverage": 0.039622,
+        "epochs_code_only": 361.9,
+        "storage_bytes_uint16": 1151493120,
+        "storage_gb_uint16": 1.151,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "current",
+        "params": 28787328,
+        "tokens_per_param": 50,
+        "required_unique_tokens": 1439366400,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 1437775697,
+        "code_supply_coverage": 0.001105,
+        "best_mix_coverage": 0.015849,
+        "epochs_code_only": 904.9,
+        "storage_bytes_uint16": 2878732800,
+        "storage_gb_uint16": 2.879,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "current",
+        "params": 28787328,
+        "tokens_per_param": 100,
+        "required_unique_tokens": 2878732800,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 2877142097,
+        "code_supply_coverage": 0.000553,
+        "best_mix_coverage": 0.007924,
+        "epochs_code_only": 1809.7,
+        "storage_bytes_uint16": 5757465600,
+        "storage_gb_uint16": 5.757,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "current",
+        "params": 28787328,
+        "tokens_per_param": 200,
+        "required_unique_tokens": 5757465600,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 5755874897,
+        "code_supply_coverage": 0.000276,
+        "best_mix_coverage": 0.003962,
+        "epochs_code_only": 3619.4,
+        "storage_bytes_uint16": 11514931200,
+        "storage_gb_uint16": 11.515,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "A",
+        "params": 110658816,
+        "tokens_per_param": 20,
+        "required_unique_tokens": 2213176320,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 2211585617,
+        "code_supply_coverage": 0.000719,
+        "best_mix_coverage": 0.010307,
+        "epochs_code_only": 1391.3,
+        "storage_bytes_uint16": 4426352640,
+        "storage_gb_uint16": 4.426,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "A",
+        "params": 110658816,
+        "tokens_per_param": 50,
+        "required_unique_tokens": 5532940800,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 5531350097,
+        "code_supply_coverage": 0.000287,
+        "best_mix_coverage": 0.004123,
+        "epochs_code_only": 3478.3,
+        "storage_bytes_uint16": 11065881600,
+        "storage_gb_uint16": 11.066,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "A",
+        "params": 110658816,
+        "tokens_per_param": 100,
+        "required_unique_tokens": 11065881600,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 11064290897,
+        "code_supply_coverage": 0.000144,
+        "best_mix_coverage": 0.002061,
+        "epochs_code_only": 6956.6,
+        "storage_bytes_uint16": 22131763200,
+        "storage_gb_uint16": 22.132,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "A",
+        "params": 110658816,
+        "tokens_per_param": 200,
+        "required_unique_tokens": 22131763200,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 22130172497,
+        "code_supply_coverage": 7.2e-05,
+        "best_mix_coverage": 0.001031,
+        "epochs_code_only": 13913.2,
+        "storage_bytes_uint16": 44263526400,
+        "storage_gb_uint16": 44.264,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "B",
+        "params": 289115136,
+        "tokens_per_param": 20,
+        "required_unique_tokens": 5782302720,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 5780712017,
+        "code_supply_coverage": 0.000275,
+        "best_mix_coverage": 0.003945,
+        "epochs_code_only": 3635.1,
+        "storage_bytes_uint16": 11564605440,
+        "storage_gb_uint16": 11.565,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "B",
+        "params": 289115136,
+        "tokens_per_param": 50,
+        "required_unique_tokens": 14455756800,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 14454166097,
+        "code_supply_coverage": 0.00011,
+        "best_mix_coverage": 0.001578,
+        "epochs_code_only": 9087.7,
+        "storage_bytes_uint16": 28911513600,
+        "storage_gb_uint16": 28.912,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "B",
+        "params": 289115136,
+        "tokens_per_param": 100,
+        "required_unique_tokens": 28911513600,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 28909922897,
+        "code_supply_coverage": 5.5e-05,
+        "best_mix_coverage": 0.000789,
+        "epochs_code_only": 18175.3,
+        "storage_bytes_uint16": 57823027200,
+        "storage_gb_uint16": 57.823,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "B",
+        "params": 289115136,
+        "tokens_per_param": 200,
+        "required_unique_tokens": 57823027200,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 57821436497,
+        "code_supply_coverage": 2.8e-05,
+        "best_mix_coverage": 0.000395,
+        "epochs_code_only": 36350.6,
+        "storage_bytes_uint16": 115646054400,
+        "storage_gb_uint16": 115.646,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "C",
+        "params": 1018624000,
+        "tokens_per_param": 20,
+        "required_unique_tokens": 20372480000,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 20370889297,
+        "code_supply_coverage": 7.8e-05,
+        "best_mix_coverage": 0.00112,
+        "epochs_code_only": 12807.2,
+        "storage_bytes_uint16": 40744960000,
+        "storage_gb_uint16": 40.745,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "C",
+        "params": 1018624000,
+        "tokens_per_param": 50,
+        "required_unique_tokens": 50931200000,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 50929609297,
+        "code_supply_coverage": 3.1e-05,
+        "best_mix_coverage": 0.000448,
+        "epochs_code_only": 32018.0,
+        "storage_bytes_uint16": 101862400000,
+        "storage_gb_uint16": 101.862,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "C",
+        "params": 1018624000,
+        "tokens_per_param": 100,
+        "required_unique_tokens": 101862400000,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 101860809297,
+        "code_supply_coverage": 1.6e-05,
+        "best_mix_coverage": 0.000224,
+        "epochs_code_only": 64036.1,
+        "storage_bytes_uint16": 203724800000,
+        "storage_gb_uint16": 203.725,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      },
+      {
+        "scenario": "C",
+        "params": 1018624000,
+        "tokens_per_param": 200,
+        "required_unique_tokens": 203724800000,
+        "qualified_code_supply": 1590703,
+        "qualified_total_supply": 22812042,
+        "code_gap_tokens": 203723209297,
+        "code_supply_coverage": 8e-06,
+        "best_mix_coverage": 0.000112,
+        "epochs_code_only": 128072.2,
+        "storage_bytes_uint16": 407449600000,
+        "storage_gb_uint16": 407.45,
+        "note": "storage assumes uint16 flat token stream + ~5% metadata margin not included"
+      }
+    ],
+    "mixture_guidance": "practical mixture for a code model: aim >= 60% high-quality code tokens, bounded general-text fraction (~20-30%) for instruction following; repetition beyond ~4 epochs of unique data yields strongly diminished returns",
+    "dataset_candidate_register": [
+      {
+        "name": "BigCode The Stack (v1)",
+        "official_source": "bigcode-project.github.io (BigCode, Hugging Face)",
+        "languages": "358 programming languages incl. Python, JS/TS, Java, C/C++, Go, Rust",
+        "published_size": "reported as ~6.4 TB across ~200M repositories' files; filtered release is smaller (reported ~1 TB)",
+        "access": "registration + terms acceptance on the Hugging Face hub",
+        "license": "BigCode OpenRAIL License (data access); per-file licenses follow the originating repositories (MIT/Apache-2.0/BSD/CC0-class filtered variants exist)",
+        "source_code_obligations": "copyleft files (GPL/LGPL) in bulk subsets impose source-offer/notice obligations; BigCode provides a license-filtered subset precisely to avoid this",
+        "attribution": "per-file origin must be tracked for attribution if redistribution is ever contemplated",
+        "redistribution": "not for public redistribution of the corpus itself; derivative models permitted with naming/notice requirements under OpenRAIL variants",
+        "opt_out": "opt-out mechanism exists upstream; downstream users inherit a duty to honour removal requests",
+        "commercial_use": "BigCode OpenRAIL permits commercial use subject to use restrictions; per-file copyleft can complicate proprietary redistribution",
+        "quality_security": "large-scale secret contamination reported; requires credential scanning; near-duplicate heavy; documentation quality uneven",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "STRONG candidate pending legal review; biggest realistic source of Python tokens"
+      },
+      {
+        "name": "BigCode The Stack v2 / StarCoder2 data",
+        "official_source": "bigcode-project.github.io (StarCoder2 / The Stack v2)",
+        "languages": "619 languages (reported); Python ~15% of content",
+        "published_size": "reported 67.5 TB raw; tokenized code corpora ~2-3T tokens (reported)",
+        "access": "registration + terms acceptance",
+        "license": "BigCode OpenRAIL-M (M = for models); per-file filtering to permissive/public licenses applied by upstream",
+        "source_code_obligations": "subset retains only files whose licenses permit codebase inclusion; per-file origin tracking required",
+        "attribution": "expected on any redistribution of the corpus; derivative model notices advised",
+        "redistribution": "not redistributable as a corpus; model outputs not covered by corpus license",
+        "opt_out": "opt-out honoured; users agreed to honour it downstream",
+        "commercial_use": "restricted use categories (no large-scale surveillance, no weapons etc.); commercial generally permitted",
+        "quality_security": "license-filtered and deduplicated upstream; still needs secret scan + near-dup and benchmark-leakage re-check by us",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "STRONG candidate; best-aligned with this project's filtering discipline"
+      },
+      {
+        "name": "CodeSearchNet (GitHub-derived)",
+        "official_source": "github.com/github/CodeSearchNet",
+        "languages": "Go, Java, JavaScript, PHP, Python, Ruby",
+        "published_size": "~6M functions with docstrings (reported), ~2 GB",
+        "access": "public download, no registration",
+        "license": "dataset metadata CC-BY-4.0; the code files carry their ORIGINAL licenses (GitHub ToS apply); not uniformly permissive",
+        "source_code_obligations": "GPL/LGPL files inside it impose obligations; GitHub ToS restricts scraping-scale redistribution",
+        "attribution": "required if redistributed",
+        "redistribution": "prohibited at scale under GitHub ToS without API-level compliance",
+        "opt_out": "none provided by upstream",
+        "commercial_use": "ambiguous per-file; cannot be assumed",
+        "quality_security": "docstring-paired functions (useful for NL-code pairs) but mixed licensing",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "useful shape, licensing too heterogeneous to use as-is"
+      },
+      {
+        "name": "PyPI permissively-licensed packages (direct package index)",
+        "official_source": "pypi.org / files.pythonhosted.org",
+        "languages": "Python",
+        "published_size": "package count > 500k (reported); code volume ~1-2 TB raw, ~tens of billions of tokens",
+        "access": "public index, no registration (fair-use limits apply at scrape scale)",
+        "license": "per-package license files (majority MIT/Apache/BSD/PSF; copyleft minority must be filtered)",
+        "source_code_obligations": "each package's LICENSE file governs; must be read and filtered at package level",
+        "attribution": "per-package attribution required for redistribution",
+        "redistribution": "per-package; systematic filtering required (SPDX id + allowlist)",
+        "opt_out": "none systematic",
+        "commercial_use": "mostly permissive but cannot be assumed per-package without reading LICENSEs",
+        "quality_security": "uneven quality; secret leakage common (CI tokens, keys); heavy dedup required; documentation/example code high value",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "VIABLE via the same license-gate tooling used for M3-verified; highest legal-engineering cost"
+      },
+      {
+        "name": "RedPajama / Dolma corpora",
+        "official_source": "github.com/togethercomputer/RedPajama-Data; allenai/OLMo-Dolma",
+        "languages": "many incl. code (RedPajama-Data-1B has code slice), English-dominant",
+        "published_size": "1.2 T tokens (reported) for RedPajama-1; Dolma ~3 T",
+        "access": "public downloads",
+        "license": "mixed CommonCrawl licenses + subset-specific licenses (e.g. C4: ODC-BY); code slice inherits GitHub licensing",
+        "source_code_obligations": "same per-file license issue as GitHub-derived code",
+        "attribution": "required",
+        "redistribution": "corpus redistribution prohibited; derivative research use permitted",
+        "opt_out": "none",
+        "commercial_use": "allowed for research under ODC-BY-1.0-style terms with attribution; code slice inherits mixed terms",
+        "quality_security": "heavy filtering applied; still needs code-specific quality pass",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "NOT a code-first option; only if chat/general text is desired"
+      },
+      {
+        "name": "The Pile",
+        "official_source": "github.com/EleutherAI/pile; Hugging Face",
+        "languages": "many; code slice ~9% (BigCode subset, GPL-style licensing inside)",
+        "published_size": "~800 GB raw (reported), ~1.2T tokens est.",
+        "access": "public download",
+        "license": "mixed: CC-BY-SA-3.0 (some slices), ArXiv (non-commercial-like terms in practice), GPL-family code slice; license indeterminate per-file",
+        "source_code_obligations": "code slice inherits GPL/copyleft obligations; attribution and source-offer very complex",
+        "attribution": "complex per-slice",
+        "redistribution": "practically unworkable as a redistributed corpus; research use common",
+        "opt_out": "none",
+        "commercial_use": "generally NOT clean for commercial use of the full corpus; per-slice analysis mandatory",
+        "quality_security": "large-scale, mixed provenance; known PII/malware content documented by authors",
+        "legal_review_required": true,
+        "ingested_in_l05": false,
+        "verdict": "EXCLUDE for code training until per-slice review; not recommended"
+      },
+      {
+        "name": "OASST2 (Open Assistant) instruction trees",
+        "official_source": "huggingface.co/datasets/OpenAssistant/oasst2",
+        "languages": "English + European languages",
+        "published_size": "~90k annotated messages (reported)",
+        "access": "CC-BY-SA-4.0 (human-authored, Apache-2.0-ish), public download",
+        "license": "CC-BY-SA-4.0 (share-alike)",
+        "source_code_obligations": "share-alike applies to adapted data, not to models trained on it (per OpenRAIL-style readings), but legal review advised; code content is thin",
+        "attribution": "required",
+        "redistribution": "permitted with attribution, share-alike on the dataset itself",
+        "opt_out": "implicit (contributor consent flow); small dataset, low value for code",
+        "commercial_use": "permitted under CC-BY-SA-4.0 with attribution",
+        "quality_security": "small, high-quality human data; not code-heavy",
+        "legal_review_required": false,
+        "ingested_in_l05": false,
+        "verdict": "small CC-BY-SA general/instruction data; insufficient code mass"
+      },
+      {
+        "name": "Databricks Dolly 15k",
+        "official_source": "huggingface.co/datasets/databricks/databricks-dolly-15k",
+        "languages": "English",
+        "published_size": "15,187 records (reported)",
+        "access": "CC-BY-SA-3.0 public",
+        "license": "CC-BY-SA-3.0",
+        "source_code_obligations": "share-alike on data; code segment tiny",
+        "attribution": "required",
+        "redistribution": "permitted with attribution",
+        "opt_out": "none systematic; human-authored, low risk",
+        "commercial_use": "permitted with attribution",
+        "quality_security": "human-authored but tiny and general; near-zero code",
+        "legal_review_required": false,
+        "ingested_in_l05": false,
+        "verdict": "instruction-format donor only; negligible for code capability"
+      },
+      {
+        "name": "Wiki / StackExchange dumps (general text)",
+        "official_source": "wikimedia dumps; archive.org SE dumps",
+        "languages": "English + others",
+        "published_size": "Wikipedia ~20 GB compressed text (reported); SE ~100 GB",
+        "access": "public dumps, no registration",
+        "license": "Wikipedia CC-BY-SA-3.0; StackExchange dumps CC-BY-SA-4.0",
+        "source_code_obligations": "share-alike on data; code inside posts inherits mixed per-post licensing (StackOverflow CC-BY-SA-4.0 with attribution)",
+        "attribution": "required",
+        "redistribution": "permitted with attribution, share-alike on adapted data",
+        "opt_out": "implicit via community conventions; large corpus, needs PII/toxicity filtering",
+        "commercial_use": "permitted with attribution",
+        "quality_security": "StackOverflow code is high quality; license attribution burden real",
+        "legal_review_required": false,
+        "ingested_in_l05": false,
+        "verdict": "acceptable general-text; code volume still small relative to need"
+      },
+      {
+        "name": "Evaluation benchmarks as training data (HumanEval / MBPP / EvalPlus / L0.2 bench)",
+        "official_source": "openai/human-eval; google-research MBPP; evalplus; this repo",
+        "languages": "Python",
+        "published_size": "164 / 974 / ~1,000+ problems",
+        "access": "public",
+        "license": "HumanEval MIT; MBPP CC-BY-4.0; EvalPlus MIT",
+        "source_code_obligations": "n/a (too small; not a corpus)",
+        "attribution": "required if used",
+        "redistribution": "permitted",
+        "opt_out": "n/a",
+        "commercial_use": "permitted",
+        "quality_security": "THE point: these are evaluation sets; ANY training on them destroys the measurement",
+        "legal_review_required": false,
+        "ingested_in_l05": false,
+        "verdict": "EXCLUDED BY DESIGN AND BY PROJECT POLICY (no training on eval sets)"
+      }
+    ],
+    "register_summary": {
+      "candidates": 10,
+      "legal_review_required": 6,
+      "zero_ingested_in_l05": true,
+      "policy": "No candidate may enter training merely because it is publicly accessible; every candidate above requires legal sign-off before acquisition or ingestion."
+    },
+    "census": {
+      "code_tokens_in_repo": 1590703,
+      "epochs_for_1B_at_100_per_param": 64036.1,
+      "epochs_for_300M_at_100_per_param": 18175.3
+    }
+  },
+  "training_strategy": {
+    "schema": "taksh.l05_training_strategy/1",
+    "generated_by": "evaluation/l05_training_strategy.py",
+    "selection_context": "L0.1-L0.4 measured: tokenizer adequate; 28.8M model; 20M-token licensed corpus available but 96% general text; frozen benchmark 0/30 for all checkpoints.",
+    "strategies": [
+      {
+        "id": "A",
+        "name": "Continued pretraining (code-dense)",
+        "description": "Warmstart from runs/l03_pretrain/checkpoint_last.pt and continue on a code-dense corpus (L0.4: 50.0% code, 3.18M train tokens).",
+        "measured_evidence": [
+          "L0.3 warmstart run: train loss 8.40 -> 5.05 over 600 steps (1.23M tokens); code-val loss 6.87 -> 5.41 (ppl 967 -> 224).",
+          "L0.4 E1 warmstart: code-val loss 5.84 -> 5.34 over 300 steps; E2 code-only 5.62 -> 5.06; E3 (half LR) 5.51.",
+          "Every L0.4 checkpoint still scores 0/30 on the frozen Python benchmark."
+        ],
+        "requirements": {
+          "unique_data": ">= 10-50x the current 1.59M qualified code tokens to begin transferring; 1B-class would need ~100B tokens (off the table)",
+          "compute": "full 20M-token epoch ~ 28 CPU-days; A100-class ~ 1-2 hours",
+          "tokenizer": "unchanged"
+        },
+        "advantages": [
+          "tokenizer and checkpoint lineage preserved",
+          "cheapest capability path per dollar of new data",
+          "monitored divergence (val loss) gives an early stopping signal"
+        ],
+        "limitations": [
+          "retains English-dominant gravity: without code mass, gains stay numerical (perplexity), not functional",
+          "no behavioral alignment: still cannot follow instructions or stop",
+          "diminishing returns per epoch; ~4 epochs is a practical ceiling on 17k-line subsets"
+        ],
+        "risks": [
+          "same English-dominance failure mode as L0.3 revisited at larger scale",
+          "license-filtered pool too small to reach useful perplexity scales"
+        ],
+        "unknowns": [
+          "transfer curve beyond ~2M code tokens (not measurable in this environment)"
+        ],
+        "verdict": "CONTINUE ONLY WITH NEW LICENSED DATA AT SCALE; not a fix in isolation",
+        "missing_items": [
+          "owner-acquired >= 10GB licence-verified Python",
+          "GPU budget"
+        ]
+      },
+      {
+        "id": "B",
+        "name": "Code-focused supervised fine-tuning only",
+        "description": "SFT on high-quality instruction->code pairs with tests and explanations (the v160/v180 SFT recipe, scaled).",
+        "measured_evidence": [
+          "L0.2 overfit gate: 24/24 memorization with 260 pairs + 1e-3 lr \u2014 proves the pipeline can memorize.",
+          "L0.2 hp: 260 pairs at 1e-3, 500 steps: train loss 6.38 -> 0.39, code-val loss 4.03 -> ?; still 0/30 unseen.",
+          "L0.2 SFT runs systematically degrade code modeling (v180 code val 7.60 vs base 7.43; l02_sft_hp code val 12.31 \u2014 catastrophic forgetting of even the tiny base ability).",
+          "SFT data with expression-only targets (v1.6/v1.8.0) taught expression-fragment completions and destroyed stopping behavior."
+        ],
+        "requirements": {
+          "unique_data": ">= 100k-1M high-quality instruction pairs (with tests where feasible) to beat chance on unseen tasks; we have 260 (+ 610 license-verified instruct_v1)",
+          "quality": "task descriptions, correct Python solutions, test cases, explanations or code-only targets; multi-step and debugging examples",
+          "provenance": "hand-written or license-verified; no LLM-generated pairs (project policy); no benchmark-derived pairs"
+        },
+        "advantages": [
+          "most direct route to instruction following and EOS behaviour",
+          "each example can be executed and its answer verified before training"
+        ],
+        "limitations": [
+          "does NOT teach Python itself; only the instruction->code mapping",
+          "quality-per-example dominates volume; 57-260 examples cannot beat 0/30",
+          "memorization masquerades as capability (24/24 gate fooled nobody on unseen tasks)"
+        ],
+        "risks": [
+          "catastrophic forgetting of the (already tiny) code-modeling ability",
+          "SFT distribution shift can actively worsen held-out code loss, as measured"
+        ],
+        "unknowns": [
+          "the pair volume at which SFT alone yields nonzero pass@1 for this 28.8M base (untested; expected: far beyond available data)"
+        ],
+        "verdict": "NECESSARY BUT NOT SUFFICIENT; without a strengthened base it produces memorization, not capability",
+        "missing_items": [
+          "verified instruction-pair corpus >= 100k",
+          "base with real code-modeling ability"
+        ]
+      },
+      {
+        "id": "C",
+        "name": "Combined: continued pretraining + code-focused SFT (two-phase)",
+        "description": "Phase 1 continued code-dense pretraining (A), then Phase 2 code-focused SFT (B).",
+        "measured_evidence": [
+          "Phase 1 works: L0.3/L0.4 show monotone code-val improvement (5.96 -> 5.06) with finite gradients and stable clipping.",
+          "Phase 2 works mechanically: L0.2 shows pipelines execute, verify, and save cleanly.",
+          "No combination attempted yet can be expected to exceed 0/30: each phase is individually data-starved by ~100x."
+        ],
+        "requirements": {
+          "phase1": " >= 10B tokens of licence-verified code for a 100M-300M model; or accept sub-1B target with smaller but still enormous pool",
+          "phase2": " >= 100k verified instruction-code pairs with tests",
+          "compute": "phase 1 ~ GPU-hours-to-days depending on size; phase 2 ~ CPU-days once base exists"
+        },
+        "advantages": [
+          "aligns with how working code models are actually built (pretrain+anneal+SFT)",
+          "both phases are measurable independently (val loss; pass@1 on a frozen benchmark)"
+        ],
+        "limitations": [
+          "still wholly gated by licensed code at scale; phase 1 cannot be substituted by cleverness",
+          "SFT on a weak base cannot raise pass@1; phase order matters"
+        ],
+        "risks": [
+          "SFT after continued PT could still erase the phase-1 gains if data licensing forces a tiny phase-2 set"
+        ],
+        "unknowns": [
+          "interaction term between phase-1 volume and phase-2 pair quality for a from-scratch 100M model (no data, no measurement possible here)"
+        ],
+        "verdict": "THE VIABLE ROUTE; both phases required; both blocked on licensed data + compute authorization",
+        "missing_items": [
+          "owner data acquisition budget",
+          "GPU budget",
+          "legal review of candidate corpora"
+        ]
+      },
+      {
+        "id": "D",
+        "name": "Architecture redesign (larger model vs. changes)",
+        "description": "Scale up width/depth within the existing Taksh family; or change modules (attention, norm, positional encoding).",
+        "measured_evidence": [
+          "Architecture is NOT the measured bottleneck: perplexity falls monotonically with code-dense training; failures are data-starvation, not attention/norm/rope.",
+          "Mechanically verified: RMSNorm+RoPE+GQA+SwiGLU+tied-embedding counts exactly (28,787,328 analytic == measured) and trains stably (grad norms 0.7-2.9).",
+          "RoPE validated only to 2048 context; no evidence any module-level change would help at this scale."
+        ],
+        "requirements": {
+          "if_scaling": "100M-300M configuration with identical module family (candidate A/B); vocab unchanged",
+          "if_redesign": "a measured failure that module changes would fix \u2014 none identified; any redesign is speculative"
+        },
+        "advantages": [
+          "zero architecture-risk: same family scales cleanly to A/B/C"
+        ],
+        "limitations": [
+          "redesign without evidence adds unquantifiable risk and zero measured benefit",
+          "larger models REQUIRE more data; scaling alone with 1.59M code tokens accelerates memorization"
+        ],
+        "risks": [
+          "C_1B without a matched data increase is wasted memory, not capability"
+        ],
+        "unknowns": [
+          "ablations (e.g. different GQA ratio, finer token granularity) untested; all blocked on data anyway"
+        ],
+        "verdict": "DO NOT REDESIGN; scale with data. Consider A/B only after data authorization",
+        "missing_items": [
+          "license-verified data volume (gate)",
+          "GPU budget (gate)"
+        ]
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "id": "A",
+        "data_blocker": "CONTINUE ONLY WITH NEW LICENSED DATA AT SCALE; not a fix in isolation",
+        "requires_owner_data_spend": true,
+        "requires_owner_gpu_spend": true,
+        "compatible_with_tokenizer": true,
+        "compatible_with_checkpoints": true,
+        "expected_effect_at_current_scale": "zero capability gain (0/30) at current data scale"
+      },
+      {
+        "id": "B",
+        "data_blocker": "NECESSARY BUT NOT SUFFICIENT; without a strengthened base it produces memorization, not capability",
+        "requires_owner_data_spend": false,
+        "requires_owner_gpu_spend": false,
+        "compatible_with_tokenizer": true,
+        "compatible_with_checkpoints": false,
+        "expected_effect_at_current_scale": "zero capability gain (0/30) at current data scale"
+      },
+      {
+        "id": "C",
+        "data_blocker": "THE VIABLE ROUTE; both phases required; both blocked on licensed data + compute authorization",
+        "requires_owner_data_spend": true,
+        "requires_owner_gpu_spend": true,
+        "compatible_with_tokenizer": true,
+        "compatible_with_checkpoints": false,
+        "expected_effect_at_current_scale": "zero capability gain (0/30) at current data scale"
+      },
+      {
+        "id": "D",
+        "data_blocker": "DO NOT REDESIGN; scale with data. Consider A/B only after data authorization",
+        "requires_owner_data_spend": false,
+        "requires_owner_gpu_spend": false,
+        "compatible_with_tokenizer": true,
+        "compatible_with_checkpoints": false,
+        "expected_effect_at_current_scale": "zero capability gain (0/30) at current data scale"
+      }
+    ],
+    "recommendation": "Sequence: (1) owner authorizes data acquisition + legal review (candidate corpora in the register); (2) A100-class compute; (3) strategy C: continued pretraining at 100M, then code-focused SFT; (4) re-run the frozen L0.2 benchmark with the identical protocol; (5) keep the L0.1 default checkpoint until a candidate demonstrably beats it on the frozen benchmark.",
+    "do_not": [
+      "do not switch the L0.1 default checkpoint",
+      "do not train on L0.2 benchmark items or derivatives",
+      "do not use commercial-LLM-generated pairs",
+      "do not scale the model beyond data scale",
+      "do not migrate the tokenizer"
+    ]
+  },
+  "compute_estimate": {
+    "schema": "taksh.l05_compute_estimate/1",
+    "generated_by": "evaluation/l05_compute_estimator.py",
+    "method": {
+      "flops": "training FLOPs = 6 x parameters x training tokens (standard forward+backward approximation)",
+      "limitations": [
+        "attention-quadratic term ignored (valid for d_model <= 2048, seq <= 2048-4096)",
+        "activation memory is a rule-of-thumb (34 x bsz x seq x d x layers), not a profiler measurement",
+        "no comm/checkpoint I/O overhead included",
+        "GPU durations carry no utilization claim; only CPU duration is anchored to measurement"
+      ],
+      "assumptions": [
+        "dense (non-MoE) transformer; all params trained",
+        "fp32 or bf16 mixed precision; ~16 bytes/parameter working set either way",
+        "Adam(W) optimizer with fp32 state"
+      ]
+    },
+    "cpu_anchor": {
+      "measured_from": "runs/l03_pretrain/loss_log.jsonl + run_manifest.json (~9.3 s/step, 2048 tokens/step)",
+      "tokens_per_second": 215,
+      "range": [
+        180,
+        260
+      ]
+    },
+    "gpu_price_per_hour": null,
+    "matrix": {
+      "existing_28.8M": {
+        "params": 28787328,
+        "by_token_ratio": [
+          {
+            "tokens_per_param": 20,
+            "tokens": 575746560,
+            "flops_6xPxT": 9.944523040555008e+16,
+            "memory": {
+              "weights_fp32_bytes": 115149312,
+              "weights_bf16_bytes": 57574656,
+              "grads_fp32_bytes": 115149312,
+              "adam_m_v_bytes": 230298624,
+              "training_working_set_fp32_bytes": 460597248,
+              "training_working_set_bf16_bytes": 460597248,
+              "activation_estimate_bytes": 320864256,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 115149312,
+              "checkpoint_with_optimizer_bytes": 518171904,
+              "checkpoint_model_bf16_bytes": 57574656
+            },
+            "checkpoint_model_only_gb": 0.115
+          },
+          {
+            "tokens_per_param": 50,
+            "tokens": 1439366400,
+            "flops_6xPxT": 2.486130760138752e+17,
+            "memory": {
+              "weights_fp32_bytes": 115149312,
+              "weights_bf16_bytes": 57574656,
+              "grads_fp32_bytes": 115149312,
+              "adam_m_v_bytes": 230298624,
+              "training_working_set_fp32_bytes": 460597248,
+              "training_working_set_bf16_bytes": 460597248,
+              "activation_estimate_bytes": 320864256,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 115149312,
+              "checkpoint_with_optimizer_bytes": 518171904,
+              "checkpoint_model_bf16_bytes": 57574656
+            },
+            "checkpoint_model_only_gb": 0.115
+          },
+          {
+            "tokens_per_param": 100,
+            "tokens": 2878732800,
+            "flops_6xPxT": 4.972261520277504e+17,
+            "memory": {
+              "weights_fp32_bytes": 115149312,
+              "weights_bf16_bytes": 57574656,
+              "grads_fp32_bytes": 115149312,
+              "adam_m_v_bytes": 230298624,
+              "training_working_set_fp32_bytes": 460597248,
+              "training_working_set_bf16_bytes": 460597248,
+              "activation_estimate_bytes": 320864256,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 115149312,
+              "checkpoint_with_optimizer_bytes": 518171904,
+              "checkpoint_model_bf16_bytes": 57574656
+            },
+            "checkpoint_model_only_gb": 0.115
+          },
+          {
+            "tokens_per_param": 200,
+            "tokens": 5757465600,
+            "flops_6xPxT": 9.944523040555008e+17,
+            "memory": {
+              "weights_fp32_bytes": 115149312,
+              "weights_bf16_bytes": 57574656,
+              "grads_fp32_bytes": 115149312,
+              "adam_m_v_bytes": 230298624,
+              "training_working_set_fp32_bytes": 460597248,
+              "training_working_set_bf16_bytes": 460597248,
+              "activation_estimate_bytes": 320864256,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 115149312,
+              "checkpoint_with_optimizer_bytes": 518171904,
+              "checkpoint_model_bf16_bytes": 57574656
+            },
+            "checkpoint_model_only_gb": 0.115
+          }
+        ],
+        "for_reference_full_l04_epoch": {
+          "tokens": 3182359,
+          "flops_6xPxT": 549669674080512.0,
+          "memory": {
+            "weights_fp32_bytes": 115149312,
+            "weights_bf16_bytes": 57574656,
+            "grads_fp32_bytes": 115149312,
+            "adam_m_v_bytes": 230298624,
+            "training_working_set_fp32_bytes": 460597248,
+            "training_working_set_bf16_bytes": 460597248,
+            "activation_estimate_bytes": 320864256,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 115149312,
+            "checkpoint_with_optimizer_bytes": 518171904,
+            "checkpoint_model_bf16_bytes": 57574656
+          }
+        }
+      },
+      "candidate_A_110M": {
+        "params": 110658816,
+        "by_token_ratio": [
+          {
+            "tokens_per_param": 20,
+            "tokens": 2213176320,
+            "flops_6xPxT": 1.4694448270226227e+18,
+            "memory": {
+              "weights_fp32_bytes": 442635264,
+              "weights_bf16_bytes": 221317632,
+              "grads_fp32_bytes": 442635264,
+              "adam_m_v_bytes": 885270528,
+              "training_working_set_fp32_bytes": 1770541056,
+              "training_working_set_bf16_bytes": 1770541056,
+              "activation_estimate_bytes": 641728512,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 442635264,
+              "checkpoint_with_optimizer_bytes": 1991858688,
+              "checkpoint_model_bf16_bytes": 221317632
+            },
+            "checkpoint_model_only_gb": 0.443
+          },
+          {
+            "tokens_per_param": 50,
+            "tokens": 5532940800,
+            "flops_6xPxT": 3.673612067556557e+18,
+            "memory": {
+              "weights_fp32_bytes": 442635264,
+              "weights_bf16_bytes": 221317632,
+              "grads_fp32_bytes": 442635264,
+              "adam_m_v_bytes": 885270528,
+              "training_working_set_fp32_bytes": 1770541056,
+              "training_working_set_bf16_bytes": 1770541056,
+              "activation_estimate_bytes": 641728512,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 442635264,
+              "checkpoint_with_optimizer_bytes": 1991858688,
+              "checkpoint_model_bf16_bytes": 221317632
+            },
+            "checkpoint_model_only_gb": 0.443
+          },
+          {
+            "tokens_per_param": 100,
+            "tokens": 11065881600,
+            "flops_6xPxT": 7.347224135113114e+18,
+            "memory": {
+              "weights_fp32_bytes": 442635264,
+              "weights_bf16_bytes": 221317632,
+              "grads_fp32_bytes": 442635264,
+              "adam_m_v_bytes": 885270528,
+              "training_working_set_fp32_bytes": 1770541056,
+              "training_working_set_bf16_bytes": 1770541056,
+              "activation_estimate_bytes": 641728512,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 442635264,
+              "checkpoint_with_optimizer_bytes": 1991858688,
+              "checkpoint_model_bf16_bytes": 221317632
+            },
+            "checkpoint_model_only_gb": 0.443
+          },
+          {
+            "tokens_per_param": 200,
+            "tokens": 22131763200,
+            "flops_6xPxT": 1.4694448270226227e+19,
+            "memory": {
+              "weights_fp32_bytes": 442635264,
+              "weights_bf16_bytes": 221317632,
+              "grads_fp32_bytes": 442635264,
+              "adam_m_v_bytes": 885270528,
+              "training_working_set_fp32_bytes": 1770541056,
+              "training_working_set_bf16_bytes": 1770541056,
+              "activation_estimate_bytes": 641728512,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 442635264,
+              "checkpoint_with_optimizer_bytes": 1991858688,
+              "checkpoint_model_bf16_bytes": 221317632
+            },
+            "checkpoint_model_only_gb": 0.443
+          }
+        ],
+        "for_reference_full_l04_epoch": {
+          "tokens": 3182359,
+          "flops_6xPxT": 2112936474161664.0,
+          "memory": {
+            "weights_fp32_bytes": 442635264,
+            "weights_bf16_bytes": 221317632,
+            "grads_fp32_bytes": 442635264,
+            "adam_m_v_bytes": 885270528,
+            "training_working_set_fp32_bytes": 1770541056,
+            "training_working_set_bf16_bytes": 1770541056,
+            "activation_estimate_bytes": 641728512,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 442635264,
+            "checkpoint_with_optimizer_bytes": 1991858688,
+            "checkpoint_model_bf16_bytes": 221317632
+          }
+        }
+      },
+      "candidate_B_289M": {
+        "params": 289115136,
+        "by_token_ratio": [
+          {
+            "tokens_per_param": 20,
+            "tokens": 5782302720,
+            "flops_6xPxT": 1.003050742371582e+19,
+            "memory": {
+              "weights_fp32_bytes": 1156460544,
+              "weights_bf16_bytes": 578230272,
+              "grads_fp32_bytes": 1156460544,
+              "adam_m_v_bytes": 2312921088,
+              "training_working_set_fp32_bytes": 4625842176,
+              "training_working_set_bf16_bytes": 4625842176,
+              "activation_estimate_bytes": 1283457024,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 1156460544,
+              "checkpoint_with_optimizer_bytes": 5204072448,
+              "checkpoint_model_bf16_bytes": 578230272
+            },
+            "checkpoint_model_only_gb": 1.156
+          },
+          {
+            "tokens_per_param": 50,
+            "tokens": 14455756800,
+            "flops_6xPxT": 2.507626855928955e+19,
+            "memory": {
+              "weights_fp32_bytes": 1156460544,
+              "weights_bf16_bytes": 578230272,
+              "grads_fp32_bytes": 1156460544,
+              "adam_m_v_bytes": 2312921088,
+              "training_working_set_fp32_bytes": 4625842176,
+              "training_working_set_bf16_bytes": 4625842176,
+              "activation_estimate_bytes": 1283457024,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 1156460544,
+              "checkpoint_with_optimizer_bytes": 5204072448,
+              "checkpoint_model_bf16_bytes": 578230272
+            },
+            "checkpoint_model_only_gb": 1.156
+          },
+          {
+            "tokens_per_param": 100,
+            "tokens": 28911513600,
+            "flops_6xPxT": 5.01525371185791e+19,
+            "memory": {
+              "weights_fp32_bytes": 1156460544,
+              "weights_bf16_bytes": 578230272,
+              "grads_fp32_bytes": 1156460544,
+              "adam_m_v_bytes": 2312921088,
+              "training_working_set_fp32_bytes": 4625842176,
+              "training_working_set_bf16_bytes": 4625842176,
+              "activation_estimate_bytes": 1283457024,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 1156460544,
+              "checkpoint_with_optimizer_bytes": 5204072448,
+              "checkpoint_model_bf16_bytes": 578230272
+            },
+            "checkpoint_model_only_gb": 1.156
+          },
+          {
+            "tokens_per_param": 200,
+            "tokens": 57823027200,
+            "flops_6xPxT": 1.003050742371582e+20,
+            "memory": {
+              "weights_fp32_bytes": 1156460544,
+              "weights_bf16_bytes": 578230272,
+              "grads_fp32_bytes": 1156460544,
+              "adam_m_v_bytes": 2312921088,
+              "training_working_set_fp32_bytes": 4625842176,
+              "training_working_set_bf16_bytes": 4625842176,
+              "activation_estimate_bytes": 1283457024,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 1156460544,
+              "checkpoint_with_optimizer_bytes": 5204072448,
+              "checkpoint_model_bf16_bytes": 578230272
+            },
+            "checkpoint_model_only_gb": 1.156
+          }
+        ],
+        "for_reference_full_l04_epoch": {
+          "tokens": 3182359,
+          "flops_6xPxT": 5520408930514944.0,
+          "memory": {
+            "weights_fp32_bytes": 1156460544,
+            "weights_bf16_bytes": 578230272,
+            "grads_fp32_bytes": 1156460544,
+            "adam_m_v_bytes": 2312921088,
+            "training_working_set_fp32_bytes": 4625842176,
+            "training_working_set_bf16_bytes": 4625842176,
+            "activation_estimate_bytes": 1283457024,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 1156460544,
+            "checkpoint_with_optimizer_bytes": 5204072448,
+            "checkpoint_model_bf16_bytes": 578230272
+          }
+        }
+      },
+      "candidate_C_1019M": {
+        "params": 1018624000,
+        "by_token_ratio": [
+          {
+            "tokens_per_param": 20,
+            "tokens": 20372480000,
+            "flops_6xPxT": 1.2451138240512e+20,
+            "memory": {
+              "weights_fp32_bytes": 4074496000,
+              "weights_bf16_bytes": 2037248000,
+              "grads_fp32_bytes": 4074496000,
+              "adam_m_v_bytes": 8148992000,
+              "training_working_set_fp32_bytes": 16297984000,
+              "training_working_set_bf16_bytes": 16297984000,
+              "activation_estimate_bytes": 2281701376,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 4074496000,
+              "checkpoint_with_optimizer_bytes": 18335232000,
+              "checkpoint_model_bf16_bytes": 2037248000
+            },
+            "checkpoint_model_only_gb": 4.074
+          },
+          {
+            "tokens_per_param": 50,
+            "tokens": 50931200000,
+            "flops_6xPxT": 3.112784560128e+20,
+            "memory": {
+              "weights_fp32_bytes": 4074496000,
+              "weights_bf16_bytes": 2037248000,
+              "grads_fp32_bytes": 4074496000,
+              "adam_m_v_bytes": 8148992000,
+              "training_working_set_fp32_bytes": 16297984000,
+              "training_working_set_bf16_bytes": 16297984000,
+              "activation_estimate_bytes": 2281701376,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 4074496000,
+              "checkpoint_with_optimizer_bytes": 18335232000,
+              "checkpoint_model_bf16_bytes": 2037248000
+            },
+            "checkpoint_model_only_gb": 4.074
+          },
+          {
+            "tokens_per_param": 100,
+            "tokens": 101862400000,
+            "flops_6xPxT": 6.225569120256e+20,
+            "memory": {
+              "weights_fp32_bytes": 4074496000,
+              "weights_bf16_bytes": 2037248000,
+              "grads_fp32_bytes": 4074496000,
+              "adam_m_v_bytes": 8148992000,
+              "training_working_set_fp32_bytes": 16297984000,
+              "training_working_set_bf16_bytes": 16297984000,
+              "activation_estimate_bytes": 2281701376,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 4074496000,
+              "checkpoint_with_optimizer_bytes": 18335232000,
+              "checkpoint_model_bf16_bytes": 2037248000
+            },
+            "checkpoint_model_only_gb": 4.074
+          },
+          {
+            "tokens_per_param": 200,
+            "tokens": 203724800000,
+            "flops_6xPxT": 1.2451138240512e+21,
+            "memory": {
+              "weights_fp32_bytes": 4074496000,
+              "weights_bf16_bytes": 2037248000,
+              "grads_fp32_bytes": 4074496000,
+              "adam_m_v_bytes": 8148992000,
+              "training_working_set_fp32_bytes": 16297984000,
+              "training_working_set_bf16_bytes": 16297984000,
+              "activation_estimate_bytes": 2281701376,
+              "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+              "checkpoint_model_only_bytes": 4074496000,
+              "checkpoint_with_optimizer_bytes": 18335232000,
+              "checkpoint_model_bf16_bytes": 2037248000
+            },
+            "checkpoint_model_only_gb": 4.074
+          }
+        ],
+        "for_reference_full_l04_epoch": {
+          "tokens": 3182359,
+          "flops_6xPxT": 1.9449763524096e+16,
+          "memory": {
+            "weights_fp32_bytes": 4074496000,
+            "weights_bf16_bytes": 2037248000,
+            "grads_fp32_bytes": 4074496000,
+            "adam_m_v_bytes": 8148992000,
+            "training_working_set_fp32_bytes": 16297984000,
+            "training_working_set_bf16_bytes": 16297984000,
+            "activation_estimate_bytes": 2281701376,
+            "activation_estimate_note": "34 x micro_batch x seq x d_model x layers (approx); implementation-dependent; includes norm/residual/MLP buffers, excludes attention scores blow-up at seq > 2048",
+            "checkpoint_model_only_bytes": 4074496000,
+            "checkpoint_with_optimizer_bytes": 18335232000,
+            "checkpoint_model_bf16_bytes": 2037248000
+          }
+        }
+      }
+    },
+    "hardware_feasibility": {
+      "existing_28.8M": {
+        "params": 28787328,
+        "training_working_set_fp32_bytes": 460597248,
+        "activation_estimate_bytes": 320864256,
+        "verdicts": [
+          {
+            "hardware": "CPU-only (this environment)",
+            "vram_gb": 0,
+            "usable_vram_bytes_for_training": 0,
+            "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+            "fits_training": false,
+            "fits_inference": false
+          },
+          {
+            "hardware": "MX150 4 GB",
+            "vram_gb": 4,
+            "usable_vram_bytes_for_training": 3221225472,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "8 GB VRAM class",
+            "vram_gb": 8,
+            "usable_vram_bytes_for_training": 6442450944,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "16 GB VRAM class",
+            "vram_gb": 16,
+            "usable_vram_bytes_for_training": 12884901888,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "24 GB VRAM class",
+            "vram_gb": 24,
+            "usable_vram_bytes_for_training": 19327352832,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "48 GB VRAM class",
+            "vram_gb": 48,
+            "usable_vram_bytes_for_training": 38654705664,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "80 GB VRAM class",
+            "vram_gb": 80,
+            "usable_vram_bytes_for_training": 64424509440,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          }
+        ]
+      },
+      "candidate_A_110M": {
+        "params": 110658816,
+        "training_working_set_fp32_bytes": 1770541056,
+        "activation_estimate_bytes": 641728512,
+        "verdicts": [
+          {
+            "hardware": "CPU-only (this environment)",
+            "vram_gb": 0,
+            "usable_vram_bytes_for_training": 0,
+            "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+            "fits_training": false,
+            "fits_inference": false
+          },
+          {
+            "hardware": "MX150 4 GB",
+            "vram_gb": 4,
+            "usable_vram_bytes_for_training": 3221225472,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "8 GB VRAM class",
+            "vram_gb": 8,
+            "usable_vram_bytes_for_training": 6442450944,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "16 GB VRAM class",
+            "vram_gb": 16,
+            "usable_vram_bytes_for_training": 12884901888,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "24 GB VRAM class",
+            "vram_gb": 24,
+            "usable_vram_bytes_for_training": 19327352832,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "48 GB VRAM class",
+            "vram_gb": 48,
+            "usable_vram_bytes_for_training": 38654705664,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "80 GB VRAM class",
+            "vram_gb": 80,
+            "usable_vram_bytes_for_training": 64424509440,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          }
+        ]
+      },
+      "candidate_B_289M": {
+        "params": 289115136,
+        "training_working_set_fp32_bytes": 4625842176,
+        "activation_estimate_bytes": 1283457024,
+        "verdicts": [
+          {
+            "hardware": "CPU-only (this environment)",
+            "vram_gb": 0,
+            "usable_vram_bytes_for_training": 0,
+            "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+            "fits_training": false,
+            "fits_inference": false
+          },
+          {
+            "hardware": "MX150 4 GB",
+            "vram_gb": 4,
+            "usable_vram_bytes_for_training": 3221225472,
+            "verdict": "Inference-only; full training working set does not fit",
+            "fits_training": false,
+            "fits_inference": true
+          },
+          {
+            "hardware": "8 GB VRAM class",
+            "vram_gb": 8,
+            "usable_vram_bytes_for_training": 6442450944,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "16 GB VRAM class",
+            "vram_gb": 16,
+            "usable_vram_bytes_for_training": 12884901888,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "24 GB VRAM class",
+            "vram_gb": 24,
+            "usable_vram_bytes_for_training": 19327352832,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "48 GB VRAM class",
+            "vram_gb": 48,
+            "usable_vram_bytes_for_training": 38654705664,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "80 GB VRAM class",
+            "vram_gb": 80,
+            "usable_vram_bytes_for_training": 64424509440,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          }
+        ]
+      },
+      "candidate_C_1019M": {
+        "params": 1018624000,
+        "training_working_set_fp32_bytes": 16297984000,
+        "activation_estimate_bytes": 2281701376,
+        "verdicts": [
+          {
+            "hardware": "CPU-only (this environment)",
+            "vram_gb": 0,
+            "usable_vram_bytes_for_training": 0,
+            "verdict": "CPU-only: trains slowly but predictably; measured ~215 tok/s for 28.8M model",
+            "fits_training": false,
+            "fits_inference": false
+          },
+          {
+            "hardware": "MX150 4 GB",
+            "vram_gb": 4,
+            "usable_vram_bytes_for_training": 3221225472,
+            "verdict": "DOES NOT FIT for from-scratch training (weights alone exceed budget)",
+            "fits_training": false,
+            "fits_inference": false
+          },
+          {
+            "hardware": "8 GB VRAM class",
+            "vram_gb": 8,
+            "usable_vram_bytes_for_training": 6442450944,
+            "verdict": "Inference-only; full training working set does not fit",
+            "fits_training": false,
+            "fits_inference": true
+          },
+          {
+            "hardware": "16 GB VRAM class",
+            "vram_gb": 16,
+            "usable_vram_bytes_for_training": 12884901888,
+            "verdict": "Inference-only; full training working set does not fit",
+            "fits_training": false,
+            "fits_inference": true
+          },
+          {
+            "hardware": "24 GB VRAM class",
+            "vram_gb": 24,
+            "usable_vram_bytes_for_training": 19327352832,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "48 GB VRAM class",
+            "vram_gb": 48,
+            "usable_vram_bytes_for_training": 38654705664,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          },
+          {
+            "hardware": "80 GB VRAM class",
+            "vram_gb": 80,
+            "usable_vram_bytes_for_training": 64424509440,
+            "verdict": "FITS training working set + activations with >= 25% headroom",
+            "fits_training": true,
+            "fits_inference": true
+          }
+        ]
+      }
+    },
+    "cpu_duration_estimates": {
+      "existing_28.8M": {
+        "cpu_anchor_tokens_per_second": 215,
+        "cpu_range_tokens_per_second": [
+          180,
+          260
+        ],
+        "cpu_seconds_central": 13389455,
+        "cpu_seconds_fast": 11072049,
+        "cpu_seconds_slow": 15992960,
+        "flops": 4.972261520277504e+17,
+        "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+        "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+        "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+      },
+      "candidate_A_110M": {
+        "cpu_anchor_tokens_per_second": 215,
+        "cpu_range_tokens_per_second": [
+          180,
+          260
+        ],
+        "cpu_seconds_central": 51469217,
+        "cpu_seconds_fast": 42561083,
+        "cpu_seconds_slow": 61477120,
+        "flops": 7.347224135113114e+18,
+        "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+        "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+        "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+      },
+      "candidate_B_289M": {
+        "cpu_anchor_tokens_per_second": 215,
+        "cpu_range_tokens_per_second": [
+          180,
+          260
+        ],
+        "cpu_seconds_central": 134472156,
+        "cpu_seconds_fast": 111198129,
+        "cpu_seconds_slow": 160619520,
+        "flops": 5.01525371185791e+19,
+        "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+        "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+        "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+      },
+      "candidate_C_1019M": {
+        "cpu_anchor_tokens_per_second": 215,
+        "cpu_range_tokens_per_second": [
+          180,
+          260
+        ],
+        "cpu_seconds_central": 473778605,
+        "cpu_seconds_fast": 391778462,
+        "cpu_seconds_slow": 565902222,
+        "flops": 6.225569120256e+20,
+        "assumption": "CPU duration measured from this repository's L0.3 run (~9.3 s/step, 2048 tokens/step); GPU durations require utilization assumption which is deliberately NOT invented \u2014 see uncertainty note",
+        "gpu_duration_uncertainty": "GPU runtime cannot be estimated honestly without a measured benchmark on the exact stack. Order-of-magnitude only: 100M-300M-class, 2-10B tokens, A100-class card: hours-to-days range. Owner supplies --gpu-price-per-hour to price it; no price is invented here.",
+        "note": "duration at 100 tokens/parameter (CPU anchor); GPU duration requires owner benchmark; not invented"
+      }
+    }
+  },
+  "benchmark_audit": {
+    "schema": "taksh.l05_benchmark_audit/1",
+    "generated_by": "evaluation/l05_benchmark_audit.py",
+    "frozen_benchmark": {
+      "path": "evaluation/l02_python_bench_v1.json",
+      "expected_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "actual_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+      "hash_matches": true,
+      "treatment": "kept exactly; used with identical generation + scoring protocol for every comparison in this campaign; never trained on"
+    },
+    "structural_audit": {
+      "schema": "taksh.l02_python_bench/1",
+      "version": "1.0.0",
+      "problems": 30,
+      "per_category": {
+        "A": 10,
+        "B": 10,
+        "C": 10
+      },
+      "checks_run": 33,
+      "checks_failed": 0,
+      "failed_checks": [],
+      "verdict": "PASS"
+    },
+    "serving_separation": {
+      "records_compared": 414,
+      "identical_raw_vs_serving": 414,
+      "identical_rate": 1.0,
+      "repair_applied_count": 0,
+      "per_file": {
+        "baseline_v160_pretrain.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "baseline_v180_sft.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "candidate_l02_sft.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "hp_unseen.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l03_unseen.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_bench_e1.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_bench_e2.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_bench_e3.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_fresh_l02_sft_hp.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_fresh_l03_pretrain.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "l04_fresh_v180_sft.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "overfit_memorize.jsonl": {
+          "records": 24,
+          "identical_to_raw": 24,
+          "repair_applied": 0
+        },
+        "overfit_unseen.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        },
+        "repeat_consistency_v180_sft.jsonl": {
+          "records": 30,
+          "identical_to_raw": 30,
+          "repair_applied": 0
+        }
+      },
+      "conclusion": "Binding repair (the serving layer's only transformation) never changed any of the 414 recorded completions; every benchmark result this campaign reflects the raw checkpoint output, not post-processing."
+    },
+    "sandbox": {
+      "execution_sandbox": "python -I (isolated mode), fresh temp cwd, scrubbed env (SystemRoot/PATH only), 8 s hard timeout",
+      "ast_gate": "import allowlist {math,re,json,collections,itertools,functools,string,datetime,csv,io,typing,hashlib,statistics,textwrap,heapq,bisect,operator}; no eval/exec/__import__; open() confined to relative paths inside the temp dir; max 400 nodes / 4 KB",
+      "network": "no network access permitted in sandbox payload; no host file access outside cwd",
+      "enforced_by": [
+        "tests/test_l02_pipeline.py::test_sandbox_executes_benign_code_and_reports",
+        "tests/test_l02_pipeline.py::test_sandbox_times_out_on_infinite_loop",
+        "tests/test_l02_pipeline.py::test_ast_gate_rejects_dangerous_code"
+      ],
+      "verified_by_tests": true
+    },
+    "acceptance_criteria_definition": {
+      "primary_mode": "raw checkpoint output, no repair or post-processing",
+      "secondary_mode": "serving pipeline output (binding repair on); reported only as diagnostic, never as the pass/fail signal",
+      "bar_for_claiming_coding_capability": {
+        "functional_correctness": ">= 15/30 problems (>= 50%) functionally correct with zero benchmark-set leakage",
+        "syntax_valid_rate": ">= 0.80",
+        "execution_rate": ">= 0.60",
+        "category_coverage": ">= 30% correct in each of A, B, C",
+        "repeat_consistency": "100% byte-identical greedy completions across repeated runs on all 30 problems",
+        "safety": "0 gate rejections (unsafe code generation attempts) tolerated; no sandbox escapes",
+        "benchmark_integrity": "frozen hash unchanged; no training item shares an instruction/entry-point with the bench"
+      },
+      "current_measured_state": {
+        "functional_correctness": "0/30 for every checkpoint tested this campaign",
+        "syntax_valid_rate": "0.0 for all except l02_sft_hp (0.4)",
+        "execution_rate": "0.0 for all except l02_sft_hp (0.4)",
+        "verdict_vs_bar": "every bar fails; capability NOT demonstrated by any checkpoint"
+      },
+      "note": "Criteria are fixed and not lowered. A lower perplexity or a fluent response does not count."
+    },
+    "verdict": "PASS_AUDIT_BUT_FAIL_CAPABILITY"
+  },
+  "decision": {
+    "verdict": "CONDITIONAL_GO",
+    "reason": "A technically credible route exists (architecture scales; tokenizer is adequate; pipeline is built and verified; license-qualified data paths exist), but capability is demonstrated nowhere yet: 0/30 on the frozen benchmark for every checkpoint tested, and the qualified code supply (1.59M tokens) is ~100x below the minimum for the smallest interesting model.",
+    "missing_authorizations": [
+      {
+        "what": "Data acquisition budget + license selection",
+        "consequence": "no training beyond the current 1.59M-token pool; no capability recovery possible",
+        "blocked_items": [
+          "BigCode The Stack v1/v2 (legal review)",
+          "PyPI permissive subset (license engineering)",
+          "code corpora >= 10B tokens class"
+        ]
+      },
+      {
+        "what": "GPU budget (A100/H100-class, 80 GB preferred)",
+        "consequence": "continued pretraining of even a 110M-class model for one epoch of a 20M-token slice is ~28 CPU-days; GPU is mandatory for anything real"
+      },
+      {
+        "what": "Legal review sign-off on chosen corpora (OpenRAIL terms, per-file license obligations)",
+        "consequence": "candidate corpora cannot be ingested; benchmark-leakage and secret scans must be re-run on whatever is chosen"
+      },
+      {
+        "what": "Decision on strategy C vs A and target size (110M vs 289M)",
+        "consequence": "blocks compute sizing and data-volume commitment"
+      }
+    ],
+    "owner_decisions_outstanding": [
+      "which data candidate set (register shortlist) is to be acquired",
+      "whether strategy C (pretrain + SFT) or B (SFT-only) is pursued",
+      "whether to buy/rent compute now or defer",
+      "whether the frozen benchmark bar (>= 15/30) is acceptable as the L0.6 gate"
+    ],
+    "explicit_non_authorizations": [
+      "this verdict is NOT permission to purchase, download, train, publish, or change the L0.1 default checkpoint",
+      "no GPU rental, no data purchase, no training is authorized by L0.5"
+    ],
+    "what_would_flip_to_GO": [
+      "owner-authorized acquisition of >= 20B tokens of license-verified Python (or equivalent) with a clean legal review",
+      "A100-class (or better) compute for >= 2 weeks, or equivalent acceptance of a > 1-month CPU-only schedule for a reduced experiment",
+      "a pre-registered benchmark protocol in which a candidate passes >= 15/30 frozen problems with zero leakage"
+    ],
+    "what_would_flip_to_NO_GO": [
+      "owner declines data acquisition or GPU spend on this line of work",
+      "legal review rejects all candidate corpora",
+      "L0.6 experiment at authorized scale still yields 0/30 with a clean benchmark"
+    ]
+  }
+}

@@ -101,7 +101,7 @@ def build_run_manifest(*, run_id, status, config, config_path, model_cfg,
                        metrics=None, start_time=None, end_time=None,
                        elapsed_seconds=None, warnings=None, deviations=None,
                        interruptions=None, preflight=None, stopping_criteria=None,
-                       history=None, notes=None):
+                       history=None, notes=None, initialization=None):
     """Assemble the manifest. Nothing is inferred; unrecorded values stay None."""
     checkpoint = Path(checkpoint_path) if checkpoint_path else None
 
@@ -128,8 +128,9 @@ def build_run_manifest(*, run_id, status, config, config_path, model_cfg,
             "parameters": params,
             "config": model_cfg,
             "config_path": str(model_config_path) if model_config_path else None,
-            "initialization": "random (torch.nn.init.normal_, std=0.02); "
-                              "no pretrained weights were loaded",
+            "initialization": initialization
+            or "random (torch.nn.init.normal_, std=0.02); "
+            "no pretrained weights were loaded",
         },
         "tokenizer": {
             "path": str(tokenizer_path) if tokenizer_path else None,

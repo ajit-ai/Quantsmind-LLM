@@ -1,0 +1,2268 @@
+{
+  "schema": "taksh.l051_multilingual_benchmark/1",
+  "name": "Taksh L0.5.1 Multilingual Coding Benchmark (starter)",
+  "version": "1.0.0",
+  "created": "2026-11-11",
+  "status": "SPECIFICATION ONLY - no model has been evaluated on it; execution harness ships with L1.0",
+  "held_out": true,
+  "provenance": "Authored independently for Taksh L0.5.1 (2026-11). No problems are copied or paraphrased from any external benchmark. Python-family problems are distinct from the frozen L0.2 Python benchmark.",
+  "families": [
+    {
+      "id": "1",
+      "name": "basic_programs",
+      "definition": "simple functions demonstrating fundamental control flow and arithmetic"
+    },
+    {
+      "id": "2",
+      "name": "algorithms_and_data_structures",
+      "definition": "loops, conditionals, arrays/lists, stacks/queues, searching and accumulation"
+    },
+    {
+      "id": "3",
+      "name": "strings_and_collections",
+      "definition": "string manipulation, maps/dictionaries, set operations, formatting"
+    },
+    {
+      "id": "4",
+      "name": "error_handling",
+      "definition": "edge cases, zero division, invalid input, empty collections, expected failure behaviour"
+    },
+    {
+      "id": "5",
+      "name": "file_and_data_processing",
+      "definition": "read/transform/write records; temp-fixture based; no network",
+      "status": "specified-not-instantiated"
+    },
+    {
+      "id": "6",
+      "name": "oop_and_language_paradigms",
+      "definition": "classes/structs/interfaces and their idiomatic patterns",
+      "status": "specified-not-instantiated"
+    },
+    {
+      "id": "7",
+      "name": "database_operations",
+      "definition": "SQL-style schema manipulation and queries where relevant",
+      "status": "specified-not-instantiated"
+    },
+    {
+      "id": "8",
+      "name": "api_and_application_development",
+      "definition": "small multi-function application tasks (parsing, validation, routing)",
+      "status": "specified-not-instantiated"
+    },
+    {
+      "id": "9",
+      "name": "debugging_and_error_correction",
+      "definition": "given broken code, produce the corrected version",
+      "status": "specified-not-instantiated"
+    },
+    {
+      "id": "10",
+      "name": "multi_file_project_tasks",
+      "definition": "tasks spanning 2-4 files with cross-file references",
+      "status": "specified-not-instantiated"
+    }
+  ],
+  "scoring": {
+    "unit_weight": "each test assertion carries equal weight",
+    "pass_definition": "all assertions pass",
+    "pass_at_1": "greedy decoding, single sample",
+    "consistency_requirement": "100% byte-identical outputs across repeated greedy runs"
+  },
+  "task_count": 64,
+  "tasks": [
+    {
+      "id": "py-basic-001",
+      "language": "python",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sum_squares",
+      "statement": "Write a Python function named sum_squares(numbers) that returns the sum of the squares of the integers in the list numbers.",
+      "entry_point": "sum_squares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "name": "negatives",
+          "args": [
+            [
+              -1,
+              -2
+            ]
+          ],
+          "expected": 5
+        }
+      ],
+      "execution": {
+        "runtime": "python",
+        "language": "python"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "py-algo-001",
+      "language": "python",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "running_total",
+      "statement": "Write a Python function named running_total(values) that returns a new list where each element is the cumulative sum up to that index.",
+      "entry_point": "running_total",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "name": "single",
+          "args": [
+            [
+              7
+            ]
+          ],
+          "expected": [
+            7
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "python",
+        "language": "python"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "py-str-001",
+      "language": "python",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "count_vowels",
+      "statement": "Write a Python function named count_vowels(text) that returns how many vowels (a,e,i,o,u, case-insensitive) are in the string text.",
+      "entry_point": "count_vowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        },
+        {
+          "name": "none",
+          "args": [
+            "xyz"
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "python",
+        "language": "python"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "py-err-001",
+      "language": "python",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "safe_div",
+      "statement": "Write a Python function named safe_div(a, b, default) that returns a / b, or default if b is zero.",
+      "entry_point": "safe_div",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "python",
+        "language": "python"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "js-basic-001",
+      "language": "javascript",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a JavaScript function named sumSquares(items) that returns the sum of the squares of the integers in the array items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "node",
+        "language": "javascript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "js-algo-001",
+      "language": "javascript",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a JavaScript function named runningTotal(values) that returns a new array with the cumulative sum.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "node",
+        "language": "javascript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "js-str-001",
+      "language": "javascript",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a JavaScript function named countVowels(text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in the string text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "node",
+        "language": "javascript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "js-err-001",
+      "language": "javascript",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a JavaScript function named divideOr(a, b, fallback) that returns a / b, or fallback if b is 0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "node",
+        "language": "javascript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ts-basic-001",
+      "language": "typescript",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a TypeScript function named sumSquares(items: number[]): number that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        }
+      ],
+      "execution": {
+        "runtime": "node-type-stripping",
+        "language": "typescript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ts-algo-001",
+      "language": "typescript",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a TypeScript function named runningTotal(values: number[]): number[] that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "node-type-stripping",
+        "language": "typescript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ts-str-001",
+      "language": "typescript",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a TypeScript function named countVowels(text: string): number that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "node-type-stripping",
+        "language": "typescript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ts-err-001",
+      "language": "typescript",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a TypeScript function named divideOr(a: number, b: number, fallback: number): number that returns a / b, or fallback if b is 0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "node-type-stripping",
+        "language": "typescript"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "c-basic-001",
+      "language": "c",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sum_squares",
+      "statement": "Write a C function named sum_squares(int items[], int n) that returns the sum of the squares of the n integers in items.",
+      "entry_point": "sum_squares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            3
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            [],
+            0
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "c",
+        "compile": "cl /nologo /W3 /std:c11"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "c-algo-001",
+      "language": "c",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "running_total",
+      "statement": "Write a C function named running_total(int values[], int n, int out[]) that fills out with the cumulative sums.",
+      "entry_point": "running_total",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            3
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "c",
+        "compile": "cl /nologo /W3 /std:c11"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "c-str-001",
+      "language": "c",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "count_vowels",
+      "statement": "Write a C function named count_vowels(const char *text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "count_vowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "c",
+        "compile": "cl /nologo /W3 /std:c11"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "c-err-001",
+      "language": "c",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "safe_div",
+      "statement": "Write a C function named safe_div(double a, double b, double fallback) that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "safe_div",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "c",
+        "compile": "cl /nologo /W3 /std:c11"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "cpp-basic-001",
+      "language": "cpp",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a C++ function named sumSquares(const std::vector<int>& items) that returns the sum of the squares of the integers in items. Include <vector>, <numeric>.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "cpp",
+        "compile": "cl /nologo /std:c++17"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "cpp-algo-001",
+      "language": "cpp",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a C++ function named runningTotal(const std::vector<int>& values) that returns a std::vector<int> with the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "cpp",
+        "compile": "cl /nologo /std:c++17"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "cpp-str-001",
+      "language": "cpp",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a C++ function named countVowels(const std::string& text) that returns the number of vowels (a,e,i,o,u, case-insensitive).",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "cpp",
+        "compile": "cl /nologo /std:c++17"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "cpp-err-001",
+      "language": "cpp",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a C++ function named divideOr(double a, double b, double fallback) that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "msvc",
+        "language": "cpp",
+        "compile": "cl /nologo /std:c++17"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "java-basic-001",
+      "language": "java",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a Java method static int sumSquares(int[] items) that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "javac",
+        "language": "java"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "java-algo-001",
+      "language": "java",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a Java method static int[] runningTotal(int[] values) that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "javac",
+        "language": "java"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "java-str-001",
+      "language": "java",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a Java method static int countVowels(String text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "javac",
+        "language": "java"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "java-err-001",
+      "language": "java",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a Java method static double divideOr(double a, double b, double fallback) that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "javac",
+        "language": "java"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "csharp-basic-001",
+      "language": "csharp",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "SumSquares",
+      "statement": "Write a C# method public static int SumSquares(int[] items) that returns the sum of the squares of the integers in items.",
+      "entry_point": "SumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        }
+      ],
+      "execution": {
+        "runtime": "dotnet",
+        "language": "csharp"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "csharp-algo-001",
+      "language": "csharp",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "RunningTotal",
+      "statement": "Write a C# method public static int[] RunningTotal(int[] values) that returns the cumulative sums.",
+      "entry_point": "RunningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "dotnet",
+        "language": "csharp"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "csharp-str-001",
+      "language": "csharp",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "CountVowels",
+      "statement": "Write a C# method public static int CountVowels(string text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "CountVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "dotnet",
+        "language": "csharp"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "csharp-err-001",
+      "language": "csharp",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "DivideOr",
+      "statement": "Write a C# method public static double DivideOr(double a, double b, double fallback) that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "DivideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "dotnet",
+        "language": "csharp"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "go-basic-001",
+      "language": "go",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "SumSquares",
+      "statement": "Write a Go function named SumSquares(items []int) int that returns the sum of the squares of the integers in items.",
+      "entry_point": "SumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "go",
+        "language": "go"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "go-algo-001",
+      "language": "go",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "RunningTotal",
+      "statement": "Write a Go function named RunningTotal(values []int) []int that returns the cumulative sums.",
+      "entry_point": "RunningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "go",
+        "language": "go"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "go-str-001",
+      "language": "go",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "CountVowels",
+      "statement": "Write a Go function named CountVowels(text string) int that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "CountVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "go",
+        "language": "go"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "go-err-001",
+      "language": "go",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "DivideOr",
+      "statement": "Write a Go function named DivideOr(a, b, fallback float64) float64 that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "DivideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "go",
+        "language": "go"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "rust-basic-001",
+      "language": "rust",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sum_squares",
+      "statement": "Write a Rust function named sum_squares(items: &[i64]) -> i64 that returns the sum of the squares of the integers in items.",
+      "entry_point": "sum_squares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "rustc",
+        "language": "rust"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "rust-algo-001",
+      "language": "rust",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "running_total",
+      "statement": "Write a Rust function named running_total(values: &[i64]) -> Vec<i64> that returns the cumulative sums.",
+      "entry_point": "running_total",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "rustc",
+        "language": "rust"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "rust-str-001",
+      "language": "rust",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "count_vowels",
+      "statement": "Write a Rust function named count_vowels(text: &str) -> usize that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "count_vowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "rustc",
+        "language": "rust"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "rust-err-001",
+      "language": "rust",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divide_or",
+      "statement": "Write a Rust function named divide_or(a: f64, b: f64, fallback: f64) -> f64 that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "divide_or",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "rustc",
+        "language": "rust"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "php-basic-001",
+      "language": "php",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a PHP function named sumSquares(array $items): int that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "php",
+        "language": "php"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "php-algo-001",
+      "language": "php",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a PHP function named runningTotal(array $values): array that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "php",
+        "language": "php"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "php-str-001",
+      "language": "php",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a PHP function named countVowels(string $text): int that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "php",
+        "language": "php"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "php-err-001",
+      "language": "php",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a PHP function named divideOr($a, $b, $fallback) that returns a / b, or fallback if b is 0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "php",
+        "language": "php"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ruby-basic-001",
+      "language": "ruby",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sum_squares",
+      "statement": "Write a Ruby method named sum_squares(items) that returns the sum of the squares of the integers in items.",
+      "entry_point": "sum_squares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "ruby",
+        "language": "ruby"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ruby-algo-001",
+      "language": "ruby",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "running_total",
+      "statement": "Write a Ruby method named running_total(values) that returns the cumulative sums.",
+      "entry_point": "running_total",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "ruby",
+        "language": "ruby"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ruby-str-001",
+      "language": "ruby",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "count_vowels",
+      "statement": "Write a Ruby method named count_vowels(text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "count_vowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "ruby",
+        "language": "ruby"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "ruby-err-001",
+      "language": "ruby",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divide_or",
+      "statement": "Write a Ruby method named divide_or(a, b, fallback) that returns a / b, or fallback if b is 0.",
+      "entry_point": "divide_or",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "ruby",
+        "language": "ruby"
+      },
+      "timeout_s": 10,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "swift-basic-001",
+      "language": "swift",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a Swift function named sumSquares(items: [Int]) -> Int that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "swift",
+        "language": "swift"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "swift-algo-001",
+      "language": "swift",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a Swift function named runningTotal(values: [Int]) -> [Int] that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "swift",
+        "language": "swift"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "swift-str-001",
+      "language": "swift",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a Swift function named countVowels(text: String) -> Int that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "swift",
+        "language": "swift"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "swift-err-001",
+      "language": "swift",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a Swift function named divideOr(a: Double, b: Double, fallback: Double) -> Double that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "swift",
+        "language": "swift"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "kotlin-basic-001",
+      "language": "kotlin",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a Kotlin function named sumSquares(items: List<Int>): Int that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "kotlinc",
+        "language": "kotlin"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "kotlin-algo-001",
+      "language": "kotlin",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a Kotlin function named runningTotal(values: List<Int>): List<Int> that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "kotlinc",
+        "language": "kotlin"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "kotlin-str-001",
+      "language": "kotlin",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a Kotlin function named countVowels(text: String): Int that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "kotlinc",
+        "language": "kotlin"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "kotlin-err-001",
+      "language": "kotlin",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a Kotlin function named divideOr(a: Double, b: Double, fallback: Double): Double that returns a / b, or fallback if b is 0.0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10.0,
+            2.0,
+            -1.0
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10.0,
+            0.0,
+            -1.0
+          ],
+          "expected": -1.0
+        }
+      ],
+      "execution": {
+        "runtime": "kotlinc",
+        "language": "kotlin"
+      },
+      "timeout_s": 15,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "dart-basic-001",
+      "language": "dart",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sumSquares",
+      "statement": "Write a Dart function named sumSquares(List<int> items) that returns the sum of the squares of the integers in items.",
+      "entry_point": "sumSquares",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 14
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        }
+      ],
+      "execution": {
+        "runtime": "dart",
+        "language": "dart"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "dart-algo-001",
+      "language": "dart",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "runningTotal",
+      "statement": "Write a Dart function named runningTotal(List<int> values) that returns the cumulative sums.",
+      "entry_point": "runningTotal",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "dart",
+        "language": "dart"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "dart-str-001",
+      "language": "dart",
+      "family": "3",
+      "difficulty": "easy",
+      "title": "countVowels",
+      "statement": "Write a Dart function named countVowels(String text) that returns the number of vowels (a,e,i,o,u, case-insensitive) in text.",
+      "entry_point": "countVowels",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "banana"
+          ],
+          "expected": 3
+        }
+      ],
+      "execution": {
+        "runtime": "dart",
+        "language": "dart"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "dart-err-001",
+      "language": "dart",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divideOr",
+      "statement": "Write a Dart function named divideOr(num a, num b, num fallback) that returns a / b, or fallback if b is 0.",
+      "entry_point": "divideOr",
+      "kind": "function",
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            10,
+            2,
+            -1
+          ],
+          "expected": 5.0
+        },
+        {
+          "name": "zero",
+          "args": [
+            10,
+            0,
+            -1
+          ],
+          "expected": -1
+        }
+      ],
+      "execution": {
+        "runtime": "dart",
+        "language": "dart"
+      },
+      "timeout_s": 20,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "sql-basic-001",
+      "language": "sql",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "select_all_sales",
+      "statement": "Given the table sales(id INTEGER PRIMARY KEY, item TEXT NOT NULL, amount REAL NOT NULL), write a SQL query that returns all rows ordered by id ascending.",
+      "entry_point": "select_all_sales",
+      "kind": "sql_query",
+      "tests": [
+        {
+          "name": "basic",
+          "fixture": [
+            {
+              "id": 2,
+              "item": "b",
+              "amount": 2.0
+            },
+            {
+              "id": 1,
+              "item": "a",
+              "amount": 1.5
+            }
+          ],
+          "expected_rows": [
+            [
+              1,
+              "a",
+              1.5
+            ],
+            [
+              2,
+              "b",
+              2.0
+            ]
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "sqlite3",
+        "language": "sql",
+        "note": "dialect: SQLite; T-SQL/PL/SQL variants evaluate separately"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "sql-algo-001",
+      "language": "sql",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "total_amount_per_item",
+      "statement": "Given the table sales(id INTEGER PRIMARY KEY, item TEXT NOT NULL, amount REAL NOT NULL), write a SQL query that returns each item with the sum of its amounts, ordered by item ascending.",
+      "entry_point": "total_amount_per_item",
+      "kind": "sql_query",
+      "tests": [
+        {
+          "name": "basic",
+          "fixture": [
+            {
+              "id": 1,
+              "item": "a",
+              "amount": 1.0
+            },
+            {
+              "id": 2,
+              "item": "a",
+              "amount": 2.0
+            },
+            {
+              "id": 3,
+              "item": "b",
+              "amount": 5.0
+            }
+          ],
+          "expected_rows": [
+            [
+              "a",
+              3.0
+            ],
+            [
+              "b",
+              5.0
+            ]
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "sqlite3",
+        "language": "sql",
+        "note": "dialect: SQLite"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "sql-str-001",
+      "language": "sql",
+      "family": "3",
+      "difficulty": "medium",
+      "title": "items_above_threshold",
+      "statement": "Given the table sales(id INTEGER PRIMARY KEY, item TEXT NOT NULL, amount REAL NOT NULL), write a SQL query that returns the item names whose amounts exceed 10, ordered by item ascending (duplicates allowed if multiple rows qualify).",
+      "entry_point": "items_above_threshold",
+      "kind": "sql_query",
+      "tests": [
+        {
+          "name": "basic",
+          "fixture": [
+            {
+              "id": 1,
+              "item": "a",
+              "amount": 20.0
+            },
+            {
+              "id": 2,
+              "item": "b",
+              "amount": 5.0
+            },
+            {
+              "id": 3,
+              "item": "a",
+              "amount": 30.0
+            }
+          ],
+          "expected_rows": [
+            [
+              "a"
+            ],
+            [
+              "a"
+            ]
+          ]
+        }
+      ],
+      "execution": {
+        "runtime": "sqlite3",
+        "language": "sql"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "sql-err-001",
+      "language": "sql",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "empty_result_is_ok",
+      "statement": "Given the table sales(id INTEGER PRIMARY KEY, item TEXT NOT NULL, amount REAL NOT NULL), write a SQL query that returns rows where amount > 1e9. The correct answer is an empty result set (not an error).",
+      "entry_point": "empty_result_is_ok",
+      "kind": "sql_query",
+      "tests": [
+        {
+          "name": "empty",
+          "fixture": [
+            {
+              "id": 1,
+              "item": "a",
+              "amount": 1.0
+            }
+          ],
+          "expected_rows": []
+        }
+      ],
+      "execution": {
+        "runtime": "sqlite3",
+        "language": "sql"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "bash-basic-001",
+      "language": "bash",
+      "family": "1",
+      "difficulty": "easy",
+      "title": "sum_args",
+      "statement": "Write a bash script named sum_args that prints the sum of its integer command-line arguments.",
+      "entry_point": "sum_args",
+      "kind": "stdio",
+      "tests": [
+        {
+          "name": "basic",
+          "argv": [
+            "1",
+            "2",
+            "3"
+          ],
+          "expected_stdout": "6\n"
+        },
+        {
+          "name": "none",
+          "argv": [],
+          "expected_stdout": "0\n"
+        }
+      ],
+      "execution": {
+        "runtime": "bash",
+        "language": "bash"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "bash-algo-001",
+      "language": "bash",
+      "family": "2",
+      "difficulty": "easy",
+      "title": "count_words",
+      "statement": "Write a bash script named count_words that reads a line on stdin and prints the number of whitespace-separated words.",
+      "entry_point": "count_words",
+      "kind": "stdio",
+      "tests": [
+        {
+          "name": "basic",
+          "stdin": "the cat sat\n",
+          "expected_stdout": "3\n"
+        },
+        {
+          "name": "empty",
+          "stdin": "\n",
+          "expected_stdout": "0\n"
+        }
+      ],
+      "execution": {
+        "runtime": "bash",
+        "language": "bash"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "bash-str-001",
+      "language": "bash",
+      "family": "3",
+      "difficulty": "medium",
+      "title": "uppercase_input",
+      "statement": "Write a bash script named uppercase_input that reads a line on stdin and prints it uppercased (ASCII letters only; leave other characters unchanged).",
+      "entry_point": "uppercase_input",
+      "kind": "stdio",
+      "tests": [
+        {
+          "name": "basic",
+          "stdin": "abc-123 x\n",
+          "expected_stdout": "ABC-123 X\n"
+        }
+      ],
+      "execution": {
+        "runtime": "bash",
+        "language": "bash"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    },
+    {
+      "id": "bash-err-001",
+      "language": "bash",
+      "family": "4",
+      "difficulty": "medium",
+      "title": "divide_or_default",
+      "statement": "Write a bash script named divide_or_default that reads two integers a and b from a single line on stdin (format: 'a b') and prints a / b as an integer (truncated toward zero), or prints 'error' if b is 0.",
+      "entry_point": "divide_or_default",
+      "kind": "stdio",
+      "tests": [
+        {
+          "name": "normal",
+          "stdin": "10 2\n",
+          "expected_stdout": "5\n"
+        },
+        {
+          "name": "zero",
+          "stdin": "10 0\n",
+          "expected_stdout": "error\n"
+        }
+      ],
+      "execution": {
+        "runtime": "bash",
+        "language": "bash"
+      },
+      "timeout_s": 5,
+      "scoring": "unit",
+      "held_out": true
+    }
+  ],
+  "qualification": {
+    "min_tasks_per_language": 16,
+    "min_pass_ratio": 0.5,
+    "scoring": "unit assertions, equal weight per assertion; a task passes only if all its assertions pass",
+    "held_out": true,
+    "status": "PROPOSED, fixed before any model evaluation; never renegotiated after results",
+    "why": "4 starter tasks per language (64 total) cannot establish an 8-pass threshold; qualification requires a minimum task count per language"
+  },
+  "scoring_note": "per-language success is the proportion of executed tasks that pass all unit assertions; languages below 16 executed tasks are NOT eligible for qualification regardless of pass ratio"
+}

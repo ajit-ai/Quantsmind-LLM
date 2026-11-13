@@ -19,6 +19,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from taksh.kv_cache import KVCache  # noqa: E402
 
 
+def _numpy_checkpoint_allowlist():
+    """Narrow allowlist for NumPy state stored inside Taksh training checkpoints.
+
+    Taksh's own training loop persists ``rng_state`` (NumPy arrays and dtype
+    metadata) next to the model weights.  ``weights_only=True`` refuses those
+    globals by default, which is correct for arbitrary files.  This allowlist
+    re-admits exactly the NumPy reconstruction helpers and dtype descriptors --
+    and nothing else.  No arbitrary callables, no unpickler bypass, no
+    relaxation of ``weights_only=True`` semantics.
+    """
+    import numpy as np
+    import numpy.dtypes as _dtypes
+    from numpy._core.multiarray import _reconstruct
+
+    allow = [_reconstruct, np.ndarray, np.dtype]
+    allow += [getattr(_dtypes, name) for name in dir(_dtypes) if name.endswith("DType")]
+    return allow
+
+
 def torch_load_checkpoint(path: str, *, allow_unsafe_trusted: bool = False):
     """Load a checkpoint, safe by default.
 
@@ -28,11 +47,31 @@ def torch_load_checkpoint(path: str, *, allow_unsafe_trusted: bool = False):
     explicit trusted-artifact boundary: the caller must pass
     ``allow_unsafe_trusted=True`` and the path must come from operator startup
     configuration, never from a request. There is no implicit fallback.
+
+    One narrow retry exists for the known NumPy-RNG case: if the safe load fails
+    *specifically because of NumPy globals*, it is retried once with the
+    NumPy-only allowlist from :func:`_numpy_checkpoint_allowlist`, still under
+    ``weights_only=True``.  Any other failure is refused exactly as before.
     """
     if not allow_unsafe_trusted:
         try:
             return torch.load(path, map_location="cpu", weights_only=True)
-        except Exception as exc:  # noqa: BLE001 - refuse, never fall back
+        except Exception as exc:  # noqa: BLE001 - classify, never fall back
+            if "numpy" in str(exc).lower():
+                try:
+                    from torch.serialization import safe_globals
+
+                    with safe_globals(_numpy_checkpoint_allowlist()):
+                        return torch.load(path, map_location="cpu", weights_only=True)
+                except Exception as retry_exc:  # noqa: BLE001 - refuse
+                    raise RuntimeError(
+                        f"Refusing to load checkpoint {path} with weights_only=True "
+                        f"({type(retry_exc).__name__}: {retry_exc}). The checkpoint "
+                        "requires NumPy globals beyond the minimal reviewed allowlist; "
+                        "unsafe loading requires the explicit trusted-artifact boundary "
+                        "(allow_unsafe_trusted=True from operator startup configuration "
+                        "only)."
+                    ) from retry_exc
             raise RuntimeError(
                 f"Refusing to load checkpoint {path} with weights_only=True "
                 f"({type(exc).__name__}: {exc}). This loader defaults to safe "
@@ -399,8 +438,8 @@ def main():
             ],
         )
 
-    print(f"Starting Taksh UI on http://localhost:{args.port}")
-    ui.launch(server_name="0.0.0.0", server_port=args.port)
+    print(f"Starting Taksh UI on http://127.0.0.1:{args.port}")
+    ui.launch(server_name="127.0.0.1", server_port=args.port, share=False)
 
 
 if __name__ == "__main__":

@@ -252,6 +252,62 @@ def restore_rng_state(state: dict | None) -> bool:
         return False
 
 
+def warmstart_from(model, path: str):
+    """Initialise model weights from a checkpoint with a narrow safe loader.
+
+    The operator supplies the path explicitly (never a request). Safe
+    deserialisation (``weights_only=True``) is the only mode; the single
+    documented retry admits exactly the NumPy reconstruction helpers Taksh's
+    own training loop stores in its RNG state. No arbitrary globals, no
+    unpickler bypass, no weights_only=False.
+    """
+    import hashlib
+    import numpy as np
+    import numpy.dtypes as _dtypes
+    from numpy._core.multiarray import _reconstruct
+    from torch.serialization import safe_globals
+
+    allow = [_reconstruct, np.ndarray, np.dtype]
+    allow += [getattr(_dtypes, name) for name in dir(_dtypes) if name.endswith("DType")]
+
+    try:
+        blob = torch.load(path, map_location="cpu", weights_only=True)
+    except Exception as exc:  # noqa: BLE001 - classify, never fall back
+        if "numpy" not in str(exc).lower():
+            raise SystemExit(
+                f"Refusing to warmstart from {path}: safe deserialisation failed "
+                f"({type(exc).__name__}: {exc}). Check the file is a trusted "
+                "Taksh checkpoint."
+            ) from exc
+        try:
+            with safe_globals(allow):
+                blob = torch.load(path, map_location="cpu", weights_only=True)
+        except Exception as retry_exc:  # noqa: BLE001 - refuse
+            raise SystemExit(
+                f"Refusing to warmstart from {path}: checkpoint needs NumPy globals "
+                f"beyond the reviewed allowlist ({type(retry_exc).__name__}: {retry_exc})."
+            ) from retry_exc
+
+    state = blob.get("model") if isinstance(blob, dict) else None
+    if state is None:
+        raise SystemExit(
+            f"Refusing to warmstart from {path}: no 'model' entry. Partial "
+            "initialisation is not supported here; use training.sft.init_from_checkpoint "
+            "with allow_partial explicitly if that is what you want."
+        )
+
+    from training.checkpoint import load_model_weights
+
+    sha = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 22), b""):
+            sha.update(chunk)
+    report = load_model_weights(model, state, source=path)
+    print(f"warmstart from {path} (sha256 {sha.hexdigest()}): "
+          f"loaded {len(report.loaded)} tensors")
+    return sha.hexdigest()
+
+
 def checkpoint_extra(step, dataset_tokens, seq_len, tokens_per_step,
                      resumed_tokens=0, val_loss=None, interrupted=False,
                      start_step=0):
@@ -340,6 +396,7 @@ def write_m3_manifest(cfg, out_dir, model_cfg, model, *, status, stop_reason,
             "stop_reason": stop_reason,
             "criteria": run_context.get("stopping_criteria") or [],
         },
+        initialization=run_context.get("initialization"),
         history=history,
         notes=[
             f"checkpoint events: {len(checkpoint_events or [])}",
@@ -437,6 +494,13 @@ def main():
     p.add_argument("--tokens", default=None, help="override token file path")
     p.add_argument("--max-steps", type=int, default=None)
     p.add_argument("--resume", action="store_true")
+    p.add_argument(
+        "--init-from",
+        default=None,
+        help="warmstart: initialize model weights from this checkpoint "
+        "(new optimizer state; distinct from --resume, which also restores "
+        "the optimizer and step counter)",
+    )
     args = p.parse_args()
 
     cfg = load_yaml(args.config)
@@ -531,6 +595,12 @@ def main():
         print(f"WARNING: {problem}")
 
     model = QMModel(model_cfg).to(device)
+    if args.init_from:
+        sha = warmstart_from(model, args.init_from)
+        run_context["initialization"] = (
+            f"warmstarted from {args.init_from} (sha256 {sha}); "
+            "optimizer state not carried over"
+        )
     opt_cfg = cfg["optimizer"]
     optim = torch.optim.AdamW(
         model.parameters(),
@@ -680,8 +750,11 @@ def main():
                 )
 
         grad_clip = opt_cfg.get("grad_clip")
+        grad_norm = None
         if grad_clip:
-            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+            grad_norm = float(
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+            )
         optim.step()
         steps_run += 1
         final_loss = loss_val
@@ -748,6 +821,7 @@ def main():
             # the records it reached.
             logger.log_step(
                 step, loss_val, lr=lr, ema_loss=ema_loss, tokens_per_second=rate,
+                grad_norm=grad_norm,
             )
             print(f"step {step}/{total_steps} loss={loss_val:.4f} ema={ema_loss:.4f} lr={lr:.2e} tok/s={rate:.0f}")
             history.append({
@@ -755,6 +829,7 @@ def main():
                 "train_loss": loss_val,
                 "ema_loss": ema_loss,
                 "lr": lr,
+                "grad_norm": grad_norm,
                 "val_loss": val_loss,
                 "tokens_per_second": rate,
                 "elapsed_seconds": elapsed,

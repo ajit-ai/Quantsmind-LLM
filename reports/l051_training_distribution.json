@@ -1,0 +1,360 @@
+{
+  "schema": "taksh.l051_training_distribution/1",
+  "generated_by": "evaluation/l051_training_distribution.py",
+  "inputs": {
+    "config": "F:\\Codes\\Git\\Quantsmind-LLM\\configs\\feasibility\\l051_training_scenarios.yaml",
+    "l1_target_languages": [
+      "python",
+      "javascript",
+      "typescript",
+      "c",
+      "cpp",
+      "java",
+      "csharp",
+      "go",
+      "rust",
+      "php",
+      "ruby",
+      "swift",
+      "kotlin",
+      "dart",
+      "sql",
+      "bash"
+    ],
+    "measured_unique_tokens": 1590703,
+    "note": "all scenario math uses the config table; override with --config / --total-unique-budget"
+  },
+  "scenarios": {
+    "equal_token": {
+      "scenario": "equal_token",
+      "per_language_unique_budget": 99418.9,
+      "feasibility_today": {
+        "python": {
+          "available": 1590703,
+          "shortfall": -1491284.1,
+          "shortfall_x": 0.06
+        },
+        "javascript": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "typescript": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "c": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "cpp": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "java": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "csharp": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "go": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "rust": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "php": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "ruby": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "swift": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "kotlin": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "dart": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "sql": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        },
+        "bash": {
+          "available": 0,
+          "shortfall": 99418.9,
+          "shortfall_x": 99418.94
+        }
+      },
+      "blocked_today": [
+        "bash",
+        "c",
+        "cpp",
+        "csharp",
+        "dart",
+        "go",
+        "java",
+        "javascript",
+        "kotlin",
+        "php",
+        "ruby",
+        "rust",
+        "sql",
+        "swift",
+        "typescript"
+      ],
+      "note": "every L1.0 language except python has zero measured unique supply; equal-token is not realizable today"
+    },
+    "proportional": {
+      "scenario": "proportional",
+      "distribution": {
+        "python": 1.0,
+        "javascript": 0.0,
+        "typescript": 0.0,
+        "c": 0.0,
+        "cpp": 0.0,
+        "java": 0.0,
+        "csharp": 0.0,
+        "go": 0.0,
+        "rust": 0.0,
+        "php": 0.0,
+        "ruby": 0.0,
+        "swift": 0.0,
+        "kotlin": 0.0,
+        "dart": 0.0,
+        "sql": 0.0,
+        "bash": 0.0
+      },
+      "note": "today this degenerates to 100% python, 0% everything else",
+      "total_unique_measured": 1590703
+    },
+    "quality_weighted": {
+      "scenario": "quality_weighted",
+      "scores": {
+        "python": 1.0,
+        "javascript": 0.0,
+        "typescript": 0.0,
+        "c": 0.0,
+        "cpp": 0.0,
+        "java": 0.0,
+        "csharp": 0.0,
+        "go": 0.0,
+        "rust": 0.0,
+        "php": 0.0,
+        "ruby": 0.0,
+        "swift": 0.0,
+        "kotlin": 0.0,
+        "dart": 0.0,
+        "sql": 0.0,
+        "bash": 0.0
+      },
+      "distribution": {
+        "python": 1.0,
+        "javascript": 0.0,
+        "typescript": 0.0,
+        "c": 0.0,
+        "cpp": 0.0,
+        "java": 0.0,
+        "csharp": 0.0,
+        "go": 0.0,
+        "rust": 0.0,
+        "php": 0.0,
+        "ruby": 0.0,
+        "swift": 0.0,
+        "kotlin": 0.0,
+        "dart": 0.0,
+        "sql": 0.0,
+        "bash": 0.0
+      },
+      "note": "license-verification is the only objective quality signal measured today; weights collapse to python"
+    },
+    "capability_gap_weighted": {
+      "scenario": "capability_gap_weighted",
+      "scores": {
+        "python": 0.0,
+        "javascript": 0.0,
+        "typescript": 0.0,
+        "c": 0.0,
+        "cpp": 0.0,
+        "java": 0.0,
+        "csharp": 0.0,
+        "go": 0.0,
+        "rust": 0.0,
+        "php": 0.0,
+        "ruby": 0.0,
+        "swift": 0.0,
+        "kotlin": 0.0,
+        "dart": 0.0,
+        "sql": 0.0,
+        "bash": 0.0
+      },
+      "distribution": {
+        "python": 0.0625,
+        "javascript": 0.0625,
+        "typescript": 0.0625,
+        "c": 0.0625,
+        "cpp": 0.0625,
+        "java": 0.0625,
+        "csharp": 0.0625,
+        "go": 0.0625,
+        "rust": 0.0625,
+        "php": 0.0625,
+        "ruby": 0.0625,
+        "swift": 0.0625,
+        "kotlin": 0.0625,
+        "dart": 0.0625,
+        "sql": 0.0625,
+        "bash": 0.0625
+      },
+      "note": "no L1.0 language has demonstrated any functional capability on the frozen benchmark or the multilingual spec; weights are uniform by default, not by evidence"
+    },
+    "cap_floor": {
+      "scenario": "cap_floor",
+      "cap_max_share": 0.4,
+      "floor_min_share": 0.002,
+      "distribution": {
+        "python": 1.0,
+        "javascript": 0.0,
+        "typescript": 0.0,
+        "c": 0.0,
+        "cpp": 0.0,
+        "java": 0.0,
+        "csharp": 0.0,
+        "go": 0.0,
+        "rust": 0.0,
+        "php": 0.0,
+        "ruby": 0.0,
+        "swift": 0.0,
+        "kotlin": 0.0,
+        "dart": 0.0,
+        "sql": 0.0,
+        "bash": 0.0
+      },
+      "note": "floor/cap cannot manufacture supply: floor bites (heighten nothing), cap would force python below 100% only after new data arrives; nothing changes today"
+    },
+    "family_balance": {
+      "scenario": "family_balance",
+      "family_unique_tokens": {
+        "scripting": 1590703,
+        "c_family": 0,
+        "commercial": 0,
+        "c_family+commercial": 0,
+        "apple_ml": 0,
+        "uncategorized": 0,
+        "sql_family": 0,
+        "scripting+shell": 0
+      },
+      "uniform_family_share": 0.125,
+      "families_with_zero_supply": [
+        "apple_ml",
+        "c_family",
+        "c_family+commercial",
+        "commercial",
+        "scripting+shell",
+        "sql_family",
+        "uncategorized"
+      ],
+      "note": "family imbalance today: 100% of measured tokens sit in one 'scripting'-adjacent bucket (python); every other family is unrepresented"
+    },
+    "oversampling": {
+      "scenario": "oversampling",
+      "max_repeat_exposure_allowed": 4,
+      "hypothetical_equal_epoch_tokens": 6362812,
+      "per_language_budget_at_ceiling": 397675.8,
+      "shortfall_per_language": {
+        "python": -1193027.2,
+        "javascript": 397675.8,
+        "typescript": 397675.8,
+        "c": 397675.8,
+        "cpp": 397675.8,
+        "java": 397675.8,
+        "csharp": 397675.8,
+        "go": 397675.8,
+        "rust": 397675.8,
+        "php": 397675.8,
+        "ruby": 397675.8,
+        "swift": 397675.8,
+        "kotlin": 397675.8,
+        "dart": 397675.8,
+        "sql": 397675.8,
+        "bash": 397675.8
+      },
+      "total_unique_tokens_missing_at_ceiling": 5965137.0,
+      "verdict": "infeasible",
+      "note": "an equal-language epoch at the 4x reuse ceiling needs 397,676 unique tokens per language; non-python availability is zero, so 5,965,137 unique tokens are missing; equalization requires new data, not more epochs"
+    },
+    "token_accounting": {
+      "unique_tokens_measured_total": 1590703,
+      "unique_per_l1_language": {
+        "python": 1590703,
+        "javascript": 0,
+        "typescript": 0,
+        "c": 0,
+        "cpp": 0,
+        "java": 0,
+        "csharp": 0,
+        "go": 0,
+        "rust": 0,
+        "php": 0,
+        "ruby": 0,
+        "swift": 0,
+        "kotlin": 0,
+        "dart": 0,
+        "sql": 0,
+        "bash": 0
+      },
+      "tokens_if_max_exposure_reached": 6362812,
+      "repeated_tokens_beyond_first_epoch": 4772109,
+      "rule": "present both numbers separately; never conflate repeated exposure with unique data"
+    },
+    "mixtures": {
+      "l04_mixture": {
+        "code_share": 0.5,
+        "note": "L0.4 experimental coding corpus (50/50, measured)",
+        "general_share": 0.5
+      },
+      "l03_mixture": {
+        "code_share": 0.1,
+        "note": "L0.3 geometry: 10% code / 90% general English (measured)",
+        "general_share": 0.9
+      },
+      "code_first": {
+        "code_share": 0.85,
+        "note": "proposed for the L1.0 multilingual coding assistant",
+        "general_share": 0.15
+      }
+    }
+  },
+  "conclusions": [
+    "today every distribution scenario collapses to 'python only': 1.59M unique tokens, 0 for the other 15 L1.0 languages",
+    "equal-token budgeting would need ~16x today's verified supply before even one pass is possible",
+    "cap/floor mechanisms cannot manufacture supply; both bind instantly",
+    "family balance today is 100% scripting-python and 0% everywhere else",
+    "oversampling to parity would violate the 4x exposure ceiling by > 60x",
+    "no distribution scenario produces a realizable multilingual mix without new licensed data"
+  ]
+}

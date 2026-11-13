@@ -1,0 +1,83 @@
+{
+  "schema": "taksh.l060_training_readiness/1",
+  "generated_by": "evaluation/l060_training_readiness.py",
+  "interfaces": [
+    {
+      "interface": "train config loading",
+      "evidence": "training/pretrain.py::load_yaml; validate_train_config with actionable errors",
+      "verified": "tests/test_training_correctness.py (all pass)"
+    },
+    {
+      "interface": "dataset manifest interface",
+      "evidence": "data/l03_corpus/dataset_manifest.json + data/l04_code_corpus/dataset_manifest.json (schema taksh.dataset_manifest/1)",
+      "verified": "tests/test_l03_pipeline.py + tests/test_l04_pipeline.py (pass)"
+    },
+    {
+      "interface": "token batch interface",
+      "evidence": "training/data.py::TokenDataset (.bin uint16/uint32 + .meta.json validation vs model vocab)",
+      "verified": "tests/test_training_correctness.py (pass)"
+    },
+    {
+      "interface": "loss calculation",
+      "evidence": "training/model.py::QMModel.forward cross_entropy(ignore_index=-100)",
+      "verified": "tests/test_sft.py + tests/test_training_correctness.py (pass)"
+    },
+    {
+      "interface": "gradient accumulation",
+      "evidence": "pretrain.py grad_accum_steps consumed by loop; sft.py same pattern",
+      "verified": "tests/test_training_smoke_e2e.py::test_gradients_reach_the_weights (pass)"
+    },
+    {
+      "interface": "optimizer + scheduler",
+      "evidence": "AdamW + cosine LR with warmup (lr_at / sft.py)",
+      "verified": "tests/test_training_correctness.py (pass)"
+    },
+    {
+      "interface": "checkpoint save/resume",
+      "evidence": "training/pretrain.py --resume + load_checkpoint_full; save_checkpoint",
+      "verified": "tests/test_training_smoke_e2e.py::test_pretrain_resume_appends_a_new_run (pass)"
+    },
+    {
+      "interface": "random seed handling",
+      "evidence": "pretrain.py/sft.py set_determinism",
+      "verified": "tests/test_training_smoke_e2e.py + test_l04_pipeline (pass)"
+    },
+    {
+      "interface": "training metadata / provenance",
+      "evidence": "training/manifest.py::build_run_manifest + write_run_manifest; warmstart provenance recorded",
+      "verified": "runs/l03_pretrain/run_manifest.json (contains sha256s, seeds, initialization)"
+    },
+    {
+      "interface": "failure recovery / incomplete checkpoint",
+      "evidence": "non-finite watchdog (grad + loss guards) + SIGINT checkpoint + coverage.json + status=complete/success rule",
+      "verified": "training/sft.py + training/pretrain.py watchdog blocks; every run artefact records status"
+    },
+    {
+      "interface": "dataset manifest validation (this milestone, WP3)",
+      "evidence": "NEW: evaluation/l060_training_readiness.py::validate_dataset_manifest",
+      "verified": "tests/test_l060_foundation.py (manifest rejection tests)"
+    }
+  ],
+  "manifest_rejection_rules": [
+    "unknown licenses are rejected (allowlist: mit/apache/bsd/isc/cc-by-sa/cc0/public domain)",
+    "unapproved sources are rejected (benchmark files/contamination)",
+    "missing provenance is rejected (schema/dataset_id/generated_by/seed/sources)",
+    "benchmark contamination is rejected (path or sha256 of frozen benchmark)",
+    "unverified language labels are rejected (must be in the 53-language registry)"
+  ],
+  "existing_corpus_manifests_validated": [
+    {
+      "path": "data/l03_corpus/dataset_manifest.json",
+      "validation": "pass",
+      "problems": []
+    },
+    {
+      "path": "data/l04_code_corpus/dataset_manifest.json",
+      "validation": "pass",
+      "problems": []
+    }
+  ],
+  "no_training_performed": true,
+  "no_data_acquired": true,
+  "verdict": "TRAINING PIPELINE QUALIFIED (interfaces only; nothing trained or acquired)"
+}

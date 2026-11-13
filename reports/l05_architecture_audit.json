@@ -1,0 +1,236 @@
+{
+  "schema": "taksh.l05_architecture_audit/1",
+  "generated_by": "evaluation/l05_architecture_audit.py",
+  "current_baseline": {
+    "name": "existing_baseline",
+    "config": {
+      "name": "qm-code-v160-15m",
+      "vocab_size": 5822,
+      "d_model": 384,
+      "n_layers": 12,
+      "n_heads": 8,
+      "n_kv_heads": 4,
+      "ffn_dim": 1536,
+      "max_seq_len": 2048,
+      "rope_theta": 10000.0,
+      "norm_eps": 1e-05,
+      "tie_embeddings": true,
+      "rope_base": 10000.0,
+      "measured_params": 28787328,
+      "measured_file_bytes": 345596357
+    },
+    "family": {
+      "architecture": "decoder-only causal transformer (RMSNorm + RoPE + GQA + SwiGLU)",
+      "vocab_size": 5822,
+      "d_model": 384,
+      "n_layers": 12,
+      "n_heads": 8,
+      "n_kv_heads": 4,
+      "gqa": "n_heads:n_kv_heads = 8:4",
+      "ffn_dim": 1536,
+      "ffn_activation": "SwiGLU (gate * SiLU(up))",
+      "max_seq_len": 2048,
+      "rope_theta": 10000.0,
+      "norm": "RMSNorm (eps=1e-05)",
+      "attention_impl": "F.scaled_dot_product_attention (is_causal=True)",
+      "positional": "RoPE (half-dim interleaved), no learned positional embeddings",
+      "residuals": "pre-norm transformer with residual connections",
+      "loss": "next-token cross-entropy, ignore_index=-100",
+      "initialization": "nn.init.normal_(std=0.02) for Linear/Embedding"
+    },
+    "params": {
+      "embedding": 2235648,
+      "lm_head": 0,
+      "tie_embeddings": true,
+      "per_layer": {
+        "attention": 442368,
+        "mlp": 1769472,
+        "norms": 768,
+        "total": 2212608
+      },
+      "layers_total": 26551296,
+      "final_norm": 384,
+      "total_params": 28787328,
+      "head_dim": 48,
+      "checkpoint_bytes_fp32": 115149312,
+      "checkpoint_bytes_bf16": 57574656,
+      "optimizer_bytes_adamw_fp32_state": 230298624,
+      "training_bytes_fp32_weights_grads_adam": 460597248
+    },
+    "measured_params": 28787328,
+    "analytic_vs_measured": "EXACT MATCH",
+    "checkpoint_bytes_measured": 345596357,
+    "compatible_checkpoints": [
+      "runs/v160_pretrain/checkpoint_last.pt",
+      "runs/v180_sft/checkpoint_last.pt",
+      "runs/l02_sft_hp/checkpoint_last.pt",
+      "runs/l03_pretrain/checkpoint_last.pt",
+      "runs/l04_e1/checkpoint_last.pt",
+      "runs/l04_e2/checkpoint_last.pt",
+      "runs/l04_e3/checkpoint_last.pt"
+    ],
+    "notes": [
+      "Tied embeddings: lm_head reuses tok_emb; only one vocab x d matrix is counted/stored.",
+      "GQA: 8 query heads, 4 KV heads, head_dim 48.",
+      "12 layers x (attn 442,368 + mlp 1,769,472 + norms 768) = 26,551,296 + tied embedding 2,235,552 + final norm 384 = 28,787,328."
+    ]
+  },
+  "scenarios": [
+    {
+      "scenario": "A",
+      "name": "candidate_A_100M",
+      "config": {
+        "d_model": 768,
+        "n_layers": 12,
+        "n_heads": 12,
+        "n_kv_heads": 6,
+        "ffn_dim": 3072,
+        "max_seq_len": 2048,
+        "vocab_size": 5822,
+        "tie_embeddings": true,
+        "rope_theta": 10000.0
+      },
+      "params": {
+        "embedding": 4471296,
+        "lm_head": 0,
+        "tie_embeddings": true,
+        "per_layer": {
+          "attention": 1769472,
+          "mlp": 7077888,
+          "norms": 1536,
+          "total": 8848896
+        },
+        "layers_total": 106186752,
+        "final_norm": 768,
+        "total_params": 110658816,
+        "head_dim": 64,
+        "checkpoint_bytes_fp32": 442635264,
+        "checkpoint_bytes_bf16": 221317632,
+        "optimizer_bytes_adamw_fp32_state": 885270528,
+        "training_bytes_fp32_weights_grads_adam": 1770541056
+      },
+      "params_ratio_vs_baseline": 3.844,
+      "headroom_note": "~111M (12-layer trim of a 128M 14-layer variant); closest honest match to the 100M target without arbitrary shrinking",
+      "architecture_changes_required": [
+        "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+        "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+      ],
+      "checkpoint_compatibility": {
+        "warmstart_from_existing": false,
+        "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+        "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+      },
+      "risks": [
+        "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+        "same recipe family; gains come from data and compute, not architecture"
+      ]
+    },
+    {
+      "scenario": "B",
+      "name": "candidate_B_300M",
+      "config": {
+        "d_model": 1024,
+        "n_layers": 18,
+        "n_heads": 16,
+        "n_kv_heads": 8,
+        "ffn_dim": 4096,
+        "max_seq_len": 4096,
+        "vocab_size": 5822,
+        "tie_embeddings": true,
+        "rope_theta": 10000.0
+      },
+      "params": {
+        "embedding": 5961728,
+        "lm_head": 0,
+        "tie_embeddings": true,
+        "per_layer": {
+          "attention": 3145728,
+          "mlp": 12582912,
+          "norms": 2048,
+          "total": 15730688
+        },
+        "layers_total": 283152384,
+        "final_norm": 1024,
+        "total_params": 289115136,
+        "head_dim": 64,
+        "checkpoint_bytes_fp32": 1156460544,
+        "checkpoint_bytes_bf16": 578230272,
+        "optimizer_bytes_adamw_fp32_state": 2312921088,
+        "training_bytes_fp32_weights_grads_adam": 4625842176
+      },
+      "params_ratio_vs_baseline": 10.043,
+      "headroom_note": "~300M class; context raised to 4096 (RoPE extrapolation not validated past 2048)",
+      "architecture_changes_required": [
+        "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+        "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+      ],
+      "checkpoint_compatibility": {
+        "warmstart_from_existing": false,
+        "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+        "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+      },
+      "risks": [
+        "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+        "same recipe family; gains come from data and compute, not architecture"
+      ]
+    },
+    {
+      "scenario": "C",
+      "name": "candidate_C_1B",
+      "config": {
+        "d_model": 2048,
+        "n_layers": 16,
+        "n_heads": 16,
+        "n_kv_heads": 8,
+        "ffn_dim": 8192,
+        "max_seq_len": 4096,
+        "vocab_size": 5822,
+        "tie_embeddings": true,
+        "rope_theta": 10000.0
+      },
+      "params": {
+        "embedding": 11923456,
+        "lm_head": 0,
+        "tie_embeddings": true,
+        "per_layer": {
+          "attention": 12582912,
+          "mlp": 50331648,
+          "norms": 4096,
+          "total": 62918656
+        },
+        "layers_total": 1006698496,
+        "final_norm": 2048,
+        "total_params": 1018624000,
+        "head_dim": 128,
+        "checkpoint_bytes_fp32": 4074496000,
+        "checkpoint_bytes_bf16": 2037248000,
+        "optimizer_bytes_adamw_fp32_state": 8148992000,
+        "training_bytes_fp32_weights_grads_adam": 16297984000
+      },
+      "params_ratio_vs_baseline": 35.384,
+      "headroom_note": "~1B class; head_dim 128; requires multi-epoch passes or a bigger corpus",
+      "architecture_changes_required": [
+        "none \u2014 same module family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings)",
+        "tokenizer unchanged (vocab 5,822; same specials; no embedding resize)"
+      ],
+      "checkpoint_compatibility": {
+        "warmstart_from_existing": false,
+        "reason": "different d_model/n_layers; all Linear/Embedding weights change shape; tokenizer reusable (vocabulary is unchanged)",
+        "partial_init_possible": "tied embedding rows could be re-used only if d_model matched; it does not"
+      },
+      "risks": [
+        "RoPE extrapolation beyond 2048 context is unvalidated (affects B and C)",
+        "same recipe family; gains come from data and compute, not architecture"
+      ]
+    }
+  ],
+  "feasibility_verdict": {
+    "architecture_blocks": false,
+    "reason": "The architecture family (RMSNorm + RoPE + GQA + SwiGLU, tied embeddings) scales to 100M/300M/1B by changing width/depth/ffn only. No module family change is required. Existing checkpoints cannot warmstart the scaled models (all weights change shape) but the tokenizer is fully reusable.",
+    "architecture_risk_items": [
+      "RoPE beyond 2048 context unvalidated \u2014 validated only to 2048",
+      "GQA ratio 2:1 retained at all three scales; nothing else changes",
+      "vocab 5,822 is small; output projection stays tied and cheap"
+    ]
+  }
+}

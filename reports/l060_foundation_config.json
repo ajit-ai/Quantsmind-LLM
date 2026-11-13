@@ -1,0 +1,54 @@
+{
+  "schema": "taksh.l060_foundation_config/1",
+  "generated_by": "evaluation/l060_config_qualification.py",
+  "config_path": "configs\\foundation\\l060_foundation.yaml",
+  "valid": true,
+  "config_id": "taksh-foundation-111m",
+  "version": 1,
+  "model": {
+    "vocab_size": 5822,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "n_kv_heads": 6,
+    "ffn_dim": 3072,
+    "max_seq_len": 2048,
+    "rope_theta": 10000.0,
+    "norm_eps": 1e-05,
+    "tie_embeddings": true
+  },
+  "parameter_count": 110658816,
+  "parameter_count_exact": true,
+  "head_dim": 64,
+  "gqa": "12q / 6kv (2:1, matching 28.8M baseline)",
+  "canonical_serialization": {
+    "roundtrip": {
+      "hash_before": "cde34e52cddf6642174b0940cea5cd69dd9567f7be58d57463da89b260ffda90",
+      "hash_after_roundtrip": "cde34e52cddf6642174b0940cea5cd69dd9567f7be58d57463da89b260ffda90",
+      "identical": true,
+      "bytes": 793
+    },
+    "file_roundtrip_identical": true,
+    "config_sha256": "cde34e52cddf6642174b0940cea5cd69dd9567f7be58d57463da89b260ffda90"
+  },
+  "constraints_enforced": [
+    "vocab_size == 5822 (fixed tokenizer)",
+    "head_dim integer & positive",
+    "n_heads divisible by n_kv_heads (GQA)",
+    "max_seq_len positive int",
+    "rope_theta >= 1.0",
+    "norm_eps > 0",
+    "ffn_dim > 0",
+    "parameter count == 110,658,816"
+  ],
+  "initialization": {
+    "weight_std": 0.02,
+    "method": "torch.nn.init.normal_(std=0.02) for Linear/Embedding; norm weights initialised to ones",
+    "seed_policy": "deterministic; training code must set torch.manual_seed before model construction"
+  },
+  "serialization": {
+    "canonical_json": true,
+    "hashing": "sha256 of canonical JSON bytes"
+  },
+  "verdict": "CANONICAL CONFIG QUALIFIED"
+}

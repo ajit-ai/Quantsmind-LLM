@@ -1,0 +1,320 @@
+{
+  "schema": "taksh.l02_python_bench/1",
+  "name": "Taksh L0.2 Python Capability Benchmark v1",
+  "version": "1.0.0",
+  "created": "2026-11-09",
+  "provenance": "Authored independently for the Taksh L0.2 milestone (2026-11-09). No problems or test cases are copied or paraphrased from HumanEval, MBPP, or any other external benchmark, and none appear in any Taksh training corpus or SFT dataset. All examples were written for this evaluation only.",
+  "split_note": "This file is the evaluation set. It must never be used as training data. The L0.2 SFT dataset is a separate, independently authored set; a programmatic leakage check between the two files is enforced by tests/test_l02_pipeline.py.",
+  "categories": {
+    "A": "Basic Python (arithmetic, strings, lists, dicts, conditions, loops)",
+    "B": "Practical programming (validation, file/data transformation, error handling, classes, standard library)",
+    "C": "Generalization (unfamiliar names, combined concepts, unseen formulations)"
+  },
+  "problems": [
+    {
+      "id": "A01", "category": "A", "name": "compute_sum",
+      "instruction": "Write a Python function named compute_sum(numbers) that returns the sum of all integers in the list numbers. Return 0 for an empty list.",
+      "entry_point": "compute_sum", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[1, 2, 3]], "expected": 6},
+        {"name": "empty", "args": [[]], "expected": 0},
+        {"name": "negatives", "args": [[-5, 5, -10, 10]], "expected": 0}
+      ]
+    },
+    {
+      "id": "A02", "category": "A", "name": "reverse_text",
+      "instruction": "Write a Python function named reverse_text(text) that returns the reversed string.",
+      "entry_point": "reverse_text", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["hello"], "expected": "olleh"},
+        {"name": "palindrome", "args": ["level"], "expected": "level"},
+        {"name": "empty", "args": [""], "expected": ""}
+      ]
+    },
+    {
+      "id": "A03", "category": "A", "name": "count_char",
+      "instruction": "Write a Python function named count_char(text, target) that returns how many times the single-character string target appears in text. Matching is case-sensitive.",
+      "entry_point": "count_char", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["banana", "a"], "expected": 3},
+        {"name": "case", "args": ["Banana", "a"], "expected": 3},
+        {"name": "absent", "args": ["apple", "z"], "expected": 0}
+      ]
+    },
+    {
+      "id": "A04", "category": "A", "name": "is_divisible",
+      "instruction": "Write a Python function named is_divisible(n, d) that returns True if integer n is divisible by d without remainder, otherwise False. Assume d is not zero.",
+      "entry_point": "is_divisible", "kind": "function",
+      "tests": [
+        {"name": "true", "args": [12, 4], "expected": true},
+        {"name": "false", "args": [10, 3], "expected": false},
+        {"name": "zero_n", "args": [0, 7], "expected": true}
+      ]
+    },
+    {
+      "id": "A05", "category": "A", "name": "absolute_difference",
+      "instruction": "Write a Python function named absolute_difference(a, b) that returns the absolute difference between the two numbers a and b.",
+      "entry_point": "absolute_difference", "kind": "function",
+      "tests": [
+        {"name": "positive", "args": [10, 4], "expected": 6},
+        {"name": "reversed", "args": [4, 10], "expected": 6},
+        {"name": "equal", "args": [7, 7], "expected": 0}
+      ]
+    },
+    {
+      "id": "A06", "category": "A", "name": "count_words",
+      "instruction": "Write a Python function named count_words(sentence) that returns the number of whitespace-separated words in the string sentence. An empty or all-whitespace sentence has 0 words.",
+      "entry_point": "count_words", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["the cat sat"], "expected": 3},
+        {"name": "extra_spaces", "args": ["  a   b  "], "expected": 2},
+        {"name": "empty", "args": ["   "], "expected": 0}
+      ]
+    },
+    {
+      "id": "A07", "category": "A", "name": "largest_number",
+      "instruction": "Write a Python function named largest_number(nums) that returns the largest value in the non-empty list nums.",
+      "entry_point": "largest_number", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[3, 9, 2]], "expected": 9},
+        {"name": "negatives", "args": [[-4, -1, -9]], "expected": -1},
+        {"name": "single", "args": [[42]], "expected": 42}
+      ]
+    },
+    {
+      "id": "A08", "category": "A", "name": "celsius_to_fahrenheit",
+      "instruction": "Write a Python function named celsius_to_fahrenheit(c) that converts Celsius to Fahrenheit using f = c * 9 / 5 + 32.",
+      "entry_point": "celsius_to_fahrenheit", "kind": "function",
+      "tests": [
+        {"name": "freezing", "args": [0], "expected": 32.0, "approx": true},
+        {"name": "boiling", "args": [100], "expected": 212.0, "approx": true},
+        {"name": "body", "args": [37], "expected": 98.6, "approx": true}
+      ]
+    },
+    {
+      "id": "A09", "category": "A", "name": "swap_halves",
+      "instruction": "Write a Python function named swap_halves(items) that splits the list items into a first half and a second half (the first half is the shorter one when the length is odd) and returns the second half followed by the first half.",
+      "entry_point": "swap_halves", "kind": "function",
+      "tests": [
+        {"name": "even", "args": [[1, 2, 3, 4]], "expected": [3, 4, 1, 2]},
+        {"name": "odd", "args": [[1, 2, 3, 4, 5]], "expected": [3, 4, 5, 1, 2]},
+        {"name": "two", "args": [["a", "b"]], "expected": ["b", "a"]}
+      ]
+    },
+    {
+      "id": "A10", "category": "A", "name": "merge_dicts",
+      "instruction": "Write a Python function named merge_dicts(first, second) that returns a new dict containing all keys from first updated by the entries of second (second wins on conflicts).",
+      "entry_point": "merge_dicts", "kind": "function",
+      "tests": [
+        {"name": "disjoint", "args": [{"a": 1}, {"b": 2}], "expected": {"a": 1, "b": 2}},
+        {"name": "conflict", "args": [{"a": 1, "b": 2}, {"b": 9}], "expected": {"a": 1, "b": 9}},
+        {"name": "empty", "args": [{}, {"k": "v"}], "expected": {"k": "v"}}
+      ]
+    },
+    {
+      "id": "B01", "category": "B", "name": "is_valid_email",
+      "instruction": "Write a Python function named is_valid_email(address) that returns True when address contains exactly one '@', a non-empty local part before it, and a domain part after it that contains at least one '.', otherwise False.",
+      "entry_point": "is_valid_email", "kind": "function",
+      "tests": [
+        {"name": "valid", "args": ["user@example.com"], "expected": true},
+        {"name": "no_at", "args": ["userexample.com"], "expected": false},
+        {"name": "no_dot", "args": ["user@localhost"], "expected": false}
+      ]
+    },
+    {
+      "id": "B02", "category": "B", "name": "safe_parse_int",
+      "instruction": "Write a Python function named safe_parse_int(text, default) that returns the integer value of text after stripping surrounding whitespace, or default if the text does not parse as an integer.",
+      "entry_point": "safe_parse_int", "kind": "function",
+      "tests": [
+        {"name": "number", "args": [" 42 ", -1], "expected": 42},
+        {"name": "junk", "args": ["abc", -1], "expected": -1},
+        {"name": "empty", "args": ["", 7], "expected": 7}
+      ]
+    },
+    {
+      "id": "B03", "category": "B", "name": "divide_or_none",
+      "instruction": "Write a Python function named divide_or_none(a, b) that returns a / b, or None if b is zero.",
+      "entry_point": "divide_or_none", "kind": "function",
+      "tests": [
+        {"name": "normal", "args": [10, 2], "expected": 5.0, "approx": true},
+        {"name": "zero", "args": [10, 0], "expected": null},
+        {"name": "fraction", "args": [1, 4], "expected": 0.25, "approx": true}
+      ]
+    },
+    {
+      "id": "B04", "category": "B", "name": "count_file_lines",
+      "instruction": "Write a Python function named count_file_lines(path) that opens the text file at path and returns the number of lines it contains.",
+      "entry_point": "count_file_lines", "kind": "file_read",
+      "tests": [
+        {"name": "three_lines", "fixture_content": "alpha\nbeta\ngamma\n", "expected": 3},
+        {"name": "no_trailing_newline", "fixture_content": "one\ntwo", "expected": 2},
+        {"name": "single_line", "fixture_content": "only\n", "expected": 1}
+      ]
+    },
+    {
+      "id": "B05", "category": "B", "name": "uppercase_file",
+      "instruction": "Write a Python function named uppercase_file(src, dst) that reads the text file src, converts its content to uppercase, and writes the result to the file dst.",
+      "entry_point": "uppercase_file", "kind": "file_transform",
+      "tests": [
+        {"name": "mixed", "fixture_content": "Hello World\nSecond Line\n", "expected_output": "HELLO WORLD\nSECOND LINE\n"},
+        {"name": "already_upper", "fixture_content": "ABC\n", "expected_output": "ABC\n"},
+        {"name": "with_digits", "fixture_content": "abc123 x\n", "expected_output": "ABC123 X\n"}
+      ]
+    },
+    {
+      "id": "B06", "category": "B", "name": "word_frequency",
+      "instruction": "Write a Python function named word_frequency(text) that returns a dict mapping each lowercase whitespace-separated word in text to the number of times it occurs.",
+      "entry_point": "word_frequency", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["the cat sat on the mat"], "expected": {"the": 2, "cat": 1, "sat": 1, "on": 1, "mat": 1}},
+        {"name": "empty", "args": [""], "expected": {}},
+        {"name": "case", "args": ["Dog dog DOG"], "expected": {"dog": 3}}
+      ]
+    },
+    {
+      "id": "B07", "category": "B", "name": "SimpleCounter",
+      "instruction": "Write a Python class named SimpleCounter with a method add(n) that adds n to an internal total starting at 0 and returns the new total, and a method reset() that sets the total to 0 and returns 0.",
+      "entry_point": "SimpleCounter", "kind": "class",
+      "tests": [
+        {"name": "accumulate", "init_args": [], "calls": [
+          {"method": "add", "args": [3], "expected": 3},
+          {"method": "add", "args": [4], "expected": 7},
+          {"method": "reset", "args": [], "expected": 0},
+          {"method": "add", "args": [2], "expected": 2}
+        ]}
+      ]
+    },
+    {
+      "id": "B08", "category": "B", "name": "SimpleStack",
+      "instruction": "Write a Python class named SimpleStack with a method push(item) that pushes item onto the stack and returns the new size, and a method pop() that removes and returns the most recently pushed item, or None if the stack is empty.",
+      "entry_point": "SimpleStack", "kind": "class",
+      "tests": [
+        {"name": "lifo", "init_args": [], "calls": [
+          {"method": "push", "args": [5], "expected": 1},
+          {"method": "push", "args": [7], "expected": 2},
+          {"method": "pop", "args": [], "expected": 7},
+          {"method": "pop", "args": [], "expected": 5},
+          {"method": "pop", "args": [], "expected": null}
+        ]}
+      ]
+    },
+    {
+      "id": "B09", "category": "B", "name": "top_k_frequent",
+      "instruction": "Write a Python function named top_k_frequent(items, k) that returns a list of the k most frequent items in the list items, ordered from most frequent to least frequent (items will not tie on count).",
+      "entry_point": "top_k_frequent", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [["a", "b", "a", "c", "b", "a"], 2], "expected": ["a", "b"]},
+        {"name": "k1", "args": [[1, 2, 2, 3], 1], "expected": [2]},
+        {"name": "k_all", "args": [["x", "y", "x"], 2], "expected": ["x", "y"]}
+      ]
+    },
+    {
+      "id": "B10", "category": "B", "name": "group_by_first_letter",
+      "instruction": "Write a Python function named group_by_first_letter(words) that returns a dict mapping each lowercase first letter of the words in the list words to the list of words starting with that letter, preserving the original word order. Words are non-empty.",
+      "entry_point": "group_by_first_letter", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [["Apple", "apricot", "Banana"]], "expected": {"a": ["Apple", "apricot"], "b": ["Banana"]}},
+        {"name": "single", "args": [["Cherry"]], "expected": {"c": ["Cherry"]}}
+      ]
+    },
+    {
+      "id": "C01", "category": "C", "name": "tally_odd",
+      "instruction": "Write a Python function named tally_odd(signals) that takes a list of integers and returns how many of them are odd.",
+      "entry_point": "tally_odd", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[1, 2, 3, 4, 5]], "expected": 3},
+        {"name": "none", "args": [[2, 4, 6]], "expected": 0},
+        {"name": "empty", "args": [[]], "expected": 0}
+      ]
+    },
+    {
+      "id": "C02", "category": "C", "name": "zip_pair_sums",
+      "instruction": "Write a Python function named zip_pair_sums(first, second) that takes two lists of numbers, pairs them from left to right (the shorter list is padded with zeros), and returns a list with the sum of each pair.",
+      "entry_point": "zip_pair_sums", "kind": "function",
+      "tests": [
+        {"name": "equal", "args": [[1, 2, 3], [10, 20, 30]], "expected": [11, 22, 33]},
+        {"name": "pad", "args": [[1, 2], [10, 20, 30]], "expected": [11, 22, 30]},
+        {"name": "empty", "args": [[], []], "expected": []}
+      ]
+    },
+    {
+      "id": "C03", "category": "C", "name": "flatten_once",
+      "instruction": "Write a Python function named flatten_once(nested) that takes a list of lists and returns a single flat list with the elements in order.",
+      "entry_point": "flatten_once", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[[1, 2], [3], [4, 5]]], "expected": [1, 2, 3, 4, 5]},
+        {"name": "empty_inner", "args": [[[], [1]]], "expected": [1]},
+        {"name": "all_empty", "args": [[[], []]], "expected": []}
+      ]
+    },
+    {
+      "id": "C04", "category": "C", "name": "alternate_case",
+      "instruction": "Write a Python function named alternate_case(text) that returns text with characters at even indexes (0-based) uppercased and characters at odd indexes lowercased.",
+      "entry_point": "alternate_case", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["abcdef"], "expected": "AbCdEf"},
+        {"name": "mixed", "args": ["xYz!"], "expected": "XyZ!"},
+        {"name": "empty", "args": [""], "expected": ""}
+      ]
+    },
+    {
+      "id": "C05", "category": "C", "name": "missing_ids",
+      "instruction": "Write a Python function named missing_ids(ids, limit) that takes a list of integers ids and an integer limit, and returns a sorted list of the integers from 1 to limit (inclusive) that do not appear in ids.",
+      "entry_point": "missing_ids", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[2, 4], 5], "expected": [1, 3, 5]},
+        {"name": "none_missing", "args": [[1, 2, 3], 3], "expected": []},
+        {"name": "all_missing", "args": [[], 3], "expected": [1, 2, 3]}
+      ]
+    },
+    {
+      "id": "C06", "category": "C", "name": "caesar_shift",
+      "instruction": "Write a Python function named caesar_shift(message, shift) that shifts every lowercase letter in message forward by shift positions in the alphabet with wraparound, leaving all other characters unchanged. shift is between 0 and 25.",
+      "entry_point": "caesar_shift", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": ["abc", 1], "expected": "bcd"},
+        {"name": "wrap", "args": ["xyz", 3], "expected": "abc"},
+        {"name": "mixed", "args": ["a b!", 0], "expected": "a b!"}
+      ]
+    },
+    {
+      "id": "C07", "category": "C", "name": "running_max",
+      "instruction": "Write a Python function named running_max(values) that returns a new list where the element at each index is the maximum of all elements in values up to and including that index.",
+      "entry_point": "running_max", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[1, 3, 2, 5, 4]], "expected": [1, 3, 3, 5, 5]},
+        {"name": "descending", "args": [[5, 3, 1]], "expected": [5, 5, 5]},
+        {"name": "negatives", "args": [[-2, -5, -1]], "expected": [-2, -2, -1]}
+      ]
+    },
+    {
+      "id": "C08", "category": "C", "name": "dedupe_keep_order",
+      "instruction": "Write a Python function named dedupe_keep_order(entries) that returns a list with the duplicates removed, keeping the first occurrence of each item and preserving the original order.",
+      "entry_point": "dedupe_keep_order", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [[3, 1, 3, 2, 1]], "expected": [3, 1, 2]},
+        {"name": "strings", "args": [["b", "a", "b", "c"]], "expected": ["b", "a", "c"]},
+        {"name": "already_unique", "args": [[1, 2, 3]], "expected": [1, 2, 3]}
+      ]
+    },
+    {
+      "id": "C09", "category": "C", "name": "chunk_list",
+      "instruction": "Write a Python function named chunk_list(items, size) that splits the list items into consecutive chunks of length size (the last chunk may be shorter) and returns the list of chunks. size is at least 1.",
+      "entry_point": "chunk_list", "kind": "function",
+      "tests": [
+        {"name": "even", "args": [[1, 2, 3, 4], 2], "expected": [[1, 2], [3, 4]]},
+        {"name": "remainder", "args": [[1, 2, 3, 4, 5], 2], "expected": [[1, 2], [3, 4], [5]]},
+        {"name": "bigger_chunk", "args": [[1, 2], 5], "expected": [[1, 2]]}
+      ]
+    },
+    {
+      "id": "C10", "category": "C", "name": "encode_pairs",
+      "instruction": "Write a Python function named encode_pairs(items) that returns a list of strings of the form \"index:item\" with zero-based indexes, in list order.",
+      "entry_point": "encode_pairs", "kind": "function",
+      "tests": [
+        {"name": "basic", "args": [["a", "b", "c"]], "expected": ["0:a", "1:b", "2:c"]},
+        {"name": "empty", "args": [[]], "expected": []}
+      ]
+    }
+  ]
+}

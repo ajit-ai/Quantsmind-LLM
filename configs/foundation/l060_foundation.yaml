@@ -1,0 +1,45 @@
+# TAKSH L0.6.0 — Canonical foundation model configuration (candidate A)
+#
+# The approved shared-model architecture for the TAKSH multilingual coding
+# assistant. No checkpoint is instantiated from this file in L0.6.0; it is the
+# canonical configuration that future authorized experiments build from.
+#
+# Architecture: one shared multilingual model (Strategy: shared-foundation,
+# per L0.5.1). Decoder-only causal transformer (RMSNorm + RoPE + GQA + SwiGLU),
+# tied embeddings, context 2048.
+#
+# Vocab is FIXED: taksh_code_bpe_v1.json (5,822 tokens). Do not change it here.
+
+schema: taksh.foundation_config/1
+id: taksh-foundation-111m
+name: taksh-foundation-111m
+version: 1
+created: "2026-11-11"
+
+model:
+  vocab_size: 5822          # fixed: tokenizer/taksh_code_bpe_v1.json
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 6             # GQA: 2:1 query:kv ratio (matches the 28.8M baseline)
+  ffn_dim: 3072             # 4 x d_model (SwiGLU)
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-05
+  tie_embeddings: true
+
+initialization:
+  weight_std: 0.02
+  method: "torch.nn.init.normal_(std=0.02) for Linear/Embedding; norm weights initialised to ones"
+  seed_policy: "deterministic; training code must set torch.manual_seed before model construction"
+
+constraints:
+  head_dim_must_be_integer: true
+  n_heads_must_divide_d_model: true
+  n_heads_must_be_multiple_of_n_kv_heads: true
+  vocab_size: 5822
+  max_seq_len: 2048
+
+serialization:
+  canonical_json: true       # deterministic dump: sorted keys, no whitespace variance
+  hashing: "sha256 of canonical JSON bytes"

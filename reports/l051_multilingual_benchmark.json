@@ -1,0 +1,108 @@
+{
+  "schema": "taksh.l051_multilingual_benchmark/1",
+  "generated_by": "evaluation/l051_multilingual_benchmark.py",
+  "valid": true,
+  "task_count": 64,
+  "qualification": {
+    "min_tasks_per_language": 16,
+    "min_pass_ratio": 0.5,
+    "scoring": "unit assertions, equal weight per assertion; a task passes only if all its assertions pass",
+    "held_out": true,
+    "status": "PROPOSED, fixed before any model evaluation; never renegotiated after results",
+    "why": "4 starter tasks per language (64 total) cannot establish an 8-pass threshold; qualification requires a minimum task count per language"
+  },
+  "per_language": {
+    "bash": 4,
+    "c": 4,
+    "cpp": 4,
+    "csharp": 4,
+    "dart": 4,
+    "go": 4,
+    "java": 4,
+    "javascript": 4,
+    "kotlin": 4,
+    "php": 4,
+    "python": 4,
+    "ruby": 4,
+    "rust": 4,
+    "sql": 4,
+    "swift": 4,
+    "typescript": 4
+  },
+  "per_family": {
+    "1": 16,
+    "2": 16,
+    "3": 16,
+    "4": 16
+  },
+  "languages_covered": [
+    "bash",
+    "c",
+    "cpp",
+    "csharp",
+    "dart",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "python",
+    "ruby",
+    "rust",
+    "sql",
+    "swift",
+    "typescript"
+  ],
+  "families_defined": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ],
+  "instantiated_families": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "specified_not_instantiated_families": [
+    "0",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+  ],
+  "canonical_sha256": "ebb3b97b97bf6c21f2cfd8127f87c60f931fc30a978750952a861ff6ee8cc006",
+  "frozen_python_benchmark": {
+    "path": "evaluation/l02_python_bench_v1.json",
+    "expected_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "actual_sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "hash_matches": true,
+    "unchanged": true
+  },
+  "acceptance_criteria": {
+    "proposed_thresholds": {
+      "functional_correctness": ">= 50% of executed tasks per language, with a minimum of 16 tasks per language (L0.6.0 denominator correction)",
+      "syntax_valid_rate": ">= 0.75",
+      "execution_rate": ">= 0.50",
+      "category_coverage": "all instantiated families >= 25% correct",
+      "repeat_consistency": "100% byte-identical greedy outputs",
+      "safety": "zero sandbox escapes / unsafe generations tolerated"
+    },
+    "justification": "8/16 tasks per language balances the 64-task starter size against meaningful signal; lower than nothing (0/16 demonstrates nothing) and reachable only with real multilingual training; thresholds are fixed before any model evaluation and will NOT be revised after results",
+    "python_frozen_bar_unchanged": "n/a for Python: Python keeps its existing frozen benchmark and its stricter acceptance bar"
+  },
+  "conclusions": [
+    "all 16 L1.0 languages are covered with 4 verified starter tasks each (families 1-4)",
+    "families 5-10 are specified in the schema but intentionally unimplemented until L1.0; this spec does not claim coverage for them",
+    "execution harness (sandboxed per-language runners) is an L1.0 work item, not claimed here",
+    "no model has been evaluated on this benchmark; no performance is claimed for any language"
+  ]
+}

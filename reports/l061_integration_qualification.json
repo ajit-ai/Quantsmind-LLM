@@ -1,0 +1,109 @@
+{
+  "schema": "taksh.l061_integration_qualification/1",
+  "created_on": "2026-11-13",
+  "primary_repository": "F:/Codes/Git/Quantsmind-LLM",
+  "primary_branch": "feature/l060-foundation-model-qualification",
+  "primary_head": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
+  "integration_worktree": "C:/Users/Lenovo/.local/share/opencode/worktree/545eb7/integration/taksh-l060-1-closure",
+  "integration_branch": "feature/l060-1-integration-closure",
+  "starting_commit": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
+  "provider_baseline_commit": "820624e9d8a27587af228be23d6c90716a734702",
+  "final_commit": null,
+  "reconciliation_inventory": {
+    "foundation_sources_ported": {
+      "type": "manual selective port from primary working tree",
+      "excluded_unrelated": [
+        "taksh-hf-publication/upload_manifest.json",
+        "hf_export/",
+        "export_hf.ps1",
+        "export_hf.py",
+        "rebuild_manifest.py",
+        "verify_hashes.py",
+        "verify_pub.py"
+      ],
+      "status_counts": {
+        "configs": "11 tracked-status entries",
+        "data": "4 tracked-status entries",
+        "docs": "1 tracked-status entries",
+        "evaluation": "32 tracked-status entries",
+        "reports": "25 tracked-status entries",
+        "scripts": "6 tracked-status entries",
+        "serving": "5 status entries",
+        "taksh": "1 status entry",
+        "tests": "8 status entries",
+        "training": "3 status entries"
+      }
+    },
+    "provider_work_integrated": "cherry-picked 820624e; includes deterministic and provider adapter implementations",
+    "runtime_patch": {
+      "file": "taksh/dlcae/runtime.py",
+      "classification": "focused syntax fix",
+      "regression_test": "tests/test_dlcae_runtime_syntax.py"
+    }
+  },
+  "changed_files": [
+    "serving/foundation_inference.py",
+    "serving/native_provider.py",
+    "serving/coding_providers.py",
+    "serving/provider_diagnostics.py",
+    "serving/model_change_provider.py",
+    "serving/inference_engine.py if present via foundation port",
+    "taksh/engineering.py",
+    "taksh/coding_validation.py",
+    "taksh/project_understanding.py",
+    "taksh/specialists.py",
+    "taksh/dlcae/runtime.py",
+    "evaluation/resource_guard.py",
+    "docs/L060-1-INTEGRATION-CLOSURE.md",
+    "docs/UNIFIED-PROVIDER-INTEGRATION.md",
+    "reports/l061_integration_qualification.json"
+  ],
+  "test_commands": [
+    {
+      "command": "python -m pytest tests/test_dlcae_runtime_syntax.py tests/test_l060_foundation.py tests/test_local_assistant_l01.py tests/test_coding_providers.py tests/test_model_change_provider.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py -q",
+      "result": "1 failed inherited checkpoint-availability test; 77 passed, 3 skipped, exit_code 1"
+    },
+    {
+      "command": "python -m pytest tests/test_dlcae_runtime_syntax.py tests/test_coding_providers.py tests/test_model_change_provider.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py -q",
+      "result": "29 passed, 1 skipped, exit_code 0"
+    },
+    {
+      "command": "python -m compileall -q serving taksh evaluation tests scripts",
+      "result": "failed before runtime fix due taksh/dlcae/runtime.py syntax; rerun after fix shows remaining unrelated preexisting defect in scripts/eval_v210_agent.py"
+    }
+  ],
+  "ci_references": [
+    "Unverified: feature-branch pushes do not trigger remote CI in this repository; no CI was triggered or claimed"
+  ],
+  "security_checks": [
+    "diagnostics expose no secrets",
+    "external provider calls disabled by default",
+    "no automatic command execution introduced",
+    "native provider fails closed without checkpoint",
+    "model-generated changes require existing PatchTransaction approval flow"
+  ],
+  "known_inherited_defects": [
+    "tests/test_l060_foundation.py::test_existing_checkpoint_preserved_hash fails because the ignored checkpoint runs/v180_sft/checkpoint_last.pt is absent from the isolated branch and was not copied",
+    "scripts/eval_v210_agent.py has a preexisting triple-quote syntax defect and was not modified by this milestone"
+  ],
+  "native_capability_status": "NATIVE_CAPABILITY_NOT_EVALUATED",
+  "real_provider_status": "REAL_PROVIDER_NOT_TESTED",
+  "production_status": "PRODUCTION_NOT_QUALIFIED",
+  "final_decision": "PASS WITH DOCUMENTED LIMITATIONS",
+  "blockers": [
+    {
+      "priority": "P1",
+      "cause": "Canonical L0.6 checkpoint absent/unknown compatibility in isolated branch",
+      "impact": "Native inference remains unavailable; capability cannot be evaluated",
+      "required_action": "Provide canonical checkpoint or authorize an isolated-branch artifact-handling decision",
+      "requires_user_action": true
+    },
+    {
+      "priority": "P2",
+      "cause": "Untracked/ignored foundation artifacts are not reproducible from clean checkout",
+      "impact": "Foundation qualification cannot be fully reproduced in clean isolated branch",
+      "required_action": "Decide which foundation artifacts are to be versioned or regenerated",
+      "requires_user_action": true
+    }
+  ]
+}

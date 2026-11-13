@@ -1,0 +1,205 @@
+{
+  "schema": "taksh.l051_toolchain_audit/1",
+  "generated_by": "evaluation/l051_toolchain_audit.py",
+  "host": {
+    "platform": "win32",
+    "note": "Windows 11 host; WSL excluded from availability claims (not installed); Git Bash present"
+  },
+  "local_execution_strategy": {
+    "workspace": "fresh temporary directory per benchmark task; deleted afterwards",
+    "environment": "SystemRoot/PATH only; no user secrets; no inherited environment",
+    "timeouts": "5-20 s per language (see per-language execution specs in the benchmark)",
+    "network": "disabled inside the sandbox process tree",
+    "filesystem": "workspace-only; repo tree unreachable from sandbox cwd",
+    "permissions": "explicit per language; no ambient privileges; never runs model-generated code outside the sandbox"
+  },
+  "l1_summary": {
+    "python": true,
+    "javascript": true,
+    "typescript": true,
+    "c": true,
+    "cpp": true,
+    "java": true,
+    "csharp": true,
+    "go": true,
+    "rust": true,
+    "php": false,
+    "ruby": false,
+    "swift": false,
+    "kotlin": true,
+    "dart": false,
+    "sql": true,
+    "bash": true
+  },
+  "available": [
+    "python",
+    "javascript",
+    "typescript",
+    "c",
+    "cpp",
+    "java",
+    "csharp",
+    "go",
+    "rust",
+    "kotlin",
+    "sql",
+    "bash"
+  ],
+  "missing": [
+    "php",
+    "ruby",
+    "swift",
+    "dart"
+  ],
+  "checks": [
+    {
+      "language": "python",
+      "tool": "python3",
+      "available": true,
+      "version": "Python 3.14.7",
+      "detail": ""
+    },
+    {
+      "language": "sql",
+      "tool": "sqlite3-module",
+      "available": true,
+      "version": "sqlite3 module 3.50.4",
+      "detail": ""
+    },
+    {
+      "language": "javascript",
+      "tool": "node",
+      "available": true,
+      "version": "v24.18.1",
+      "detail": ""
+    },
+    {
+      "language": "typescript",
+      "tool": "tsc",
+      "available": false,
+      "version": null,
+      "detail": "tsc not installed (npx prints placeholder)"
+    },
+    {
+      "language": "typescript",
+      "tool": "node-type-stripping",
+      "available": true,
+      "version": "ts-ok",
+      "detail": ""
+    },
+    {
+      "language": "c",
+      "tool": "msvc-cl",
+      "available": false,
+      "version": null,
+      "detail": "cl.exe not on PATH; MSVC BuildTools present at fixed install dir; vsdevcmd env required"
+    },
+    {
+      "language": "c",
+      "tool": "msvc-availability",
+      "available": true,
+      "version": "Parameter format not correct - \"b\" \"C:\\Program\".",
+      "detail": ""
+    },
+    {
+      "language": "cpp",
+      "tool": "msvc-cl-cpp17",
+      "available": true,
+      "version": "INFO: Could not find files for the given pattern(s).",
+      "detail": ""
+    },
+    {
+      "language": "java",
+      "tool": "javac",
+      "available": true,
+      "version": "javac 21.0.2",
+      "detail": ""
+    },
+    {
+      "language": "java",
+      "tool": "java",
+      "available": true,
+      "version": "java version \"21.0.2\" 2024-01-16 LTS",
+      "detail": ""
+    },
+    {
+      "language": "csharp",
+      "tool": "dotnet",
+      "available": true,
+      "version": "10.0.400",
+      "detail": ""
+    },
+    {
+      "language": "go",
+      "tool": "go",
+      "available": true,
+      "version": "go version go1.27.0 windows/amd64",
+      "detail": ""
+    },
+    {
+      "language": "rust",
+      "tool": "rustc",
+      "available": true,
+      "version": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+      "detail": ""
+    },
+    {
+      "language": "php",
+      "tool": "php",
+      "available": false,
+      "version": null,
+      "detail": "not found on PATH"
+    },
+    {
+      "language": "ruby",
+      "tool": "ruby",
+      "available": false,
+      "version": null,
+      "detail": "not found on PATH"
+    },
+    {
+      "language": "swift",
+      "tool": "swift",
+      "available": false,
+      "version": null,
+      "detail": "not found on PATH"
+    },
+    {
+      "language": "kotlin",
+      "tool": "kotlinc",
+      "available": true,
+      "version": "info: kotlinc-jvm 2.2.10 (JRE 21.0.2+13-LTS-58)",
+      "detail": ""
+    },
+    {
+      "language": "dart",
+      "tool": "dart",
+      "available": false,
+      "version": null,
+      "detail": "not found on PATH"
+    },
+    {
+      "language": "sql",
+      "tool": "sqlite-cli",
+      "available": false,
+      "version": null,
+      "detail": "not found on PATH"
+    },
+    {
+      "language": "bash",
+      "tool": "bash",
+      "available": true,
+      "version": "GNU bash, version 5.2.37(1)-release (x86_64-pc-msys)",
+      "detail": ""
+    }
+  ],
+  "conclusions": [
+    "12 of 16 L1.0 toolchains are locally executable in this environment: bash, c, cpp, csharp, go, java, javascript, kotlin, python, rust, sql, typescript",
+    "4 are NOT available here: php, ruby, swift, dart",
+    "SQL is executable via Python's bundled sqlite3 module (3.50.4); standalone sqlite3 CLI absent",
+    "TypeScript executes only via Node's experimental type stripping; no tsc (not installed, not authorized to install)",
+    "C and C++ build via MSVC 19.44.35229 through a vsdevcmd environment; cl.exe is not on PATH",
+    "Bash executes via Git Bash 5.2.37; WSL is absent (bash.exe is the disabled WSL launcher)",
+    "no benchmarks can execute without the per-language sandboxed runner (L1.0 work item)"
+  ]
+}
