@@ -1,7 +1,7 @@
 # TAKSH Verification and Release-Readiness Audit
 
 **Branch:** `feature/taksh-five-version-ga-program`
-**HEAD:** `fbfa88daba857d0700c8ec17477433cf27c4e0ed`
+**HEAD:** `95e3a3309f5a928933b8e11db0d223ab3e1d8c37`
 **Base:** `develop` at `0215c6d039fceffd334f8931aa96a3287010a580`
 **Date:** 2026-11-13
 **Verdict:** `NO_RELEASE_AUTHORIZED`
@@ -16,6 +16,8 @@
 | Version consistency | **PASS** (`taksh.__version__ = 1.0.0`) |
 | Python 3.11 compileall | **PASS** (`taksh`, `evaluation`, `serving`, `training`, `scripts`, `tests`) |
 | Program version gate report | `NO_RELEASE_AUTHORIZED` |
+| VS Code Extension Development Host tests | `PASS` (6 passing) |
+| Dependency vulnerability scan | Python `PASS`; Node `PARTIAL` (3 moderate dev dependencies) |
 | HF export | dry-run only; no weights written |
 | Training / checkpoint creation | none |
 | Publication / merge / tag / release | none |
@@ -40,6 +42,8 @@
 16. `dcb77ee` - deployment helpers and performance baselines
 17. `1316185` - IDE client, REST authentication and authorization, deployment configuration
 18. `fbfa88d` - structured logging, recovery and release evidence
+19. `fb40f97` - VS Code Extension Development Host tests
+20. `95e3a33` - dependency vulnerability scan results and security review
 
 ## 3. Program gate status
 
