@@ -1,0 +1,54 @@
+{
+  "schema": "taksh.unified_provider_integration/1",
+  "created_on": "2026-11-13",
+  "primary_repository": "F:/Codes/Git/Quantsmind-LLM",
+  "integration_worktree": "C:/Users/Lenovo/.local/share/opencode/worktree/545eb7/integration/taksh-l060-unified-provider",
+  "branch": "feature/l060-unified-provider-integration",
+  "starting_HEAD": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
+  "final_HEAD": null,
+  "hidden_note": "Commit hash is intentionally not embedded to avoid a self-reference; the pushed commit on this branch is reported in the handover message.",
+  "files_changed": [
+    "serving/coding_providers.py",
+    "serving/model_change_provider.py",
+    "serving/native_provider.py",
+    "serving/provider_diagnostics.py",
+    "taksh/engineering.py",
+    "taksh/coding_validation.py",
+    "taksh/project_understanding.py",
+    "taksh/specialists.py",
+    "tests/test_coding_agent_scenarios.py",
+    "tests/test_coding_providers.py",
+    "tests/test_engineering_platform.py",
+    "tests/test_model_change_provider.py",
+    "tests/test_native_provider.py",
+    "tests/test_unified_provider_diagnostics.py",
+    "docs/UNIFIED-PROVIDER-INTEGRATION.md"
+  ],
+  "provider_implementation_status": {
+    "openai_compatible": "IMPLEMENTED_MOCK_TESTED",
+    "ollama": "IMPLEMENTED_MOCK_TESTED_NOT_INSTALLED",
+    "native_taksh": "IMPLEMENTED_NOT_READY_NOT_EVALUATED",
+    "deterministic_mock": "TEST_DOUBLE_ONLY"
+  },
+  "tests_executed": {
+    "command": "pytest tests/test_coding_providers.py tests/test_model_change_provider.py tests/test_unified_provider_diagnostics.py tests/test_native_provider.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py -q",
+    "result": "32 passed, 1 skipped",
+    "exit_code": 0
+  },
+  "mock_provider_qualification": "PASS",
+  "real_provider_qualification": "NOT_TESTED",
+  "native_taksh_qualification": "NOT_EVALUATED",
+  "security_checks": {
+    "credentials_in_workspace_settings": "not introduced",
+    "authorization_headers_logged": "not introduced",
+    "automatic_external_calls": "none",
+    "automatic_command_execution": "none",
+    "mock_transport_is_labelled": true
+  },
+  "limitations": [
+    "No external provider was contacted",
+    "Native checkpoint is missing or not qualified",
+    "Committed L0.6 branch lacks the untracked primary foundation files and engineering workflow introduced by this milestone"
+  ],
+  "known_unrelated_preexisting_issue": "taksh/dlcae/runtime.py fails syntax compilation and was not modified by this milestone"
+}
