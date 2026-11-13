@@ -17,9 +17,7 @@ from typing import Any
 
 
 def discover_files(root: Path, *, exclude_patterns: list[str] | None = None) -> list[Path]:
-    patterns = exclude_patterns or [".git", "node_modules", "__pycache__", "runs",
-                                     "data", "taksh-hf-publication", ".pytest_cache",
-                                     "dist", "build", ".venv"]
+    patterns = exclude_patterns or _default_excludes(root)
     files: list[Path] = []
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if not _matches_any(d, patterns)]
@@ -27,6 +25,22 @@ def discover_files(root: Path, *, exclude_patterns: list[str] | None = None) -> 
             if not _matches_any(name, patterns):
                 files.append(Path(dirpath) / name)
     return files
+
+
+def _default_excludes(root: Path) -> list[str]:
+    base = [".git", "node_modules", "__pycache__", "runs",
+            "data", "taksh-hf-publication", ".pytest_cache",
+            "dist", "build", ".venv"]
+    ignore_path = Path(root) / ".gitignore"
+    if ignore_path.is_file():
+        try:
+            for line in ignore_path.read_text(encoding="utf-8").splitlines():
+                pattern = line.strip()
+                if pattern and not pattern.startswith("#"):
+                    base.append(pattern.rstrip("/"))
+        except OSError:
+            pass
+    return base
 
 
 def _matches_any(name: str, patterns: list[str]) -> bool:
