@@ -56,6 +56,7 @@ async function main() {
       extensionTestsEnv: {
         TAKSH_BASE_URL: "http://127.0.0.1:8000",
         TAKSH_ENGINEERING_TOKEN: "host-test-token",
+        TAKSH_TEST_HOOKS: "1",
       },
     });
   } finally {

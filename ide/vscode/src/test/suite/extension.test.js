@@ -19,6 +19,24 @@ describe("TAKSH extension host", function () {
     assert.ok(commands.includes("taksh.inspectProject"));
     assert.ok(commands.includes("taksh.createTask"));
     assert.ok(commands.includes("taksh.applyApprovedPatch"));
+    assert.ok(commands.includes("taksh.setCredential"));
+    assert.ok(commands.includes("taksh.clearCredential"));
+  });
+
+  it("does not declare taksh.apiKey as ordinary configuration", function () {
+    const fs = require("fs");
+    const path = require("path");
+    const manifest = path.resolve(__dirname, "../../../package.json");
+    const text = fs.readFileSync(manifest, "utf8");
+    assert.ok(!text.includes("taksh.apiKey"));
+  });
+
+  it("round-trips a credential through SecretStorage", async function () {
+    const command = vscode.commands.getCommands(true).then((list) => list.includes("taksh._testCredentialRoundTrip"));
+    assert.strictEqual(await command, true);
+    const result = await vscode.commands.executeCommand("taksh._testCredentialRoundTrip");
+    assert.strictEqual(result.status, "passed");
+    assert.strictEqual(result.recorded, false);
   });
 
   it("connects to the local service and inspects the workspace", async function () {

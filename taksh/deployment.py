@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -48,15 +49,60 @@ def validate_deployment_config(config: dict) -> dict[str, Any]:
     return {"status": "valid" if not errors else "invalid", "errors": errors}
 
 
+STATE_SCHEMA_VERSION = 2
+
+
+def _validate_state_document(document: Any, *, allow_legacy: bool = True) -> dict[str, Any]:
+    if not isinstance(document, dict):
+        raise ValueError("state document must be a JSON object")
+    facts = document.get("facts")
+    if not isinstance(facts, list):
+        raise ValueError("state document must contain a facts list")
+    schema_version = document.get("schema_version", 1 if allow_legacy else None)
+    if schema_version == 1:
+        document = dict(document, schema_version=STATE_SCHEMA_VERSION)
+    elif schema_version != STATE_SCHEMA_VERSION:
+        raise ValueError(f"unsupported state schema version: {schema_version}")
+    document["schema_version"] = STATE_SCHEMA_VERSION
+    return document
+
+
+def _atomic_replace(source: Path, destination: Path) -> None:
+    temp = destination.parent / (destination.name + f".tmp.{os.getpid()}.{int(time.time())}")
+    try:
+        shutil.copy2(source, temp)
+        temp.replace(destination)
+    except Exception:
+        temp.unlink(missing_ok=True)
+        raise
+
+
 def backup_state(memory_path: str | Path, backup_path: str | Path) -> dict[str, Any]:
-    import hashlib, shutil
+    import hashlib, json, shutil
 
     source = Path(memory_path).resolve()
     destination = Path(backup_path).resolve()
     if not source.is_file():
         return {"status": "missing", "detail": f"no state file at {source}"}
+
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, destination)
+    temp = destination.parent / (destination.name + f".tmp.{os.getpid()}.{int(time.time())}")
+    try:
+        shutil.copy2(source, temp)
+        digest = hashlib.sha256(temp.read_bytes()).hexdigest()
+        with temp.open("a", encoding="utf-8") as handle:
+            handle.flush()
+            os.fsync(handle.fileno())
+        temp.replace(destination)
+    except Exception as exc:  # noqa: BLE001
+        temp.unlink(missing_ok=True)
+        return {"status": "failed", "detail": str(exc)}
+
+    try:
+        json.loads(destination.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        return {"status": "failed", "detail": f"backup verification failed: {exc}"}
+
     return {
         "status": "backed_up",
         "source": str(source),
@@ -73,12 +119,33 @@ def restore_state(backup_path: str | Path, memory_path: str | Path) -> dict[str,
     destination = Path(memory_path).resolve()
     if not source.is_file():
         return {"status": "missing", "detail": f"no backup at {source}"}
+
     try:
-        json.loads(source.read_text(encoding="utf-8"))
+        document = json.loads(source.read_text(encoding="utf-8"))
+        document = _validate_state_document(document)
     except Exception as exc:  # noqa: BLE001
-        return {"status": "invalid", "detail": f"backup is not valid JSON: {exc}"}
+        return {"status": "invalid", "detail": f"backup failed validation: {exc}"}
+
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, destination)
+    original_backup = None
+    if destination.exists():
+        original_backup = destination.parent / (destination.name + f".restore-rollback.{os.getpid()}.{int(time.time())}")
+        shutil.copy2(destination, original_backup)
+
+    temp = destination.parent / (destination.name + f".restore.{os.getpid()}.{int(time.time())}")
+    try:
+        temp.write_text(json.dumps(document, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        temp.replace(destination)
+    except Exception as exc:  # noqa: BLE001
+        temp.unlink(missing_ok=True)
+        if original_backup is not None and original_backup.exists():
+            shutil.copy2(original_backup, destination)
+        return {"status": "failed", "detail": f"restore failed; original restored: {exc}"}
+    finally:
+        temp.unlink(missing_ok=True)
+        if original_backup is not None:
+            original_backup.unlink(missing_ok=True)
+
     return {
         "status": "restored",
         "source": str(source),

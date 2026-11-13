@@ -13,7 +13,9 @@
   "activationEvents": [
     "onCommand:taksh.inspectProject",
     "onCommand:taksh.createTask",
-    "onCommand:taksh.applyApprovedPatch"
+    "onCommand:taksh.applyApprovedPatch",
+    "onCommand:taksh.setCredential",
+    "onCommand:taksh.clearCredential"
   ],
   "main": "./src/extension.js",
   "contributes": {
@@ -29,6 +31,14 @@
       {
         "command": "taksh.applyApprovedPatch",
         "title": "TAKSH: Apply Approved Patch"
+      },
+      {
+        "command": "taksh.setCredential",
+        "title": "TAKSH: Set Service Credential"
+      },
+      {
+        "command": "taksh.clearCredential",
+        "title": "TAKSH: Clear Service Credential"
       }
     ],
     "configuration": {
@@ -38,17 +48,12 @@
           "type": "string",
           "default": "http://127.0.0.1:8000",
           "description": "Base URL of the local TAKSH engineering service."
-        },
-        "taksh.apiKey": {
-          "type": "string",
-          "default": "",
-          "description": "Optional bearer token for the TAKSH service."
         }
       }
     }
   },
   "scripts": {
-    "test": "node ./test/apiClient.test.js",
+    "test": "node ./test/apiClient.test.js && node ./test/credentials.test.js",
     "test:live": "node ./test/liveService.test.js"
   },
   "devDependencies": {

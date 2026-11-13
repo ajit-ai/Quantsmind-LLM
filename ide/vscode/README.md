@@ -11,7 +11,15 @@
 ## Requirements
 - VS Code >= 1.85
 - Running local TAKSH engineering service on `http://127.0.0.1:8000`
-- `taksh.apiKey` configured if the service requires bearer authentication
+- Credential stored in VS Code SecretStorage via `TAKSH: Set Service Credential` if the service requires bearer authentication
+
+## Credential storage and migration
+- Authentication tokens are stored in VS Code SecretStorage under `taksh.apiToken.v1`.
+- The extension does **not** declare `taksh.apiKey` as ordinary configuration.
+- Legacy global `taksh.apiKey` values are detected during activation and migrated to SecretStorage; the legacy global setting is cleared after successful verification.
+- Legacy workspace values are not rewritten automatically. Remove `taksh.apiKey` from workspace settings manually and store the credential in SecretStorage instead.
+- Credentials are not printed, logged or included in diagnostics.
+- Manage credentials with `TAKSH: Set Service Credential` and `TAKSH: Clear Service Credential`.
 
 ## Live service test
 ```bash

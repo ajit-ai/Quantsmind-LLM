@@ -2,16 +2,22 @@
 
 const vscode = require("vscode");
 const client = require("./apiClient");
+const credentials = require("./credentials");
 
-function config() {
-  const cfg = vscode.workspace.getConfiguration("taksh");
-  return {
-    baseUrl: cfg.get("baseUrl") || "http://127.0.0.1:8000",
-    apiKey: cfg.get("apiKey") || "",
-  };
+const OUTPUT_CHANNEL = "TAKSH";
+
+function createOutputChannel() {
+  return vscode.window.createOutputChannel(OUTPUT_CHANNEL);
 }
 
-async function inspectProjectCommand() {
+async function serviceConfig(context) {
+  const cfg = vscode.workspace.getConfiguration("taksh");
+  const baseUrl = cfg.get("baseUrl") || "http://127.0.0.1:8000";
+  const token = await credentials.readToken(context);
+  return { baseUrl, apiKey: token || "" };
+}
+
+async function inspectProjectCommand(context) {
   const root = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0]
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
     : undefined;
@@ -20,18 +26,20 @@ async function inspectProjectCommand() {
     return;
   }
   try {
-    const cfg = config();
+    const cfg = await serviceConfig(context);
+    await credentials.migrateLegacyCredential(context);
     const result = await client.inspectProject(cfg.baseUrl, root, cfg.apiKey);
-    const channel = vscode.window.createOutputChannel("TAKSH");
+    const channel = createOutputChannel();
+    context.subscriptions.push(channel);
     channel.clear();
     channel.appendLine(JSON.stringify(result, null, 2));
     channel.show();
   } catch (error) {
-    vscode.window.showErrorMessage("TAKSH inspect failed: " + error.message);
+    vscode.window.showErrorMessage("TAKSH inspect failed: " + safeMessage(error));
   }
 }
 
-async function createTaskCommand() {
+async function createTaskCommand(context) {
   const root = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0]
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
     : undefined;
@@ -43,15 +51,15 @@ async function createTaskCommand() {
   if (!objective) return;
   const taskId = "task-" + Date.now();
   try {
-    const cfg = config();
+    const cfg = await serviceConfig(context);
     const result = await client.createTask(cfg.baseUrl, { task_id: taskId, objective, root }, cfg.apiKey);
     vscode.window.showInformationMessage("TAKSH task created: " + result.task_id + " (" + result.state + ")");
   } catch (error) {
-    vscode.window.showErrorMessage("TAKSH task creation failed: " + error.message);
+    vscode.window.showErrorMessage("TAKSH task creation failed: " + safeMessage(error));
   }
 }
 
-async function applyApprovedPatchCommand() {
+async function applyApprovedPatchCommand(context) {
   const taskId = await vscode.window.showInputBox({ prompt: "Task ID" });
   if (!taskId) return;
   const planText = await vscode.window.showInputBox({ prompt: "Patch plan JSON" });
@@ -67,20 +75,64 @@ async function applyApprovedPatchCommand() {
     return;
   }
   try {
-    const cfg = config();
+    const cfg = await serviceConfig(context);
     const result = await client.applyPatch(cfg.baseUrl, taskId, plan, true, cfg.apiKey);
     vscode.window.showInformationMessage("TAKSH apply result: " + result.status);
   } catch (error) {
-    vscode.window.showErrorMessage("TAKSH apply failed: " + error.message);
+    vscode.window.showErrorMessage("TAKSH apply failed: " + safeMessage(error));
   }
 }
 
-function activate(context) {
+function safeMessage(error) {
+  const message = error && error.message ? String(error.message) : "unknown error";
+  return message.replace(/[A-Za-z0-9._\-]{24,}/g, "<redacted>");
+}
+
+async function setCredentialCommand(context) {
+  const token = await vscode.window.showInputBox({
+    prompt: "TAKSH service bearer token",
+    password: true,
+    ignoreFocusOut: true,
+  });
+  if (!token) return;
+  try {
+    await credentials.writeToken(context, token);
+    vscode.window.showInformationMessage("TAKSH credential stored in secret storage.");
+  } catch (error) {
+    vscode.window.showErrorMessage(safeMessage(error));
+  }
+}
+
+async function clearCredentialCommand(context) {
+  try {
+    await credentials.deleteToken(context);
+    vscode.window.showInformationMessage("TAKSH credential cleared from secret storage.");
+  } catch (error) {
+    vscode.window.showErrorMessage(safeMessage(error));
+  }
+}
+
+async function activate(context) {
+  const migration = await credentials.migrateLegacyCredential(context, vscode);
+  if (migration.status === "manual_removal_required") {
+    vscode.window.showWarningMessage(
+      "TAKSH legacy taksh.apiKey found in workspace settings; remove it manually and store the credential in SecretStorage instead."
+    );
+  }
+
   context.subscriptions.push(
-    vscode.commands.registerCommand("taksh.inspectProject", inspectProjectCommand),
-    vscode.commands.registerCommand("taksh.createTask", createTaskCommand),
-    vscode.commands.registerCommand("taksh.applyApprovedPatch", applyApprovedPatchCommand)
+    vscode.commands.registerCommand("taksh.inspectProject", () => inspectProjectCommand(context)),
+    vscode.commands.registerCommand("taksh.createTask", () => createTaskCommand(context)),
+    vscode.commands.registerCommand("taksh.applyApprovedPatch", () => applyApprovedPatchCommand(context)),
+    vscode.commands.registerCommand("taksh.setCredential", () => setCredentialCommand(context)),
+    vscode.commands.registerCommand("taksh.clearCredential", () => clearCredentialCommand(context))
   );
+
+  if (process.env.TAKSH_TEST_HOOKS === "1") {
+    context.subscriptions.push(
+      vscode.commands.registerCommand("taksh._testCredentialRoundTrip", () => credentials.testRoundTrip(context))
+    );
+  }
 }
 
 function deactivate() {}

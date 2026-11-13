@@ -1,0 +1,63 @@
+{
+  "schema": "taksh.dependency_assurance/1",
+  "scanned_at": "2026-11-13T06:07:49.955136+00:00",
+  "groups": [
+    {
+      "group": "pyproject_runtime",
+      "status": "PASS",
+      "requirements": [
+        "torch>=2.2,<3",
+        "tokenizers>=0.15",
+        "numpy>=1.26",
+        "pyyaml>=6.0",
+        "gradio>=4.44",
+        "openai>=1.40",
+        "pillow>=10.0",
+        "fastapi>=0.104",
+        "uvicorn>=0.24",
+        "pydantic>=2.0"
+      ],
+      "findings": [],
+      "dependency_count": 61
+    },
+    {
+      "group": "pyproject_dev_optional",
+      "status": "PASS",
+      "requirements": [
+        "pytest>=8.0"
+      ],
+      "findings": [],
+      "dependency_count": 5
+    },
+    {
+      "group": "build_system",
+      "status": "PASS",
+      "requirements": [
+        "setuptools>=77",
+        "wheel"
+      ],
+      "findings": [],
+      "dependency_count": 0
+    },
+    {
+      "group": "requirements_txt",
+      "status": "PASS",
+      "requirements": [
+        "torch>=2.2,<3",
+        "tokenizers>=0.15",
+        "numpy>=1.26",
+        "pyyaml>=6.0",
+        "pytest>=8.0",
+        "gradio>=4.44",
+        "openai>=1.40",
+        "pillow>=10.0",
+        "fastapi>=0.104",
+        "uvicorn>=0.24",
+        "pydantic>=2.0"
+      ],
+      "findings": [],
+      "dependency_count": 64
+    }
+  ],
+  "verdict": "PASS"
+}

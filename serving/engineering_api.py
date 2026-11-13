@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hmac
 import json
 import os
 import time
@@ -21,9 +20,11 @@ except Exception:  # pragma: no cover - optional dependency
 from taksh.service import EngineeringService
 from taksh.engineering import create_task, engineering_report
 from taksh.memory import ProjectMemory
+from taksh.auth import TokenConfig, authenticate
+from taksh.audit import audit_log_from_env
 
 _MAX_BODY_BYTES = 1_000_000
-_audit_log: list[dict[str, Any]] = []
+_audit_log = audit_log_from_env()
 
 
 def _configured_token() -> str | None:
@@ -37,15 +38,9 @@ def _configured_scopes() -> set[str]:
 
 def _authenticate(request):
     if request is None:
-        return {"identity": "anonymous", "scopes": set()}
-    token = _configured_token()
-    if token is None:
-        return {"identity": "unauthenticated", "scopes": set(), "error": "engineering authentication is not configured"}
-    header = request.headers.get("authorization", "")
-    supplied = header[7:] if header.lower().startswith("bearer ") else ""
-    if not supplied or not hmac.compare_digest(supplied, token):
-        return {"identity": "invalid-token", "scopes": set(), "error": "invalid or missing bearer token"}
-    return {"identity": "token", "scopes": _configured_scopes(), "error": None}
+        return {"identity": "anonymous", "scopes": set(), "error": None}
+    result = authenticate(request.headers.get("authorization"))
+    return {"identity": result.identity, "scopes": result.scopes, "error": result.error}
 
 
 def _authorize(auth, required_scope: str):
@@ -56,15 +51,13 @@ def _authorize(auth, required_scope: str):
 
 
 def _audit(identity, operation, decision, outcome):
-    _audit_log.append({
-        "identity": identity,
-        "operation": operation,
-        "decision": decision,
-        "outcome": outcome,
-        "timestamp": time.time(),
-    })
-    if len(_audit_log) > 1000:
-        del _audit_log[:100]
+    try:
+        _audit_log.write(identity, operation, decision, outcome)
+    except RuntimeError:
+        # Authentication must fail closed when audit persistence is unavailable.
+        if outcome == "authorized":
+            raise HTTPException(status_code=503, detail="audit persistence unavailable; authorization denied")
+
 
 
 def _require(request, required_scope, operation):
@@ -195,6 +188,6 @@ def build_router() -> Any:
     @router.get("/audit")
     async def audit(request: Request):
         _require(request, "audit", "audit_read")
-        return {"records": list(_audit_log)}
+        return {"records": _audit_log.read()}
 
     return router

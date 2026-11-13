@@ -37,10 +37,12 @@
 
 ## 4. Token and secret handling
 
-- Tokens supplied via environment or untracked config; never committed.
-- Placeholder tokens rejected by `validate_deployment_config`.
-- Memory refuses secret-like stored values.
-- Tokens are not returned by endpoints or logged in structured logs.
+- VS Code credentials are stored in SecretStorage under `taksh.apiToken.v1`; the extension no longer declares `taksh.apiKey` as ordinary configuration.
+- Legacy global `taksh.apiKey` values are migrated during activation and the legacy global setting is cleared after verification.
+- Workspace-level legacy values are not rewritten automatically; migration guidance is documented.
+- Service bearer tokens may carry an expiry and revocation hash file via environment (`TAKSH_TOKEN_EXPIRES_AT`, `TAKSH_REVOKED_TOKENS_FILE`).
+- Secrets are not committed, logged or returned by endpoints.
+- Memory rejects secret-like stored values.
 
 ## 5. Tool registry and execution flow
 

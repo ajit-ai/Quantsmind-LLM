@@ -77,6 +77,56 @@ def test_restore_rejects_invalid_backup(tmp_path):
     assert result["status"] == "invalid"
 
 
+def test_truncated_backup_is_rejected(tmp_path):
+    memory_path = tmp_path / "memory.json"
+    memory = ProjectMemory(memory_path)
+    memory.store("deploy-test", "fact", "value", source="test")
+    backup_path = tmp_path / "backup.json"
+    assert backup_state(memory_path, backup_path)["status"] == "backed_up"
+    backup_path.write_text(backup_path.read_text(encoding="utf-8")[:-10], encoding="utf-8")
+    result = restore_state(backup_path, tmp_path / "restored.json")
+    assert result["status"] == "invalid"
+
+
+def test_unsupported_state_version_is_rejected(tmp_path):
+    backup = tmp_path / "backup.json"
+    backup.write_text(json.dumps({"schema_version": 99, "facts": []}), encoding="utf-8")
+    result = restore_state(backup, tmp_path / "memory.json")
+    assert result["status"] == "invalid"
+    assert "unsupported" in result["detail"].lower()
+
+
+def test_partial_restore_failure_rolls_back_original(tmp_path, monkeypatch):
+    from taksh import deployment
+
+    destination = tmp_path / "memory.json"
+    destination.write_text(json.dumps({"facts": []}), encoding="utf-8")
+    backup = tmp_path / "backup.json"
+    backup.write_text(json.dumps({"facts": []}), encoding="utf-8")
+    original = destination.read_text(encoding="utf-8")
+
+    original_replace = deployment.Path.replace
+
+    def boom(self, target):
+        if ".restore." in self.name:
+            raise RuntimeError("simulated restore failure")
+        return original_replace(self, target)
+
+    monkeypatch.setattr(deployment.Path, "replace", boom)
+    result = deployment.restore_state(backup, destination)
+    assert result["status"] == "failed"
+    assert destination.read_text(encoding="utf-8") == original
+
+
+def test_legacy_state_is_migrated_on_restore(tmp_path):
+    backup = tmp_path / "backup.json"
+    backup.write_text(json.dumps({"facts": []}), encoding="utf-8")
+    memory_path = tmp_path / "memory.json"
+    result = restore_state(backup, memory_path)
+    assert result["status"] == "restored"
+    assert json.loads(memory_path.read_text(encoding="utf-8"))["schema_version"] == 2
+
+
 def test_interrupted_task_recovery_and_shutdown(tmp_path):
     from taksh.agent import AgentTask, AgentState
     import json as _json
