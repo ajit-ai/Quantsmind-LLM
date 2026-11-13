@@ -24,8 +24,8 @@ from taksh.engineering import (
     DeterministicTestProvider,
     EngineeringTask,
     FileChange,
-    NativeTakshProvider,
     SecurityError,
+    native_change_provider,
     apply_plan,
     create_task,
     discover_tests,
@@ -151,6 +151,51 @@ def test_unapproved_plan_is_not_applied(tmp_path):
     assert result.status == "BLOCKED"
 
 
+def test_applying_without_reviewer_is_blocked(tmp_path):
+    root = _make_project(tmp_path)
+    before = (root / "pkg" / "math.py").read_text(encoding="utf-8")
+    provider = DeterministicTestProvider([
+        FileChange(path="pkg/math.py", operation="modify", content="def add(a,b): return a+b\n", reason="x")
+    ])
+    task = create_task("no-reviewer", "change add", root)
+    with pytest.raises(SecurityError, match="explicit reviewer approval"):
+        run_engineering_task(task, provider, apply=True)
+    assert (root / "pkg" / "math.py").read_text(encoding="utf-8") == before
+
+
+def test_reviewer_rejection_does_not_apply(tmp_path):
+    root = _make_project(tmp_path)
+    before = (root / "pkg" / "math.py").read_text(encoding="utf-8")
+    provider = DeterministicTestProvider([
+        FileChange(path="pkg/math.py", operation="modify", content="def add(a,b): return a+b\n", reason="x")
+    ])
+    task = create_task("rejected", "change add", root)
+    task = run_engineering_task(task, provider, apply=True, reviewer=lambda plan: False)
+    assert task.state.value == "PLANNED"
+    assert (root / "pkg" / "math.py").read_text(encoding="utf-8") == before
+
+
+def test_validation_failure_rolls_back_applied_change(tmp_path):
+    root = _make_project(tmp_path)
+    before = (root / "pkg" / "math.py").read_text(encoding="utf-8")
+    provider = DeterministicTestProvider([
+        FileChange(
+            path="pkg/math.py",
+            operation="modify",
+            content="def add(a, b)\n    return a + b\n",
+            reason="intentionally invalid",
+        )
+    ])
+    task = create_task("rollback", "break add", root)
+    task = run_engineering_task(
+        task, provider, apply=True, validate=True, reviewer=lambda plan: True
+    )
+    assert task.state.value == "FAILED"
+    assert task.validation["status"] == "FAIL"
+    assert task.validation["rolled_back"] is True
+    assert (root / "pkg" / "math.py").read_text(encoding="utf-8") == before
+
+
 def test_invalid_patch_rejected(tmp_path):
     root = _make_project(tmp_path)
     changes = [FileChange(path="../escape.py", operation="create", content="x=1\n", reason="escape")]
@@ -203,7 +248,7 @@ def test_bounded_repair_loop(tmp_path):
 def test_provider_unavailable_fails_clearly(tmp_path):
     root = _make_project(tmp_path)
     task = create_task("t6", "do something", root)
-    task, plan = plan_task(task, NativeTakshProvider())
+    task, plan = plan_task(task, native_change_provider())
     assert plan is None
     assert task.state.value == "BLOCKED"
 
@@ -220,7 +265,10 @@ def test_end_to_end_multi_file_engineering(tmp_path):
     ]
     provider = DeterministicTestProvider(changes, summary="deterministic multi-file change")
     task = create_task("e2e", "add multiply and triple", root, max_repair_iterations=2)
-    task = run_engineering_task(task, provider, apply=True, validate=True, run_project_tests=True)
+    task = run_engineering_task(
+        task, provider, apply=True, validate=True, run_project_tests=True,
+        reviewer=lambda plan: True,
+    )
 
     assert task.state.value == "COMPLETED"
     assert (root / "pkg" / "new_module.py").is_file()

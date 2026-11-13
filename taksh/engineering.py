@@ -40,6 +40,15 @@ class ProviderUnavailable(EngineeringError):
     """The requested provider cannot generate changes."""
 
 
+def _is_model_provider_error(exc: Exception) -> bool:
+    """Recognize serving-layer provider failures without importing serving eagerly."""
+    try:
+        from serving.providers import ProviderError
+    except Exception:  # noqa: BLE001 - optional serving layer
+        return False
+    return isinstance(exc, ProviderError)
+
+
 class TaskState(str, Enum):
     CREATED = "CREATED"
     UNDERSTOOD = "UNDERSTOOD"
@@ -160,13 +169,16 @@ class ChangeProvider(Protocol):
     def generate_changes(self, task: EngineeringTask, context: dict[str, Any]) -> ChangePlan | None: ...
 
 
-class NativeTakshProvider:
-    name = "taksh-native"
+def native_change_provider(**kwargs: Any) -> "ChangeProvider":
+    """Return the canonical native provider behind the change-planning adapter.
 
-    def generate_changes(self, task: EngineeringTask, context: dict[str, Any]) -> ChangePlan | None:
-        raise ProviderUnavailable(
-            "Native TAKSH provider is unavailable: no compatible canonical checkpoint exists"
-        )
+    The serving layer owns native inference; the engineering layer only knows
+    the provider-agnostic ``ChangeProvider`` seam.
+    """
+    from serving.model_change_provider import ModelChangeProvider
+    from serving.native_provider import NativeTakshProvider as NativeProvider
+
+    return ModelChangeProvider(NativeProvider(**kwargs))
 
 
 class DeterministicTestProvider:
@@ -455,13 +467,15 @@ def plan_task(task: EngineeringTask, provider: ChangeProvider, context: dict[str
 
     try:
         plan = provider.generate_changes(task, context)
-    except ProviderUnavailable as exc:
+    except ProviderUnavailable:
         task.state = TaskState.BLOCKED
         task.provider = getattr(provider, "name", None)
         return task, None
     except Exception as exc:  # noqa: BLE001
-        task.state = TaskState.FAILED
+        task.state = TaskState.BLOCKED if _is_model_provider_error(exc) else TaskState.FAILED
         task.provider = getattr(provider, "name", None)
+        if task.state == TaskState.BLOCKED:
+            return task, None
         raise EngineeringError(f"provider failed: {exc}") from exc
 
     task.provider = getattr(provider, "name", None)
@@ -546,20 +560,33 @@ def run_engineering_task(
     validate: bool = True,
     run_project_tests: bool = False,
     test_timeout: int = 120,
+    reviewer: Callable[[ChangePlan], bool] | None = None,
     repair_provider: Callable[[EngineeringTask, ChangePlan, dict[str, Any]], ChangePlan | None] | None = None,
 ) -> EngineeringTask:
     task, plan = plan_task(task, provider)
     if plan is None:
         return task
 
-    review_plan(plan)
+    if reviewer is None and apply:
+        raise SecurityError(
+            "explicit reviewer approval is required before applying changes; "
+            "pass reviewer=callable or run with apply=False"
+        )
+    if reviewer is None:
+        plan.approved = False
+        task.state = TaskState.PLANNED
+        return task
+    if not review_plan(plan, reviewer):
+        task.state = TaskState.PLANNED
+        return task
     task.state = TaskState.REVIEWED
 
     if not apply:
         task.state = TaskState.PLANNED
         return task
 
-    apply_result = apply_plan(task.root, plan, approved=True)
+    transaction = PatchTransaction(task.root)
+    apply_result = transaction.apply_plan(plan, approved=True)
     if apply_result.status != "APPLIED":
         task.state = TaskState.FAILED
         task.validation = {"status": "FAIL", "error": apply_result.error, "rolled_back": apply_result.rolled_back}
@@ -572,7 +599,7 @@ def run_engineering_task(
         if validation["status"] != "PASS":
             if repair_provider is not None:
                 def apply_fn(p: ChangePlan) -> ApplyResult:
-                    return apply_plan(task.root, p, approved=True)
+                    return transaction.apply_plan(p, approved=True)
 
                 def validate_fn() -> dict[str, Any]:
                     return validate_project(task.root, [change.path for change in (task.plan.changes if task.plan else [])])
@@ -580,16 +607,20 @@ def run_engineering_task(
                 repair_result = run_repair_loop(task, plan, apply_fn, validate_fn, repair_provider, task.max_repair_iterations)
                 task.validation = repair_result.get("validation", task.validation)
             else:
+                transaction.rollback()
+                task.validation = {**validation, "rolled_back": True}
                 task.state = TaskState.FAILED
                 return task
 
     if task.validation and task.validation.get("status") != "PASS":
+        transaction.rollback()
+        task.validation = {**task.validation, "rolled_back": True}
         task.state = TaskState.FAILED
         return task
 
     task.state = TaskState.VALIDATED
     if run_project_tests:
-        test_result = run_tests(task.root)
+        test_result = run_tests(task.root, timeout=test_timeout)
         task.test_result = test_result
         if test_result["status"] not in ("PASS", "NO_TESTS"):
             task.state = TaskState.FAILED
@@ -610,6 +641,64 @@ def engineering_report(task: EngineeringTask) -> dict[str, Any]:
         "native_model_capability": "NOT_EVALUATED",
         "capability_claim": None,
     }
+
+
+def run_coding_task(
+    root: str | Path,
+    objective: str,
+    provider: Any,
+    *,
+    task_id: str = "coding-task",
+    reviewer: Callable[[ChangePlan], bool] | None = None,
+    apply: bool = False,
+    allow_file_contents: bool = False,
+    validate: bool = True,
+    run_project_tests: bool = False,
+    test_timeout: int = 120,
+) -> dict[str, Any]:
+    """Run the canonical provider-independent coding workflow.
+
+    The provider may be a serving ``ModelProvider`` or an existing
+    ``ChangeProvider``. Nothing is written unless ``apply`` is true and the
+    explicit ``reviewer`` returns true.
+    """
+    from serving.model_change_provider import ModelChangeProvider
+
+    change_provider = (
+        provider
+        if hasattr(provider, "generate_changes")
+        else ModelChangeProvider(provider, allow_file_contents=allow_file_contents)
+    )
+    task = create_task(task_id, objective, root)
+    try:
+        task = run_engineering_task(
+            task,
+            change_provider,
+            apply=apply,
+            validate=validate,
+            run_project_tests=run_project_tests,
+            test_timeout=test_timeout,
+            reviewer=reviewer,
+        )
+    except SecurityError as exc:
+        report = engineering_report(task)
+        report["workflow"] = {
+            "status": "BLOCKED",
+            "error": str(exc),
+            "requested_apply": bool(apply),
+            "approved": False,
+        }
+        return report
+
+    report = engineering_report(task)
+    report["workflow"] = {
+        "status": task.state.value,
+        "requested_apply": bool(apply),
+        "approved": bool(task.plan.approved) if task.plan else False,
+        "allow_file_contents": bool(allow_file_contents),
+        "native_model_capability": "NOT_EVALUATED",
+    }
+    return report
 
 
 # SDK-friendly aliases

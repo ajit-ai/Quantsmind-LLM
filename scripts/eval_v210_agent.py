@@ -131,7 +131,7 @@ def run_python(code):
             exec(code, {{}})
         return {{"stdout": stdout.getvalue(), "stderr": stderr.getvalue(), "error": None}}
     except Exception as e:
-        return {{"stdout": "", "stderr": str(e), "error": str(e)}
+        return {{"stdout": "", "stderr": str(e), "error": str(e)}}
 
 # Tool map
 tools = {{
@@ -153,7 +153,7 @@ else:
         print(json.dumps({{"success": True, "result": result}}))
     except Exception as e:
         print(json.dumps({{"success": False, "error": str(e)}}))
-'''
+"""
 
     try:
         with tempfile.NamedTemporaryFile(

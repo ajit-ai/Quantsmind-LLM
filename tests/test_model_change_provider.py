@@ -43,7 +43,10 @@ def test_model_change_provider_end_to_end(tmp_path):
     ]
     bridge = ModelChangeProvider(DeterministicPatchProvider(changes))
     task = create_task("model-provider", "change f", root)
-    task = run_engineering_task(task, bridge, apply=True, validate=True, run_project_tests=False)
+    task = run_engineering_task(
+        task, bridge, apply=True, validate=True, run_project_tests=False,
+        reviewer=lambda plan: True,
+    )
 
     assert task.state.value == "COMPLETED"
     assert task.plan.provider == "deterministic-patch"

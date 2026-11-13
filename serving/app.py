@@ -61,11 +61,17 @@ def build_ui():
 
 
 def main():
+    from serving.server_security import resolve_bind_host
+
     port = int(os.environ.get("QM_UI_PORT", "7860"))
+    host = resolve_bind_host(
+        os.environ.get("TAKSH_UI_HOST", "127.0.0.1"),
+        allow_remote=os.environ.get("TAKSH_UI_ALLOW_REMOTE", "").lower() in ("1", "true", "yes"),
+    )
     cfg = LLMConfig.from_env()
     mode = f"backend={cfg.model}" if cfg.configured() else "DEMO MODE (no backend configured)"
-    print(f"Starting Taksh UI on http://localhost:{port} [{mode}]")
-    build_ui().launch(server_name="0.0.0.0", server_port=port)
+    print(f"Starting Taksh UI on http://{host}:{port} [{mode}]")
+    build_ui().launch(server_name=host, server_port=port)
 
 
 if __name__ == "__main__":

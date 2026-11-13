@@ -21,6 +21,10 @@ from evaluation.m5_adapters import ExternalHFAdapter  # noqa: E402
 from evaluation.m6_sovereign import estimate_scales  # noqa: E402
 import evaluation.l071_karkain as kark  # noqa: E402
 from evaluation.l070_source_registry import load_registry as load_l070_registry  # noqa: E402
+from evaluation.artifact_integrity import (  # noqa: E402
+    checkpoint_hash_status,
+    resolve_checkpoint_path,
+)
 
 from fixture_s2_checkpoint import build_s2_checkpoint  # noqa: E402
 
@@ -339,11 +343,14 @@ def test_multilingual_benchmark_preserved():
 
 
 def test_l01_checkpoint_preserved():
-    digest = hashlib.sha256()
-    with (REPO / "runs" / "v180_sft" / "checkpoint_last.pt").open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 22), b""):
-            digest.update(chunk)
-    assert digest.hexdigest() == V180_SHA
+    path = resolve_checkpoint_path(REPO)
+    status = checkpoint_hash_status(path, V180_SHA)
+    if status == "ABSENT":
+        pytest.skip(
+            f"optional checkpoint artifact not present at {path.as_posix()}; "
+            "hash preservation was not verified"
+        )
+    assert status == "MATCH"
 
 
 def test_foundation_config_preserved():
