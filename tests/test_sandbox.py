@@ -50,3 +50,19 @@ def test_output_is_bounded(tmp_path):
     result = sandbox.run(["python", "-c", "print('a' * 100)"], cwd=str(tmp_path))
     assert result.truncated is True
     assert len(result.stdout) <= 20
+
+
+def test_strict_isolation_fails_closed_when_unavailable(tmp_path):
+    policy = SandboxPolicy(workspace=str(tmp_path), allowed_commands=["python"], isolation="strict")
+    sandbox = Sandbox(policy)
+    result = sandbox.run(["python", "-c", "print('should not run')"], cwd=str(tmp_path))
+    assert result.status == "rejected"
+    assert "strict OS isolation" in result.stderr
+    assert result.returncode is None
+
+
+def test_application_isolation_remains_available(tmp_path):
+    policy = SandboxPolicy(workspace=str(tmp_path), allowed_commands=["python"], isolation="application")
+    sandbox = Sandbox(policy)
+    result = sandbox.run(["python", "-c", "print('ok')"], cwd=str(tmp_path))
+    assert result.status == "PASS"

@@ -36,6 +36,32 @@ TAKSH_BIND_PORT=8000
 
 Never commit real tokens. Rotate any token that was ever logged or shared.
 
+## Deployment operations
+
+Validated configuration example:
+```env
+TAKSH_ENGINEERING_TOKEN=<strong-random-token>
+TAKSH_TOKEN_SCOPES=read,execute,mutate,memory,audit
+TAKSH_WORKSPACE=/path/to/workspace
+```
+
+Validated by `taksh.deployment.validate_deployment_config()`. Placeholder and short tokens are rejected.
+
+Persistent state path: `TAKSH_MEMORY_PATH` or `.taksh/memory.json`.
+
+Backup/restore:
+```python
+from taksh.deployment import backup_state, restore_state
+backup_state(".taksh/memory.json", "backups/memory-2026-11-13.json")
+restore_state("backups/memory-2026-11-13.json", ".taksh/memory.json")
+```
+
+Recovery from interrupted agent tasks: `taksh.recovery.recover_tasks(directory)`.
+
+Upgrade/rollback for state schema is not implemented; backups are required before migration.
+
+Operational tests: `tests/test_deployment_qualification.py`.
+
 ## Operational notes
 
 - No cloud account is required.

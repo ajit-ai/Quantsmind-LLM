@@ -26,9 +26,7 @@
 
 ## Dependency vulnerability scan
 - Python: `pip_audit` requirements scan: `PASS` (advisory source reachable)
-- Node/IDE: `npm audit` reports 3 moderate-severity development-dependency issues
-  (glob/minimatch via mocha); high-severity `serialize-javascript` fixed by
-  upgrading mocha to v12
+- Node/IDE: `npm audit` reports `found 0 vulnerabilities` after explicit `overrides` for `glob` and `minimatch`
 - Workflow: `python -m evaluation.dependency_scan`
 - Reports: `reports/taksh_dependency_scan.json`, `reports/taksh_npm_audit.json`
 

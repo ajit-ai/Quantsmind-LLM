@@ -27,6 +27,66 @@ def validate_environment() -> dict[str, Any]:
     return checks
 
 
+def validate_deployment_config(config: dict) -> dict[str, Any]:
+    errors: list[str] = []
+    token = config.get("TAKSH_ENGINEERING_TOKEN", "")
+    if not isinstance(token, str) or len(token) < 16:
+        errors.append("TAKSH_ENGINEERING_TOKEN must be set to at least 16 non-placeholder characters")
+    if token in {"replace-with-strong-random-token", "changeme", "dev-token", "test-token"}:
+        errors.append("TAKSH_ENGINEERING_TOKEN is a placeholder")
+    scopes = config.get("TAKSH_TOKEN_SCOPES", "")
+    allowed = {"read", "execute", "mutate", "memory", "audit"}
+    if not scopes:
+        errors.append("TAKSH_TOKEN_SCOPES must be set explicitly")
+    else:
+        unknown = {scope.strip() for scope in scopes.split(",") if scope.strip()} - allowed
+        if unknown:
+            errors.append(f"unsupported scopes: {sorted(unknown)}")
+    root = config.get("TAKSH_WORKSPACE", ".")
+    if not Path(root).is_dir():
+        errors.append(f"TAKSH_WORKSPACE does not exist: {root}")
+    return {"status": "valid" if not errors else "invalid", "errors": errors}
+
+
+def backup_state(memory_path: str | Path, backup_path: str | Path) -> dict[str, Any]:
+    import hashlib, shutil
+
+    source = Path(memory_path).resolve()
+    destination = Path(backup_path).resolve()
+    if not source.is_file():
+        return {"status": "missing", "detail": f"no state file at {source}"}
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+    return {
+        "status": "backed_up",
+        "source": str(source),
+        "destination": str(destination),
+        "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(),
+        "bytes": destination.stat().st_size,
+    }
+
+
+def restore_state(backup_path: str | Path, memory_path: str | Path) -> dict[str, Any]:
+    import hashlib, json, shutil
+
+    source = Path(backup_path).resolve()
+    destination = Path(memory_path).resolve()
+    if not source.is_file():
+        return {"status": "missing", "detail": f"no backup at {source}"}
+    try:
+        json.loads(source.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        return {"status": "invalid", "detail": f"backup is not valid JSON: {exc}"}
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+    return {
+        "status": "restored",
+        "source": str(source),
+        "destination": str(destination),
+        "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(),
+    }
+
+
 def health_check(root: str | Path = ".") -> dict[str, Any]:
     root_path = Path(root).resolve()
     return {

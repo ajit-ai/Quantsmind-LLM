@@ -26,6 +26,7 @@ class SandboxPolicy:
     timeout_seconds: int = 30
     max_output_bytes: int = 65536
     env_allowlist: list[str] | None = None
+    isolation: str = "application"
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -52,6 +53,14 @@ class Sandbox:
         self.policy = policy
 
     def run(self, command: list[str], *, cwd: str | None = None, input_text: str | None = None) -> ExecutionResult:
+        if self.policy.isolation == "strict":
+            from taksh.isolation import default_isolation_adapter
+
+            adapter = default_isolation_adapter()
+            if not adapter.is_available():
+                return ExecutionResult("rejected", None, "", "strict OS isolation requested but no adapter is available; failing closed", 0.0)
+            return adapter.run(command, self.policy)
+
         if not command:
             return ExecutionResult("rejected", None, "", "empty command", 0.0)
         executable = Path(command[0]).name
