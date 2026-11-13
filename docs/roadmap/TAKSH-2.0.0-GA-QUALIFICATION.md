@@ -44,7 +44,9 @@
 - [ ] Capability evaluation contract documented (`configs/roadmap/capability_evaluation_contract.yaml`, `reports/taksh_capability_evaluation.json`)
 - [ ] Deployment helpers documented and tested (`taksh/deployment.py`, `docs/roadmap/TAKSH-DEPLOYMENT.md`)
 - [ ] REST authentication and authorization tests pass
-- [ ] VS Code client extension implemented and client-tested
+- [ ] Security review documented (`docs/roadmap/TAKSH-SECURITY-REVIEW.md`)
+- [ ] Dependency vulnerability scan workflow documented and reports committed
+- [ ] VS Code Extension Development Host tests pass
 - [ ] Known limitations register present (`docs/roadmap/TAKSH-KNOWN-LIMITATIONS.md`)
 - [ ] Release notes distinguish model readiness from package readiness
 
