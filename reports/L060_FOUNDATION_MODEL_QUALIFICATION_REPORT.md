@@ -1,4 +1,13 @@
-﻿# TAKSH L0.6.0 â€” Foundation Model Qualification Report
+﻿> **Historical report — preserved unchanged.** This L0.6.0 qualification was
+> produced at commit `c601a73716d5` on
+> `feature/l060-foundation-model-qualification`. Its results are historical and
+> are not re-asserted at the current HEAD. The current L0.6.1 closure status is
+> recorded separately in `docs/L060-1-INTEGRATION-CLOSURE.md` and
+> `reports/l061_integration_qualification.json`. Native model capability remains
+> `NATIVE_CAPABILITY_NOT_EVALUATED`; no compatible canonical checkpoint has been
+> produced or promoted.
+
+# TAKSH L0.6.0 â€” Foundation Model Qualification Report
 
 **Verdict: CONDITIONAL PASS** â€” core engineering foundation is qualified; explicit gaps remain (listed). No coding capability is claimed. No data acquisition, GPU spend, training, or publication is authorized by this milestone.
 

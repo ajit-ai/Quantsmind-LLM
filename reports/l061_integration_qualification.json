@@ -1,109 +1,413 @@
 {
-  "schema": "taksh.l061_integration_qualification/1",
-  "created_on": "2026-11-13",
-  "primary_repository": "F:/Codes/Git/Quantsmind-LLM",
-  "primary_branch": "feature/l060-foundation-model-qualification",
-  "primary_head": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
-  "integration_worktree": "C:/Users/Lenovo/.local/share/opencode/worktree/545eb7/integration/taksh-l060-1-closure",
-  "integration_branch": "feature/l060-1-integration-closure",
-  "starting_commit": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
-  "provider_baseline_commit": "820624e9d8a27587af228be23d6c90716a734702",
-  "final_commit": null,
-  "reconciliation_inventory": {
-    "foundation_sources_ported": {
-      "type": "manual selective port from primary working tree",
-      "excluded_unrelated": [
-        "taksh-hf-publication/upload_manifest.json",
-        "hf_export/",
-        "export_hf.ps1",
-        "export_hf.py",
-        "rebuild_manifest.py",
-        "verify_hashes.py",
-        "verify_pub.py"
-      ],
-      "status_counts": {
-        "configs": "11 tracked-status entries",
-        "data": "4 tracked-status entries",
-        "docs": "1 tracked-status entries",
-        "evaluation": "32 tracked-status entries",
-        "reports": "25 tracked-status entries",
-        "scripts": "6 tracked-status entries",
-        "serving": "5 status entries",
-        "taksh": "1 status entry",
-        "tests": "8 status entries",
-        "training": "3 status entries"
-      }
+  "schema": "taksh.l061_integration_qualification/2",
+  "generated_on": "2026-11-13",
+  "verdict": "PRODUCT_WORKFLOW_QUALIFIED_WITH_LIMITATIONS",
+  "primary_repository": {
+    "path": "F:/Codes/Git/Quantsmind-LLM",
+    "branch": "feature/l060-foundation-model-qualification",
+    "head": "78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1",
+    "working_tree_preserved": true,
+    "modification_note": "No file in the primary working tree was created, modified, deleted, staged, or committed by this milestone. Checkpoints were inspected read-only."
+  },
+  "integration_worktree": {
+    "path": "C:/Users/Lenovo/.local/share/opencode/worktree/545eb7/integration/taksh-l060-1-closure",
+    "branch": "feature/l060-1-integration-closure",
+    "starting_commit": "da7c88511afa6f70a843fcd1589c5d56f27a7ed3",
+    "implementation_commit": "ecd30fee125f1a862326e61348f9ed42d824b75a",
+    "report_commit": null,
+    "report_commit_note": "This qualification report is committed in the immediately following documentation commit; the pushed branch tip is the authoritative closure head."
+  },
+  "final_decision": "PRODUCT_WORKFLOW_QUALIFIED_WITH_LIMITATIONS",
+  "qualification_by_surface": {
+    "mock_provider": {
+      "status": "QUALIFIED_FOR_CONFORMANCE_ONLY",
+      "basis": "Contract, error-matrix, redaction, diagnostics, workflow, approval, rollback, path-safety, CLI and end-to-end tests pass. Deterministic fixtures are labelled test doubles and are not capability evidence."
     },
-    "provider_work_integrated": "cherry-picked 820624e; includes deterministic and provider adapter implementations",
-    "runtime_patch": {
-      "file": "taksh/dlcae/runtime.py",
-      "classification": "focused syntax fix",
-      "regression_test": "tests/test_dlcae_runtime_syntax.py"
+    "real_provider": {
+      "status": "REAL_PROVIDER_NOT_TESTED",
+      "blocker": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "basis": "No credentials or endpoint were configured. The opt-in live harness exists but was skipped; no paid calls were made."
+    },
+    "native_model": {
+      "status": "NATIVE_CAPABILITY_NOT_EVALUATED",
+      "blocker": "BLOCKED_MISSING_CHECKPOINT",
+      "basis": "No compatible canonical taksh-foundation-111m checkpoint exists among inspected artifacts. Native adapter is fail-closed with no fallback."
+    },
+    "production_deployment": {
+      "status": "PRODUCTION_NOT_QUALIFIED",
+      "basis": "Security, deployment, operational, and supply-chain qualification remain outstanding."
     }
   },
-  "changed_files": [
-    "serving/foundation_inference.py",
-    "serving/native_provider.py",
-    "serving/coding_providers.py",
-    "serving/provider_diagnostics.py",
-    "serving/model_change_provider.py",
-    "serving/inference_engine.py if present via foundation port",
-    "taksh/engineering.py",
-    "taksh/coding_validation.py",
-    "taksh/project_understanding.py",
-    "taksh/specialists.py",
-    "taksh/dlcae/runtime.py",
-    "evaluation/resource_guard.py",
-    "docs/L060-1-INTEGRATION-CLOSURE.md",
-    "docs/UNIFIED-PROVIDER-INTEGRATION.md",
-    "reports/l061_integration_qualification.json"
-  ],
-  "test_commands": [
+  "issue_ledger": [
     {
-      "command": "python -m pytest tests/test_dlcae_runtime_syntax.py tests/test_l060_foundation.py tests/test_local_assistant_l01.py tests/test_coding_providers.py tests/test_model_change_provider.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py -q",
-      "result": "1 failed inherited checkpoint-availability test; 77 passed, 3 skipped, exit_code 1"
+      "id": "T01",
+      "title": "Canonical native checkpoint compatibility and capability gating",
+      "status": "BLOCKED_MISSING_CHECKPOINT",
+      "evidence": [
+        "Read-only inspection of every *.pt artifact under primary runs/ with torch.load(weights_only=True, mmap=True)",
+        "No candidate matches canonical vocab 5822 / d_model 768 / 12 layers / 12 heads / 6 KV heads / FFN 3072 / seq 2048 / 110,658,816 parameters",
+        "serving/native_provider.py fails closed with checkpoint_missing/checkpoint_incompatible and has no fallback",
+        "tests/test_native_provider.py, tests/test_provider_contract.py"
+      ]
     },
     {
-      "command": "python -m pytest tests/test_dlcae_runtime_syntax.py tests/test_coding_providers.py tests/test_model_change_provider.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py -q",
-      "result": "29 passed, 1 skipped, exit_code 0"
+      "id": "T02",
+      "title": "Provider contract error taxonomy and capability metadata",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "serving/providers.py adds ProviderAuthenticationError, ProviderRateLimitError, ProviderServerError, ProviderResponseError, redact_secrets, and configured/status/test_only capability fields",
+        "tests/test_provider_contract.py (cross-provider conformance)"
+      ]
     },
     {
-      "command": "python -m compileall -q serving taksh evaluation tests scripts",
-      "result": "failed before runtime fix due taksh/dlcae/runtime.py syntax; rerun after fix shows remaining unrelated preexisting defect in scripts/eval_v210_agent.py"
+      "id": "T03",
+      "title": "OpenAI-compatible HTTP mapping and malformed-response rejection",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "HTTP 401/403 -> auth, 429 -> rate limit, 5xx -> server, other 4xx -> response; timeout/connection mapped",
+        "Empty/non-JSON/non-object/no-choice/empty-content responses rejected; secrets redacted from error detail",
+        "tests/test_coding_providers.py error matrix and redaction tests"
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "Ollama reachability/model probe and missing-model diagnostics",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "Explicit probe() checks /api/tags and reports model presence; never invoked implicitly",
+        "Missing model produces an actionable unavailable state; malformed/empty responses rejected",
+        "tests/test_coding_providers.py Ollama transport/probe tests"
+      ]
+    },
+    {
+      "id": "T05",
+      "title": "Diagnostics credential exposure and implicit network I/O",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "serving/provider_diagnostics.py returns non-secret fields only; probe requires an explicit flag",
+        "Construction/capabilities/diagnostics perform no network I/O",
+        "tests/test_unified_provider_diagnostics.py, tests/test_provider_contract.py network-forbidden assertion"
+      ]
+    },
+    {
+      "id": "T06",
+      "title": "Repository-content transmission without opt-in",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "serving/model_change_provider.py sends file contents only when allow_file_contents=True; bounded to 5 safe text files x 4,000 chars; secret-name/suffix filtered",
+        "Provenance records file_contents_transmitted; deterministic patch fixture labelled test_only",
+        "tests/test_coding_agent_scenarios.py opt-in/opt-out tests"
+      ]
+    },
+    {
+      "id": "T07",
+      "title": "Optional-checkpoint preservation tests hard-failing without the ignored artifact",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "evaluation/artifact_integrity.py exposes ABSENT/MATCH/MISMATCH and operator path overrides",
+        "Applied to test_l060_foundation.py, test_l062_inference.py, test_l100eng_dlcae_runtime.py, test_l073_readiness.py, test_l04_pipeline.py",
+        "All optional-artifact skips are explicit, not silent passes"
+      ]
+    },
+    {
+      "id": "T08",
+      "title": "scripts/eval_v210_agent.py f-string wrapper syntax defect",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "Corrected unbalanced brace and triple-quote terminator",
+        "tests/test_eval_script_syntax.py parses, compiles, and asserts the __main__ guard",
+        "python -m compileall -q serving taksh tests scripts exits 0"
+      ]
+    },
+    {
+      "id": "T09",
+      "title": "Apply path lacked an explicit reviewer approval gate",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "run_engineering_task requires a callable reviewer when apply=True; unapproved plans stay PLANNED",
+        "CLI requires --yes or interactive confirmation; plan-only is default",
+        "tests/test_engineering_platform.py, tests/test_coding_cli.py, tests/test_coding_agent_scenarios.py"
+      ]
+    },
+    {
+      "id": "T10",
+      "title": "Validation failure left applied changes in place",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "All workflow applies go through PatchTransaction; validation failure rolls back to pre-task bytes",
+        "tests/test_engineering_platform.py rollback assertions and end-to-end traversal rollback test"
+      ]
+    },
+    {
+      "id": "T11",
+      "title": "Patch path traversal / project-root escape",
+      "status": "VERIFIED_NO_DEFECT",
+      "evidence": [
+        "_resolve and PatchTransaction confine writes to the resolved project root",
+        "Regression test confirms ../escaped.py is rejected and nothing escapes the root"
+      ]
+    },
+    {
+      "id": "T12",
+      "title": "Automatic execution of model-generated shell commands",
+      "status": "VERIFIED_NO_DEFECT",
+      "evidence": [
+        "The workflow consumes only structured FileChange proposals",
+        "Monkeypatched-subprocess regression proves the apply path does not spawn commands"
+      ]
+    },
+    {
+      "id": "T13",
+      "title": "No unified CLI for provider inventory, diagnosis, and workflow",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "python -m taksh code with --list-providers, --diagnose, --apply, --yes, --allow-file-contents, --run-tests, --allow-test-provider, --json",
+        "tests/test_coding_cli.py and the 30-check end-to-end demonstration"
+      ]
+    },
+    {
+      "id": "T14",
+      "title": "Serving UI bound all interfaces by default",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "serving/app.py resolves loopback by default via serving/server_security.resolve_bind_host",
+        "Non-loopback binding requires TAKSH_UI_ALLOW_REMOTE=1",
+        "tests/test_app_ui.py, tests/test_legacy_serving_security.py"
+      ]
+    },
+    {
+      "id": "T15",
+      "title": "Deterministic providers could be mistaken for model capability",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "Capabilities report test_only=True and status=test_only; identity source is test-double",
+        "CLI refuses deterministic providers without --allow-test-provider",
+        "Reports separate mock, real, native, and production qualification"
+      ]
+    },
+    {
+      "id": "T16",
+      "title": "Real external-provider operation untested and no opt-in harness",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "evidence": [
+        "tests/test_live_providers.py adds TAKSH_LIVE_OPENAI=1 and TAKSH_LIVE_OLLAMA=1 opt-in minimal-prompt tests",
+        "No credentials/endpoint configured; tests skip; no paid calls made",
+        "Harness implementation is complete; execution remains blocked on operator-supplied configuration"
+      ]
+    },
+    {
+      "id": "T17",
+      "title": "Closure documentation and qualification report stale",
+      "status": "FIXED_AND_TESTED",
+      "evidence": [
+        "docs/L060-1-INTEGRATION-CLOSURE.md rewritten with T01-T18 ledger and evidence",
+        "docs/UNIFIED-PROVIDER-INTEGRATION.md updated to current architecture and statuses",
+        "Historical L0.6.0 report carries a banner; its results were not rewritten"
+      ]
+    },
+    {
+      "id": "T18",
+      "title": "DLCAE runtime verification after syntax repair",
+      "status": "VERIFIED_NO_DEFECT",
+      "evidence": [
+        "tests/test_l100eng_dlcae_runtime.py passes 70 runtime tests after the checkpoint-preservation skip fix",
+        "Combined touched-module regression includes this suite"
+      ]
     }
   ],
-  "ci_references": [
-    "Unverified: feature-branch pushes do not trigger remote CI in this repository; no CI was triggered or claimed"
+  "changed_files": {
+    "implementation_commit_ecd30fe": [
+      "scripts/eval_v210_agent.py",
+      "serving/app.py",
+      "serving/coding_providers.py",
+      "serving/model_change_provider.py",
+      "serving/native_provider.py",
+      "serving/provider_diagnostics.py",
+      "serving/providers.py",
+      "taksh/__init__.py",
+      "taksh/engineering.py",
+      "evaluation/artifact_integrity.py",
+      "tests/test_coding_agent_scenarios.py",
+      "tests/test_coding_cli.py",
+      "tests/test_coding_providers.py",
+      "tests/test_engineering_platform.py",
+      "tests/test_eval_script_syntax.py",
+      "tests/test_l04_pipeline.py",
+      "tests/test_l060_foundation.py",
+      "tests/test_l062_inference.py",
+      "tests/test_l073_readiness.py",
+      "tests/test_l100eng_dlcae_runtime.py",
+      "tests/test_live_providers.py",
+      "tests/test_model_change_provider.py",
+      "tests/test_native_provider.py",
+      "tests/test_provider_contract.py",
+      "tests/test_unified_provider_diagnostics.py"
+    ],
+    "documentation_commit": [
+      "docs/L060-1-INTEGRATION-CLOSURE.md",
+      "docs/UNIFIED-PROVIDER-INTEGRATION.md",
+      "reports/L060_FOUNDATION_MODEL_QUALIFICATION_REPORT.md",
+      "reports/l061_integration_qualification.json"
+    ]
+  },
+  "test_commands": [
+    {
+      "name": "authoritative_touched_module_regression",
+      "command": "python -m pytest tests/test_eval_script_syntax.py tests/test_dlcae_runtime_syntax.py tests/test_provider_contract.py tests/test_coding_providers.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_cli.py tests/test_live_providers.py tests/test_model_change_provider.py tests/test_coding_agent_scenarios.py tests/test_engineering_platform.py tests/test_l060_foundation.py tests/test_l062_inference.py tests/test_l100eng_dlcae_runtime.py tests/test_provider_architecture.py tests/test_seed_coder_provider.py tests/test_app_ui.py tests/test_cli_hardening.py tests/test_local_assistant_l01.py tests/test_legacy_serving_security.py tests/test_openai_server.py tests/test_binding_repair_integration.py tests/test_kv_cache.py tests/test_l04_pipeline.py tests/test_l073_readiness.py tests/test_learning_signal.py tests/test_reliability_v122.py tests/test_tokenizer_replacement.py tests/test_v122_reliability.py tests/test_v141_safe_checkpoint.py tests/test_v180_corpus_qualification.py tests/test_v190_readiness.py tests/test_v200_readiness.py tests/test_v210_readiness.py tests/test_v220_readiness.py tests/test_v230_readiness.py tests/test_v300_readiness.py -q",
+      "python": "3.14.7",
+      "result": "674 passed, 13 skipped, exit_code 0, 148.10s",
+      "skips_note": "All skips are explicit optional-artifact or opt-in-live-provider skips."
+    },
+    {
+      "name": "provider_native_diagnostics_cli_live_subset",
+      "command": "python -m pytest tests/test_provider_contract.py tests/test_coding_providers.py tests/test_native_provider.py tests/test_unified_provider_diagnostics.py tests/test_coding_cli.py tests/test_live_providers.py -q",
+      "result": "41 passed, 2 skipped, exit_code 0"
+    },
+    {
+      "name": "engineering_workflow_subset",
+      "command": "python -m pytest tests/test_engineering_platform.py tests/test_coding_agent_scenarios.py tests/test_model_change_provider.py -q",
+      "result": "33 passed, 1 skipped, exit_code 0"
+    },
+    {
+      "name": "foundation_l062_dlcaer_subset",
+      "command": "python -m pytest tests/test_l060_foundation.py tests/test_l062_inference.py tests/test_l100eng_dlcae_runtime.py -q",
+      "result": "168 passed, 3 skipped, exit_code 0"
+    },
+    {
+      "name": "compile_check",
+      "command": "python -m compileall -q serving taksh tests scripts",
+      "python": "3.11.9",
+      "result": "exit_code 0"
+    }
   ],
+  "checkpoint_inspection": {
+    "scope": "F:/Codes/Git/Quantsmind-LLM/runs/**/*.pt",
+    "read_only": true,
+    "unsafe_deserialization_attempted": false,
+    "method": "torch.load(map_location='cpu', weights_only=True, mmap=True). Artifacts containing NumPy RNG state were retried only under the repository-reviewed safe_globals(_numpy_checkpoint_allowlist()) context, still with weights_only=True.",
+    "canonical_target": {
+      "config": "configs/foundation/l060_foundation.yaml",
+      "vocab_size": 5822,
+      "d_model": 768,
+      "n_layers": 12,
+      "n_heads": 12,
+      "n_kv_heads": 6,
+      "ffn_dim": 3072,
+      "max_seq_len": 2048,
+      "tie_embeddings": true,
+      "parameters": 110658816
+    },
+    "candidates": [
+      {"family": "v160_pretrain/v160_sft/v170_sft_demo/v180_sft/l02_sft/l02_sft_r2/l03_pretrain/l04_e1/e2/e3", "parameters": 31022976, "recorded_config": "code_v160_15m.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "m7_pretrain/m7_sft/m7_untrained", "parameters": 10849536, "recorded_config": "code_m3_9m.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "mm_fit_check", "parameters": 15805184, "recorded_config": "local_15m_mm.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "mm_m1_local/mm_m1_smoke", "parameters": null, "recorded_config": null, "load_blocker": "weights_only=True refused unsupported global torch.torch_version.TorchVersion", "verdict": "NOT_PROMOTED"},
+      {"family": "code_pretrain/code_smoke", "parameters": 24645888, "recorded_config": "code_30m.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "code_pretrain_tiny/code_sft/code_sft_smoke/corporate_pretrain/corporate_sft", "parameters": 868416, "recorded_config": "code_tiny.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "m3_base/m4_sft", "parameters": 3784800, "recorded_config": "code_m3_3m.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "local_15m", "parameters": 14059136, "recorded_config": "local_15m.yaml", "verdict": "NOT_CANONICAL"},
+      {"family": "smoke", "parameters": 158016, "recorded_config": "vocab override 512", "verdict": "NOT_CANONICAL"}
+    ],
+    "tokenizer": {
+      "path": "tokenizer/taksh_code_bpe_v1.json",
+      "vocab_size": 5822,
+      "note": "Vocabulary equality alone is not checkpoint compatibility."
+    },
+    "conclusion": "No compatible canonical checkpoint exists; native capability remains unevaluated and the native provider fails closed."
+  },
+  "end_to_end_demo": {
+    "location": "C:/Windows/Temp/opencode/taksh-e2e-demo",
+    "outside_repository": true,
+    "provider": "registered demo-patch test double (test_only)",
+    "checks_total": 30,
+    "checks_passed": 30,
+    "exit_code": 0,
+    "scenarios": [
+      "provider inventory and non-secret diagnostics",
+      "deterministic provider refused without --allow-test-provider",
+      "plan-only run writes nothing and sends no file contents",
+      "non-interactive --apply without --yes refuses with no partial write",
+      "approved --apply --yes --run-tests completes, fixes the file, creates a second file, tests PASS",
+      "reviewer rejection leaves the workspace unchanged",
+      "simulated provider timeout yields BLOCKED with no fallback and no write",
+      "file contents require explicit opt-in",
+      "scope containment: no file escapes the project root"
+    ],
+    "capability_claim": "Conformance evidence only; not language-model capability evidence."
+  },
   "security_checks": [
-    "diagnostics expose no secrets",
-    "external provider calls disabled by default",
-    "no automatic command execution introduced",
-    "native provider fails closed without checkpoint",
-    "model-generated changes require existing PatchTransaction approval flow"
+    "Repository contents transmitted only with explicit allow_file_contents opt-in; default prompt carries paths/symbols/test lists only",
+    "Applying changes requires explicit reviewer approval (--yes or interactive confirmation)",
+    "Validation failure rolls back applied changes",
+    "Patch paths confined to resolved project root",
+    "Model-generated shell commands are never executed",
+    "Provider diagnostics expose no credentials/Authorization headers and make no implicit network calls",
+    "External UI binds loopback unless TAKSH_UI_ALLOW_REMOTE=1 is set",
+    "Native checkpoint failure is fail-closed with no fallback",
+    "Deterministic providers labelled test_only and gated behind --allow-test-provider",
+    "Staged diff contains no credential literals; only reviewed test fixture placeholders"
   ],
+  "preservation": {
+    "untracked_data_directories": [
+      {"path": "data/l02_overfit", "tree_sha256": "8f710805a56787e1f9e0acdcf645ad07bfad3d9bcbeac18a57b6f78b8358db8b", "staged": false},
+      {"path": "data/l02_sft", "tree_sha256": "08984e5cfcf765ee58237350fb7da20f4d52b3f4b3d52fc358620c8ed5e872d8", "staged": false},
+      {"path": "data/l03_corpus", "tree_sha256": "234ae92b5802744f27da2abfff7a3e23edae3f5d5aa2ab68a5bc360f80ab95d7", "staged": false},
+      {"path": "data/l04_code_corpus", "tree_sha256": "6f736c23c70a1ff48ab82b89e9948c55a3afcf0d7aa4cc40c15a7adb5c26f651", "staged": false}
+    ],
+    "primary_repo_modified": false,
+    "checkpoints_modified": false,
+    "weights_downloaded": false,
+    "datasets_downloaded": false
+  },
+  "compliance_declarations": {
+    "training_performed": false,
+    "checkpoints_created_or_modified": false,
+    "checkpoints_substituted": false,
+    "paid_api_calls": false,
+    "credentials_changed": false,
+    "publication_or_release": false,
+    "tags_created_or_modified": false,
+    "force_push": false,
+    "merge_to_develop_or_main": false,
+    "remote_ci_triggered": false
+  },
   "known_inherited_defects": [
-    "tests/test_l060_foundation.py::test_existing_checkpoint_preserved_hash fails because the ignored checkpoint runs/v180_sft/checkpoint_last.pt is absent from the isolated branch and was not copied",
-    "scripts/eval_v210_agent.py has a preexisting triple-quote syntax defect and was not modified by this milestone"
+    "Canonical L0.6 checkpoint does not exist; foundation-native capability cannot be evaluated. This is a missing-artifact blocker, not a test defect.",
+    "Untracked/ignored foundation artifacts remain unreproducible from a clean checkout; owner must decide versioning versus regeneration.",
+    "Optional-checkpoint tests skip explicitly when the ignored artifact is absent; they verify hash preservation only when the operator supplies the artifact."
   ],
-  "native_capability_status": "NATIVE_CAPABILITY_NOT_EVALUATED",
-  "real_provider_status": "REAL_PROVIDER_NOT_TESTED",
-  "production_status": "PRODUCTION_NOT_QUALIFIED",
-  "final_decision": "PASS WITH DOCUMENTED LIMITATIONS",
   "blockers": [
     {
       "priority": "P1",
-      "cause": "Canonical L0.6 checkpoint absent/unknown compatibility in isolated branch",
-      "impact": "Native inference remains unavailable; capability cannot be evaluated",
-      "required_action": "Provide canonical checkpoint or authorize an isolated-branch artifact-handling decision",
+      "cause": "Canonical taksh-foundation-111m checkpoint absent and no compatible artifact found",
+      "impact": "Native capability cannot be evaluated; native provider remains fail-closed",
+      "required_action": "Provide the canonical checkpoint and tokenizer, or authorize an isolated-branch artifact-handling decision",
       "requires_user_action": true
     },
     {
       "priority": "P2",
-      "cause": "Untracked/ignored foundation artifacts are not reproducible from clean checkout",
-      "impact": "Foundation qualification cannot be fully reproduced in clean isolated branch",
-      "required_action": "Decide which foundation artifacts are to be versioned or regenerated",
+      "cause": "No external provider endpoint/credentials configured and Ollama not assumed installed",
+      "impact": "Real provider operation remains untested",
+      "required_action": "Supply an explicit test endpoint/credential environment or authorize paid test calls; install/select an Ollama model",
+      "requires_user_action": true
+    },
+    {
+      "priority": "P2",
+      "cause": "Feature-branch pushes do not trigger remote CI",
+      "impact": "Remote CI qualification is not evidenced for this branch",
+      "required_action": "Add the branch to CI triggers or accept local-only evidence",
+      "requires_user_action": true
+    },
+    {
+      "priority": "P3",
+      "cause": "Production deployment hardening not performed",
+      "impact": "Production GA not qualified",
+      "required_action": "Complete security, deployment, operational, and supply-chain qualification",
       "requires_user_action": true
     }
+  ],
+  "ci_references": [
+    ".github/workflows/ci.yml triggers on develop/main/push and pull_request only; feature push triggers no remote CI",
+    "No CI was triggered or claimed by this milestone"
   ]
 }
