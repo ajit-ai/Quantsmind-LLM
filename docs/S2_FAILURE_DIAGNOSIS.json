@@ -1,0 +1,338 @@
+{
+  "timestamp": "2026-11-07T08:47:38.779813+00:00",
+  "checkpoint_path": "F:\\Codes\\Git\\Quantsmind-LLM\\artifacts\\taksh-s2-experimental\\taksh-s2.pt",
+  "checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "tokenizer_path": "F:\\Codes\\Git\\Quantsmind-LLM\\tokenizer\\qm_code_bpe_v0.json",
+  "tokenizer_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+  "model_config": {
+    "name": "qm-code-m3-9m",
+    "vocab_size": 5822,
+    "d_model": 256,
+    "n_layers": 8,
+    "n_heads": 8,
+    "n_kv_heads": 4,
+    "ffn_dim": 1024,
+    "max_seq_len": 512,
+    "rope_theta": 10000.0,
+    "norm_eps": 1e-05,
+    "tie_embeddings": true
+  },
+  "device": "cpu",
+  "total": 20,
+  "passed": 1,
+  "fail_rate": 0.95,
+  "syntax_valid_rate": 0.6,
+  "failure_categories": {
+    "no_return_statement": 11,
+    "syntax_error": 7,
+    "other": 1,
+    "empty_or_trivial": 1
+  },
+  "results": [
+    {
+      "id": "p01_add",
+      "prompt": "def add(a, b):\n    return",
+      "expected_tail": "a + b",
+      "generated": " left\n",
+      "full_code": "def add(a, b):\n    return left\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p02_mul",
+      "prompt": "def multiply(x, y):\n    return",
+      "expected_tail": "x * y",
+      "generated": " left * right\n",
+      "full_code": "def multiply(x, y):\n    return left * right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p03_is_even",
+      "prompt": "def is_even(n):\n    return",
+      "expected_tail": "n % 2 == 0",
+      "generated": " left left",
+      "full_code": "def is_even(n):\n    return left left",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 2"
+      ]
+    },
+    {
+      "id": "p04_max",
+      "prompt": "def maximum(a, b):\n    if a > b:\n        return a\n    else:\n        return",
+      "expected_tail": "b",
+      "generated": " right\n",
+      "full_code": "def maximum(a, b):\n    if a > b:\n        return a\n    else:\n        return right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p05_factorial",
+      "prompt": "def factorial(n):\n    if n <= 1:\n        return 1\n    else:\n        return",
+      "expected_tail": "n * factorial(n-1)",
+      "generated": " return return return return return return",
+      "full_code": "def factorial(n):\n    if n <= 1:\n        return 1\n    else:\n        return return return return return return return",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 6,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 5"
+      ]
+    },
+    {
+      "id": "p06_reverse",
+      "prompt": "def reverse_string(s):\n    return",
+      "expected_tail": "s[::-1]",
+      "generated": " left - right\n",
+      "full_code": "def reverse_string(s):\n    return left - right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p07_sum_list",
+      "prompt": "def sum_list(lst):\n    total = 0\n    for x in lst:\n        total += x\n    return",
+      "expected_tail": "total",
+      "generated": " total\n",
+      "full_code": "def sum_list(lst):\n    total = 0\n    for x in lst:\n        total += x\n    return total\n",
+      "syntax_valid": true,
+      "expected_tail_present": true,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "other",
+      "details": []
+    },
+    {
+      "id": "p08_filter_pos",
+      "prompt": "def filter_positive(nums):\n    result = []\n    for n in nums:\n        if n > 0:\n            result.",
+      "expected_tail": "append(n)",
+      "generated": "lower    return left - right\n",
+      "full_code": "def filter_positive(nums):\n    result = []\n    for n in nums:\n        if n > 0:\n            result.lower    return left - right\n",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 7,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 5"
+      ]
+    },
+    {
+      "id": "p09_len",
+      "prompt": "def string_length(s):\n    return",
+      "expected_tail": "len(s)",
+      "generated": " leftfunctionrect",
+      "full_code": "def string_length(s):\n    return leftfunctionrect",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 3,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p10_is_pal",
+      "prompt": "def is_palindrome(s):\n    return",
+      "expected_tail": "s == s[::-1]",
+      "generated": " left - right\n",
+      "full_code": "def is_palindrome(s):\n    return left - right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p11_count_vowels",
+      "prompt": "def count_vowels(s):\n    count = 0\n    for ch in s:\n        if ch in 'aeiou':\n            count += 1\n    return",
+      "expected_tail": "count",
+      "generated": " left\n",
+      "full_code": "def count_vowels(s):\n    count = 0\n    for ch in s:\n        if ch in 'aeiou':\n            count += 1\n    return left\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p12_abs_val",
+      "prompt": "def absolute(x):\n    if x < 0:\n        return",
+      "expected_tail": "-x\n    else:\n        return x",
+      "generated": " left\n",
+      "full_code": "def absolute(x):\n    if x < 0:\n        return left\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 2,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p13_caps",
+      "prompt": "def capitalize_words(s):\n    return",
+      "expected_tail": "s.title()",
+      "generated": " left left - right\n",
+      "full_code": "def capitalize_words(s):\n    return left left - right\n",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 5,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 2"
+      ]
+    },
+    {
+      "id": "p14_merge",
+      "prompt": "def merge_dicts(d1, d2):\n    result = {}\n    for k, v in d1.items():\n        result[k] = v\n    for k, v in d2.items():\n        result[k] = v\n    return",
+      "expected_tail": "result",
+      "generated": " left > > >lower values:\n    return left > right:\n",
+      "full_code": "def merge_dicts(d1, d2):\n    result = {}\n    for k, v in d1.items():\n        result[k] = v\n    for k, v in d2.items():\n        result[k] = v\n    return left > > >lower values:\n    return left > right:\n",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 15,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 7"
+      ]
+    },
+    {
+      "id": "p15_flatten",
+      "prompt": "def flatten_list(nested):\n    flat = []\n    for sub in nested:\n        for item in sub:\n            flat.",
+      "expected_tail": "append(item)",
+      "generated": "lower    return left\n",
+      "full_code": "def flatten_list(nested):\n    flat = []\n    for sub in nested:\n        for item in sub:\n            flat.lower    return left\n",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 5,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 5"
+      ]
+    },
+    {
+      "id": "p16_dedup",
+      "prompt": "def remove_duplicates(items):\n    return",
+      "expected_tail": "list(set(items))",
+      "generated": " left - right\n",
+      "full_code": "def remove_duplicates(items):\n    return left - right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p17_c2f",
+      "prompt": "def celsius_to_fahrenheit(c):\n    return",
+      "expected_tail": "c * 9/5 + 32",
+      "generated": " left left *left in values:\n    return left",
+      "full_code": "def celsius_to_fahrenheit(c):\n    return left left *left in values:\n    return left",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 11,
+      "failure_category": "syntax_error",
+      "details": [
+        "full prompt+generation does not parse as Python",
+        "SyntaxError: invalid syntax at line 2"
+      ]
+    },
+    {
+      "id": "p18_prime",
+      "prompt": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return",
+      "expected_tail": "False\n    return True",
+      "generated": " left - right\n",
+      "full_code": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return left - right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    },
+    {
+      "id": "p19_sort",
+      "prompt": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] =",
+      "expected_tail": "arr[j+1], arr[j]\n    return arr",
+      "generated": "       ",
+      "full_code": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] =       ",
+      "syntax_valid": false,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 1,
+      "failure_category": "empty_or_trivial",
+      "details": [
+        "generation is empty or < 2 chars"
+      ]
+    },
+    {
+      "id": "p20_mod",
+      "prompt": "def mod(a, b):\n    return",
+      "expected_tail": "a % b",
+      "generated": " left - right\n",
+      "full_code": "def mod(a, b):\n    return left - right\n",
+      "syntax_valid": true,
+      "expected_tail_present": false,
+      "finish_reason": "stop",
+      "completion_tokens": 4,
+      "failure_category": "no_return_statement",
+      "details": [
+        "no return statement in generation"
+      ]
+    }
+  ]
+}

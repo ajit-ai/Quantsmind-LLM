@@ -1,0 +1,41 @@
+# Code pre-training config — local prototype
+# Duration: ~3-6 hours CPU / ~1-2 hours GPU for 10000 steps
+# Cost: ₹0
+run:
+  name: qm-code-30m-v0
+  model_config: configs/model/code_30m.yaml
+  seed: 42
+
+data:
+  dataset_tag: code-corpus-v0
+  seq_len: 2048
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  lr_schedule: cosine
+  warmup_steps: 200
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: float32
+  # grad_accum_steps moved to `batch` (B4): the copy here was never read.
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 8      # 4 x 2048 x 8 = 65536 tokens/step
+
+training:
+  max_steps: 10000
+  checkpoint_every_steps: 1000
+  log_every_steps: 50
+
+watchdog:
+  nan_check_every_steps: 50
+
+logging:
+  tracker: none

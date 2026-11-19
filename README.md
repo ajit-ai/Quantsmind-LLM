@@ -17,10 +17,9 @@ trained from scratch on Python + JavaScript/TypeScript code.
 > **the frozen Python benchmark remains 0/30; actual coding capability is NOT_EVALUATED;
 > Karkain remains DISCOVERED with TAKSH-KARK-BENCH at 0 tasks; A1.1-C (preparation-only)
 > and A2-E (no compute) remain owner-enforced; no training or data acquisition is
-> authorized.** The milestone reports and the master-roadmap registry do not live on
-> this branch — they live on `feature/l060-foundation-model-qualification`; `develop`
-> currently carries the CI/CD recovery port. The status block below (2026-10-20) is the
-> historical M7-era record, preserved verbatim.
+> authorized.** See `docs/L100ENG3_END_TO_END_CODING_INTELLIGENCE.md`,
+> `docs/TAKSH-MASTER-ROADMAP-v3.0.0.md` and `docs/TAKSH-RELEASE-GOVERNANCE.md`.
+> The status block below (2026-10-20) is the historical M7-era record, preserved verbatim.
 
 **Status (2026-10-20):** local prototype. The pipeline runs end to end on CPU; **no model
 capability is demonstrated**. The M7 sovereign capability experiment completed and

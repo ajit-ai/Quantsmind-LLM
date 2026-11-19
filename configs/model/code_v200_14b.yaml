@@ -1,0 +1,24 @@
+# Taksh v2.0.0 — Product Release: 14B Parameter Model
+#
+# Large production coding LLM. Requires substantial GPU cluster.
+#
+# Parameter estimate: ~14B non-embedding parameters
+#   d_model=5120, n_layers=40, n_heads=40, n_kv_heads=8, ffn_dim=13696
+#
+# Context: 32K tokens. Vocabulary: 32,768.
+#
+# Target capability: Approach Qwen-72B / DeepSeek-Coder tier on coding benchmarks.
+# Requires 50B+ pretraining tokens + extensive SFT + alignment.
+
+model:
+  name: qm-code-v200-14b
+  vocab_size: 32768
+  d_model: 5120
+  n_layers: 40
+  n_heads: 40
+  n_kv_heads: 8
+  ffn_dim: 13696
+  max_seq_len: 32768
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

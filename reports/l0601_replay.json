@@ -1,0 +1,43 @@
+{
+  "schema": "taksh.l0601_replay/1",
+  "generated_by": "training/replay.py",
+  "forgetting_metric": "relative delta vs baseline; regression when rel_delta < -tolerance",
+  "forgetting_metrics_example": {
+    "per_language": {
+      "python": {
+        "baseline": 8.6,
+        "after": 8.1,
+        "absolute_delta": -0.5,
+        "relative_delta": -0.05814,
+        "regression": true
+      },
+      "javascript": {
+        "baseline": 6.2,
+        "after": 7.6,
+        "absolute_delta": 1.4,
+        "relative_delta": 0.225806,
+        "regression": false
+      }
+    },
+    "regressions": [
+      "python"
+    ],
+    "mean_relative_delta": 0.083833,
+    "catastrophic_forgetting_detected": true,
+    "tolerance": 0.05
+  },
+  "replay_buffer_example": {
+    "size": 4,
+    "per_language": {
+      "python": 3,
+      "javascript": 1
+    }
+  },
+  "policy": {
+    "tolerance": 0.05,
+    "rollback": "on regression beyond tolerance: halt adaptation, revert to last validated checkpoint",
+    "auto_replay": "every language re-checked after every adaptation; never averaged into oblivion"
+  },
+  "determinism": "fixed seeds; identical fixtures \u21d2 identical metrics",
+  "verdict": "REPLAY + FORGETTING INTERFACES QUALIFIED (synthetic fixtures; no training performed)"
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "taksh.l070_dlcae_sources/1",
+  "generated_by": "evaluation/l070_dlcae_sources.py",
+  "jobs": [
+    {
+      "language_id": "python",
+      "source_id": "src-taksh-l04-code-corpus",
+      "gates": {
+        "source_covers_language": true,
+        "provenance_verified": true,
+        "license_review_complete": true,
+        "comprehension_complete": false,
+        "contamination_screen_passed": false,
+        "owner_authorized": false
+      },
+      "eligible_for_learning_manifest": false,
+      "state": "proposable",
+      "blocking_gates": [
+        "comprehension_complete",
+        "contamination_screen_passed",
+        "owner_authorized"
+      ],
+      "note": "eligibility computed from evidence; owner authorization still required; execution disabled"
+    },
+    {
+      "language_id": "python",
+      "source_id": "src-bigcode-stack-v2",
+      "gates": {
+        "source_covers_language": false,
+        "provenance_verified": false,
+        "license_review_complete": false,
+        "comprehension_complete": false,
+        "contamination_screen_passed": false,
+        "owner_authorized": false
+      },
+      "eligible_for_learning_manifest": false,
+      "state": "proposable",
+      "blocking_gates": [
+        "source_covers_language",
+        "provenance_verified",
+        "license_review_complete",
+        "comprehension_complete",
+        "contamination_screen_passed",
+        "owner_authorized"
+      ],
+      "note": "eligibility computed from evidence; owner authorization still required; execution disabled"
+    },
+    {
+      "language_id": "java",
+      "source_id": "src-bigcode-stack-v2",
+      "gates": {
+        "source_covers_language": false,
+        "provenance_verified": false,
+        "license_review_complete": false,
+        "comprehension_complete": false,
+        "contamination_screen_passed": false,
+        "owner_authorized": false
+      },
+      "eligible_for_learning_manifest": false,
+      "state": "proposable",
+      "blocking_gates": [
+        "source_covers_language",
+        "provenance_verified",
+        "license_review_complete",
+        "comprehension_complete",
+        "contamination_screen_passed",
+        "owner_authorized"
+      ],
+      "note": "eligibility computed from evidence; owner authorization still required; execution disabled"
+    },
+    {
+      "language_id": "karkain",
+      "source_id": "src-karkain-corpus",
+      "gates": {
+        "source_covers_language": true,
+        "provenance_verified": false,
+        "license_review_complete": false,
+        "comprehension_complete": false,
+        "contamination_screen_passed": false,
+        "owner_authorized": false
+      },
+      "eligible_for_learning_manifest": false,
+      "state": "proposable",
+      "blocking_gates": [
+        "provenance_verified",
+        "license_review_complete",
+        "comprehension_complete",
+        "contamination_screen_passed",
+        "owner_authorized"
+      ],
+      "note": "eligibility computed from evidence; owner authorization still required; execution disabled"
+    }
+  ],
+  "eligible_for_manifests": [],
+  "invariants": [
+    "eligibility never implies authorization",
+    "comprehension never implies corpus availability",
+    "corpus availability never implies model learning",
+    "nothing auto-promotes registry qualification status"
+  ],
+  "verdict": "ZERO sources ELIGIBLE today (contamination screens and owner authorization outstanding)"
+}

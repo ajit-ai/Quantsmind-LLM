@@ -1,0 +1,103 @@
+{
+  "schema": "taksh.l072_observability/1",
+  "generated_by": "evaluation/l072_observability.py",
+  "created": "2026-11-11T09:21:39+00:00",
+  "distinguishing_statuses": [
+    "IMPLEMENTED_AND_TESTED",
+    "SIMULATED",
+    "BLOCKED",
+    "NOT_YET_AUTHORIZED"
+  ],
+  "tools": [
+    {
+      "tool": "snapshot",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l072_snapshot",
+      "exit_code": 0,
+      "stdout_tail": [
+        "derived_tokens=1,380,638 original=1,590,326",
+        "splits train=954/1,249,338 val=51/68,863 test=47/62,437",
+        "contamination=CLEAN (fixtures only) verdict=FROZEN_RESEARCH_ONLY",
+        "artifacts: F:\\Codes\\Git\\Quantsmind-LLM\\artifacts\\l072_l04_freeze"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "manifest_check",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l072_manifest_check",
+      "exit_code": 0,
+      "stdout_tail": [
+        "manifest compatible: train=1,249,311 val=68,863 test=62,437; gate closed",
+        "report written to reports\\l072_training_manifest_check.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "coverage",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l072_coverage",
+      "exit_code": 0,
+      "stdout_tail": [
+        "coverage: python 1,380,611 tokens / 1050 samples; 53 other languages + karkain at zero",
+        "report written to reports\\l072_coverage.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "karkain_reuse",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l071_karkain",
+      "exit_code": 0,
+      "stdout_tail": [
+        "karkain adapter valid; synthetic fixtures=3 (labeled); corpus=0",
+        "report written to reports\\l071_karkain_adapter.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "resource_integrity",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l072_resource_integrity",
+      "exit_code": 0,
+      "stdout_tail": [
+        "free disk: 170.4 GiB; pinned intact: True",
+        "report written to reports\\l072_resource_integrity.json"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "summary": {
+    "all_exit_zero": true,
+    "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+    "freeze_verdict": "FROZEN_RESEARCH_ONLY",
+    "frozen_for_training": false,
+    "eligibility": {
+      "technically_eligible": 1050,
+      "human_review_required": 0,
+      "training_eligibility_blocked": 0,
+      "excluded": 2,
+      "quarantined": 0,
+      "training_eligible": 0,
+      "verdict": "TRAINING_ELIGIBILITY_BLOCKED_OWNER_AUTHORIZATION (aggregate); corpus is research-qualified but never training-ready until the owner signs off"
+    },
+    "classes": {
+      "REAL_AUTHORIZED_CORPUS": "python-l04-derived (1050 eligible children / 1,380,611 tokens)",
+      "SYNTHETIC_TEST_FIXTURE": "not part of freeze; verified ineligible",
+      "CANDIDATE_SOURCE": "bigcode v1/v2, codesearchnet (never ingested)",
+      "UNVERIFIED_SOURCE": "52 languages + supporting technologies",
+      "BLOCKED_SOURCE": "karkain (zero corpus; kcc 0xC0000135)"
+    },
+    "contamination": "CLEAN (fixtures only)",
+    "bytes_acquired": 0,
+    "external_ingestion": "DISABLED",
+    "training": "NOT AUTHORIZED \u2014 owner authorization missing; nothing started",
+    "not_yet_authorized": [
+      "training",
+      "acquisition",
+      "gpu",
+      "publication"
+    ]
+  },
+  "verdict": "L0.7.2 CORPUS FREEZE QUALIFIED AS RESEARCH-ONLY \u2014 nothing training-eligible; nothing downloaded"
+}

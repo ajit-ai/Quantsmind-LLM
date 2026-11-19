@@ -1,0 +1,41 @@
+# Pre-training config — local prototype on founder's machine (i7-8550U + MX150)
+# Duration: ~2-5 hours CPU / ~1-2 hours MX150 for 5000 steps
+# Cost: ₹0 (electricity you already pay)
+run:
+  name: qm-local-15m-v0
+  model_config: configs/model/local_15m.yaml
+  seed: 42
+
+data:
+  dataset_tag: corpus-v0
+  seq_len: 512
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  lr_schedule: cosine
+  warmup_steps: 100
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: float32
+  # grad_accum_steps moved to `batch` (B4): the copy here was never read.
+
+batch:
+  micro_batch_size: 8
+  grad_accum_steps: 4      # 8 x 512 x 4 = 16384 tokens/step
+
+training:
+  max_steps: 5000
+  checkpoint_every_steps: 500
+  log_every_steps: 50
+
+watchdog:
+  nan_check_every_steps: 50
+
+logging:
+  tracker: none

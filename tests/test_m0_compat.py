@@ -96,9 +96,9 @@ def test_default_attention_preserved():
     attn = Attention(32, 4, 2, 10000.0)
     x = torch.randn(2, 10, 32)
     cos, sin = build_rope(10, 8, 10000.0, torch.device("cpu"), torch.float32)
-    out_default = attn(x, cos, sin)
+    out_default, _ = attn(x, cos, sin)
     causal_mask = torch.tril(torch.ones(10, 10, dtype=torch.bool))
-    out_masked = attn(x, cos, sin, attn_mask=causal_mask.bool().unsqueeze(0).unsqueeze(0))
+    out_masked, _ = attn(x, cos, sin, attn_mask=causal_mask.bool().unsqueeze(0).unsqueeze(0))
     assert torch.equal(out_default, out_masked)
 
 

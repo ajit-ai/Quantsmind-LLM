@@ -1,0 +1,27 @@
+# Taksh v1.6.0 — First Functional Neural Model
+#
+# Model config: ~150M-200M parameters, Llama-family decoder-only
+# (RMSNorm, RoPE, GQA, SwiGLU). Same architecture family as M3 but scaled up
+# enough that general code patterns can begin to emerge.
+#
+# Parameter estimate (~175M non-embedding + ~9M tied embedding/head):
+#   d_model=768, n_layers=20, n_heads=12, n_kv_heads=4, ffn_dim=3072
+#
+# Context: 2048 (extended in v1.5.0). Vocab: 5822 (cleared tokenizer from v1.5.0).
+#
+# Objective: next-token prediction. This is a demonstration-scale run on CPU;
+# useful code generation is a stretch goal, not a guarantee. The v1.6.0 success
+# criterion is pass@1 > 0 on evaluation/simple_humaneval.py after SFT.
+
+model:
+  name: qm-code-v160-150m
+  vocab_size: 5822          # must equal tokenizer/taksh_code_bpe_v1.json exactly
+  d_model: 768
+  n_layers: 20
+  n_heads: 12
+  n_kv_heads: 4             # GQA: 12 query heads / 4 KV heads
+  ffn_dim: 3072             # SwiGLU: gate + up + down
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true      # share input embedding and output projection

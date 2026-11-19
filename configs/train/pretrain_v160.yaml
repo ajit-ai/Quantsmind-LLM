@@ -1,0 +1,56 @@
+# Taksh v1.6.0 — Pretraining config (CPU demonstration)
+#
+# Trains qm-code-v160-15m on the cleared tokenizer corpus built in v1.5.0.
+# Data is project-owned Python source only (cleared for distribution).
+#
+# Demonstration scale: ~15M parameters, 200 steps, CPU-only.
+# Loss should fall below uniform-random baseline (ln(5822) = 8.67).
+# Useful code generation after pretraining alone is NOT claimed.
+
+run:
+  name: qm-code-v160-pretrain
+  model_config: configs/model/code_v160_15m.yaml
+  seed: 42
+
+data:
+  tokens_path: data/v160_tokens/train.tokens.bin
+  val_tokens_path: data/v160_tokens/val.tokens.bin
+  tokenizer: tokenizer/taksh_code_bpe_v1.json
+  dataset_manifest: data/v160_tokens/manifest.json
+  seq_len: 512
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  lr_schedule: cosine
+  warmup_steps: 20
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: float32            # CPU-only host
+  device: auto              # auto | cpu | cuda | mps
+
+batch:
+  micro_batch_size: 1
+  grad_accum_steps: 2       # 1 x 2048 x 2 = 4096 tokens/step
+
+training:
+  max_steps: 50
+  checkpoint_every_steps: 50
+  log_every_steps: 10
+  eval_every_steps: 50
+  val_batches: 4
+  val_seed: 1234
+  keep_checkpoints: 2
+
+watchdog:
+  nan_check_every_steps: 10
+
+logging:
+  tracker: none
+  write_run_manifest: true
+  run_manifest_path: runs/v160_pretrain/run_manifest.json

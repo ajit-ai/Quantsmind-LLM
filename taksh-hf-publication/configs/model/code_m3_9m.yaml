@@ -1,0 +1,54 @@
+# QuantsMind-LLM M3 base model (~9.36M parameters), from scratch.
+#
+# WHY A NEW CONFIG EXISTS
+# -----------------------
+# `configs/model/code_30m.yaml` declares `vocab_size: 32768`, which matches
+# **neither** tokenizer shipped in this repository:
+#
+#   tokenizer/qm_bpe_v0.json       vocab 49152
+#   tokenizer/qm_code_bpe_v0.json  vocab  5822
+#
+# A 32768-wide model cannot train on artifacts from either tokenizer without a
+# mismatch: the 49152-vocab tokenizer overflows the embedding matrix, and the
+# 5822-vocab one wastes 26946 embedding rows (82% dead weight). `code_30m.yaml`
+# is therefore an orphan config -- it is retained unchanged for reproducibility
+# and is NOT used by M3. See docs/OPEN_ISSUES.md and the M3 execution guide.
+#
+# This config is `code_30m.yaml`'s architecture with the vocabulary corrected to
+# the code tokenizer. That alone accounts for the parameter difference:
+#
+#   tied embedding   5822 x 256 = 1,490,432   (this config)
+#   tied embedding  32768 x 256 = 8,388,608   (code_30m.yaml)
+#   difference                    = 6,898,176
+#   16,257,280 - 6,898,176    = 9,359,104 params (this config)
+#
+# The remaining difference between the two names is therefore entirely the
+# orphan vocabulary width, not the architecture.
+#
+# SIZING FOR THE MEASURED ENVIRONMENT
+# ------------------------------------
+# This host is CPU-only (torch 2.13.0+cpu), 3.91 GiB total RAM, 4 torch threads.
+# Preflight MEASURED a peak RSS of ~207 MiB for this configuration over real
+# optimizer steps, against ~1,370 MiB measured for the 5822-vocab `code_tiny`
+# baseline's successor and 3.91 GiB total, so it fits the machine. Available RAM
+# at any instant is lower because other programs are running; preflight reports
+# that as host memory pressure rather than silently resizing the model.
+#
+# Measured throughput is ~705 tokens/s, so a 400-step run (1,638,400 tokens)
+# takes roughly 39 minutes. `configs/model/code_m3_3m.yaml` is the documented
+# fallback: about half the memory and roughly twice the throughput.
+#
+# Architecture family: Llama-style decoder-only (RMSNorm, RoPE, GQA, SwiGLU).
+# Objective: next-token prediction. No FIM, instruction tuning, or tool use.
+model:
+  name: qm-code-m3-9m
+  vocab_size: 5822          # must equal tokenizer/qm_code_bpe_v0.json exactly
+  d_model: 256
+  n_layers: 8
+  n_heads: 8
+  n_kv_heads: 4
+  ffn_dim: 1024
+  max_seq_len: 512
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

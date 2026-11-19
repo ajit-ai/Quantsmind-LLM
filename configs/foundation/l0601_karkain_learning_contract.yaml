@@ -1,0 +1,78 @@
+# TAKSH L0.6.1 — TAKSH-side Karkain learning integration contract
+#
+# This document is the ONLY bridge between TAKSH training infrastructure and
+# Karkain. It defines the contract; it exercises none of it. No Karkain model
+# training, no Karkain corpus acquisition, no Karkain benchmark execution is
+# authorized by this file.
+#
+# KCC is the authoritative compilation and validation oracle. The host's KCC
+# is currently NOT FUNCTIONAL (exit 3, no diagnostics; kcc.exe exits 0xC0000135).
+
+schema: taksh.karkain_learning_contract/1
+id: taksh-karkain-learning-v1
+version: 1
+created: "2026-11-11"
+
+identity:
+  language_id: karkain
+  name: Karkain
+  extensions: [.kark]
+  registry_linkage:
+    registry: configs/feasibility/l051_languages.yaml
+    extension_registry: configs/foundation/l060r1_dynamic_language_registry.yaml
+    extension_entry: karkain
+    qualification_status: DISCOVERED          # never capability; see statuses
+  spec_reference:
+    spec_version: "1.1.0"
+    compiler_version: "1.1.0 (windows/amd64, Stable Build)"
+    kcc_engine: "go reference compiler (pkg/lexer|parser|sema|codegen|ir/ssa)"
+    spec_path: "SPEC.md (in the Karkain repository, read-only)"
+    kir_version: "KIR v1 (SSA)"
+  provenance:
+    source: "F:/Codes/Git/Karkain (owner-internal repository)"
+    revision: "e612ede"
+    branch: "feature/v1.2.0-native-independence"
+    license_and_source_authorization: "owner-internal; no redistribution or training ingestion authorized"
+
+corpus_manifest:
+  status: NOT_INSTANTIATED
+  note: "no Karkain corpus manifest exists; the schema below is defined but never populated in this milestone"
+  required_entry_fields:
+    - id
+    - file_sha256
+    - spec_version_pinned
+    - compiler_version_pinned
+    - license
+    - split
+    - contamination_scan
+  zero_entries: true
+
+kcc_state_on_host:
+  kcc_binary: "0xC0000135 (DLL missing) — cannot start"
+  compile_commands: "run/build/check/kir/lint/test all exit 3 (ExitCompile), zero diagnostics"
+  freshly_built_compiler: "same behavior (go build ./cmd/karkain, Go 1.27.0)"
+  consequence: "no Karkain compile/test validation possible; no Karkain capability may be claimed"
+
+evaluation_references:
+  bench_schema: "TAKSH-KARK-BENCH v1.0.0 (evaluation/l060r1_kark_bench_schema.json; 0 tasks instantiated)"
+  model_only_vs_compiler_assisted: "always reported separately; compiler-assisted NEVER reported as model capability"
+  qualification_bar: "NOT SET — to be fixed by owner before any Karkain evaluation"
+
+training_eligibility:
+  requirements:
+    - "owner-explicit authorization"
+    - "KCC or equivalent compiler-oracle present on the training host"
+    - "license-cleared Karkain corpus with full provenance (build hash per file)"
+    - "TAKSH-KARK-BENCH instantiated and baseline-measured BEFORE any training"
+  currently_met: []
+
+regression_and_compatibility:
+  replay_requirements: "every Karkain adaptation re-measured against frozen Python benchmark + languages previously qualified"
+  checkpoint_compatibility: "Karkain learning must produce a checkpoint that passes the same compatibility gates as every other milestone (schema, fingerprint, resume validation)"
+  rollback: "any regression beyond tolerance halts the adaptation; revert-to-mark mandatory"
+
+prohibitions:
+  - "no Karkain code ingested as training data without license review and owner sign-off"
+  - "no benchmark contamination (Karkain sample programs may not be training targets)"
+  - "no Karkain claims in UI/marketing until a Karkain language qualification gate is passed"
+  - "no modification of the Karkain repository from this project, ever"

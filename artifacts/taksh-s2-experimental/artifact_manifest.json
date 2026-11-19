@@ -1,0 +1,46 @@
+{
+  "artifact": "taksh-s2-experimental",
+  "status": "NOT APPROVED FOR DISTRIBUTION pending license and provenance approval",
+  "version": "v1.0.1-experimental-candidate",
+  "package_version": "1.0.0",
+  "model": {
+    "id": "taksh-s2",
+    "architecture": "qm-code-m3-9m",
+    "parameters": 9359104,
+    "vocabulary_size": 5822,
+    "context_length": 512,
+    "weight_file": "taksh-s2.pt",
+    "weight_file_size": 37463045,
+    "weight_file_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+    "source_checkpoint": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\v210\\runE\\checkpoints\\trained.pt"
+  },
+  "tokenizer": {
+    "file": "tokenizer/qm_code_bpe_v0.json",
+    "file_size": 410135,
+    "file_sha256": "90fd1c8b968edf9c7eb841ef41e89dd7cea898239a589c1e5eb46ae233c6c988",
+    "vocabulary_size": 5822
+  },
+  "configuration": {
+    "name": "qm-code-m3-9m",
+    "vocab_size": 5822,
+    "d_model": 256,
+    "n_layers": 8,
+    "n_heads": 8,
+    "n_kv_heads": 4,
+    "ffn_dim": 1024,
+    "max_seq_len": 512,
+    "rope_theta": 10000.0,
+    "norm_eps": 0.00001,
+    "tie_embeddings": true
+  },
+  "provenance": {
+    "training_data_license": "not cleared",
+    "model_weights_license": "not cleared",
+    "distribution_approved": false,
+    "publication_status": "not published"
+  },
+  "evaluation": {
+    "ad1_raw": {"exact": "2/29", "structural": "12/29", "binding": "6/29"},
+    "c3_heldout": {"exact": "0/54", "binding": "0/54", "functional": "0/45"}
+  }
+}

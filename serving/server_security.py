@@ -117,7 +117,9 @@ def verify_serving_contract(ckpt_path: str, tokenizer) -> str:
 
     from serving.local_inference import torch_load_checkpoint
 
-    metadata = torch_load_checkpoint(str(ckpt_path))
+    # Trusted startup boundary: operator-supplied path, may need unsafe loading
+    # for legacy checkpoints that predate safe-serialisation support.
+    metadata = torch_load_checkpoint(str(ckpt_path), allow_unsafe_trusted=True)
     detected = detect_contract(tokenizer)
     if metadata.get("schema") == SCHEMA_V2:
         verify_against(metadata["provenance"], tokenizer=tokenizer, contract_id=detected)
@@ -146,7 +148,10 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
     if not tok_path.is_file():
         raise SystemExit(f"Tokenizer not found: {tokenizer}")
 
-    model, model_cfg = load_model(str(ckpt_path), device)
+    # Explicit trusted-artifact boundary: this startup path comes from the
+    # operator's command line, never from a request, so legacy checkpoints
+    # that require weights_only=False may load here — and only here.
+    model, model_cfg = load_model(str(ckpt_path), device, allow_unsafe_trusted=True)
     tok = Tokenizer.from_file(str(tok_path))
 
     model_vocab = int(model_cfg["vocab_size"])
@@ -164,7 +169,7 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
 def add_standard_args(parser, default_port: int):
     """Attach the shared security-relevant CLI flags to a server's parser."""
     parser.add_argument("--ckpt", required=True, help="checkpoint path, loaded at startup")
-    parser.add_argument("--tokenizer", default="tokenizer/qm_code_bpe_v0.json")
+    parser.add_argument("--tokenizer", default="tokenizer/taksh_code_bpe_v1.json")
     parser.add_argument("--host", default="127.0.0.1", help="default is loopback only")
     parser.add_argument("--port", type=int, default=default_port)
     parser.add_argument(

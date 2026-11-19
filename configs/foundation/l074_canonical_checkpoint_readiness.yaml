@@ -1,0 +1,80 @@
+# TAKSH L0.7.4 — Canonical checkpoint readiness specification
+#
+# Defines the REQUIRED artifact payload and checks for any FUTURE authorized
+# training run producing taksh-foundation-111m. A checkpoint missing any of
+# these requirements is not a TAKSH foundation checkpoint. This milestone does
+# NOT create one and does not start training.
+schema: taksh.canonical_checkpoint_readiness/1
+id: taksh-canonical-checkpoint-readiness-v1
+version: 1
+created: "2026-11-11"
+
+canonical_model:
+  config_id: taksh-foundation-111m
+  parameters: 110658816
+  vocab_size: 5822
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 6
+  ffn_dim: 3072
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-05
+  tie_embeddings: true
+  architecture: Llama-style decoder-only
+  gqa: true
+  swiglu: true
+  norm: RMSNorm
+
+artifact_requirements:
+  model_config_sha256:         { required: true, method: "sha256 of configs/foundation/l060_foundation.yaml" }
+  tokenizer_sha256:            { required: true, method: "sha256 of committed LF blob of tokenizer/taksh_code_bpe_v1.json" }
+  training_config_sha256:      { required: true, method: "sha256 of canonical training config (L0.6.1 l0601_training.yaml)" }
+  dataset_snapshot_id:         { required: true, method: "the L0.7.2 freeze snapshot id" }
+  dataset_manifest_sha256:     { required: true, method: "sha256 of the training-time manifest emitted by the L0.6.1 pipeline" }
+  dataset_eligibility_record:  { required: true, method: "owner authorization record id for the training run (never fabricated)" }
+  dataset_license_scope:       { required: true, value: "internal research pretraining only (L0.4 record) until counsel authorizes more" }
+  training_code_revision:      { required: true, method: "git commit sha at launch" }
+  optimizer_config:            { required: true, type: "adamw", beta1: 0.9, beta2: 0.95, weight_decay: 0.1 }
+  scheduler_config:            { required: true, type: "cosine", warmup_steps: 200, min_lr_ratio: 0.1 }
+  random_seed:                 { required: true, type: integer }
+  training_step:               { required: true, type: integer }
+  epoch:                       { required: true, type: integer }
+  precision:                   { required: true, type: string }
+  environment:                 { required: true, fields: [os, python, torch, cuda_or_rocm, hostname] }
+  checkpoint_integrity_hash:   { required: true, method: "sha256 of the serialized checkpoint file" }
+  fingerprint:                 { required: true, method: "sha256 of {model_cfg, tokenizer_sha256, step, tokens_processed} json (L0.6.1 convention)" }
+  resume_compatibility:        { required: true, method: "rejection unless schema+fingerprint+tokenizer match" }
+  created_utc:                 { required: true }
+  run_id:                      { required: true, method: "dataset-fingerprinted run identifier" }
+
+identity_checks:
+  vocab_parity: "tokenizer.get_vocab_size() == 5822 == model.model.embed_tokens.weight.shape[0]"
+  embedding_rows: 5822
+  output_projection_rows: 5822
+  context_window: 2048
+  tie_embeddings_consistent: "embed == lm_head weight (tied)"
+  weight_count: 111
+
+lifecycle_requirements:
+  atomic_write: "write via temp file + fsync + os.replace"
+  interrupted_write_detection: "no partial artifacts; verification catches stale temp files"
+  tamper_rejection: "fingerprint mismatch must reject load"
+  resume_validation: "schema + tokenizer fingerprint + model config fingerprint + step monotonicity"
+  storage: "artifacts/<run-id>/ + registry; existing checkpoints never migrated"
+
+negative_acceptance:  # every one of these MUST be rejected
+  - missing_artifact
+  - wrong_architecture_d_model_384   # e.g. runs/v180_sft/ (different model family — qm-code-v160-15m)
+  - synthetic_fixture                # e.g. tests/fixture_s2_checkpoint.py artifacts
+  - tokenizer_fingerprint_mismatch
+  - schema_fingerprint_mismatch
+  - optimizer_state_missing_for_resume
+
+provenance_requirements:
+  training_run_manifest: true
+  dataset_lineage: "l04 freeze -> training manifest -> run -> checkpoint"
+  exclusion_audit: "excluded samples never present in checkpoint lineage claims"
+  owner_authorization_gate: "license_decision_ref + owner_authorization_id recorded"
+  no_training_in_l0_7_4: true

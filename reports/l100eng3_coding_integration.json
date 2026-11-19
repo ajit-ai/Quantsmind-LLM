@@ -1,0 +1,867 @@
+{
+  "schema": "taksh.l100eng3_coding_qualification/1",
+  "generated_by": "evaluation/l100eng3_qualification.py",
+  "verified_on": "2026-11-11",
+  "git": {
+    "branch": "feature/l060-foundation-model-qualification",
+    "head": "60653948fff26450af0e18e03d5e5bba5bd003b5",
+    "remote_feature_branch": "60653948fff26450af0e18e03d5e5bba5bd003b5"
+  },
+  "summary": {
+    "canonical_model_available": false,
+    "v180_substituted": false,
+    "double_pipeline_completed": true,
+    "double_repair_loop_completed": true,
+    "double_bounded_failure": true,
+    "semantic_pipeline_ok": true,
+    "training_handoff_authorized": false,
+    "capability_claims_made": false
+  },
+  "task_input": {
+    "suite_id": "taksh-l100eng3-dev-suite-v1",
+    "suite_sha256": "883490862e476bc9920d97a327c78bf89a867d62edb6299d023038326deb80bc",
+    "task_count": 6,
+    "sample_task": {
+      "task_id": "ENG3-DEV-001",
+      "language": "python",
+      "description": "Write a function add(a, b) that returns the sum of a and b.",
+      "constraints": [
+        "no imports required",
+        "single function"
+      ],
+      "expected_behavior": "add(2, 3) returns 5",
+      "tests": [
+        {
+          "name": "basic",
+          "check": "call_equals",
+          "args": [
+            2,
+            3
+          ],
+          "expected": 5,
+          "entry_point": "add"
+        },
+        {
+          "name": "negative",
+          "check": "call_equals",
+          "args": [
+            -1,
+            1
+          ],
+          "expected": 0,
+          "entry_point": "add"
+        },
+        {
+          "name": "zero",
+          "check": "call_equals",
+          "args": [
+            0,
+            0
+          ],
+          "expected": 0,
+          "entry_point": "add"
+        }
+      ],
+      "entry_point": "add",
+      "suite": "dev"
+    },
+    "note": "synthetic development fixtures \u2014 not benchmark evidence"
+  },
+  "model_availability": {
+    "canonical_assessment": {
+      "state": "MODEL_UNAVAILABLE",
+      "model_kind": "canonical",
+      "canonical": true,
+      "model_id": "taksh-foundation-111m",
+      "reason": "no checkpoint configured (explicit artifact required; none provided); no tokenizer configured (explicit artifact required)",
+      "problems": [
+        "no checkpoint configured (explicit artifact required; none provided)",
+        "no tokenizer configured (explicit artifact required)"
+      ],
+      "fingerprints": {},
+      "checked": "2026-11-11T18:03:30+00:00"
+    },
+    "v180_sft_assessment": {
+      "state": "MODEL_UNAVAILABLE",
+      "model_kind": "canonical",
+      "canonical": true,
+      "model_id": "taksh-foundation-111m",
+      "reason": "configured checkpoint does not match taksh-foundation-111m (geometry_mismatch={'d_model': (384, 768), 'n_heads': (8, 12), 'n_kv_heads': (4, 6), 'ffn_dim': (1536, 3072)}; fingerprint_match=False). GEOMETRY_INCOMPATIBLE artifacts (e.g. v180_sft, d_model 384) are never substituted",
+      "problems": [
+        "configured checkpoint does not match taksh-foundation-111m (geometry_mismatch={'d_model': (384, 768), 'n_heads': (8, 12), 'n_kv_heads': (4, 6), 'ffn_dim': (1536, 3072)}; fingerprint_match=False). GEOMETRY_INCOMPATIBLE artifacts (e.g. v180_sft, d_model 384) are never substituted"
+      ],
+      "fingerprints": {
+        "checkpoint_sha256": "9b54103695054ecb30d8521ffceb62f443d2d1fd8d064993edc2d5070cb7f666",
+        "tokenizer_sha256": "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92",
+        "resolved_fingerprint": "0ae348b330d9a44589c7d3c0b850aeba8c6eb31d33da88ce3534b17bf4fcff4f",
+        "canonical_fingerprint": "92da3497cec631b49f7a4c2be7a60cfb74e95c2e8e248a102546f8a4a99d1c14",
+        "geometry_mismatch": {
+          "d_model": [
+            384,
+            768
+          ],
+          "n_heads": [
+            8,
+            12
+          ],
+          "n_kv_heads": [
+            4,
+            6
+          ],
+          "ffn_dim": [
+            1536,
+            3072
+          ]
+        }
+      },
+      "checked": "2026-11-11T18:03:51+00:00"
+    },
+    "decision": "MODEL_UNAVAILABLE \u2014 canonical taksh-foundation-111m artifact does not exist; no substitution authorized or possible"
+  },
+  "generation_attempts": {
+    "ok_run": [
+      {
+        "attempt_n": 1,
+        "created": "2026-11-11T18:03:52+00:00",
+        "model_kind": "test_double",
+        "model_id": "static-test-double",
+        "model_identity": {
+          "canonical_id": null,
+          "model_config_fingerprint": null,
+          "tokenizer_sha256": null,
+          "checkpoint_sha256": null,
+          "device": "none (test double)"
+        },
+        "generation": {
+          "prompt_tokens": 37,
+          "completion_tokens": 7,
+          "finish_reason": "stop",
+          "latency_ms": 0.0,
+          "sampling": {
+            "seed": 1101,
+            "temperature": 0.0,
+            "max_new_tokens": 128,
+            "mode": "tool_assisted"
+          }
+        },
+        "trace_fingerprint": "b30999e5f4e0b72e5503b0b37944f81e8026937386e40dcdcabecdc7313cd302",
+        "state": "GENERATION_COMPLETED",
+        "source_sha256": "8f75a68646c879fd0cff5c02708c010fb1c01d67ef9930d4e419106feb7897aa",
+        "source_present": true,
+        "source_lines": 2,
+        "evidence_category": "MODEL_GENERATED",
+        "validation": {
+          "state": "COMPLETED",
+          "semantic": {
+            "status": "PARTIAL",
+            "contract_problems": [],
+            "stage_status": {
+              "comprehension": "PASS",
+              "comprehension_duration_ms": "50.22",
+              "symbols": "PASS",
+              "symbols_duration_ms": "5.068",
+              "types": "PARTIAL",
+              "types_duration_ms": "3.964",
+              "dependencies": "PASS",
+              "dependencies_duration_ms": "3.661",
+              "validation": "PASS",
+              "validation_duration_ms": "5386.621",
+              "knowledge": "PASS",
+              "knowledge_duration_ms": "3.223",
+              "feedback": "PASS",
+              "feedback_duration_ms": "0.018"
+            }
+          },
+          "execution": {
+            "state": "COMPLETED",
+            "all_passed": true,
+            "tests": [
+              {
+                "name": "basic",
+                "ok": true,
+                "got": "5"
+              },
+              {
+                "name": "negative",
+                "ok": true,
+                "got": "0"
+              },
+              {
+                "name": "zero",
+                "ok": true,
+                "got": "0"
+              }
+            ],
+            "tests_total": 3,
+            "tests_passed": 3,
+            "duration_ms": 166.622,
+            "timed_out": false,
+            "exit_code": 0,
+            "stdout_tail": "[{\"name\": \"basic\", \"ok\": true, \"got\": \"5\"}, {\"name\": \"negative\", \"ok\": true, \"got\": \"0\"}, {\"name\": \"zero\", \"ok\": true, \"got\": \"0\"}]\n",
+            "stderr_tail": "",
+            "workspace": "isolated-tmp-workspace (auto-cleaned)"
+          },
+          "diagnostics": [],
+          "feedback_records": 0,
+          "correlation": {
+            "verdict": "NO_EVIDENCE"
+          },
+          "execution_verified": true
+        },
+        "diagnostics": [],
+        "repair_candidates": {
+          "schema": "taksh.dlcae.repair_candidates/1",
+          "source_sha256": "8f75a68646c879fd0cff5c02708c010fb1c01d67ef9930d4e419106feb7897aa",
+          "candidate_count": 0,
+          "candidates": [],
+          "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+        }
+      }
+    ],
+    "repair_run": [
+      {
+        "attempt_n": 1,
+        "created": "2026-11-11T18:03:58+00:00",
+        "model_kind": "test_double",
+        "model_id": "static-test-double",
+        "model_identity": {
+          "canonical_id": null,
+          "model_config_fingerprint": null,
+          "tokenizer_sha256": null,
+          "checkpoint_sha256": null,
+          "device": "none (test double)"
+        },
+        "generation": {
+          "prompt_tokens": 37,
+          "completion_tokens": 5,
+          "finish_reason": "stop",
+          "latency_ms": 0.0,
+          "sampling": {
+            "seed": 1101,
+            "temperature": 0.0,
+            "max_new_tokens": 128,
+            "mode": "tool_assisted"
+          }
+        },
+        "trace_fingerprint": "7c3c651107a5e9441a3850e691fcc7c391aeafab87396fc0c9b08be6595191f9",
+        "state": "GENERATION_COMPLETED",
+        "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+        "source_present": true,
+        "source_lines": 2,
+        "evidence_category": "MODEL_GENERATED",
+        "validation": {
+          "state": "FAILED",
+          "semantic": {
+            "status": "PARTIAL",
+            "contract_problems": [],
+            "stage_status": {
+              "comprehension": "PASS",
+              "comprehension_duration_ms": "3.764",
+              "symbols": "PASS",
+              "symbols_duration_ms": "0.183",
+              "types": "PARTIAL",
+              "types_duration_ms": "0.132",
+              "dependencies": "PASS",
+              "dependencies_duration_ms": "0.187",
+              "validation": "PASS",
+              "validation_duration_ms": "4535.709",
+              "knowledge": "PASS",
+              "knowledge_duration_ms": "0.875",
+              "feedback": "PASS",
+              "feedback_duration_ms": "0.015"
+            }
+          },
+          "execution": {
+            "state": "FAILED",
+            "all_passed": false,
+            "tests": [
+              {
+                "name": "basic",
+                "ok": false,
+                "got": "0"
+              },
+              {
+                "name": "negative",
+                "ok": true,
+                "got": "0"
+              },
+              {
+                "name": "zero",
+                "ok": true,
+                "got": "0"
+              }
+            ],
+            "tests_total": 3,
+            "tests_passed": 2,
+            "duration_ms": 173.139,
+            "timed_out": false,
+            "exit_code": 0,
+            "stdout_tail": "[{\"name\": \"basic\", \"ok\": false, \"got\": \"0\"}, {\"name\": \"negative\", \"ok\": true, \"got\": \"0\"}, {\"name\": \"zero\", \"ok\": true, \"got\": \"0\"}]\n",
+            "stderr_tail": "",
+            "workspace": "isolated-tmp-workspace (auto-cleaned)"
+          },
+          "diagnostics": [
+            {
+              "category": "test_failure",
+              "message": "basic",
+              "severity": "ERROR",
+              "evidence_classification": "TOOL_VERIFIED"
+            }
+          ],
+          "feedback_records": 1,
+          "correlation": {
+            "schema": "taksh.dlcae.failure_correlation/1",
+            "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+            "groups": [
+              {
+                "key": "<unknown>:0",
+                "count": 1,
+                "categories": [
+                  "test_failure"
+                ]
+              }
+            ],
+            "primary": "eb4bb149165503cc",
+            "primary_category": "test_failure",
+            "primary_line": null,
+            "cascades": [],
+            "earliest_known_failure": "eb4bb149165503cc",
+            "ordered_chain": [
+              "eb4bb149165503cc"
+            ],
+            "uncertain": false,
+            "verdict": "ROOT_CAUSE_IDENTIFIED",
+            "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+          },
+          "execution_verified": false
+        },
+        "diagnostics": [
+          {
+            "category": "test_failure",
+            "message": "basic",
+            "severity": "ERROR",
+            "evidence_classification": "TOOL_VERIFIED"
+          }
+        ],
+        "repair_candidates": {
+          "schema": "taksh.dlcae.repair_candidates/1",
+          "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "suggestion_id": "2a02d9a09a9ddc63",
+              "for_diagnostic": {
+                "category": "test_failure",
+                "line": null,
+                "column": null,
+                "symbol": null
+              },
+              "suggestion": "treat the failing assertion as a behavioral requirement; reconcile implementation with the test",
+              "origin": "suggestion-not-verified-fix",
+              "verified": false,
+              "source_mutation": false,
+              "confidence": 0.2
+            }
+          ],
+          "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+        }
+      },
+      {
+        "attempt_n": 2,
+        "created": "2026-11-11T18:04:02+00:00",
+        "model_kind": "test_double",
+        "model_id": "static-test-double",
+        "model_identity": {
+          "canonical_id": null,
+          "model_config_fingerprint": null,
+          "tokenizer_sha256": null,
+          "checkpoint_sha256": null,
+          "device": "none (test double)"
+        },
+        "generation": {
+          "prompt_tokens": 51,
+          "completion_tokens": 7,
+          "finish_reason": "stop",
+          "latency_ms": 0.0,
+          "sampling": {
+            "seed": 1102,
+            "temperature": 0.0,
+            "max_new_tokens": 128,
+            "mode": "tool_assisted"
+          }
+        },
+        "trace_fingerprint": "e0fc549fc99e490914c3ca6f78d9495f7c13292560d263adffd7b4a91cae1959",
+        "state": "GENERATION_COMPLETED",
+        "source_sha256": "8f75a68646c879fd0cff5c02708c010fb1c01d67ef9930d4e419106feb7897aa",
+        "source_present": true,
+        "source_lines": 2,
+        "evidence_category": "MODEL_GENERATED",
+        "validation": {
+          "state": "COMPLETED",
+          "semantic": {
+            "status": "PARTIAL",
+            "contract_problems": [],
+            "stage_status": {
+              "comprehension": "PASS",
+              "comprehension_duration_ms": "1.479",
+              "symbols": "PASS",
+              "symbols_duration_ms": "0.169",
+              "types": "PARTIAL",
+              "types_duration_ms": "0.124",
+              "dependencies": "PASS",
+              "dependencies_duration_ms": "0.168",
+              "validation": "PASS",
+              "validation_duration_ms": "4207.439",
+              "knowledge": "PASS",
+              "knowledge_duration_ms": "0.509",
+              "feedback": "PASS",
+              "feedback_duration_ms": "0.012"
+            }
+          },
+          "execution": {
+            "state": "COMPLETED",
+            "all_passed": true,
+            "tests": [
+              {
+                "name": "basic",
+                "ok": true,
+                "got": "5"
+              },
+              {
+                "name": "negative",
+                "ok": true,
+                "got": "0"
+              },
+              {
+                "name": "zero",
+                "ok": true,
+                "got": "0"
+              }
+            ],
+            "tests_total": 3,
+            "tests_passed": 3,
+            "duration_ms": 221.961,
+            "timed_out": false,
+            "exit_code": 0,
+            "stdout_tail": "[{\"name\": \"basic\", \"ok\": true, \"got\": \"5\"}, {\"name\": \"negative\", \"ok\": true, \"got\": \"0\"}, {\"name\": \"zero\", \"ok\": true, \"got\": \"0\"}]\n",
+            "stderr_tail": "",
+            "workspace": "isolated-tmp-workspace (auto-cleaned)"
+          },
+          "diagnostics": [],
+          "feedback_records": 0,
+          "correlation": {
+            "verdict": "NO_EVIDENCE"
+          },
+          "execution_verified": true
+        },
+        "diagnostics": [],
+        "repair_candidates": {
+          "schema": "taksh.dlcae.repair_candidates/1",
+          "source_sha256": "8f75a68646c879fd0cff5c02708c010fb1c01d67ef9930d4e419106feb7897aa",
+          "candidate_count": 0,
+          "candidates": [],
+          "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+        }
+      }
+    ],
+    "bad_run": [
+      {
+        "attempt_n": 1,
+        "created": "2026-11-11T18:04:07+00:00",
+        "model_kind": "test_double",
+        "model_id": "static-test-double",
+        "model_identity": {
+          "canonical_id": null,
+          "model_config_fingerprint": null,
+          "tokenizer_sha256": null,
+          "checkpoint_sha256": null,
+          "device": "none (test double)"
+        },
+        "generation": {
+          "prompt_tokens": 37,
+          "completion_tokens": 5,
+          "finish_reason": "stop",
+          "latency_ms": 0.0,
+          "sampling": {
+            "seed": 1101,
+            "temperature": 0.0,
+            "max_new_tokens": 128,
+            "mode": "tool_assisted"
+          }
+        },
+        "trace_fingerprint": "7c3c651107a5e9441a3850e691fcc7c391aeafab87396fc0c9b08be6595191f9",
+        "state": "GENERATION_COMPLETED",
+        "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+        "source_present": true,
+        "source_lines": 2,
+        "evidence_category": "MODEL_GENERATED",
+        "validation": {
+          "state": "FAILED",
+          "semantic": {
+            "status": "PARTIAL",
+            "contract_problems": [],
+            "stage_status": {
+              "comprehension": "PASS",
+              "comprehension_duration_ms": "1.226",
+              "symbols": "PASS",
+              "symbols_duration_ms": "0.149",
+              "types": "PARTIAL",
+              "types_duration_ms": "0.105",
+              "dependencies": "PASS",
+              "dependencies_duration_ms": "0.148",
+              "validation": "PASS",
+              "validation_duration_ms": "4391.753",
+              "knowledge": "PASS",
+              "knowledge_duration_ms": "0.991",
+              "feedback": "PASS",
+              "feedback_duration_ms": "0.012"
+            }
+          },
+          "execution": {
+            "state": "FAILED",
+            "all_passed": false,
+            "tests": [
+              {
+                "name": "basic",
+                "ok": false,
+                "got": "0"
+              },
+              {
+                "name": "negative",
+                "ok": true,
+                "got": "0"
+              },
+              {
+                "name": "zero",
+                "ok": true,
+                "got": "0"
+              }
+            ],
+            "tests_total": 3,
+            "tests_passed": 2,
+            "duration_ms": 175.528,
+            "timed_out": false,
+            "exit_code": 0,
+            "stdout_tail": "[{\"name\": \"basic\", \"ok\": false, \"got\": \"0\"}, {\"name\": \"negative\", \"ok\": true, \"got\": \"0\"}, {\"name\": \"zero\", \"ok\": true, \"got\": \"0\"}]\n",
+            "stderr_tail": "",
+            "workspace": "isolated-tmp-workspace (auto-cleaned)"
+          },
+          "diagnostics": [
+            {
+              "category": "test_failure",
+              "message": "basic",
+              "severity": "ERROR",
+              "evidence_classification": "TOOL_VERIFIED"
+            }
+          ],
+          "feedback_records": 1,
+          "correlation": {
+            "schema": "taksh.dlcae.failure_correlation/1",
+            "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+            "groups": [
+              {
+                "key": "<unknown>:0",
+                "count": 1,
+                "categories": [
+                  "test_failure"
+                ]
+              }
+            ],
+            "primary": "eb4bb149165503cc",
+            "primary_category": "test_failure",
+            "primary_line": null,
+            "cascades": [],
+            "earliest_known_failure": "eb4bb149165503cc",
+            "ordered_chain": [
+              "eb4bb149165503cc"
+            ],
+            "uncertain": false,
+            "verdict": "ROOT_CAUSE_IDENTIFIED",
+            "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+          },
+          "execution_verified": false
+        },
+        "diagnostics": [
+          {
+            "category": "test_failure",
+            "message": "basic",
+            "severity": "ERROR",
+            "evidence_classification": "TOOL_VERIFIED"
+          }
+        ],
+        "repair_candidates": {
+          "schema": "taksh.dlcae.repair_candidates/1",
+          "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "suggestion_id": "2a02d9a09a9ddc63",
+              "for_diagnostic": {
+                "category": "test_failure",
+                "line": null,
+                "column": null,
+                "symbol": null
+              },
+              "suggestion": "treat the failing assertion as a behavioral requirement; reconcile implementation with the test",
+              "origin": "suggestion-not-verified-fix",
+              "verified": false,
+              "source_mutation": false,
+              "confidence": 0.2
+            }
+          ],
+          "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+        }
+      },
+      {
+        "attempt_n": 2,
+        "created": "2026-11-11T18:04:12+00:00",
+        "model_kind": "test_double",
+        "model_id": "static-test-double",
+        "model_identity": {
+          "canonical_id": null,
+          "model_config_fingerprint": null,
+          "tokenizer_sha256": null,
+          "checkpoint_sha256": null,
+          "device": "none (test double)"
+        },
+        "generation": {
+          "prompt_tokens": 51,
+          "completion_tokens": 5,
+          "finish_reason": "stop",
+          "latency_ms": 0.0,
+          "sampling": {
+            "seed": 1102,
+            "temperature": 0.0,
+            "max_new_tokens": 128,
+            "mode": "tool_assisted"
+          }
+        },
+        "trace_fingerprint": "92accc14b458630fbf58bc46679b36cb323fbd61744818de62573a2316edfd31",
+        "state": "GENERATION_COMPLETED",
+        "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+        "source_present": true,
+        "source_lines": 2,
+        "evidence_category": "MODEL_GENERATED",
+        "validation": {
+          "state": "FAILED",
+          "semantic": {
+            "status": "PARTIAL",
+            "contract_problems": [],
+            "stage_status": {
+              "comprehension": "PASS",
+              "comprehension_duration_ms": "2.432",
+              "symbols": "PASS",
+              "symbols_duration_ms": "0.168",
+              "types": "PARTIAL",
+              "types_duration_ms": "0.119",
+              "dependencies": "PASS",
+              "dependencies_duration_ms": "0.159",
+              "validation": "PASS",
+              "validation_duration_ms": "3373.25",
+              "knowledge": "PASS",
+              "knowledge_duration_ms": "1.155",
+              "feedback": "PASS",
+              "feedback_duration_ms": "0.007"
+            }
+          },
+          "execution": {
+            "state": "FAILED",
+            "all_passed": false,
+            "tests": [
+              {
+                "name": "basic",
+                "ok": false,
+                "got": "0"
+              },
+              {
+                "name": "negative",
+                "ok": true,
+                "got": "0"
+              },
+              {
+                "name": "zero",
+                "ok": true,
+                "got": "0"
+              }
+            ],
+            "tests_total": 3,
+            "tests_passed": 2,
+            "duration_ms": 87.047,
+            "timed_out": false,
+            "exit_code": 0,
+            "stdout_tail": "[{\"name\": \"basic\", \"ok\": false, \"got\": \"0\"}, {\"name\": \"negative\", \"ok\": true, \"got\": \"0\"}, {\"name\": \"zero\", \"ok\": true, \"got\": \"0\"}]\n",
+            "stderr_tail": "",
+            "workspace": "isolated-tmp-workspace (auto-cleaned)"
+          },
+          "diagnostics": [
+            {
+              "category": "test_failure",
+              "message": "basic",
+              "severity": "ERROR",
+              "evidence_classification": "TOOL_VERIFIED"
+            }
+          ],
+          "feedback_records": 1,
+          "correlation": {
+            "schema": "taksh.dlcae.failure_correlation/1",
+            "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+            "groups": [
+              {
+                "key": "<unknown>:0",
+                "count": 1,
+                "categories": [
+                  "test_failure"
+                ]
+              }
+            ],
+            "primary": "eb4bb149165503cc",
+            "primary_category": "test_failure",
+            "primary_line": null,
+            "cascades": [],
+            "earliest_known_failure": "eb4bb149165503cc",
+            "ordered_chain": [
+              "eb4bb149165503cc"
+            ],
+            "uncertain": false,
+            "verdict": "ROOT_CAUSE_IDENTIFIED",
+            "note": "correlation is a heuristic over recorded diagnostics only; an unresolved correlation preserves uncertainty \u2014 never a guess"
+          },
+          "execution_verified": false
+        },
+        "diagnostics": [
+          {
+            "category": "test_failure",
+            "message": "basic",
+            "severity": "ERROR",
+            "evidence_classification": "TOOL_VERIFIED"
+          }
+        ],
+        "repair_candidates": {
+          "schema": "taksh.dlcae.repair_candidates/1",
+          "source_sha256": "92ba4ed68f998987d20c85c03a2c542dca81d03d192eacf324a3717d87280174",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "suggestion_id": "2a02d9a09a9ddc63",
+              "for_diagnostic": {
+                "category": "test_failure",
+                "line": null,
+                "column": null,
+                "symbol": null
+              },
+              "suggestion": "treat the failing assertion as a behavioral requirement; reconcile implementation with the test",
+              "origin": "suggestion-not-verified-fix",
+              "verified": false,
+              "source_mutation": false,
+              "confidence": 0.2
+            }
+          ],
+          "note": "candidates are suggestions only; no source is modified; verified fixes require revalidation through the Validation Engine after explicit caller request"
+        }
+      }
+    ],
+    "model_kind": "test_double (synthetic; never TAKSH output)"
+  },
+  "end_to_end_results": {
+    "ok_run": {
+      "state": "COMPLETED",
+      "tests_passed": 3,
+      "tests_total": 3,
+      "all_passed": true,
+      "execution_verified": true,
+      "attempts_used": 1
+    },
+    "repair_run": {
+      "state": "COMPLETED",
+      "tests_passed": 3,
+      "tests_total": 3,
+      "all_passed": true,
+      "execution_verified": true,
+      "attempts_used": 2
+    },
+    "bad_run": {
+      "state": "FAILED",
+      "tests_passed": 2,
+      "tests_total": 3,
+      "all_passed": false,
+      "execution_verified": false,
+      "attempts_used": 2
+    }
+  },
+  "semantic_validation": {
+    "runtime_probe": {
+      "status": "PARTIAL",
+      "stage_status": {
+        "comprehension": "PASS",
+        "comprehension_duration_ms": "2.432",
+        "symbols": "PASS",
+        "symbols_duration_ms": "0.124",
+        "types": "PARTIAL",
+        "types_duration_ms": "150.191",
+        "dependencies": "PASS",
+        "dependencies_duration_ms": "0.665",
+        "validation": "PASS",
+        "validation_duration_ms": "0.038",
+        "knowledge": "PASS",
+        "knowledge_duration_ms": "0.151",
+        "feedback": "PASS",
+        "feedback_duration_ms": "0.005"
+      }
+    },
+    "promotion_gates": {
+      "MODEL_GENERATED": false,
+      "TOOL_OBSERVED": false,
+      "TOOL_VERIFIED": true,
+      "HUMAN_CONFIRMED": true,
+      "INFERRED": false,
+      "CONFLICTED": false,
+      "INVALIDATED": false
+    },
+    "note": "VERIFIED requires TOOL_VERIFIED/HUMAN_CONFIRMED; MODEL_GENERATED never qualifies"
+  },
+  "toolchain_execution": {
+    "workspace": "isolated tmp sandbox (auto-cleaned)",
+    "execution": "subprocess-only; never in-process exec of generated code",
+    "ok_run_exec": 166.622
+  },
+  "diagnostics_and_repair": {
+    "ok_run_correlation": "NO_EVIDENCE",
+    "bad_run_repair_candidates": 1,
+    "repair_mode": "fresh model generation per attempt; suggestions never mutate source"
+  },
+  "preservation": {
+    "frozen_python_benchmark": true,
+    "multilingual_benchmark": true,
+    "v180_sft_checkpoint_untouched": true,
+    "foundation_config_untouched": true,
+    "tokenizer_committed_blob_untouched": true
+  },
+  "training_handoff": {
+    "schema": "taksh.dlcae.learning_handoff/1",
+    "authorized": false,
+    "owner_decision": {
+      "checked": [
+        "A1.1-C",
+        "A2-E"
+      ],
+      "ok": true,
+      "training_authorized": false,
+      "source": "F:\\Codes\\Git\\Quantsmind-LLM\\docs\\L075_L080_OWNER_DECISION_RECORD.md"
+    },
+    "candidates": [],
+    "released": [],
+    "reason": "missing owner decision(s): A1.1-A (training authorization), A2-A / A2-B / A2-D (compute authorization). A1.1-C preparation-only + A2-E authorize no training. Handoff refused.",
+    "training_eligible_tokens": 0
+  },
+  "canonical_checkpoint": "MISSING",
+  "v180_sft": "GEOMETRY_INCOMPATIBLE \u2014 never substituted",
+  "qualification": {
+    "engineering_qualification": "ENGINEERING_QUALIFIED (this milestone)",
+    "model_availability": "MODEL_UNAVAILABLE",
+    "actual_coding_capability": "NOT_EVALUATED \u2014 never claimed",
+    "language_qualification": "no language promoted; Karkain remains DISCOVERED"
+  },
+  "capability_claim": "none",
+  "verdict": "L1.0.0-ENG3 END-TO-END CODING INTELLIGENCE INTEGRATION QUALIFIED (engineering qualification only \u2014 no capability claim)",
+  "core_ok": true
+}

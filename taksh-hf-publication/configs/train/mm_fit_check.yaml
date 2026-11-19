@@ -1,0 +1,36 @@
+# M1.1 multimodal fit-check config — synthetic data, CPU, architecture evidence only.
+run:
+  name: mm-fit-check
+  model_config: configs/model/local_15m_mm.yaml
+  vision_config: configs/vision/vision_m1.yaml
+  seed: 42
+
+data:
+  synthetic_path: runs/mm_synth/data.npz
+  tokenizer: tokenizer/qm_bpe_v0.json
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-4
+  lr_schedule: cosine
+  warmup_steps: 200
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+batch:
+  micro_batch_size: 8
+  grad_accum_steps: 2
+
+training:
+  max_steps: 500
+  log_every_steps: 25
+  checkpoint_every_steps: 500
+
+watchdog:
+  nan_check_every_steps: 25
+
+precision:
+  dtype: float32

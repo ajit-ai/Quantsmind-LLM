@@ -1,0 +1,48 @@
+# Hugging Face export attributes
+# Weights, checkpoints, and private data assets are excluded from upload.
+# Source code and documentation are tracked normally.
+
+# Exclude model weights/checkpoints (not cleared for distribution)
+*.pt -text
+*.pth -text
+*.ckpt -text
+*.safetensors -text
+*.bin -text
+
+# Exclude tokenizer vocabulary assets (training-data license not cleared)
+tokenizer/*.json -text
+
+# Exclude data artifacts and caches
+data/*.json -text
+data/*.jsonl -text
+data/*.tokens.bin -text
+data/*.stale -text
+data/*.chk -text
+*.arrow -text
+*.parquet -text
+
+# Exclude caches and temp files
+__pycache__/ -text
+*.pyc -text
+*.pyo -text
+.venv/ -text
+venv/ -text
+build/ -text
+dist/ -text
+.egg-info/ -text
+.pytest_cache/ -text
+.DS_Store -text
+Thumbs.db -text
+
+# Exclude environment/secrets
+.env -text
+*.key -text
+*.pem -text
+secrets/ -text
+
+# Export configuration
+export-ignore __pycache__/
+export-ignore .pytest_cache/
+export-ignore build/
+export-ignore dist/
+export-ignore *.egg-info/

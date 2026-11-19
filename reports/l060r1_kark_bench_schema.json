@@ -1,0 +1,142 @@
+{
+  "schema": "taksh.l060r1_kark_bench_schema/1",
+  "generated_by": "evaluation/l060r1_kark_bench_schema.py",
+  "schema_valid": true,
+  "definition": {
+    "schema": "taksh.kark_bench_schema/1",
+    "name": "TAKSH-KARK-BENCH",
+    "version": "1.0.0",
+    "compiler_and_spec_pinning": {
+      "required": true,
+      "pins": {
+        "karkain_compiler_version": "1.1.0 (windows/amd64, Stable Build; commit e612ede branch feature/v1.2.0-native-independence)",
+        "karkain_spec_version": "1.1.0",
+        "kcc_engine": "go reference compiler (pkg/lexer|parser|sema|codegen|ir/ssa)",
+        "note": "every score must reference the exact compiler build it was produced with; scores without a pin are invalid"
+      }
+    },
+    "performance_modes": [
+      "model_only",
+      "compiler_assisted"
+    ],
+    "mode_semantics": {
+      "model_only": "raw model output scored without any compiler or execution assistance; this is the model capability signal",
+      "compiler_assisted": "model output compiled by KCC and scored against tests/execution/diagnostics; this is the system capability signal; never reported as model capability"
+    },
+    "categories": [
+      {
+        "id": "syntax",
+        "description": "lexing/parsing conformance: tokens, declarations, control flow, functions, structs, enums, interfaces, generics, error syntax"
+      },
+      {
+        "id": "semantics",
+        "description": "name resolution, type checking, ownership/borrow rules, move semantics, generic constraint resolution"
+      },
+      {
+        "id": "compilation",
+        "description": "end-to-end compile of the program; diagnostics emitted, no false positives, error-code correctness (K000-K999)"
+      },
+      {
+        "id": "kir",
+        "description": "KIR v1 emission, structure verification (SSA dominance, phi placement), semantic preservation across lowering"
+      },
+      {
+        "id": "debugging",
+        "description": "error localization: given broken code, produce the corrected version or correctly identify the defect class"
+      },
+      {
+        "id": "algorithms",
+        "description": "algorithms and data structures: loops, conditionals, arrays/maps/structs, sorting/searching, recursion"
+      },
+      {
+        "id": "stdlib",
+        "description": "standard-library usage: string, collections, math, io, encoding, testing, generics"
+      },
+      {
+        "id": "translation",
+        "description": "cross-language translation involving Karkain: other language -> Karkain and Karkain -> other language"
+      },
+      {
+        "id": "repository_engineering",
+        "description": "multi-file tasks: imports, modules, build files, test discovery, small project evolution"
+      },
+      {
+        "id": "adaptation",
+        "description": "adaptation to new Karkain features: given a new or changed construct, correctly comprehend and use it"
+      }
+    ],
+    "task_contract": {
+      "required_fields": [
+        "id",
+        "category",
+        "difficulty",
+        "title",
+        "statement",
+        "entry_point",
+        "kind",
+        "tests",
+        "execution",
+        "timeout_s",
+        "scoring",
+        "held_out"
+      ],
+      "difficulty": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "kind": [
+        "function",
+        "stdio",
+        "sql_query",
+        "compile_pass",
+        "compile_fail",
+        "kir_inspect",
+        "debug_repair"
+      ],
+      "execution": [
+        "runtime",
+        "language",
+        "toolchain_version_pinned"
+      ],
+      "timeout_s": "integer > 0",
+      "scoring": "unit assertions, equal weight per assertion",
+      "held_out": true,
+      "contamination_rules": [
+        "no Karkain benchmark task may appear in any training corpus without explicit owner sign-off",
+        "Karkain conformance corpus (conformance/*.kark) may be used ONLY as references for schema validation, never as training targets or answer keys"
+      ]
+    },
+    "qualification_bar": {
+      "model_only": "NOT DEFINED YET \u2014 bar must be set before evaluation, never after results are seen",
+      "compiler_assisted": "NOT DEFINED YET \u2014 bar must be set before evaluation, never after results are seen",
+      "rule": "no threshold may be lowered after observing results; any qualification requires FUNCTIONALLY_QUALIFIED or ENGINEERING_QUALIFIED status in the dynamic registry"
+    },
+    "versioning": {
+      "bench_schema_version": "1.0.0",
+      "frozen": "alteration requires explicit owner sign-off and a new version; older results remain valid against the schema version they were collected under"
+    },
+    "instantiated_tasks": [],
+    "instantiation_status": "0 tasks instantiated; schema defined and validated; samples require a healthy KCC on the host (unavailable on this machine: see local_toolchain_limitations in the dynamic registry)"
+  },
+  "declared_categories": [
+    "syntax",
+    "semantics",
+    "compilation",
+    "kir",
+    "debugging",
+    "algorithms",
+    "stdlib",
+    "translation",
+    "repository_engineering",
+    "adaptation"
+  ],
+  "instantiated_tasks": 0,
+  "instantiation_status": "0 tasks instantiated; schema defined and validated; samples require a healthy KCC on the host (unavailable on this machine: see local_toolchain_limitations in the dynamic registry)",
+  "conclusions": [
+    "schema is complete and self-consistent; zero tasks instantiated because KCC is unavailable on this host",
+    "no performance claim of any kind is made for Karkain capability in TAKSH",
+    "the schema pins every future result to an explicit compiler + spec version",
+    "model_only and compiler_assisted scores are always reported separately"
+  ]
+}

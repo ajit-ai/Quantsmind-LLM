@@ -1,0 +1,58 @@
+# TAKSH L0.8.0-PRE — preflight configuration (read-only, non-executing)
+#
+# Registers every preparation expectation, measured or inherited, without
+# executing any training. Preparation QUALIFIED ≠ training AUTHORIZED.
+# If any value is missing or unverified, the verdict fails closed.
+schema: taksh.preflight_config/1
+id: taksh-l080pre-preflight-v1
+version: 1
+created: "2026-11-11"
+owner_authorization_reference: "TAKSH-OWNER-DECISION-2026-11-11"
+authorization_scope: "PREPARATION ONLY — no training is authorized"
+
+canonical_model:
+  config_id: taksh-foundation-111m
+  config_path: configs/foundation/l060_foundation.yaml
+  vocab_size: 5822
+  d_model: 768
+  n_layers: 12
+  n_heads: 12
+  n_kv_heads: 6
+  ffn_dim: 3072
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-05
+  tie_embeddings: true
+  architecture: "Llama-style decoder-only (GQA + SwiGLU + RMSNorm)"
+  parameter_count: 110658816
+  fingerprint_method: "sha256 of canonical JSON of the model config block"
+
+tokenizer:
+  id: taksh_code_bpe_v1
+  version: "1"
+  committed_blob_sha256: "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7"
+  working_tree_sha256: "554c8e7572d58923a0766f114b5f419b14e68bdff3a738803b30728ec3ffcd92"
+  hash_method_note: "committed Git blob (LF) is canonical; working-tree CRLF differs — reported separately, never conflated"
+  vocab_size: 5822
+
+corpus:
+  snapshot_id: l072-l04-fdb1fee2beaae9c2
+  snapshot_path: artifacts/l072_l04_freeze/snapshot.json
+  freeze_verdict: FROZEN_RESEARCH_ONLY
+  derived_samples: 1052
+  eligible_samples: 1050
+  eligible_tokens: 1380611
+  source: "data/l04_code_corpus (authorized internal research corpus; APPROVED_WITH_CONDITIONS)"
+  language: python
+  eligibility_boundary: "technical ≠ legal ≠ training; training-eligible ZERO"
+
+benchmarks_frozen:
+  python: { path: evaluation/l02_python_bench_v1.json, sha256: "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6" }
+  multilingual: { path: evaluation/l051_multilingual_benchmark_v1.json, sha256: "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e" }
+
+authorization_invariants:
+  - "A1.1-C authorizes preparation only; it is never a training authorization"
+  - "A2-E means no compute authorization exists; no environment may be used or provisioned"
+  - "no checkpoint is to be created or substituted; v180_sft is never the canonical checkpoint"
+  - "frozen benchmarks are immutable; contamination checks are mandatory"
+  - "PREPARATION_QUALIFIED does not imply TRAINING_GO; verdict axes are independent"

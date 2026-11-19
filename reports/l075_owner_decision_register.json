@@ -1,0 +1,87 @@
+{
+  "schema": "taksh.l075_owner_decision_register/1",
+  "generated_by": "evaluation/l075_decision_register.py",
+  "valid": true,
+  "problems": [],
+  "entries": [
+    {
+      "id": "A1.1-training-authorization",
+      "status": "MISSING",
+      "question": "Is any foundation-model training authorized now, for any scope, by this register?",
+      "owner_action": "OWNER must issue written training authorization (snapshot, scope, model, environment, budget, distribution, expiry) BEFORE any L0.8.0 work"
+    },
+    {
+      "id": "A1.2-internal-research-permission",
+      "status": "CONDITIONAL",
+      "question": "Is internal research pretraining on the L0.4 corpus evidenced?",
+      "owner_action": "owner may restate/renew this permission explicitly, or issue a fresh authorization; until then the residual permission is legacy and applies only to L0.4-class internal research runs \u2014 L0.7.5 grants nothing new"
+    },
+    {
+      "id": "A2-compute-authorization",
+      "status": "MISSING",
+      "question": "Is an authorized, affordable compute environment available for canonical-111M training?",
+      "owner_action": "owner must supply (or authorize) a qualified environment: single GPU \u2265 16 GiB VRAM (estimate), \u2265 16 GiB RAM, \u2265 80 GiB disk, current CUDA toolchain; and must authorize corpus residency policy"
+    },
+    {
+      "id": "A3.1-internal-research-dataset-permission",
+      "status": "CONDITIONAL",
+      "question": "May the internal L0.4 Python corpus be used for pretraining under the L0.4 license terms?",
+      "owner_action": "owner must reaffirm or narrow the L0.4 permission for any new run"
+    },
+    {
+      "id": "A3.2-external-dataset-legal-review",
+      "status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "question": "May TAKSH acquire BigCode Stack v1/v2, CodeSearchNet, or PyPI aggregates?",
+      "owner_action": "owner engages counsel; counsel decisions recorded in new milestone before any acquisition"
+    },
+    {
+      "id": "A3.3-commercial-checkpoint-distribution",
+      "status": "NOT_AUTHORIZED",
+      "question": "May any resulting checkpoint be distributed commercially or publicly?",
+      "owner_action": "requires written counsel opinion AND owner decision before any external distribution; currently forbidden"
+    },
+    {
+      "id": "A3.4-external-publication-permission",
+      "status": "NOT_AUTHORIZED",
+      "question": "May any model artifact be published (PyPI / Hugging Face / docs)?",
+      "owner_action": "explicit owner decision per artifact; none granted; publication of taksh-foundation-111m blocked"
+    },
+    {
+      "id": "A4-ci-authorization",
+      "status": "OWNER_ACTION_REQUIRED",
+      "question": "Can genuine GitHub Actions execute on this branch now?",
+      "owner_action": "owner must authorize the default-branch change or invoke the workflow dispatch once present"
+    },
+    {
+      "id": "A5-language-scope",
+      "status": "GRANTED",
+      "question": "Is the full original catalogue in scope?",
+      "owner_action": "none \u2014 preservation is the mandate; owner may sponsor expansion later"
+    }
+  ],
+  "decision_summary": {
+    "granted": [
+      "A5-language-scope"
+    ],
+    "conditional": [
+      "A1.2-internal-research-permission",
+      "A3.1-internal-research-dataset-permission"
+    ],
+    "missing": [
+      "A1.1-training-authorization",
+      "A2-compute-authorization"
+    ],
+    "human_legal_review_required": [
+      "A3.2-external-dataset-legal-review"
+    ],
+    "not_authorized": [
+      "A3.3-commercial-checkpoint-distribution",
+      "A3.4-external-publication-permission"
+    ],
+    "owner_action_required": [
+      "A4-ci-authorization"
+    ],
+    "conformance": "Every entry states evidence and required owner action. No entry was created or altered by the coding agent; no approval is implied."
+  },
+  "verdict": "REGISTER VALID \u2014 zero authorizations fabricated; all pending decisions explicit"
+}

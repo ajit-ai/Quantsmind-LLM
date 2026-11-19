@@ -535,7 +535,7 @@ def test_verified_checkpoint_loads_and_is_discoverable():
     body = TestClient(app).get("/v1/models").json()
     entry = body["data"][0]
     assert entry["id"] == "qm-code-tiny"
-    assert entry["quantsmind"]["context_window"] == 512
+    assert entry["quantsmind"]["context_window"] == 2048
     assert entry["quantsmind"]["vocab_size"] == 5822
     assert entry["quantsmind"]["n_params_non_embedding"] == 495_808
     assert entry["created"] > 0

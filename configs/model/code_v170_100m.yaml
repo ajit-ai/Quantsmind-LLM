@@ -1,0 +1,25 @@
+# Taksh v1.7.0 — Scale-Up: 100M parameter model
+#
+# CPU-friendly demonstration scale. Same Llama-family architecture
+# (RMSNorm, RoPE, GQA, SwiGLU) scaled up from v1.6.0's 15M model.
+#
+# Parameter estimate: ~100M non-embedding (+ tied embedding/head)
+#   d_model=512, n_layers=16, n_heads=8, n_kv_heads=4, ffn_dim=2048
+#
+# Context: 4K tokens. Vocab: 5822 (cleared tokenizer from v1.5.0).
+#
+# Objective: next-token prediction on scaled cleared corpus.
+# Target: validate pipeline at 100M scale before committing to 1B+ GPU training.
+
+model:
+  name: qm-code-v170-100m
+  vocab_size: 5822
+  d_model: 512
+  n_layers: 16
+  n_heads: 8
+  n_kv_heads: 4
+  ffn_dim: 2048
+  max_seq_len: 4096
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

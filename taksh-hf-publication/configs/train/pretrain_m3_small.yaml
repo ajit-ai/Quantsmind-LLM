@@ -1,0 +1,100 @@
+# M3 base-model pretraining: host-sized configuration, from random init.
+#
+# THIS IS THE CONFIG ACTUALLY RUN FOR THE M3 DEMONSTRATION.
+#
+# Why not configs/train/pretrain_m3.yaml (the 9.36M-parameter model)? Preflight
+# measured both against this host and it is a contention question, not a fixed
+# fact:
+#
+#   code_m3_9m   peak RSS 216 MiB measured; runs when the machine has room
+#   code_m3_3m   peak RSS  46 MiB measured; fits even under heavy load
+#
+# During the M3 run this machine had ~100 MiB available while an unrelated
+# 1.8 GB process held memory, so the 9.36M configuration exceeded available RAM
+# and the documented smaller fallback was used. See reports/M3_TRAINING_REPORT.rst.
+#
+# What changed vs code_m3_9m.yaml:
+#   n_layers 8 -> 5, d_model 256 -> 160, n_heads 8 -> 4,
+#   n_kv_heads 4 -> 2, ffn_dim 1024 -> 640
+#
+# The vocabulary (5822) and context length (512) are unchanged: both are
+# correctness contracts with the tokenizer and the evaluation window, not tuning
+# knobs.
+#
+# Verify feasibility first:
+#   python -m training.preflight --config configs/train/pretrain_m3_small.yaml \
+#       --probe-steps 3
+#
+# DATA PROVENANCE
+# ---------------
+# Licence-gated dataset built by `python -m data.prepare_m3_dataset`:
+#
+#   withheld: psf-black, pypa-setuptools (162 records, 37% of the M2 corpus)
+#   train   : 193 records / 5 repos -> 1,165,217 tokens
+#   val     :  63 records / 1 repo  ->   340,077 tokens
+#   holdout : test split NOT emitted (unresolved licence; kept unspent)
+#
+# Train and val share no repository and no content hash. Validation tokens come
+# from a separate artifact and are only read under torch.no_grad().
+#
+# Rebuild the data:
+#   python -m data.prepare_m3_dataset --out-prefix data/m3_code_verified
+run:
+  name: qm-code-m3-base
+  model_config: configs/model/code_m3_3m.yaml
+  seed: 42
+
+data:
+  tokens_path: data/m3_code_verified.train.tokens.bin
+  val_tokens_path: data/m3_code_verified.val.tokens.bin
+  tokenizer: tokenizer/qm_code_bpe_v0.json
+  dataset_manifest: data/m3_code_verified.manifest.json
+  seq_len: 512
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  lr_schedule: cosine
+  warmup_steps: 20
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: float32            # CPU-only host
+  device: auto              # auto | cpu | cuda | mps
+
+batch:
+  micro_batch_size: 1
+  grad_accum_steps: 8       # 1 x 512 x 8 = 4096 tokens/step
+
+training:
+  # 400 steps x 4096 = 1,638,400 tokens ~= 1.4 epochs over the 1.17M token
+  # train split. Sized to demonstrate a real run in minutes on CPU, not to
+  # reach convergence. Loss is expected to fall below the uniform-random
+  # baseline of ln(5822) = 8.67; useful code generation is NOT an expected
+  # outcome and is not claimed.
+  #
+  # Pre-registered completion criteria (fixed before the run, so the result
+  # cannot be rationalised afterwards):
+  #   - all 400 steps complete with finite loss
+  #   - final train loss < 3.0 (clearly better than uniform random at 8.67)
+  #   - validation loss finite and <= final train loss + 2.0
+  #   - checkpoint saves, verifies, reloads in a fresh process, and generates
+  max_steps: 400
+  checkpoint_every_steps: 100
+  log_every_steps: 20
+  eval_every_steps: 100
+  val_batches: 8            # fixed seed -> every validation sees the same windows
+  val_seed: 1234
+  keep_checkpoints: 2
+
+watchdog:
+  nan_check_every_steps: 10
+
+logging:
+  tracker: none
+  write_run_manifest: true
+  run_manifest_path: runs/m3_base/run_manifest.json

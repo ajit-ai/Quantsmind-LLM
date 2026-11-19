@@ -13,7 +13,7 @@ __all__ = ["analyse"]
 
 _BUILTINS = frozenset(
     {"len", "max", "min", "sum", "abs", "sorted", "range", "list", "dict",
-     "set", "tuple", "str", "int", "float", "bool"}
+     "set", "tuple", "str", "int", "float", "bool", "enumerate"}
 )
 
 

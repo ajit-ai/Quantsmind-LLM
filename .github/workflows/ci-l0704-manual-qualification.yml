@@ -1,16 +1,22 @@
 name: CI (manual qualification)
 
-# Manual qualification path for the develop branch. Does NOT replace, alter or
-# bypass the production `CI` workflow. Read-only: no releases, no publication,
-# and — critically — no training. Every training-dependent check of `CI` is
-# intentionally absent here; this path never creates weights or checkpoints.
+# Manual qualification path consolidating both lineages:
+#   - L0.7.4 foundation qualification chain (DLCAE -> L1.0.0-ENG3);
+#   - recovery/CI lineage (CI recovery fixes from origin/main PR #2 and #3).
+# Does NOT replace, alter or bypass the production `CI` workflow. Runs
+# read-only: no releases, no publication, and — critically — no training.
+# Every training-dependent check of `CI` is intentionally absent here;
+# this path never creates weights or checkpoints.
 #
 # Triggerable only from the default branch (GitHub policy):
-#   gh workflow run "CI (manual qualification)" --ref develop --repo ajit-ai/Quantsmind-LLM
+#   gh workflow run "CI (manual qualification)" --ref <ref> --repo ajit-ai/Quantsmind-LLM
 # It is dispatch-only, least-privilege, and never runs on push or PR.
 #
-# Its suite is limited to tests that exist on develop. When future milestones
-# land, extend the focused chain in the milestone's own recovery.
+# Test selection unions the two lineages; the three tests requiring untracked
+# local runs/ artifacts are deselected on a bare checkout:
+#   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
+#   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
+#   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
 
 on:
   workflow_dispatch:
@@ -18,7 +24,7 @@ on:
       ref:
         description: 'Git ref to qualify (branch, tag or SHA)'
         required: false
-        default: 'develop'
+        default: 'main'
         type: string
 
 permissions:
@@ -50,7 +56,28 @@ jobs:
       - name: Version consistency
         run: python scripts/check_version_consistency.py
 
-      - name: Focused CI + historical-failure chain
+      - name: Focused qualification chain (L0.6.0 -> L1.0.0-ENG3)
+        run: |
+          python -m pytest \
+            tests/test_l060_foundation.py \
+            tests/test_l060r1_architecture_alignment.py \
+            tests/test_m6_resources.py \
+            tests/test_l0601_pipeline.py \
+            tests/test_l062_inference.py \
+            tests/test_l070_data_readiness.py \
+            tests/test_l071_corpus.py \
+            tests/test_l072_freeze.py \
+            tests/test_l073_readiness.py \
+            tests/test_l074_readiness.py \
+            tests/test_l075_readiness.py \
+            tests/test_l076_roadmap.py \
+            tests/test_l080pre_preflight.py \
+            tests/test_l100eng_dlcae_runtime.py \
+            tests/test_l100eng2_semantic_validation.py \
+            tests/test_l100eng3_end_to_end.py \
+            -q
+
+      - name: Focused CI + historical-failure chain (recovery)
         run: |
           python -m pytest \
             tests/test_ci_workflows.py \
@@ -63,24 +90,24 @@ jobs:
             tests/test_v180_corpus_qualification.py::test_sampled_decoding_is_reproducible_with_a_seed \
             -q
 
-      # Tests requiring untracked local runs/ artifacts (not in a bare checkout):
-      #   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
-      #   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
-      #   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
-      # On develop these remain absent (develop has no L0.x milestone suites);
-      # the full suite here runs everything that exists.
-      - name: Full test suite
-        run: python -m pytest tests -q
+      - name: Full test suite minus untracked-artifact tests
+        run: |
+          python -m pytest tests -q \
+            --deselect tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility \
+            --deselect tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism \
+            --deselect tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
+
+      - name: Training readiness gate (informational; fail-closed)
+        run: python -m evaluation.l073_readiness --out "$RUNNER_TEMP/l073.json" && cat "$RUNNER_TEMP/l073.json" | python -c "import json,sys; print('verdict:', json.load(sys.stdin)['verdict'])"
 
       - name: Frozen benchmark hashes (fail closed when artifacts absent)
         run: |
           python - <<'EOF'
-          import hashlib, sys
+          import hashlib, sys, os
           expected = {
               "evaluation/l02_python_bench_v1.json": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
               "evaluation/l051_multilingual_benchmark_v1.json": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
           }
-          import os
           missing = [p for p in expected if not os.path.isfile(p)]
           if missing:
               print(f"BLOCKED: frozen benchmark artifact(s) absent on this branch: {missing}")

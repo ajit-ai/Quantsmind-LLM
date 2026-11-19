@@ -1,0 +1,43 @@
+{
+  "schema": "taksh.l0601_resource_preflight/1",
+  "generated_by": "evaluation/l0601_resource_preflight.py",
+  "inputs": {
+    "device": "cpu",
+    "micro_batch_size": 4,
+    "context_length": 512,
+    "max_training_steps": 300
+  },
+  "preflight": {
+    "device": "cpu",
+    "micro_batch_size": 4,
+    "context_length": 512,
+    "max_training_steps": 300,
+    "memory": {
+      "total_bytes": 4199780352,
+      "available_bytes": 532606976,
+      "percent_used": 87.3,
+      "process_rss_bytes": 23089152,
+      "tool": "psutil"
+    },
+    "estimated_working_set_bytes": 1770541056,
+    "estimated_working_set_note": "fp32 weights + grads + Adam m,v (~16 bytes/param); NOT a performance claim",
+    "fits_available_memory": false,
+    "problems": [
+      "estimated working set 1.65 GiB exceeds currently available 0.50 GiB"
+    ],
+    "authorized": false,
+    "note": "resource preflight is a guard, not a performance measurement"
+  },
+  "cpu_threads_clamped_to": 4,
+  "resource_guard_defaults": {
+    "max_training_steps": 300,
+    "max_micro_batch_size": 16,
+    "max_context_length": 2048,
+    "max_checkpoint_size_bytes": 536870912,
+    "max_cpu_threads": 4,
+    "device": "cpu"
+  },
+  "network": "disabled by absence of any network-capable invocation path in this tool",
+  "gpu": "not present, not allocated, not queried",
+  "verdict": "PREFLIGHT COMPLETE (this is a guard report, not a training authorization)"
+}

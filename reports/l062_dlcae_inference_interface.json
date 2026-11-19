@@ -1,0 +1,77 @@
+{
+  "schema": "taksh.l062_dlcae_inference_interface/1",
+  "generated_by": "evaluation/l062_dlcae_inference_interface.py",
+  "interfaces": [
+    "identify_language",
+    "registry_lookup",
+    "comprehension_state_lookup",
+    "retrieve_knowledge",
+    "build_prompt",
+    "record_inference_feedback",
+    "propose_registry_update"
+  ],
+  "probe": {
+    "identify": {
+      "language_id": "karkain",
+      "source": "filename_extension",
+      "registered": true,
+      "confidence": 0.9
+    },
+    "registry": {
+      "language_id": "karkain",
+      "registered": true,
+      "class": "language",
+      "status": "DISCOVERED",
+      "canonical_name": "Karkain",
+      "benchmark_status": null,
+      "dataset_status": null,
+      "execution_available_here": null,
+      "note": "registration never implies capability"
+    },
+    "comprehension": {
+      "language_id": "karkain",
+      "registered": true,
+      "class": "language",
+      "status": "DISCOVERED",
+      "canonical_name": "Karkain",
+      "benchmark_status": null,
+      "dataset_status": null,
+      "execution_available_here": null,
+      "note": "registration never implies capability",
+      "comprehension_state": "NOT_STARTED"
+    },
+    "knowledge": {
+      "language_id": "karkain",
+      "query": "example: write a struct",
+      "source_status": "NO_KNOWLEDGE_BASE",
+      "items": [],
+      "note": "empty means no vetted knowledge exists; never fabricated"
+    },
+    "feedback": {
+      "schema": "taksh.inference_feedback/1",
+      "task_id": "l062-probe",
+      "language_id": "karkain",
+      "mode": "model_only",
+      "finish_reason": "length",
+      "completion_tokens": 4,
+      "measured": true,
+      "scored_by": "frozen evaluation harness only",
+      "capability_verdict": null
+    },
+    "proposal": {
+      "schema": "taksh.registry_update_proposal/1",
+      "language_id": "karkain",
+      "current_status": "DISCOVERED",
+      "proposed_status": "COMPREHENSION_IN_PROGRESS",
+      "state": "PENDING_OWNER_REVIEW",
+      "written": false,
+      "note": "proposal only; the registry is never mutated by inference code"
+    }
+  },
+  "invariants": [
+    "inference output never changes registry status",
+    "registration never implies capability",
+    "proposals remain PENDING_OWNER_REVIEW until the owner writes the registry"
+  ],
+  "verdict": "DLCAE-INFERENCE INTERFACES QUALIFIED (interfaces only; no capability upgrades)"
+}

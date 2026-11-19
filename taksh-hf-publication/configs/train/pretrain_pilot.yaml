@@ -1,0 +1,57 @@
+# Pre-training stage config — pilot run (Phase 1)
+run:
+  name: pretrain-pilot-300m-v0
+  model_config: configs/model/pilot_300m.yaml
+  seed: 42
+
+data:
+  # Resolves to data/corpus_v0.tokens.bin (the '-' is normalised to '_').
+  # The previous tag was `corpus-v0-general`, which resolved to
+  # data/corpus_v0_general.tokens.bin -- a file no supported pipeline has ever
+  # produced, so the config could not run.
+  #
+  # Regenerate reproducibly from the approved input with:
+  #   python -m data.encode_dataset \
+  #     --corpus data/corpus_v0.txt \
+  #     --tokenizer tokenizer/qm_bpe_v0.json \
+  #     --out data/corpus_v0.tokens.bin
+  #
+  # The shipped artifact records vocab_size 49152, which matches this model's
+  # vocab_size, and its source data/corpus_v0.txt is present.
+  dataset_tag: corpus-v0
+  seq_len: 2048
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3          # confirm via scaling-law probe before real run
+  lr_schedule: cosine       # warmup then cosine to 10% of peak
+  warmup_steps: 2000
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16           # autocast; fp32 master weights
+  # NOTE: grad_accum_steps is read from `batch`, not from here. The previous
+  # `grad_accum_steps: auto` under `precision` was never read by any code path.
+
+batch:
+  micro_batch_size: 1
+  grad_accum_steps: 8       # ~16k tokens/step at seq_len 2048
+
+training:
+  # B4: `max_steps` is what the loop reads. The old config defined only
+  # `max_tokens`, so training.pretrain raised KeyError on 'max_steps'.
+  max_steps: 750000         # 750k * 16k tokens ~= 12B token budget
+  max_tokens: 1.2e10        # budget note only; NOT read by the training loop
+  checkpoint_every_steps: 1000
+  log_every_steps: 10
+
+watchdog:
+  nan_check_every_steps: 100
+
+logging:
+  tracker: wandb            # enabled only when QM_WANDB=1
+  project: quantsmind-llm

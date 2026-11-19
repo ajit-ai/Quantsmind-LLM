@@ -69,7 +69,7 @@ def _chat(client, **overrides):
 def test_load_state_populates_real_model(real_client):
     assert openai_server.state.model is not None
     assert openai_server.state.model_id == "qm-code-tiny"
-    assert openai_server.state.model_cfg["max_seq_len"] == 512
+    assert openai_server.state.model_cfg["max_seq_len"] == 2048
     assert openai_server.state.model_cfg["vocab_size"] == 5822
     assert openai_server.state.model.num_params() == 495_808
     assert openai_server.state.checkpoint_step == 200
@@ -133,7 +133,7 @@ def test_real_models_endpoint_reports_loaded_model(real_client):
     entry = body["data"][0]
     assert entry["id"] == "qm-code-tiny"
     assert entry["object"] == "model"
-    assert entry["quantsmind"]["context_window"] == 512
+    assert entry["quantsmind"]["context_window"] == 2048
     assert entry["quantsmind"]["vocab_size"] == 5822
     assert entry["quantsmind"]["n_params_non_embedding"] == 495_808
 
@@ -233,7 +233,7 @@ def test_context_limit_enforced_against_real_window(real_client):
     assert r.status_code == 400
     err = r.json()["error"]
     assert err["code"] == "context_length_exceeded"
-    assert "512" in err["message"]
+    assert "2048" in err["message"]
 
 
 def test_errors_do_not_leak_checkpoint_path(real_client):

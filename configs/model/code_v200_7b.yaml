@@ -1,0 +1,25 @@
+# Taksh v2.0.0 — Product Release: 7B Parameter Model
+#
+# Production-scale coding LLM. Requires GPU cluster for training.
+# CPU training is impractical (~months of wall time).
+#
+# Parameter estimate: ~7B non-embedding parameters
+#   d_model=4096, n_layers=32, n_heads=32, n_kv_heads=8, ffn_dim=11008
+#
+# Context: 32K tokens. Vocabulary: 32,768 (BPE, code-optimized).
+#
+# Target capability: Competitive with CodeLlama-7B / DeepSeek-Coder-7B tier
+# on HumanEval/MBPP. Requires 5B–50B pretraining tokens + SFT + alignment.
+
+model:
+  name: qm-code-v200-7b
+  vocab_size: 32768
+  d_model: 4096
+  n_layers: 32
+  n_heads: 32
+  n_kv_heads: 8
+  ffn_dim: 11008
+  max_seq_len: 32768
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

@@ -1,0 +1,15 @@
+{
+  "schema": "quantsmind.token_stream/1",
+  "vocab_size": 5822,
+  "num_tokens": 56461,
+  "num_documents": 0,
+  "dtype": "uint16",
+  "corpus": "data/v180_corpus/taksh_code_v1.txt",
+  "tokenizer": "tokenizer/taksh_code_bpe_v1.json",
+  "tokenizer_sha256": "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7",
+  "generated_at": "2026-11-07T12:22:46+00:00",
+  "split": "val",
+  "document_separator": "<eos>",
+  "document_separator_id": 2,
+  "max_seq_len": 1024
+}

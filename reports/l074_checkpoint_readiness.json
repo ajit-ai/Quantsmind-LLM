@@ -1,0 +1,44 @@
+{
+  "schema": "taksh.l074_checkpoint_readiness/1",
+  "generated_by": "evaluation/l074_checkpoint_readiness.py",
+  "spec_valid": true,
+  "problems": [],
+  "candidates": {
+    "canonical_111m_artifact": {
+      "accepted": false,
+      "reason": "missing artifact",
+      "classification": "MISSING_ARTIFACT"
+    },
+    "v180_sft_rejected": {
+      "accepted": false,
+      "reason": "d_model: resolved=384 != canonical=768; n_heads: resolved=8 != canonical=12; n_kv_heads: resolved=4 != canonical=6; ffn_dim: resolved=1536 != canonical=3072",
+      "classification": "GEOMETRY_INCOMPATIBLE",
+      "resolved_config": {
+        "name": "qm-code-v160-15m",
+        "vocab_size": 5822,
+        "d_model": 384,
+        "n_layers": 12,
+        "n_heads": 8,
+        "n_kv_heads": 4,
+        "ffn_dim": 1536,
+        "max_seq_len": 2048,
+        "rope_theta": 10000.0,
+        "norm_eps": 1e-05,
+        "tie_embeddings": true
+      }
+    },
+    "synthetic_fixture_rejected": {
+      "accepted": false,
+      "reason": "synthetic fixture is never a production candidate; it is labeled synthetic in schema/name",
+      "classification": "SYNTHETIC_REJECTED"
+    }
+  },
+  "lifecycle": {
+    "atomic_write": "enforced by L0.6.1 training/checkpoint_lifecycle.py (mkstemp+fsync+os.replace)",
+    "interrupted_write_detection": "enforced (stale .tmp_partial rejection)",
+    "tamper_rejection": "enforced (fingerprint mismatch rejects)",
+    "resume_validation": "enforced (schema+tokenizer+config fingerprints)",
+    "existing_checkpoints_untouched": true
+  },
+  "verdict": "CANONICAL CHECKPOINT REQUIREMENTS QUALIFIED \u2014 no artifact exists; nothing is authorized; nothing fabricated"
+}

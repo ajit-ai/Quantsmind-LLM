@@ -1,0 +1,100 @@
+{
+  "schema": "taksh.l071_training_manifest_check/1",
+  "generated_by": "evaluation/l071_manifest_adapter.py",
+  "manifest_valid": true,
+  "problems": [],
+  "summary": {
+    "train_tokens": 1468951,
+    "val_tokens": 57604,
+    "test_tokens": 61346,
+    "train_samples": 344,
+    "val_samples": 17,
+    "test_samples": 16,
+    "excluded_samples": 1,
+    "synthetic_records_present": 4,
+    "synthetic_in_manifest": 0
+  },
+  "manifest": {
+    "schema": "taksh.training_manifest/1",
+    "manifest_id": "taksh-l071-python-l04-v1",
+    "version": 1,
+    "created": "2026-11-11",
+    "note": "derived from L0.7.1 snapshot; INTERNAL RESEARCH ONLY; no training is authorized by this artifact",
+    "entries": [
+      {
+        "id": "python_verified_l04_train",
+        "language_id": "python",
+        "class": "language",
+        "registry_status": "REGISTERED",
+        "dataset_id": "l04-code-corpus",
+        "source_version": "train.jsonl @ 2026-11-10 (dataset_manifest.json)",
+        "fingerprint_sha256": "a9cc9fc757f037a201aa6e723b9df6e0b1de12eaf245fca77c41e10287217f0f",
+        "tokenizer_id": "taksh_code_bpe_v1",
+        "tokenizer_version": "1",
+        "token_count": 1468951,
+        "sample_count": 344,
+        "quality_status": "verified",
+        "excluded": false,
+        "benchmark_contaminated": false,
+        "split": "train",
+        "acquisition_state": "internal_verified",
+        "license": "BSD-3-Clause / MIT / Apache-2.0 (per record)",
+        "provenance": {
+          "source": "data/l04_code_corpus",
+          "revision": "2026-11-10 (dataset_manifest.json)",
+          "license_note": "per-slice verified; 4 benchmark-leakage slices quarantined upstream; L0.7.1 re-screen CLEAN"
+        }
+      },
+      {
+        "id": "python_verified_l04_val",
+        "language_id": "python",
+        "class": "language",
+        "registry_status": "REGISTERED",
+        "dataset_id": "l04-code-corpus",
+        "source_version": "train.jsonl @ 2026-11-10 (dataset_manifest.json)",
+        "fingerprint_sha256": "86806d99fdb00a3fbb9b61416786916f2fb83e7bc923e8a8fbef341e4a86aac3",
+        "tokenizer_id": "taksh_code_bpe_v1",
+        "tokenizer_version": "1",
+        "token_count": 57604,
+        "sample_count": 17,
+        "quality_status": "verified",
+        "excluded": false,
+        "benchmark_contaminated": false,
+        "split": "val",
+        "acquisition_state": "internal_verified",
+        "license": "BSD-3-Clause / MIT / Apache-2.0 (per record)",
+        "provenance": {
+          "source": "data/l04_code_corpus",
+          "revision": "2026-11-10 (dataset_manifest.json)",
+          "license_note": "per-slice verified; 4 benchmark-leakage slices quarantined upstream; L0.7.1 re-screen CLEAN"
+        }
+      },
+      {
+        "id": "python_verified_l04_test",
+        "language_id": "python",
+        "class": "language",
+        "registry_status": "REGISTERED",
+        "dataset_id": "l04-code-corpus",
+        "source_version": "train.jsonl @ 2026-11-10 (dataset_manifest.json)",
+        "fingerprint_sha256": "cdb55814cecad8ef4cc61cbccab95a9cc8f28538f51097117837a76b92850163",
+        "tokenizer_id": "taksh_code_bpe_v1",
+        "tokenizer_version": "1",
+        "token_count": 61346,
+        "sample_count": 16,
+        "quality_status": "verified",
+        "excluded": false,
+        "benchmark_contaminated": false,
+        "split": "test",
+        "acquisition_state": "internal_verified",
+        "license": "BSD-3-Clause / MIT / Apache-2.0 (per record)",
+        "provenance": {
+          "source": "data/l04_code_corpus",
+          "revision": "2026-11-10 (dataset_manifest.json)",
+          "license_note": "per-slice verified; 4 benchmark-leakage slices quarantined upstream; L0.7.1 re-screen CLEAN"
+        }
+      }
+    ]
+  },
+  "eligibility_note": "acquisition internal_verified (L0.7.0); training authorization still absent; manifest is a capability of the pipeline, not an authorization to train",
+  "verdict": "MANIFEST COMPATIBLE (fail-closed validation passed); nothing authorized for training"
+}

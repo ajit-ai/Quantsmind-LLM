@@ -1,0 +1,24 @@
+# Taksh v1.7.0 — Scale-Up: 3B parameter model
+#
+# Large production model. Requires substantial GPU cluster.
+#
+# Parameter estimate: ~3B non-embedding (+ tied embedding/head)
+#   d_model=2048, n_layers=32, n_heads=32, n_kv_heads=8, ffn_dim=8192
+#
+# Context: 32K tokens. Vocab: 5822.
+#
+# Target capability: approach Qwen/Deepseek-Coder tier on coding benchmarks.
+# Requires 5B+ pretraining tokens + large-scale SFT + alignment.
+
+model:
+  name: qm-code-v170-3b
+  vocab_size: 5822
+  d_model: 2048
+  n_layers: 32
+  n_heads: 32
+  n_kv_heads: 8
+  ffn_dim: 8192
+  max_seq_len: 32768
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

@@ -1,0 +1,45 @@
+{
+  "schema": "taksh.l0601_training_manifest/1",
+  "generated_by": "evaluation/l0601_training_manifest.py",
+  "valid": true,
+  "manifest_id": "taksh-local-research-only-v1",
+  "entries": 1,
+  "measured_total_tokens": 1590703,
+  "manifest_sha256": "0a7c45642295db7d2e37177686a6ee4e8eec689eca01c94157d89f6a8bad7c82",
+  "example_manifest": {
+    "schema": "taksh.training_manifest/1",
+    "manifest_id": "taksh-local-research-only-v1",
+    "version": 1,
+    "created": "2026-11-11",
+    "note": "example built exclusively from artifacts present in this repository; no external corpus acquired",
+    "entries": [
+      {
+        "id": "python_verified_l04",
+        "language_id": "python",
+        "class": "language",
+        "registry_status": "REGISTERED",
+        "dataset_id": "l04-code-corpus",
+        "source_version": "l04_code_corpus @ 2026-11-07 (measured)",
+        "fingerprint_sha256": "cf89b8bc803b7363d2643e337a561524644e4924318c90332399f1625dfa1d5f",
+        "tokenizer_id": "taksh_code_bpe_v1",
+        "tokenizer_version": "1",
+        "token_count": 1590703,
+        "sample_count": 384,
+        "quality_status": "verified",
+        "excluded": false,
+        "benchmark_contaminated": false,
+        "split": "train",
+        "acquisition_state": "internal_verified",
+        "license": "BSD-3-Clause / MIT / Apache-2.0 (per record)",
+        "provenance": {
+          "source": "data/l04_code_corpus (see PROVENANCE.md)",
+          "revision": "2026-11-07",
+          "license_note": "verified per-slice licenses; benchmark-leakage scan applied; 4 collisions quarantined and removed"
+        },
+        "notes": "only licensed+fingerprinted code slice in-repo; 50.0% code share (measured); Python only"
+      }
+    ]
+  },
+  "acquisition_policy": "candidates only; no external acquisition authorized; internal research use only",
+  "verdict": "MANIFEST SCHEMA + VALIDATOR QUALIFIED (no acquisition performed)"
+}

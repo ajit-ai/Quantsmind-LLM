@@ -1,0 +1,41 @@
+{
+  "schema": "taksh.l071_splits/1",
+  "generated_by": "evaluation/l071_splits.py",
+  "seed": "sha256(duplicate_group) seeded assignment \u2014 no RNG state",
+  "ratios": {
+    "train": 0.9,
+    "val": 0.05,
+    "test": 0.05
+  },
+  "assignments": 382,
+  "split_report": {
+    "counts": {
+      "train": 349,
+      "test": 16,
+      "val": 17
+    },
+    "tokens": {
+      "train": 1471441,
+      "test": 61346,
+      "val": 57604
+    },
+    "per_language": {
+      "train": {
+        "python": 346,
+        "karkain": 1,
+        "javascript": 1,
+        "c": 1
+      },
+      "test": {
+        "python": 16
+      },
+      "val": {
+        "python": 17
+      }
+    }
+  },
+  "duplicate_groups_spanning_splits": {},
+  "no_leakage": true,
+  "insufficient_data_languages": [],
+  "note": "synthetic fixtures are split but are never training-eligible"
+}

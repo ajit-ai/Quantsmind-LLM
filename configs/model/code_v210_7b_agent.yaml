@@ -1,0 +1,20 @@
+# Taksh v2.1.0 — Agentic Coding: 7B Parameter Agent Model
+#
+# Fine-tuned from v2.0.0 7B base for autonomous coding agent tasks.
+# Requires GPU cluster for training.
+#
+# Same architecture as v2.0.0 7B but fine-tuned on agent trajectory data.
+# Includes tool use, planning, and multi-step reasoning capabilities.
+
+model:
+  name: qm-code-v210-7b-agent
+  vocab_size: 32768
+  d_model: 4096
+  n_layers: 32
+  n_heads: 32
+  n_kv_heads: 8
+  ffn_dim: 11008
+  max_seq_len: 32768
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

@@ -1,0 +1,178 @@
+{
+  "schema": "taksh.training_readiness_l074/1",
+  "generated_by": "evaluation/l074_readiness.py",
+  "dimensions": {
+    "corpus_snapshot_integrity": {
+      "status": "PASS",
+      "evidence": "snapshot_id=l072-l04-fdb1fee2beaae9c2; records_sha256 match=True; files=4",
+      "details": {
+        "snapshot_id": "l072-l04-fdb1fee2beaae9c2",
+        "frozen_verdict": "FROZEN_RESEARCH_ONLY"
+      }
+    },
+    "source_provenance": {
+      "status": "PASS",
+      "evidence": "provenance verdict VERIFIED (7/7 checks); source ACQUIRED via prior milestone authority"
+    },
+    "technical_sample_eligibility": {
+      "status": "PASS",
+      "evidence": "technically_eligible=1050; excluded=2; training_eligible=0 (0)",
+      "details": {
+        "technically_eligible": 1050,
+        "human_review_required": 0,
+        "training_eligibility_blocked": 0,
+        "excluded": 2,
+        "quarantined": 0,
+        "training_eligible": 0,
+        "verdict": "TRAINING_ELIGIBILITY_BLOCKED_OWNER_AUTHORIZATION (aggregate); corpus is research-qualified but never training-ready until the owner signs off"
+      }
+    },
+    "legal_training_permission": {
+      "status": "PARTIAL",
+      "evidence": "decision=APPROVED_WITH_CONDITIONS; note=internal SFT/pretraining on 1.59M Python tokens previously authorized; scope=internal research pretraining only; external/commercial checkpoint release requires fresh counsel review",
+      "details": {
+        "scope": "internal research only",
+        "external_release": "NOT authorized",
+        "overall_decision": "APPROVED_WITH_CONDITIONS"
+      }
+    },
+    "owner_training_authorization": {
+      "status": "MISSING",
+      "evidence": "no owner authorization record for any training run exists; L0.7.3 grants nothing; authorization must be issued out-of-band by the owner before any training milestone"
+    },
+    "language_coverage": {
+      "status": "PARTIAL",
+      "evidence": "languages with real corpus: ['python']; other 52 languages + karkain: zero; python tokens=1,380,611",
+      "details": {
+        "languages_with_real_data": [
+          "python"
+        ],
+        "languages_at_zero": 52,
+        "karkain": "DISCOVERED, zero corpus"
+      }
+    },
+    "tokenizer_model_compatibility": {
+      "status": "PASS",
+      "evidence": "tokenizer committed blob hash fbedf003774183c4\u2026 matches; foundation config sha256 matches; vocab 5822; tied embeddings; context 2048",
+      "details": {
+        "tokenizer_committed_sha256": "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7",
+        "foundation_config_sha256": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+        "canonical_architecture": "taksh-foundation-111m (12L/768d/12h/6KV/FFN 3072/RoPE 10000/RMSNorm, 110,658,816 params)"
+      }
+    },
+    "checkpoint_availability_and_identity": {
+      "status": "MISSING",
+      "evidence": "canonical taksh-foundation-111m has NO checkpoint anywhere in this repository; v180_sft/checkpoint_last.pt exists (sha256 prior-committed) but is a DIFFERENT ~28.8M-param architecture (d_model 384, 12L) and must not be substituted; no heuristic geometry upgrade or re-train is authorized",
+      "details": {
+        "foundation_111m_available": false,
+        "v180_sft_present": true,
+        "v180_sft_usable_for_foundation": false
+      }
+    },
+    "hardware_resource_feasibility": {
+      "status": "BLOCKED",
+      "evidence": "measured: total 4199780352 B (3.9 GiB), available 807706624 B (0.75 GiB), 80.8% used; free disk 170.4 GiB. Canonical 111M full training state estimate 1.65 GiB (16 B/param incl. Adam) exceeds the host; even fp32 weights alone (0.41 GiB) exceed this host's observed free memory under load. Measured values are point-in-time; estimates are upper bounds, not guarantees; no training is authorized regardless",
+      "details": {
+        "measured_total_bytes": 4199780352,
+        "measured_available_bytes": 807706624,
+        "measured_percent_used": 80.8,
+        "free_disk_bytes": 182920478720,
+        "estimated_training_state_bytes": 1770541056,
+        "estimated_weights_only_bytes": 442635264,
+        "measurement_tool": "psutil",
+        "labels": "measured memory; estimated requirement"
+      }
+    },
+    "benchmark_thresholds": {
+      "status": "PASS",
+      "evidence": "frozen Python benchmark intact (sha256 854c7ca8\u2026)=True; multilingual 64-task benchmark intact=True; thresholds, tasks and expected outputs unchanged; 0/30 remains the honest capability ceiling"
+    },
+    "ci_regression_status": {
+      "status": "PARTIAL",
+      "evidence": "7/7 inherited failures have evidence-backed dispositions in the L0.7.3 ledger (all RESOLVED); CI cannot execute on the feature branch (workflow triggers: develop/main push + PRs); focused local suites pass; full pytest suite not re-run this milestone; residual untracked-artifact risk documented in dependent files",
+      "details": {
+        "ledger": "configs/data/l073_regression_ledger.yaml",
+        "entries": 7,
+        "resolved": 7,
+        "pr63": "NOT_ACCESSIBLE (documented in ledger)"
+      }
+    },
+    "reproducibility_and_recovery": {
+      "status": "PASS",
+      "evidence": "atomic writes verified (mkstemp+fsync+os.replace); interruption leaves no partials (test); snapshot identity is content-derived (byte-reproducible rebuild); rebuild determinism verified across two runs (identical snapshot_id l072-l04-fdb1fee2beaae9c2); L0.6.1 resume/compatibility gates unchanged and CLOSED"
+    },
+    "focused_regression_qualification": {
+      "status": "PASS",
+      "evidence": "l073 ledger: 7/7 RESOLVED; files unmodified in L0.7.4; suites re-executed during this milestone where relevant"
+    },
+    "full_github_actions_ci_execution": {
+      "status": "BLOCKED",
+      "evidence": "GitHub Actions cannot execute on this branch: workflow triggers are push-to-develop/main and pull_requests to those branches only; the existing CI workflow has no workflow_dispatch; dispatch attempted and refused (HTTP 422). A CI-only dispatch path is prepared on this branch but GitHub requires the workflow to exist on the DEFAULT branch (main), which this milestone may not touch. Full CI execution on the feature branch is therefore NOT AVAILABLE without owner action: either owner pushes/merges the ci-l0704-manual-qualification.yml to the DEFAULT branch (main), or owner authorizes pushing CI workflow changes to the default branch, enabling a genuine run of the full suite on this branch's commit.",
+      "details": {
+        "workflow_list": "CI (active, id 340947744) \u2014 no workflow_dispatch",
+        "dispatch_probe": "gh workflow run CI --ref feature/l060-foundation-model-qualification -> HTTP 422 Workflow does not have 'workflow_dispatch' trigger",
+        "owner_action_required": "add the CI-only qualification workflow to the DEFAULT branch (main), or add 'workflow_dispatch' to the production CI workflow, or authorize a pull request"
+      }
+    },
+    "python_311_compatibility": {
+      "status": "CONDITIONAL",
+      "evidence": "static qualification complete; 479 files scanned at feature_version=(3,11); zero real-code syntax incompatibilities (only an intentionally-templated f-string module flagged, present on all versions); requires-python >=3.10 declared; every dependency supports cp311; CI matrix targets 3.11; runtime NOT EXECUTED \u2014 no interpreter installed on this host, no download authorized",
+      "details": {
+        "requires_python": ">=3.10",
+        "runtime_executed": false,
+        "reason": "python3.11 unavailable on host; no interpreter download authorized",
+        "syntax_scan": "0 incompatible files in real code (ast.parse feature_version=(3,11))",
+        "outcome": "CONDITIONAL \u2014 static only"
+      }
+    },
+    "canonical_checkpoint_readiness": {
+      "status": "BLOCKED",
+      "evidence": "readiness specification qualified (configs/foundation/l074_canonical_checkpoint_readiness.yaml: 111M architecture, artifact contract, identity checks, lifecycle) and enforced fail-closed by evaluation/l074_checkpoint_readiness.py; candidate evaluation: missing 111M artifact -> MISSING; v180_sft -> GEOMETRY_INCOMPATIBLE (d_model 384); synthetic fixture -> rejected; nothing fabricated"
+    },
+    "resource_strategy_availability": {
+      "status": "BLOCKED",
+      "evidence": "host measured 16:03Z: 8 CPUs, RAM total 4,199,780,352 B, available 207,020,032 B (95.1% used), swap 8.59 GB (6.38 free), disk free ~170 GiB, MX150 4 GiB present-but-unusable (driver CUDA 11.1, torch build is CPU-only); canonical-111M fp32+Adam \u2248 1.65 GiB (estimate) + activations + runtime exceeds host; bf16+Adafactor path still impractical (unmeasured, unverified, never viable here); minimum viable = GPU \u226516 GiB VRAM + 16 GiB RAM + 80 GB disk, owner-authorized; nothing provisioned"
+    },
+    "actual_training_authorization": {
+      "status": "MISSING",
+      "evidence": "no owner authorization for any training run exists; this milestone grants nothing; legal scope remains internal-research-pretraining only (L0.4 record); training-eligible tokens remain ZERO; frozen benchmark 0/30 stands"
+    }
+  },
+  "dimension_count": 18,
+  "blocking_dimensions": [
+    "actual_training_authorization",
+    "canonical_checkpoint_readiness",
+    "checkpoint_availability_and_identity",
+    "full_github_actions_ci_execution",
+    "hardware_resource_feasibility",
+    "owner_training_authorization",
+    "resource_strategy_availability"
+  ],
+  "verdict": "BLOCKED",
+  "training_eligible_tokens": 0,
+  "frozen_research_snapshot": "l072-l04-fdb1fee2beaae9c2 (FROZEN_RESEARCH_ONLY \u2014 preserved)",
+  "invariants": [
+    "no single green dimension overrides a failed prerequisite",
+    "no synthetic owner authorization exists or is creatable by tooling",
+    "synthetic fixtures never become training-eligible corpus",
+    "frozen python benchmark 854c7ca8\u2026 never changes",
+    "a focused passing suite is never reported as a full CI pass",
+    "a resource strategy document never implies compute availability",
+    "conditional internal research permission never implies owner authorization",
+    "technical eligibility never implies training eligibility"
+  ],
+  "summary": {
+    "research_corpus_frozen": true,
+    "technically_eligible_corpus": "1,050 samples / 1,380,611 tokens (TECHNICAL only)",
+    "legally_eligible_corpus": "CONDITIONAL \u2014 internal research pretraining only (L0.4 record); no external release right",
+    "owner_authorized_corpus": false,
+    "training_eligible_token_count": 0,
+    "resource_ready": false,
+    "training_execution_readiness": "NOT READY \u2014 owner authorization MISSING; canonical 111M artifact nonexistent; host cannot fit training state",
+    "ci_execution": "BLOCKED (workflow_dispatch absent; branch not a dispatch target; owner action required)",
+    "python_311": "CONDITIONAL \u2014 static only; runtime not executed",
+    "canonical_checkpoint_readiness": "spec qualified; artifact missing; v180_sft GEOMETRY_INCOMPATIBLE",
+    "resource_strategy": "BLOCKED on this host; minimum viable = GPU \u226516 GiB VRAM, owner-authorized"
+  },
+  "verdict_text": "BLOCKED \u2014 L0.8.0 must not begin. L0.7.4 closes runtime/CI/resource uncertainties honestly, never authorizes training, and never fabricates artifacts. Frozen 0/30 ceiling stands; owner authorization and a canonical 111M artifact both remain absent; the host cannot train."
+}

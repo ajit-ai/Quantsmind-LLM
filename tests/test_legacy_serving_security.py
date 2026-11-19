@@ -184,7 +184,7 @@ def test_unauthorized_response_shape():
 # 4. Hardened checkpoint deserialisation
 # --------------------------------------------------------------------------- #
 def test_torch_load_checkpoint_prefers_weights_only(monkeypatch):
-    """weights_only=True is attempted first; the unsafe path is a loud last resort."""
+    """weights_only=True is the only mode; no fallback to unsafe deserialisation."""
     from serving import local_inference
 
     calls = []
@@ -196,11 +196,32 @@ def test_torch_load_checkpoint_prefers_weights_only(monkeypatch):
         return {"ok": True}
 
     monkeypatch.setattr(local_inference.torch, "load", fake_load)
-    result = local_inference.torch_load_checkpoint("x.pt")
 
-    assert calls[0] is True, "safe deserialisation must be attempted first"
-    assert calls[-1] is False, "documented fallback must still load the checkpoint"
+    # Safe load succeeds: single call with weights_only=True
+    def fake_load_ok(path, map_location=None, weights_only=False):
+        calls.append(weights_only)
+        return {"ok": True}
+
+    monkeypatch.setattr(local_inference.torch, "load", fake_load_ok)
+    result = local_inference.torch_load_checkpoint("x.pt")
+    assert calls == [True], "safe deserialisation is attempted and succeeds"
     assert result == {"ok": True}
+
+    # Safe load fails: no fallback, RuntimeError propagates
+    calls2 = []
+
+    def fake_load_fail(path, map_location=None, weights_only=False):
+        calls2.append(weights_only)
+        raise RuntimeError("simulated unsafe-pickle rejection")
+
+    monkeypatch.setattr(local_inference.torch, "load", fake_load_fail)
+    try:
+        local_inference.torch_load_checkpoint("x.pt")
+    except RuntimeError as exc:
+        assert "Refusing to load checkpoint" in str(exc)
+        assert calls2 == [True], "no fallback to weights_only=False"
+    else:
+        raise AssertionError("expected RuntimeError for unsafe-pickle rejection")
 
 
 def test_torch_load_checkpoint_does_not_fall_back_when_safe_load_works(monkeypatch):

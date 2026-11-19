@@ -1,0 +1,78 @@
+{
+  "schema": "taksh.l0601_incremental/1",
+  "generated_by": "training/incremental.py",
+  "entries": [
+    "python_verified_l04"
+  ],
+  "strategies": [
+    "equal",
+    "proportional",
+    "quality",
+    "hybrid"
+  ],
+  "plans": {
+    "equal": {
+      "strategy": "equal",
+      "seed": 42,
+      "total_steps": 300,
+      "batch_size": 16,
+      "exposure": {
+        "python_verified_l04": 300
+      },
+      "max_exposure": 4,
+      "oversampled_entries": {
+        "python_verified_l04": 300
+      },
+      "oversampling_warning": true,
+      "note": "exposure > MAX_EXPOSURE means a small corpus would be repeated more than the configured ceiling; acquire more data rather than oversample"
+    },
+    "proportional": {
+      "strategy": "proportional",
+      "seed": 42,
+      "total_steps": 300,
+      "batch_size": 16,
+      "exposure": {
+        "python_verified_l04": 300
+      },
+      "max_exposure": 4,
+      "oversampled_entries": {
+        "python_verified_l04": 300
+      },
+      "oversampling_warning": true,
+      "note": "exposure > MAX_EXPOSURE means a small corpus would be repeated more than the configured ceiling; acquire more data rather than oversample"
+    },
+    "quality": {
+      "strategy": "quality",
+      "seed": 42,
+      "total_steps": 300,
+      "batch_size": 16,
+      "exposure": {
+        "python_verified_l04": 300
+      },
+      "max_exposure": 4,
+      "oversampled_entries": {
+        "python_verified_l04": 300
+      },
+      "oversampling_warning": true,
+      "note": "exposure > MAX_EXPOSURE means a small corpus would be repeated more than the configured ceiling; acquire more data rather than oversample"
+    },
+    "hybrid": {
+      "strategy": "hybrid",
+      "seed": 42,
+      "total_steps": 300,
+      "batch_size": 16,
+      "exposure": {
+        "python_verified_l04": 300
+      },
+      "max_exposure": 4,
+      "oversampled_entries": {
+        "python_verified_l04": 300
+      },
+      "oversampling_warning": true,
+      "note": "exposure > MAX_EXPOSURE means a small corpus would be repeated more than the configured ceiling; acquire more data rather than oversample"
+    }
+  },
+  "determinism": "same seed + same manifest \u21d2 identical batch sequence and exposure counts",
+  "exposure_ceiling": 4,
+  "verdict": "INCREMENTAL ORCHESTRATION QUALIFIED (no training launched)"
+}

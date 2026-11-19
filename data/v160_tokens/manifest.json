@@ -1,0 +1,18 @@
+{
+  "campaign": "TAKSH v1.6.0 \u2014 Pretraining corpus encoding",
+  "created": "2026-11-07T10:38:29+00:00",
+  "corpus_path": "data\\tokenizer_corpus\\taksh_code_v1.txt",
+  "corpus_sha256": "0e87256f210410ebf87c97491856fb2d256e53c9ac53eb456139cd12a9305cb7",
+  "tokenizer_path": "tokenizer\\taksh_code_bpe_v1.json",
+  "tokenizer_sha256": "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7",
+  "vocab_size": 5822,
+  "total_documents": 188,
+  "train_documents": 169,
+  "val_documents": 19,
+  "train_tokens": 467479,
+  "val_tokens": 32215,
+  "total_tokens": 499694,
+  "split_ratio": 0.9,
+  "seq_len": 2048,
+  "notes": "Encoded with cleared tokenizer (v1.5.0). Project-owned source only."
+}

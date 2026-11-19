@@ -1,0 +1,76 @@
+{
+  "schema": "taksh.l062_observability/1",
+  "generated_by": "evaluation/l062_observability.py",
+  "created": "2026-11-11T05:32:52+00:00",
+  "distinguishing_statuses": [
+    "IMPLEMENTED_AND_TESTED",
+    "IMPLEMENTED_UNTESTED",
+    "SIMULATED",
+    "BLOCKED",
+    "NOT_YET_AUTHORIZED"
+  ],
+  "tools": [
+    {
+      "tool": "inference_qualification",
+      "section": "5-11",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l062_inference_qualification",
+      "exit_code": 0,
+      "stdout_tail": [
+        "synthetic: load=READY params=10816",
+        "determinism same=True stream_match=True",
+        "full checkpoint decision: BLOCKED",
+        "report written to reports\\l062_inference_qualification.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "dlcae_inference_interface",
+      "section": "12",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l062_dlcae_inference_interface",
+      "exit_code": 0,
+      "stdout_tail": [
+        "registry probe: karkain registered=True status=DISCOVERED",
+        "report written to reports\\l062_dlcae_inference_interface.json"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "tool": "karkain_inference",
+      "section": "13",
+      "state": "IMPLEMENTED_AND_TESTED",
+      "module": "evaluation.l062_karkain_inference",
+      "exit_code": 0,
+      "stdout_tail": [
+        "karkain inference contract valid; kcc_state recorded; no compile attempted",
+        "report written to reports\\l062_karkain_inference.json"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "summary": {
+    "all_exit_zero": true,
+    "designated_checkpoint": {
+      "decision": "BLOCKED",
+      "outcome_state": "BLOCKED",
+      "available_bytes_at_decision": 143458304,
+      "required_bytes_estimate": 431995526,
+      "artifact": "qm-code-v160-15m (d_model 384, ~28.8M params) \u2014 NOT the canonical taksh-foundation-111m",
+      "labels": "measured memory; estimated requirement (file + headroom)"
+    },
+    "canonical_foundation_111m": "artifact does not exist; foundation model never trained; canonical inference impossible today",
+    "inference_infrastructure": "QUALIFIED on synthetic fixtures; see tests/test_l062_inference.py",
+    "capability_benchmark": "NOT RUN \u2014 frozen l02 benchmark unchanged (854c7ca8\u2026); 0/30 stands",
+    "karkain": "NOT ELIGIBLE \u2014 no KCC on this host; interfaces qualified only",
+    "dlcae": "inference interfaces qualified; registry never auto-upgraded",
+    "external_providers": "DISABLED \u2014 local-only by construction; no network path exists in the engine",
+    "not_yet_authorized": [
+      "training",
+      "data acquisition",
+      "gpu",
+      "publication",
+      "external api calls"
+    ]
+  }
+}

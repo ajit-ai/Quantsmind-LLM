@@ -1,0 +1,64 @@
+# Taksh v1.3.0 -- synthetic qualification configuration.
+#
+# This configuration exists to qualify the *training system* on a controlled,
+# locally generated distribution. It is not a corpus configuration, and a run
+# made with it produces artifacts labelled `synthetic: true` in the
+# checkpoint, the run manifest and the evaluation report.
+#
+# The synthetic corpus is produced by:
+#     python scripts/build_synthetic_corpus.py --out runs/v13_synthetic
+# which also writes a companion configuration next to the generated corpus.
+# The `data.manifest` path below is relative to this file's directory, so the
+# shipped file is a template; the generated companion is the one to run.
+#
+# What a successful run here does and does not establish:
+#   it does    -- show that the pipeline learns a controlled distribution;
+#   it does not -- show general Python ability, code generation quality, or
+#                  any benchmark result.
+schema: quantsmind.train_config/1
+mode: synthetic
+
+run:
+  name: taksh-v13-synthetic
+  model_config: configs/model/code_m3_9m.yaml
+  seed: 20261021
+
+data:
+  manifest: corpus/manifest.json
+  tokenizer: tokenizer/qm_code_bpe_v0.json
+  context_length: 256
+  sequence_policy: document
+  append_eos: true
+  allow_cross_document: false
+
+optimizer:
+  type: adamw
+  lr_peak: 3.0e-3
+  warmup_steps: 5
+  min_lr_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.1
+  grad_clip: 1.0
+
+batch:
+  micro_batch_size: 2
+  grad_accum_steps: 2
+  shuffle: true
+
+precision:
+  device: cpu
+  dtype: float32
+
+training:
+  max_steps: 40
+  max_tokens: 200000
+  max_wall_seconds: 600
+  checkpoint_every_steps: 20
+  eval_every_steps: 10
+  val_batches: 4
+  output_dir: train_out
+
+limits:
+  max_checkpoints: 2
+  max_output_bytes: 200000000

@@ -1,0 +1,112 @@
+{
+  "schema": "taksh.l062_inference_qualification/1",
+  "generated_by": "evaluation/l062_inference_qualification.py",
+  "synthetic": {
+    "initial_state": "NOT_LOADED",
+    "preflight": {
+      "device": "cpu",
+      "checkpoint_file_bytes": 47503,
+      "available_bytes": 114262016,
+      "estimated_required_bytes": 33601935,
+      "decision": "PROCEED",
+      "fits_available_memory": true
+    },
+    "load_refused_without_opt_in": {
+      "loaded": false,
+      "state": "BLOCKED"
+    },
+    "load": {
+      "state": "READY",
+      "loaded": true,
+      "parameters": 10816,
+      "load_seconds": 0.373,
+      "checkpoint_sha256": "43c2866537b466df731caf19602a2a0e90c3afad1337142229f38fd074fa5c90",
+      "model_config_fingerprint": "55bcd8b68f6b1e91638571b103e46514015c93b9a49ababa614617051a705a6a",
+      "tokenizer_sha256": "cdc9254446d9c6b9186cbfdea854555444516a31fb79fb1228a8e725dbc8da6a"
+    },
+    "generation": {
+      "finish_reason": "length",
+      "prompt_tokens": 3,
+      "completion_tokens": 6,
+      "max_new_tokens_respected": true,
+      "context_limit": 24,
+      "labels": "measured"
+    },
+    "determinism": {
+      "same_seed_identical": true
+    },
+    "streaming": {
+      "chunks": 6,
+      "final_chunk_present": true,
+      "accumulated_text": "dddddd",
+      "response_text": "dddddd",
+      "matches_response": true
+    },
+    "cancellation": {
+      "first_chunk_text": "h",
+      "final_finish_reason": "cancelled",
+      "engine_state_after_cancel": "READY"
+    },
+    "unload": {
+      "state": "UNLOADED",
+      "loaded": false
+    },
+    "state_after_unload": "UNLOADED"
+  },
+  "designated_checkpoint": {
+    "artifact_identity": {
+      "name": "qm-code-v160-15m",
+      "lineage": "runs/v160_pretrain -> qm-code-v180-sft (chat SFT default)",
+      "resolved_config": {
+        "vocab_size": 5822,
+        "d_model": 384,
+        "n_layers": 12,
+        "n_heads": 8,
+        "n_kv_heads": 4,
+        "ffn_dim": 1536,
+        "max_seq_len": 2048,
+        "rope_theta": 10000.0,
+        "tie_embeddings": true
+      },
+      "fp32_weight_bytes_estimate": 115149312,
+      "file_size_bytes": 345596421,
+      "composition_note": "~12 bytes/param on disk => fp32 weights + Adam m/v state",
+      "not_the_canonical_foundation": "taksh-foundation-111m (110,658,816 params) has never been trained; no artifact exists"
+    },
+    "decision": {
+      "checkpoint": "F:\\Codes\\Git\\Quantsmind-LLM\\runs\\v180_sft\\checkpoint_last.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_bytes": 345596421,
+      "tokenizer_exists": true,
+      "available_bytes_at_decision": 143458304,
+      "required_bytes_estimate": 431995526,
+      "headroom_bytes": 86399105,
+      "decision": "BLOCKED",
+      "memory": {
+        "total_bytes": 4199780352,
+        "available_bytes": 143458304,
+        "percent_used": 96.6,
+        "process_rss_bytes": 221663232,
+        "tool": "psutil",
+        "measured": true
+      },
+      "uncertainty": "estimate = checkpoint file size + headroom; final arbiter is load-time allocation"
+    },
+    "outcome": {
+      "attempted": false,
+      "state": "BLOCKED",
+      "reason": "available 143458304 B < required 431995526 B \u2014 refusing to load; no swap/quantization tricks applied (would need its own qualification)"
+    }
+  },
+  "canonical_foundation_111m": {
+    "exists_as_artifact": false,
+    "params": 110658816,
+    "note": "architecture qualified in L0.6.0; weights never trained or saved; inference of the canonical foundation model is not possible on any host today"
+  },
+  "frozen_python_benchmark": {
+    "sha256": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
+    "status": "NOT RE-RUN \u2014 baseline 0/30 stands; suite never executed in this milestone"
+  },
+  "capability": "NOT ASSESSED \u2014 infrastructure qualification only",
+  "verdict": "CONDITIONAL PASS \u2014 local inference infrastructure qualified on synthetic fixtures; designated existing checkpoint inference: BLOCKED BY HOST RESOURCES (fail-closed; see designated_checkpoint.outcome); canonical taksh-foundation-111m artifact does not exist"
+}

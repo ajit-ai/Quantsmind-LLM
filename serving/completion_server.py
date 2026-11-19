@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from serving.languages import is_supported_language
 from serving.server_security import (
     add_standard_args,
     api_key_from_env,
@@ -36,7 +37,8 @@ class CompletionRequest(BaseModel):
     language: str = "python"
     max_tokens: int = 64
     temperature: float = 0.2
-    top_k: int = 5
+    top_k: int = 50
+    n_completions: int = 1
 
 
 class CompletionResponse(BaseModel):
@@ -55,6 +57,14 @@ def get_model():
 @app.post("/complete", response_model=CompletionResponse)
 async def complete(request: CompletionRequest):
     model, tokenizer, device = get_model()
+    if not is_supported_language(request.language):
+        raise HTTPException(status_code=400, detail="unsupported language")
+    if not 1 <= request.n_completions <= 5:
+        raise HTTPException(status_code=400, detail="n_completions must be in [1, 5]")
+    if not 1 <= request.max_tokens <= 256:
+        raise HTTPException(status_code=400, detail="max_tokens must be in [1, 256]")
+    if not 1 <= request.top_k <= 512:
+        raise HTTPException(status_code=400, detail="top_k must be a sampling cutoff in [1, 512]")
 
     if request.suffix:
         prompt = f"<|fim_prefix|>{request.prefix}<|fim_suffix|>{request.suffix}<|fim_middle|>"
@@ -68,14 +78,15 @@ async def complete(request: CompletionRequest):
     scores = []
 
     with torch.no_grad():
-        for _ in range(request.top_k):
+        for _ in range(request.n_completions):
             gen_ids = x.clone()
             log_prob_sum = 0.0
             for _ in range(request.max_tokens):
                 idx_cond = gen_ids if gen_ids.size(1) <= model.cfg["max_seq_len"] else gen_ids[:, -model.cfg["max_seq_len"]:]
                 logits, _ = model(idx_cond)
                 logits = logits[:, -1, :] / request.temperature
-                v, _ = torch.topk(logits, min(50, logits.size(-1)))
+                top_k = min(request.top_k, logits.size(-1))
+                v, _ = torch.topk(logits, top_k)
                 logits[logits < v[:, [-1]]] = float("-inf")
                 probs = F.softmax(logits, dim=-1)
                 next_id = torch.multinomial(probs, num_samples=1)

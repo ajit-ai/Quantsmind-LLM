@@ -1,0 +1,5 @@
+content = 'def test_parameter_binding_basic():\n    result = analyse_parameter_binding("def add(a, b):", "    return a + b")\n    assert result["parses"]\n    assert result["consistent_references"]\n    assert "a" in result["params_used"]\n    assert "b" in result["params_used"]\n\n\ndef test_parameter_binding_undefined_name():\n    result = analyse_parameter_binding("def f(x):", "    return y")\n    assert result["parses"]\n    assert "y" in result["undefined_names"]\n    assert not result["consistent_references"]\n\n\ndef test_renamed_params_preserve_binding():\n    result = test_renamed_params("def add(a, b):", "    return a + b", ["x", "y"])\n    assert result["binding_preserved"]\n\n\ndef test_renamed_params_mismatch_count():\n    result = test_renamed_params("def add(a, b):", "    return a + b", ["x"])\n    assert not result["binding_preserved"]\n\n\ndef test_all_params_used():\n    result = analyse_parameter_binding("def add(a, b, c):", "    return a + b + c")\n    assert result["all_params_used"]\n\n\n'
+
+with open(r"F:\Codes\Git\Quantsmind-LLM\taksh\v2.3_tests.py", "a", encoding="utf-8") as f:
+    f.write(content)
+print("WP2 written")

@@ -1,0 +1,24 @@
+# Taksh v2.3.0 — Advanced/Enterprise: 70B Parameter Model
+#
+# Production-scale enterprise coding LLM. Requires large GPU cluster.
+#
+# Parameter estimate: ~70B non-embedding parameters
+#   d_model=8192, n_layers=80, n_heads=64, n_kv_heads=8, ffn_dim=28672
+#
+# Context: 128K tokens. Vocabulary: 32,768 (BPE, code-optimized).
+#
+# Target capability: Qwen-72B / DeepSeek-Coder-72B tier on coding benchmarks.
+# Requires 50B+ pretraining tokens + extensive SFT + DPO + multimodal.
+
+model:
+  name: qm-code-v230-70b
+  vocab_size: 32768
+  d_model: 8192
+  n_layers: 80
+  n_heads: 64
+  n_kv_heads: 8
+  ffn_dim: 28672
+  max_seq_len: 131072
+  rope_theta: 1000000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: false

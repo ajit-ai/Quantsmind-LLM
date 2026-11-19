@@ -1,0 +1,105 @@
+{
+  "schema": "taksh.l070_provenance_assessment/1",
+  "generated_by": "evaluation/l070_provenance.py",
+  "assessed": 6,
+  "assessments": [
+    {
+      "source_id": "src-taksh-l04-code-corpus",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": true,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 7,
+      "total": 7,
+      "verdict": "VERIFIED"
+    },
+    {
+      "source_id": "src-bigcode-stack-v1",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": false,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 6,
+      "total": 7,
+      "verdict": "PARTIALLY_VERIFIED"
+    },
+    {
+      "source_id": "src-bigcode-stack-v2",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": false,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 6,
+      "total": 7,
+      "verdict": "PARTIALLY_VERIFIED"
+    },
+    {
+      "source_id": "src-codesearchnet",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": false,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 6,
+      "total": 7,
+      "verdict": "PARTIALLY_VERIFIED"
+    },
+    {
+      "source_id": "src-pypi-permissive",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": false,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 6,
+      "total": 7,
+      "verdict": "PARTIALLY_VERIFIED"
+    },
+    {
+      "source_id": "src-karkain-corpus",
+      "checks": {
+        "source_identified": true,
+        "revision_pinned": true,
+        "license_note_present": true,
+        "official_url_present": true,
+        "integrity_metadata_present": false,
+        "exclusion_policy_present": true,
+        "license_reference_present": true
+      },
+      "passed": 6,
+      "total": 7,
+      "verdict": "REJECTED"
+    }
+  ],
+  "unresolved": [
+    "src-bigcode-stack-v1",
+    "src-bigcode-stack-v2",
+    "src-codesearchnet",
+    "src-pypi-permissive"
+  ],
+  "policy": "UNVERIFIED provenance blocks acquisition eligibility; VERIFIED means traceable, never approved",
+  "no_content_access": "assessments are metadata-only; zero dataset bytes were read"
+}

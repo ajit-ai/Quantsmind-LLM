@@ -1,0 +1,63 @@
+# TAKSH L0.7.1 — language normalization policies
+#
+# Extensible across the 53-language catalogue + Karkain + supporting
+# technologies. Code is NEVER generically normalized: indentation, meaningful
+# whitespace, identifiers, string literals and comments are preserved. Every
+# transformation is versioned and appended to each record's history.
+schema: taksh.normalization_policies/1
+id: taksh-normalization-policies-v1
+version: 1
+created: "2026-11-11"
+normalizer_version: "l071-norm/1"
+
+universal_rules:
+  - id: BOM_STRIP
+    action: "strip UTF-8 BOM (U+FEFF) only"
+    semantics: "encoding marker, not content"
+  - id: LINE_ENDINGS_LF
+    action: "CRLF/CR -> LF"
+    semantics: "no content change on POSIX; code stays line-structured"
+  - id: TRAILING_WS_TRIM
+    action: "strip trailing spaces/tabs on lines"
+    semantics: "safe for all languages; never touches leading indentation"
+  - id: FINAL_NEWLINE
+    action: "ensure single trailing newline"
+    semantics: "container hygiene; recorded"
+  - id: INTERIOR_FEFF_DROP
+    action: "remove U+FEFF characters embedded mid-file"
+    semantics: "encoding artifact; never valid source content in Python (ast) or typical languages; count recorded in history when present"
+
+never_applied:
+  - "comment removal"
+  - "string literal rewriting"
+  - "identifier renaming"
+  - "indentation width changes"
+  - "whitespace collapsing inside literals"
+  - "case folding"
+  - "dead-code elimination"
+
+indentation:
+  python: { significant: true, policy: "preserve exactly; no tab/space conversion" }
+  yaml_toml: { significant: true, policy: "preserve exactly" }
+  makefile: { significant: true, policy: "preserve tabs exactly" }
+  all_others: { significant: false, policy: "preserve; never reindent" }
+
+l1_target: [python, javascript, typescript, c, cpp, java, csharp, go, rust, php, ruby, swift, kotlin, dart, sql, bash]
+enterprise: [vbnet, vba, cobol, fortran, delphi, perl, groovy, scala, objectivec, assembly, plsql, tsql]
+scientific: [r, matlab, julia, haskell, fsharp, ocaml, elixir, erlang, clojure, lisp]
+systems_embedded_games_blockchain: [zig, ada, lua, solidity, gdscript, mojo, micropython, prolog, nim, crystal]
+emerging: [gleam, odin, vlang, hack, pony]
+
+supporting_technologies: [html, css, scss, json, yaml, xml, toml, graphql, terraform_hcl, nix, cmake, makefiles, gradle_dsl, powershell, zsh, openapi, protocol_buffers, verilog, systemverilog, vhdl]
+karkain:
+  policy: "l071-norm/1 applies unchanged; .kark is line-structured code; no special-casing beyond registry entry"
+  status: "DISCOVERED — zero corpus; policies defined, never applied to real data"
+
+comment_documentation_classification:
+  method: "heuristic per language family (#, //, /* */, --, <!-- -->); attached to quality report, never rewritten"
+  provenance: "comments preserved verbatim"
+
+transformation_history_requirement: "every record lists each applied rule with normalizer_version"
+
+code_vs_prose:
+  detection: "by domain field when present in source records; else extension/declared-language consistency check (l071_quality)"

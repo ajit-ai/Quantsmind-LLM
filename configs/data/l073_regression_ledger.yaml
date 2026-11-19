@@ -1,0 +1,106 @@
+# TAKSH L0.7.3 — CI regression ledger (versioned, auditable)
+schema: taksh.ci_regression_ledger/1
+id: taksh-ci-regression-ledger-v1
+version: 1
+created: "2026-11-11"
+
+historical_run:
+  provenance: "owner-reported v1.0.0 CI run (pre-feature-branch baseline)"
+  result: { failed: 7, passed: 1295, skipped: 39, exit_code: 1 }
+  note: "totals describe that run only; CI does not trigger on the feature branch (workflow triggers: push to develop/main + pull_request)"
+
+entries:
+  - id: ledger-001
+    test: tests/test_m5_adapters_syntax.py::test_external_adapter_does_not_download_by_default
+    historical_failure: "Expected 'nothing was fetched'; actual 'the transformers package is not installed' (CI runner without transformers)"
+    root_cause: "preflight required transformers before weights discovery; adapter discovery depended on an optional dependency"
+    affected_code: evaluation/m5_adapters.py
+    affected_tests: tests/test_m5_adapters_syntax.py
+    corrective_change: "preflight reordered: licence record -> dependency-free weights discovery -> RAM -> transformers load decision; missing-dependency output merges both facts into one stable reason string"
+    regression_test: "existing test unchanged (passes on hosts with and without transformers); monkeypatched-missing-dependency test passes; offline default preserved (no download, no fetch)"
+    disposition: RESOLVED
+    evidence: "tests/test_m5_adapters_syntax.py (32 tests incl. this one) pass locally on Python 3.14.7; discovery never imports transformers"
+    residual_risk: "none identified; availability truth table is environment-independent by construction"
+
+  - id: ledger-002
+    test: tests/test_m6_sovereign.py::test_available_ram_is_the_binding_constraint
+    historical_failure: "RAM constraint assertion fails on CI host"
+    root_cause: "assertion depending on live host RAM (non-deterministic)"
+    affected_code: evaluation/m6_sovereign.py (estimate_scales), tests/test_m6_sovereign.py
+    affected_tests: tests/test_m6_sovereign.py
+    corrective_change: "estimate_scales(memory=None) — injectable measurement; default stays live"
+    regression_test: "test_available_ram_is_the_binding_constraint rewritten as deterministic synthetic-memory policy test (total 4 GiB, available 128 MiB); environment-observation test added separately (informational only)"
+    disposition: RESOLVED
+    evidence: "tests/test_m6_sovereign.py passes; deterministic injection verified"
+    residual_risk: "fits_* verdicts vary with the host measurement when run live; this is intended (host-pressure guard)"
+
+  - id: ledger-003
+    test: tests/test_v120_python_data.py::test_g7_manifest_has_no_timestamp_or_absolute_path
+    historical_failure: "manifest leaked /tmp/pytest-of-runner/pytest-0/python_v10/bench.jsonl"
+    root_cause: "benchmark provenance embedded the resolved absolute local path (absolved via base_dir join)"
+    affected_code: data/python_v1/benchmarks.py (load_benchmark_records)
+    affected_tests: tests/test_v120_python_data.py
+    corrective_change: "provenance records the DECLARED registry path (portable), or local://<basename> for absolute declarations; content_sha256 added for integrity evidence"
+    regression_test: "v120 suite now passes incl. test_g7_manifest_has_no_timestamp_or_absolute_path; a dedicated tmp-dir no-leakage regression lives in tests/test_l073_readiness.py::test_benchmark_manifest_has_no_absolute_paths"
+    disposition: RESOLVED
+    evidence: "tests/test_v120_python_data.py 69 passed, 1 skipped; manifest builds byte-deterministically"
+    residual_risk: "absolute paths declared by an operator in a registry would be normalized to local://<basename> — documented behaviour"
+
+  - id: ledger-004
+    test: tests/test_v150_coding_foundation.py::test_geometry_inspector_reports_a_matching_triple
+    historical_failure: "FileNotFoundError runs/m7_pretrain/checkpoint_last.pt"
+    root_cause: "test consumed an untracked production checkpoint; runs/ is gitignored; absent on CI checkout"
+    affected_code: tests/test_v150_coding_foundation.py
+    affected_tests: tests/test_v150_coding_foundation.py, tests/fixture_s2_checkpoint.py
+    corrective_change: "S2-equivalent synthetic fixture built in tmp_path (exact code_m3_9m geometry, step=300, clearly labelled NOT production); geometry inspector assertions unchanged"
+    regression_test: "test uses build_s2_checkpoint(tmp_path); asserts report.compatible — fails nowhere; strict identity/vocab/step checks retained"
+    disposition: RESOLVED
+    evidence: "tests/test_v150_coding_foundation.py passes locally with fixture"
+    residual_risk: "synthetic fixture is never a production artifact; CI now exercises the same inspector path on any runner"
+
+  - id: ledger-005
+    test: tests/test_v150_coding_foundation.py::test_tokenizer_artifact_and_model_geometry_are_unchanged
+    historical_failure: "missing runs/m7_pretrain/checkpoint_last.pt"
+    root_cause: "same untracked-artifact dependency"
+    affected_code: tests/test_v150_coding_foundation.py
+    affected_tests: tests/test_v150_coding_foundation.py
+    corrective_change: "identical fixture approach; assertions unchanged (embedding_rows/output_projection_rows == 5822; context_window == 2048)"
+    regression_test: "test_tokenizer_artifact_and_model_geometry_are_unchanged now builds fixture per test"
+    disposition: RESOLVED
+    evidence: "passes locally with fixture"
+    residual_risk: "none identified"
+
+  - id: ledger-006
+    test: tests/test_v160_authorization_and_baseline.py::test_g10_geometry_inspector_accepts_the_s2_triple
+    historical_failure: "missing runs/m7_pretrain/checkpoint_last.pt"
+    root_cause: "same untracked-artifact dependency"
+    affected_code: tests/test_v160_authorization_and_baseline.py
+    affected_tests: tests/test_v160_authorization_and_baseline.py
+    corrective_change: "identical fixture approach; assertions unchanged"
+    regression_test: "test_g10_geometry_inspector_accepts_the_s2_triple now builds fixture per test"
+    disposition: RESOLVED
+    evidence: "passes locally with fixture"
+    residual_risk: "none identified"
+
+  - id: ledger-007
+    test: tests/test_v180_corpus_qualification.py::test_sampled_decoding_is_reproducible_with_a_seed
+    historical_failure: "FileNotFoundError runs/m7_pretrain/checkpoint_last.pt"
+    root_cause: "same untracked-artifact dependency (also via legacy unsafe load path)"
+    affected_code: tests/test_v180_corpus_qualification.py
+    affected_tests: tests/test_v180_corpus_qualification.py
+    corrective_change: "fixture-based model; seeds must decode identically; greedy and seeded sampling unchanged; no production-quality claim"
+    regression_test: "test_sampled_decoding_is_reproducible_with_a_seed loads fixture via default safe path (no allow_unsafe_trusted)"
+    disposition: RESOLVED
+    evidence: "passes locally with fixture (both same-seed runs produce identical token ids)"
+    residual_risk: "fixture has no trained behaviour; reproducibility property only"
+
+pr_63_investigation:
+  titled: "fix(taksh): make Seed-Coder adapter loader availability independent of transformers"
+  outcome: "PR #63 NOT ACCESSIBLE / DOES NOT EXIST in ajit-ai/Quantsmind-LLM as of 2026-11-11"
+  evidence:
+    - "gh pr view 63 --repo ajit-ai/Quantsmind-LLM -> GraphQL: Could not resolve to a PullRequest with the number of 63"
+    - "gh pr list --search 'Seed-Coder adapter' -> only PR #1 (open, develop->main)"
+    - "gh pr list --search 'adapter loader' -> empty; gh search prs --owner ajit-ai 'adapter loader' -> empty"
+    - "repository is not a fork; zero forks; PR cannot be hiding upstream"
+  disposition: "NOT_ACCESSIBLE — not merged, not reviewable, not the source of current code; the underlying failure (ledger-001) was reproduced and fixed in this branch directly, with attribution to the reported intent"
+  preservation: "PR #1 (open, develop->main, provider architecture + Seed-Coder qualification) untouched; PR #63's history cannot be preserved because no such object exists in the accessible repository"

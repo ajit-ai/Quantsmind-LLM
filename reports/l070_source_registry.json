@@ -1,0 +1,61 @@
+{
+  "schema": "taksh.l070_source_registry/1",
+  "generated_by": "evaluation/l070_source_registry.py",
+  "valid": true,
+  "registry_id": "taksh-dataset-source-registry-v1",
+  "version": 1,
+  "sources": [
+    {
+      "source_id": "src-taksh-l04-code-corpus",
+      "acquisition_status": "ACQUIRED",
+      "legal_review_status": "INTERNAL_REVIEWED",
+      "owner_approval_status": "internal_verified",
+      "acquisition_authorized": true
+    },
+    {
+      "source_id": "src-bigcode-stack-v1",
+      "acquisition_status": "LICENSE_REVIEW",
+      "legal_review_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_status": "not_requested",
+      "acquisition_authorized": false
+    },
+    {
+      "source_id": "src-bigcode-stack-v2",
+      "acquisition_status": "PROVENANCE_REVIEW",
+      "legal_review_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_status": "not_requested",
+      "acquisition_authorized": false
+    },
+    {
+      "source_id": "src-codesearchnet",
+      "acquisition_status": "METADATA_REVIEW",
+      "legal_review_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_status": "not_requested",
+      "acquisition_authorized": false
+    },
+    {
+      "source_id": "src-pypi-permissive",
+      "acquisition_status": "DEFERRED",
+      "legal_review_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_status": "not_requested",
+      "acquisition_authorized": false
+    },
+    {
+      "source_id": "src-karkain-corpus",
+      "acquisition_status": "BLOCKED",
+      "legal_review_status": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_status": "not_requested",
+      "acquisition_authorized": false
+    }
+  ],
+  "status_counts": {
+    "ACQUIRED": 1,
+    "LICENSE_REVIEW": 1,
+    "PROVENANCE_REVIEW": 1,
+    "METADATA_REVIEW": 1,
+    "DEFERRED": 1,
+    "BLOCKED": 1
+  },
+  "authorized_acquisitions": 1,
+  "verdict": "SOURCE REGISTRY QUALIFIED \u2014 zero sources authorized for acquisition in L0.7.0"
+}

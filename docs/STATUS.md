@@ -5,11 +5,9 @@
 > L1.0.0-ENG / ENG2 / ENG3 (engineering qualification; no capability claim). The canonical
 > 111M artifact is MISSING; the frozen Python benchmark remains 0/30; Karkain remains
 > DISCOVERED (KARK-BENCH 0 tasks, KCC `0xC0000135`); `v180_sft` is never substituted;
-> A1.1-C / A2-E are owner-enforced; develop/main untouched. Live authority lives on
-> `feature/l060-foundation-model-qualification` (milestone reports and
-> `configs/roadmap/taksh-v3-roadmap.yaml`); this branch currently carries the CI/CD
-> recovery port only. The M7-era banners below are the historical record, preserved
-> verbatim.
+> A1.1-C / A2-E are owner-enforced; develop/main untouched. Live authority:
+> `configs/roadmap/taksh-v3-roadmap.yaml` and `docs/TAKSH-MASTER-ROADMAP-v3.0.0.md`.
+> The M7-era banners below are the historical record, preserved verbatim.
 
 > **M7 status (2026-10-21).** The M7 Sovereign Capability Experiment completed with a
 > negative capability result: 0/40 locked syntax-valid generations, 0/8 functional

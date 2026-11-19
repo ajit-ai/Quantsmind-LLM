@@ -1,0 +1,60 @@
+# TAKSH L0.7.2 — training-corpus freeze configuration
+schema: taksh.freeze_config/1
+id: taksh-corpus-freeze-v1
+version: 1
+created: "2026-11-11"
+pipeline_version: "l072-freeze/1"
+context_limit: 2048
+
+tokenizer:
+  artifact: tokenizer/taksh_code_bpe_v1.json
+  id: taksh_code_bpe_v1
+  version: "1"
+  committed_blob_sha256: "fbedf003774183c4d14ba891ea2751705a303b1946868b9699ee9713074ef7a7"
+
+reslice:
+  hierarchy:
+    - marker_split          # standalone <|doc|> lines delimit complete files (verified present)
+    - single_record         # m3-train records are already single files
+    - structural_subdivision # ast top-level units packed greedily into <=2048 fragments
+    - quarantine            # monolithic units >2048; never silently truncated
+  split_dimensions: ["standalone <|doc|> lines (exact, trimmed)"]
+  keep_imports_policy: "module header (docstring+imports) stays in first fragment; never duplicated across fragments"
+  subdivision_policy: "complete top-level units only (def/class/assign/import); order preserved"
+  monolithic_unit_policy: "quarantine, do not emit fragments"
+  marker_loss_note: "separator tokens are delimiters, not content; removing them is accounted in the token delta report"
+
+dedup:
+  methods: [exact sha256, normalized sha256, "5-gram shingle Jaccard >= 0.7"]
+  leakage_unit: parent_record     # children of one parent ALWAYS co-locate in one split
+  repo_grouping: "reported but NOT enforced (would strand the m3-pytest slice in one split); owner decision required to enable"
+  policy_note: "leakage prevention wins over stratification uniformity; m3 slice spreads via distinct parents"
+
+splits:
+  train: 0.9
+  val: 0.05
+  test: 0.05
+  assignment: "seeded (sha256 of parent duplicate_group, first 8 bytes mod 10000)"
+  duplicate_group_aware: true
+  parent_aware: true
+  stratified_reporting: true
+
+quality:
+  classifier: "l071_quality.classify_sample (reused)"
+  warning_taxonomy:
+    - license_metadata_absent_in_file
+    - license_known_from_authoritative_parent
+    - license_unresolved
+    - parser_warning
+    - extraction_warning
+    - structural_warning
+    - security_warning
+
+contamination:
+  registry: configs/data/l070_contamination_registry.yaml
+  on_contamination: "exclude sample; audit record; never eligible"
+
+snapshot:
+  parent: artifacts/l071_l04_snapshot/snapshot.json
+  output_dir: artifacts/l072_l04_freeze
+  never_mark_frozen_without_all_gates: true

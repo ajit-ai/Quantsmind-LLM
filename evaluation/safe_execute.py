@@ -114,7 +114,10 @@ def execute_tests(source: str, function_name: str, tests: list[dict[str, Any]]) 
             input="",
             capture_output=True,
             text=True,
-            timeout=2,
+            # v1.4.1: the previous 2s budget flaked under full-suite load
+            # (subprocess spawn dominates). Fixture functions run in
+            # milliseconds; 10s preserves determinism without retries.
+            timeout=10,
             check=False,
         )
     except subprocess.TimeoutExpired:

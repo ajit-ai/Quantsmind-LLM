@@ -1,0 +1,945 @@
+{
+  "suite": "Taksh Python Benchmark Development",
+  "version": "1.0.0",
+  "date_utc": "2026-10-23",
+  "status": "frozen_before_evaluation",
+  "description": "Independently authored Python benchmark split. It is not an AD-1/C1/C2 extension and is not tuned against model output.",
+  "prompt_format": "instruction + '\\n' + signature + '\\n'",
+  "checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "decoding": {
+    "temperature": 0.0,
+    "top_k": 1,
+    "top_p": 1.0,
+    "seed": 20261023,
+    "max_new_tokens": 64
+  },
+  "scoring": {
+    "exact": "normalized AST body dump equality via training.program_analysis.analyse",
+    "structural": "expected operations are a subset of generated operations; skipped when no expected operation exists",
+    "binding": "normalized used parameters match expected and no undefined names remain",
+    "functional": "restricted, explicit fixture execution for cases with execution_safe=true only",
+    "negative": "never credited; no execution authorized for negative cases"
+  },
+  "overlap_policy": "no instruction/signature pair or signature may match AD-1, C1 or C2; checked before evaluation",
+  "case_count": 38,
+  "categories": [
+    "arithmetic",
+    "basic_algorithms",
+    "comprehensions",
+    "conditional_logic",
+    "edge_cases",
+    "error_handling",
+    "lists",
+    "loops",
+    "mappings",
+    "multiple_operations",
+    "parameter_binding",
+    "sets",
+    "strings",
+    "unsupported_ambiguous"
+  ],
+  "digest": "e53427edcb5a0af002c00a1abc12f63f8c443ff181dda62be359c44888e8696a",
+  "cases": [
+    {
+      "case_id": "DEV-arith-000",
+      "split": "development",
+      "category": "arithmetic",
+      "instruction": "Write a function that returns twice a value.",
+      "signature": "def double_value(a):",
+      "reference_body": "    return a * 2",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "double_value",
+      "tests": [
+        {
+          "args": [
+            4
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-arith-001",
+      "split": "development",
+      "category": "arithmetic",
+      "instruction": "Write a function that returns the square of a number.",
+      "signature": "def square_value(n):",
+      "reference_body": "    return n * n",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "square_value",
+      "tests": [
+        {
+          "args": [
+            5
+          ],
+          "kwargs": {},
+          "expected": 25
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-arith-002",
+      "split": "development",
+      "category": "arithmetic",
+      "instruction": "Write a function that clamps negative values to zero.",
+      "signature": "def clamp_low(value):",
+      "reference_body": "    return max(value, 0)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "clamp_low",
+      "tests": [
+        {
+          "args": [
+            -3
+          ],
+          "kwargs": {},
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-arith-003",
+      "split": "development",
+      "category": "arithmetic",
+      "instruction": "Write a function that reports whether a number is even.",
+      "signature": "def is_even(n):",
+      "reference_body": "    return n % 2 == 0",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "is_even",
+      "tests": [
+        {
+          "args": [
+            8
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-binding-000",
+      "split": "development",
+      "category": "parameter_binding",
+      "instruction": "Write a function that joins two words with a space.",
+      "signature": "def combine_tokens(first, second):",
+      "reference_body": "    return first + \" \" + second",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "combine_tokens",
+      "tests": [
+        {
+          "args": [
+            "red",
+            "green"
+          ],
+          "kwargs": {},
+          "expected": "red green"
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-binding-001",
+      "split": "development",
+      "category": "parameter_binding",
+      "instruction": "Write a function that multiplies three numbers.",
+      "signature": "def multiply_three(a, b, c):",
+      "reference_body": "    return a * b * c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "multiply_three",
+      "tests": [
+        {
+          "args": [
+            2,
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 24
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-binding-002",
+      "split": "development",
+      "category": "parameter_binding",
+      "instruction": "Write a function that returns the last item in a list.",
+      "signature": "def choose_last(values):",
+      "reference_body": "    return values[-1]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_last",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              3,
+              7
+            ]
+          ],
+          "kwargs": {},
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-conditional-000",
+      "split": "development",
+      "category": "conditional_logic",
+      "instruction": "Write a function that classifies a number as negative, zero, or positive.",
+      "signature": "def grade_sign(n):",
+      "reference_body": "    if n < 0:\n        return \"negative\"\n    if n == 0:\n        return \"zero\"\n    return \"positive\"",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "grade_sign",
+      "tests": [
+        {
+          "args": [
+            -1
+          ],
+          "kwargs": {},
+          "expected": "negative"
+        },
+        {
+          "args": [
+            0
+          ],
+          "kwargs": {},
+          "expected": "zero"
+        },
+        {
+          "args": [
+            4
+          ],
+          "kwargs": {},
+          "expected": "positive"
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-conditional-001",
+      "split": "development",
+      "category": "conditional_logic",
+      "instruction": "Write a function that returns the larger of two values.",
+      "signature": "def larger_between(a, b):",
+      "reference_body": "    if a > b:\n        return a\n    return b",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "larger_between",
+      "tests": [
+        {
+          "args": [
+            3,
+            9
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-conditional-002",
+      "split": "development",
+      "category": "conditional_logic",
+      "instruction": "Write a function that returns one option when zero is supplied and the other otherwise.",
+      "signature": "def choose_for_zero(n):",
+      "reference_body": "    if n == 0:\n        return \"zero\"\n    return \"nonzero\"",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "choose_for_zero",
+      "tests": [
+        {
+          "args": [
+            0
+          ],
+          "kwargs": {},
+          "expected": "zero"
+        },
+        {
+          "args": [
+            5
+          ],
+          "kwargs": {},
+          "expected": "nonzero"
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-loop-000",
+      "split": "development",
+      "category": "loops",
+      "instruction": "Write a function that sums the numbers in a list.",
+      "signature": "def sum_list(items):",
+      "reference_body": "    total = 0\n    for item in items:\n        total += item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "sum_list",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-loop-001",
+      "split": "development",
+      "category": "loops",
+      "instruction": "Write a function that returns the even numbers from a list.",
+      "signature": "def collect_evens(items):",
+      "reference_body": "    values = []\n    for item in items:\n        if item % 2 == 0:\n            values.append(item)\n    return values",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "collect_evens",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-loop-002",
+      "split": "development",
+      "category": "loops",
+      "instruction": "Write a function that counts the items below a threshold.",
+      "signature": "def count_below(items, threshold):",
+      "reference_body": "    count = 0\n    for item in items:\n        if item < threshold:\n            count += 1\n    return count",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_below",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              9,
+              2,
+              12
+            ],
+            5
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-mapping-000",
+      "split": "development",
+      "category": "mappings",
+      "instruction": "Write a function that reads a value or returns zero.",
+      "signature": "def lookup_default(mapping, key):",
+      "reference_body": "    return mapping.get(key, 0)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "lookup_default",
+      "tests": [
+        {
+          "args": [
+            {
+              "alpha": 8
+            },
+            "alpha"
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-mapping-001",
+      "split": "development",
+      "category": "mappings",
+      "instruction": "Write a function that returns the sorted keys of a mapping.",
+      "signature": "def keys_of(mapping):",
+      "reference_body": "    return sorted(mapping.keys())",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "keys_of",
+      "tests": [
+        {
+          "args": [
+            {
+              "b": 1,
+              "a": 2
+            }
+          ],
+          "kwargs": {},
+          "expected": [
+            "a",
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-set-000",
+      "split": "development",
+      "category": "sets",
+      "instruction": "Write a function that counts the unique values in a list.",
+      "signature": "def count_unique(items):",
+      "reference_body": "    return len(set(items))",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_unique",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              1,
+              2,
+              3,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-list-000",
+      "split": "development",
+      "category": "lists",
+      "instruction": "Write a function that concatenates two lists.",
+      "signature": "def merge_lists(left, right):",
+      "reference_body": "    return left + right",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "merge_lists",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-string-000",
+      "split": "development",
+      "category": "strings",
+      "instruction": "Write a function that reverses a string.",
+      "signature": "def reverse_text(text):",
+      "reference_body": "    return text[::-1]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "reverse_text",
+      "tests": [
+        {
+          "args": [
+            "abc"
+          ],
+          "kwargs": {},
+          "expected": "cba"
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-string-001",
+      "split": "development",
+      "category": "strings",
+      "instruction": "Write a function that returns the uppercase form of a string.",
+      "signature": "def uppercase_word(text):",
+      "reference_body": "    return text.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "uppercase_word",
+      "tests": [
+        {
+          "args": [
+            "hello"
+          ],
+          "kwargs": {},
+          "expected": "HELLO"
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-string-002",
+      "split": "development",
+      "category": "strings",
+      "instruction": "Write a function that counts the spaces in a string.",
+      "signature": "def count_spaces(text):",
+      "reference_body": "    return text.count(\" \")",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_spaces",
+      "tests": [
+        {
+          "args": [
+            "a b c"
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-string-003",
+      "split": "development",
+      "category": "strings",
+      "instruction": "Write a function that reports whether a string contains a word.",
+      "signature": "def contains_word(text, word):",
+      "reference_body": "    return word in text",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "contains_word",
+      "tests": [
+        {
+          "args": [
+            "hello world",
+            "world"
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-comprehension-000",
+      "split": "development",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the positive values from a list.",
+      "signature": "def positives(values):",
+      "reference_body": "    return [value for value in values if value > 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "positives",
+      "tests": [
+        {
+          "args": [
+            [
+              -1,
+              0,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-comprehension-001",
+      "split": "development",
+      "category": "comprehensions",
+      "instruction": "Write a function that squares the values in a list.",
+      "signature": "def squares(values):",
+      "reference_body": "    return [value * value for value in values]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "squares",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            1,
+            4,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-comprehension-002",
+      "split": "development",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the even values.",
+      "signature": "def even_numbers(values):",
+      "reference_body": "    return [value for value in values if value % 2 == 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "even_numbers",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-composition-000",
+      "split": "development",
+      "category": "multiple_operations",
+      "instruction": "Write a function that adds two numbers and doubles the result.",
+      "signature": "def add_then_double(a, b):",
+      "reference_body": "    return (a + b) * 2",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_then_double",
+      "tests": [
+        {
+          "args": [
+            2,
+            3
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-composition-001",
+      "split": "development",
+      "category": "multiple_operations",
+      "instruction": "Write a function that subtracts and then squares the result.",
+      "signature": "def subtract_then_square(a, b):",
+      "reference_body": "    return (a - b) * (a - b)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "subtract_then_square",
+      "tests": [
+        {
+          "args": [
+            7,
+            4
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-composition-002",
+      "split": "development",
+      "category": "multiple_operations",
+      "instruction": "Write a function that multiplies three numbers.",
+      "signature": "def multiply_three_numbers(a, b, c):",
+      "reference_body": "    return a * b * c",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "multiply_three_numbers",
+      "tests": [
+        {
+          "args": [
+            2,
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 24
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-algorithm-000",
+      "split": "development",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that returns the largest number in a list.",
+      "signature": "def find_max(values):",
+      "reference_body": "    return max(values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "find_max",
+      "tests": [
+        {
+          "args": [
+            [
+              3,
+              9,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-algorithm-001",
+      "split": "development",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that reports whether any value is positive.",
+      "signature": "def any_positive(values):",
+      "reference_body": "    return any(value > 0 for value in values)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "any_positive",
+      "tests": [
+        {
+          "args": [
+            [
+              -1,
+              0,
+              2
+            ]
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-algorithm-002",
+      "split": "development",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that reverses the items in a list.",
+      "signature": "def reverse_list(items):",
+      "reference_body": "    return list(reversed(items))",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "reverse_list",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            3,
+            2,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-algorithm-003",
+      "split": "development",
+      "category": "basic_algorithms",
+      "instruction": "Write a function that returns the factorial of a number.",
+      "signature": "def factorial(n):",
+      "reference_body": "    total = 1\n    for item in range(1, n + 1):\n        total *= item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "factorial",
+      "tests": [
+        {
+          "args": [
+            5
+          ],
+          "kwargs": {},
+          "expected": 120
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-error-000",
+      "split": "development",
+      "category": "error_handling",
+      "instruction": "Write a function that returns zero instead of dividing by zero.",
+      "signature": "def safe_divide(a, b):",
+      "reference_body": "    if b == 0:\n        return 0\n    return a / b",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "safe_divide",
+      "tests": [
+        {
+          "args": [
+            10,
+            2
+          ],
+          "kwargs": {},
+          "expected": 5.0
+        },
+        {
+          "args": [
+            10,
+            0
+          ],
+          "kwargs": {},
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-edge-000",
+      "split": "development",
+      "category": "edge_cases",
+      "instruction": "Write a function that returns the first list item or None.",
+      "signature": "def empty_or_first(values):",
+      "reference_body": "    if values:\n        return values[0]\n    return None",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "empty_or_first",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "kwargs": {},
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              9,
+              8
+            ]
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "DEV-negative-000",
+      "split": "development",
+      "category": "unsupported_ambiguous",
+      "instruction": "Request a live weather forecast for a named city.",
+      "signature": "def fetch_weather(city):",
+      "reference_body": "    raise RuntimeError('unsupported')",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "fetch_weather",
+      "tests": []
+    },
+    {
+      "case_id": "DEV-negative-001",
+      "split": "development",
+      "category": "unsupported_ambiguous",
+      "instruction": "Write the supplied text to stdout.",
+      "signature": "def announce(text):",
+      "reference_body": "    print(text)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "announce",
+      "tests": []
+    },
+    {
+      "case_id": "DEV-negative-002",
+      "split": "development",
+      "category": "unsupported_ambiguous",
+      "instruction": "Retrieve the supplied name from a remote directory.",
+      "signature": "def remote_lookup(name):",
+      "reference_body": "    return directory_lookup(name)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "remote_lookup",
+      "tests": []
+    },
+    {
+      "case_id": "DEV-negative-003",
+      "split": "development",
+      "category": "unsupported_ambiguous",
+      "instruction": "Leave the function empty.",
+      "signature": "def empty_result(flag):",
+      "reference_body": "    pass",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "empty_result",
+      "tests": []
+    },
+    {
+      "case_id": "DEV-negative-004",
+      "split": "development",
+      "category": "unsupported_ambiguous",
+      "instruction": "Use a value that was not supplied.",
+      "signature": "def missing_input(value):",
+      "reference_body": "    return unknown_name + value",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "missing_input",
+      "tests": []
+    }
+  ]
+}

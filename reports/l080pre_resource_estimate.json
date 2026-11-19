@@ -1,0 +1,37 @@
+{
+  "schema": "taksh.l080pre_resource_estimate/1",
+  "generated_by": "evaluation/l080pre/resource_estimate.py",
+  "measured": {
+    "available_bytes": 497434624,
+    "total_bytes": 4199780352,
+    "percent_used": 88.2,
+    "cpu_count": 8,
+    "disk_free_bytes": 180045639680,
+    "tool": "psutil (+shutil.disk_usage)",
+    "labels": "measured point-in-time"
+  },
+  "estimates": {
+    "fp32_weights_bytes": 442635264,
+    "fp32_grads_bytes": 442635264,
+    "fp32_adam_m_bytes": 442635264,
+    "fp32_adam_v_bytes": 442635264,
+    "fp32_optimizer_state_total_bytes": 1770541056,
+    "bf16_weights_bytes": 221317632,
+    "bf16_grads_bytes": 221317632,
+    "bf16_adam_total_bytes": 1549223424,
+    "activation_note": "several GiB at context 2048 with fp32 attention unless checkpointed",
+    "labels": "estimates \u2014 algorithmic derivation from parameter count; no run has measured them"
+  },
+  "gpu": {
+    "model": "NVIDIA GeForce MX150",
+    "vram_mib": 4096,
+    "driver": "457.49",
+    "cuda_driver_capability": "11.1",
+    "torch_cuda_available": false,
+    "viability": "NOT VIABLE \u2014 MX150 unusable with installed CPU torch build; insufficient for canonical training",
+    "labels": "measured (nvidia-smi header + torch.cuda.is_available()==False)"
+  },
+  "verdict": "NOT FEASIBLE HERE \u2014 host cannot hold the training state; minimum viable = GPU \u226516 GiB VRAM, \u226516 GiB RAM, \u226580 GiB disk, owner-authorized",
+  "clearly_separated": true,
+  "note": "no cloud pricing consulted; no provisioning possible under this milestone"
+}

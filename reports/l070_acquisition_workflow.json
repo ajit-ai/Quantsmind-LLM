@@ -1,0 +1,39 @@
+{
+  "schema": "taksh.l070_acquisition_workflow/1",
+  "generated_by": "evaluation/l070_acquisition_gate.py",
+  "stages": [
+    "SOURCE_DISCOVERY",
+    "TECHNICAL_REVIEW",
+    "LEGAL_REVIEW",
+    "PROVENANCE_REVIEW",
+    "OWNER_APPROVAL_REQUIRED",
+    "QUALIFIED_FOR_ACQUISITION",
+    "ACQUISITION_AUTHORIZED",
+    "ACQUISITION_EXECUTION",
+    "POST_ACQUISITION_VERIFICATION"
+  ],
+  "invariants": {
+    "acquisition_execution_disabled": true,
+    "tools_must_fail_closed": true,
+    "owner_only_transition_to": "ACQUISITION_AUTHORIZED",
+    "no_implicit_network_access": true,
+    "no_dataset_download_in_this_milestone": true
+  },
+  "execution_enabled": false,
+  "template_evaluation": {
+    "authorized": false,
+    "stage": "OWNER_APPROVAL_REQUIRED",
+    "problems": [
+      "owner_authorization_id absent \u2014 request cannot leave OWNER_APPROVAL_REQUIRED"
+    ],
+    "execution": "disabled"
+  },
+  "fully_filled_dossier_evaluation": {
+    "authorized": true,
+    "stage": "ACQUISITION_AUTHORIZED",
+    "execution": "disabled \u2014 L0.7.0 invariant (acquisition_execution_disabled=true)",
+    "note": "owner_authorization_id recorded; execution requires a future milestone authorization"
+  },
+  "policy": "execution remains disabled even with a complete dossier and owner id; enabling requires a new milestone + explicit owner decision recorded out-of-band",
+  "verdict": "ACQUISITION GATE QUALIFIED \u2014 owner-authorization enforced; execution disabled"
+}

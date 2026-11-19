@@ -1,0 +1,77 @@
+{
+  "increment": "v1.2.0-increment-10",
+  "description": "Identifier-aware training integration experiment: copy curriculum plus binding retention, identifier-weighted objective. Promotion requires frozen copy probes >=10/13, supplemental >=3/48 across >=3 behaviours, AD-1 binding loss <=1. Training requires both --train and --authorize.",
+  "architecture": "qm-code-m3-9m",
+  "parameters": 9359104,
+  "vocabulary_size": 5822,
+  "context_length": 512,
+  "baseline_checkpoint": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\v210\\runE\\checkpoints\\trained.pt",
+  "baseline_checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "tokenizer": "F:\\Codes\\Git\\Quantsmind-LLM\\tokenizer\\qm_code_bpe_v0.json",
+  "curricula": {
+    "binding": {
+      "module": "training.binding_curriculum",
+      "digest": "bc533a187a631e46d5efc03603c40d604ebddea430a8eb8dd5b54f5a8dc07b7b",
+      "train_examples": 156,
+      "validation_examples": 52
+    },
+    "copy": {
+      "module": "training.copy_curriculum",
+      "digest": "7d8037893e384c85a784010f01fb6f7a6840787d76541cfa0d2af825b3fa9333",
+      "train_examples": 112,
+      "validation_examples": 24
+    }
+  },
+  "combined_train_examples": 268,
+  "combined_validation_examples": 76,
+  "identifier_supervision": {
+    "copy_weight": 2.0,
+    "propagation_weight": 1.5,
+    "max_weight": 4.0,
+    "decay": 0.85
+  },
+  "experiment_root": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\v120\\increment10",
+  "run_id": "increment10-copy-100",
+  "steps": 100,
+  "lr": 1e-05,
+  "seed": 20261110,
+  "device": "cpu",
+  "max_length": 256,
+  "grad_accum": 2,
+  "warmup": 2,
+  "weight_decay": 0.1,
+  "grad_clip": 1.0,
+  "min_available_gib": 0.5,
+  "frozen_fixtures": {
+    "ad1": {
+      "path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\opencode\\ad1\\ad1_suite.json",
+      "sha256": "a5bf9406f49335fe0c2d8e1bff4be1c6cdbb4a88e8bd4a866f262457420ca45e",
+      "cases": 29
+    },
+    "c3": {
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\evaluation\\python_benchmark_heldout_v1.json",
+      "sha256": "1b72f5388d86372582f03ae8cdf78ca031bfe34d27c0e3d9bbdc7cac4532a26e",
+      "cases": 54
+    },
+    "supplemental": {
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\evaluation\\behavior_suite.py",
+      "sha256": "05c0c657a5ca40a743b0536a4698eed5f15272034f3cabd9c791ba0bc49cc32e",
+      "cases": 48
+    },
+    "copy_probes": {
+      "path": "F:\\Codes\\Git\\Quantsmind-LLM\\evaluation\\diagnostics.py",
+      "sha256": null,
+      "cases": 13
+    }
+  },
+  "promotion": {
+    "copy_exact_minimum": 10,
+    "copy_cases": 13,
+    "supplemental_functional_minimum": 3,
+    "supplemental_cases": 48,
+    "supplemental_min_behaviors": 3,
+    "ad1_binding_loss_limit": 1,
+    "ad1_parse_must_not_fall": true,
+    "c3_functional_must_not_regress": true
+  }
+}

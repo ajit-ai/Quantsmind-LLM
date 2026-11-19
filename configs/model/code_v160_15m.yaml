@@ -1,0 +1,23 @@
+# Taksh v1.6.0 — First Functional Neural Model (CPU demonstration)
+#
+# Smaller model config (~15M parameters) sized for CPU training.
+# Same Llama-family architecture (RMSNorm, RoPE, GQA, SwiGLU) as the 150M config
+# but scaled down to complete a demonstration run in minutes, not hours.
+#
+# This is intentionally a demonstration-scale run. With ~467K training tokens,
+# the model cannot converge to useful code generation. The v1.6.0 pipeline
+# (pretrain → SFT → eval) is validated here; functional capability is a
+# v1.7.0+ goal with more data and compute.
+
+model:
+  name: qm-code-v160-15m
+  vocab_size: 5822          # must equal tokenizer/taksh_code_bpe_v1.json exactly
+  d_model: 384
+  n_layers: 12
+  n_heads: 8
+  n_kv_heads: 4             # GQA: 8 query heads / 4 KV heads
+  ffn_dim: 1536             # SwiGLU: gate + up + down
+  max_seq_len: 2048
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true      # share input embedding and output projection

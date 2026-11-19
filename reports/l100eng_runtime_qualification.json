@@ -1,0 +1,109 @@
+{
+  "schema": "taksh.l100eng_runtime_qualification/1",
+  "generated_by": "evaluation/l100eng_qualification.py",
+  "verified_on": "2026-11-11",
+  "git": {
+    "branch": "feature/l060-foundation-model-qualification",
+    "head": "262ae695ba0e0cd277a8579346e14e9521225b03",
+    "remote_feature_branch": "262ae695ba0e0cd277a8579346e14e9521225b03"
+  },
+  "engines": {
+    "incremental_comprehension": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    },
+    "sequence_orchestration": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    },
+    "knowledge_formation": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    },
+    "language_adaptation": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    },
+    "validation": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    },
+    "learning_feedback": {
+      "status": "IMPLEMENTED_AND_TESTED",
+      "ok": true
+    }
+  },
+  "all_engines_operational": true,
+  "registry": {
+    "ok": true,
+    "karkain_status": "DISCOVERED"
+  },
+  "karkain": {
+    "ok": true,
+    "blocked": true,
+    "kark_bench_tasks": 0,
+    "kcc_startup_failure": "0xC0000135"
+  },
+  "persistence": {
+    "ok": true,
+    "integrity": {
+      "ok": true,
+      "problems": [],
+      "generation": 1,
+      "file_count": 1
+    }
+  },
+  "experiment_framework": {
+    "ok": true,
+    "comparison": {
+      "verdict": "COMPUTED_FOR_REVIEW",
+      "reason": "all arms ran; results are reproducible evidence, not a release gate",
+      "arms": {
+        "A": [
+          1.0
+        ],
+        "B": [
+          1.0
+        ],
+        "C": [
+          1.0
+        ]
+      },
+      "highest_mean_accuracy_arm": "A",
+      "claim": "engineering measurement only \u2014 no model-learning claim, no capability claim, no release implication",
+      "model_only_vs_tool_assisted": "separated per task record"
+    },
+    "contamination_probe": {
+      "refused": true,
+      "detail": "frozen id 'A01' refused"
+    }
+  },
+  "preservation": {
+    "frozen_python_benchmark": true,
+    "multilingual_benchmark": true,
+    "v180_sft_checkpoint_untouched": true,
+    "foundation_config_untouched": true,
+    "tokenizer_committed_blob_untouched": true
+  },
+  "training_handoff": {
+    "schema": "taksh.dlcae.learning_handoff/1",
+    "authorized": false,
+    "owner_decision": {
+      "checked": [
+        "A1.1-C",
+        "A2-E"
+      ],
+      "ok": true,
+      "training_authorized": false,
+      "source": "F:\\Codes\\Git\\Quantsmind-LLM\\docs\\L075_L080_OWNER_DECISION_RECORD.md"
+    },
+    "candidates": [],
+    "released": [],
+    "reason": "missing owner decision(s): A1.1-A (training authorization), A2-A / A2-B / A2-D (compute authorization). A1.1-C preparation-only + A2-E authorize no training. Handoff refused.",
+    "training_eligible_tokens": 0
+  },
+  "canonical_checkpoint": "MISSING",
+  "v180_sft": "GEOMETRY_INCOMPATIBLE \u2014 never substituted",
+  "capability_claim": "none",
+  "verdict": "L1.0.0-ENG RUNTIME FOUNDATION QUALIFIED (engineering qualification only \u2014 no capability claim)"
+}

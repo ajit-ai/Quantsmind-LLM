@@ -1,0 +1,166 @@
+{
+  "schema": "taksh.l070_data_quality/1",
+  "generated_by": "evaluation/l070_data_quality.py",
+  "fixtures_label": "synthetic \u2014 no external or real corpus was processed",
+  "sample_results": [
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": true,
+        "license_marker_present": false
+      },
+      "flags": [
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 2,
+      "alnum_fraction": 0.5,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": false,
+      "human_review_classes": [],
+      "id": "synth-ok"
+    },
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": true,
+        "license_marker_present": false
+      },
+      "flags": [
+        "secret_pattern:aws-access-key-id",
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 2,
+      "alnum_fraction": 0.775,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": true,
+      "human_review_classes": [
+        "secret_pattern:aws-access-key-id"
+      ],
+      "id": "synth-secret"
+    },
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": false,
+        "license_marker_present": false
+      },
+      "flags": [
+        "generated_code_marker",
+        "python_syntax_error",
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 2,
+      "alnum_fraction": 0.697,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": true,
+      "human_review_classes": [
+        "python_syntax_error"
+      ],
+      "id": "synth-generated"
+    },
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": true,
+        "license_marker_present": false
+      },
+      "flags": [
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 2,
+      "alnum_fraction": 0.4815,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": false,
+      "human_review_classes": [],
+      "id": "synth-dup-a"
+    },
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": true,
+        "license_marker_present": false
+      },
+      "flags": [
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 2,
+      "alnum_fraction": 0.4815,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": false,
+      "human_review_classes": [],
+      "id": "synth-dup-b"
+    },
+    {
+      "declared_language": "python",
+      "checks": {
+        "utf8": true,
+        "non_empty": true,
+        "python_syntax_valid": true,
+        "license_marker_present": false
+      },
+      "flags": [
+        "no_license_metadata_in_file"
+      ],
+      "line_count": 3,
+      "alnum_fraction": 0.4054,
+      "automated_verdict": "FLAG_FOR_REVIEW",
+      "requires_human_review": false,
+      "human_review_classes": [],
+      "id": "synth-near"
+    }
+  ],
+  "exact_duplicates": {
+    "duplicate_groups": {
+      "e43a5e7ac7d34c039be15f05c24730f65313148744cc8c3d3e90ba1ec3438e03": [
+        3,
+        4
+      ]
+    },
+    "unique_samples": 5,
+    "label": "synthetic fixture results"
+  },
+  "near_duplicates": {
+    "near_duplicate_pairs": [
+      {
+        "i": 3,
+        "j": 4,
+        "jaccard": 1.0
+      }
+    ],
+    "threshold": 0.8,
+    "label": "synthetic fixture results"
+  },
+  "flag_counts": {
+    "no_license_metadata_in_file": 6,
+    "secret_pattern:aws-access-key-id": 1,
+    "generated_code_marker": 1,
+    "python_syntax_error": 1
+  },
+  "separation": {
+    "automated": [],
+    "flagged": [
+      "synth-ok",
+      "synth-secret",
+      "synth-generated",
+      "synth-dup-a",
+      "synth-dup-b",
+      "synth-near"
+    ],
+    "human_review_required": [
+      "synth-secret",
+      "synth-generated"
+    ]
+  },
+  "policy": "automated screening never certifies a corpus; secrets/malware classes route to humans; metadata-valid != clean",
+  "verdict": "QUALIFICATION FRAMEWORK READY (synthetic fixtures; no corpus processed)"
+}

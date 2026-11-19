@@ -1,0 +1,761 @@
+{
+  "suite": "Taksh Binding Repair C2 Qualification",
+  "version": "1.0.0",
+  "date_utc": "2026-10-23",
+  "status": "frozen_before_evaluation",
+  "description": "A separately authored C2 held-out set for conservative binding-repair qualification. It is not a tuning set.",
+  "prompt_format": "instruction + '\\n' + signature + '\\n'",
+  "checkpoint_sha256": "02cc86eb64022a454c0c7a795f18507cebbde709f295c65cd990d5e6f837f8ac",
+  "decoding": {
+    "temperature": 0.0,
+    "top_k": 1,
+    "top_p": 1.0,
+    "seed": 20261023,
+    "max_new_tokens": 64
+  },
+  "scoring": {
+    "exact": "normalized AST body dump equality via training.program_analysis.analyse",
+    "structural": "expected operations are a subset of generated operations; skipped when no expected operation exists",
+    "binding": "normalized used parameters match expected and no undefined names remain",
+    "functional": "restricted, explicit fixture execution for cases with execution_safe=true only",
+    "negative": "never credited; no execution authorized for negative cases"
+  },
+  "overlap_policy": "no instruction/signature pair or signature may match AD-1 or C1; checked before evaluation",
+  "case_count": 35,
+  "categories": [
+    "already_bound_valid",
+    "ambiguous_binding",
+    "boolean_predicates",
+    "builtin_operations",
+    "comprehensions",
+    "keyword_arguments",
+    "loops",
+    "method_calls",
+    "multiple_parameters",
+    "nested_functions",
+    "renamed_parameters",
+    "string_operations",
+    "unsupported_ambiguous",
+    "unused_parameters"
+  ],
+  "cases": [
+    {
+      "case_id": "C2-add-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that sums two values.",
+      "signature": "def summarize_pair(left_number, right_number):",
+      "reference_body": "    return left_number + right_number",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "summarize_pair",
+      "tests": [
+        {
+          "args": [
+            3,
+            4
+          ],
+          "kwargs": {},
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "case_id": "C2-sub-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the difference between two numbers.",
+      "signature": "def difference_values(alpha_value, beta_value):",
+      "reference_body": "    return alpha_value - beta_value",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "difference_values",
+      "tests": [
+        {
+          "args": [
+            11,
+            6
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "C2-mul-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns the product of two factors.",
+      "signature": "def product_pair(left_factor, right_factor):",
+      "reference_body": "    return left_factor * right_factor",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "product_pair",
+      "tests": [
+        {
+          "args": [
+            3,
+            7
+          ],
+          "kwargs": {},
+          "expected": 21
+        }
+      ]
+    },
+    {
+      "case_id": "C2-max-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns whichever of two numbers is greater.",
+      "signature": "def larger_number(input_left, input_right):",
+      "reference_body": "    if input_left > input_right:\n        return input_left\n    return input_right",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "larger_number",
+      "tests": [
+        {
+          "args": [
+            8,
+            2
+          ],
+          "kwargs": {},
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "case_id": "C2-min-000",
+      "category": "renamed_parameters",
+      "instruction": "Write a function that returns whichever of two numbers is smaller.",
+      "signature": "def smaller_number(input_left, input_right):",
+      "reference_body": "    if input_left < input_right:\n        return input_left\n    return input_right",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "smaller_number",
+      "tests": [
+        {
+          "args": [
+            8,
+            2
+          ],
+          "kwargs": {},
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "case_id": "C2-upper-000",
+      "category": "string_operations",
+      "instruction": "Write a function that returns a string in capital letters.",
+      "signature": "def uppercase_text(value):",
+      "reference_body": "    return value.upper()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "uppercase_text",
+      "tests": [
+        {
+          "args": [
+            "mixed"
+          ],
+          "kwargs": {},
+          "expected": "MIXED"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-lower-000",
+      "category": "string_operations",
+      "instruction": "Write a function that returns a string in lowercase letters.",
+      "signature": "def lowercase_text(value):",
+      "reference_body": "    return value.lower()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "lowercase_text",
+      "tests": [
+        {
+          "args": [
+            "MIXED"
+          ],
+          "kwargs": {},
+          "expected": "mixed"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-length-000",
+      "category": "builtin_operations",
+      "instruction": "Write a function that returns the size of a collection.",
+      "signature": "def count_records(items):",
+      "reference_body": "    return len(items)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "count_records",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "C2-equal-000",
+      "category": "boolean_predicates",
+      "instruction": "Write a function that reports whether two numbers are equal.",
+      "signature": "def equals_numbers(first_number, second_number):",
+      "reference_body": "    return first_number == second_number",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "equals_numbers",
+      "tests": [
+        {
+          "args": [
+            6,
+            6
+          ],
+          "kwargs": {},
+          "expected": true
+        }
+      ]
+    },
+    {
+      "case_id": "C2-add-mult-000",
+      "category": "multiple_parameters",
+      "instruction": "Write a function that adds two numbers and scales the sum by a multiplier.",
+      "signature": "def add_then_scale(first_number, second_number, scale_factor):",
+      "reference_body": "    return (first_number + second_number) * scale_factor",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_then_scale",
+      "tests": [
+        {
+          "args": [
+            3,
+            4,
+            10
+          ],
+          "kwargs": {},
+          "expected": 70
+        }
+      ]
+    },
+    {
+      "case_id": "C2-sub-mult-000",
+      "category": "multiple_parameters",
+      "instruction": "Write a function that subtracts two numbers and scales the result.",
+      "signature": "def subtract_then_scale(first_number, second_number, scale_factor):",
+      "reference_body": "    return (first_number - second_number) * scale_factor",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "subtract_then_scale",
+      "tests": [
+        {
+          "args": [
+            10,
+            4,
+            5
+          ],
+          "kwargs": {},
+          "expected": 30
+        }
+      ]
+    },
+    {
+      "case_id": "C2-mul-add-000",
+      "category": "multiple_parameters",
+      "instruction": "Write a function that multiplies two numbers and then adds a third.",
+      "signature": "def multiply_then_add(first_number, second_number, added_number):",
+      "reference_body": "    return first_number * second_number + added_number",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "multiply_then_add",
+      "tests": [
+        {
+          "args": [
+            3,
+            4,
+            5
+          ],
+          "kwargs": {},
+          "expected": 17
+        }
+      ]
+    },
+    {
+      "case_id": "C2-add-sub-000",
+      "category": "multiple_parameters",
+      "instruction": "Write a function that adds two numbers and then subtracts a third.",
+      "signature": "def add_then_subtract(first_number, second_number, subtracted_number):",
+      "reference_body": "    return first_number + second_number - subtracted_number",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_then_subtract",
+      "tests": [
+        {
+          "args": [
+            10,
+            8,
+            3
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "C2-unused-000",
+      "category": "unused_parameters",
+      "instruction": "Write a function that returns only the first value.",
+      "signature": "def return_first(first_value, second_value, third_value):",
+      "reference_body": "    return first_value",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "return_first",
+      "tests": [
+        {
+          "args": [
+            12,
+            20,
+            30
+          ],
+          "kwargs": {},
+          "expected": 12
+        }
+      ]
+    },
+    {
+      "case_id": "C2-unused-001",
+      "category": "unused_parameters",
+      "instruction": "Write a function that returns only the second value.",
+      "signature": "def return_second(first_value, second_value, third_value):",
+      "reference_body": "    return second_value",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "return_second",
+      "tests": [
+        {
+          "args": [
+            12,
+            20,
+            30
+          ],
+          "kwargs": {},
+          "expected": 20
+        }
+      ]
+    },
+    {
+      "case_id": "C2-exact-000",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the sum of two numbers.",
+      "signature": "def add_numbers(left, right):",
+      "reference_body": "    return left + right",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "add_numbers",
+      "tests": [
+        {
+          "args": [
+            7,
+            8
+          ],
+          "kwargs": {},
+          "expected": 15
+        }
+      ]
+    },
+    {
+      "case_id": "C2-exact-001",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the greater input.",
+      "signature": "def pick_greater(first, second):",
+      "reference_body": "    if first > second:\n        return first\n    return second",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "pick_greater",
+      "tests": [
+        {
+          "args": [
+            3,
+            9
+          ],
+          "kwargs": {},
+          "expected": 9
+        }
+      ]
+    },
+    {
+      "case_id": "C2-exact-002",
+      "category": "already_bound_valid",
+      "instruction": "Write a function that returns the lowercase form of a string.",
+      "signature": "def lower_text(text):",
+      "reference_body": "    return text.lower()",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "lower_text",
+      "tests": [
+        {
+          "args": [
+            "SKY"
+          ],
+          "kwargs": {},
+          "expected": "sky"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-mapping-000",
+      "category": "method_calls",
+      "instruction": "Write a function that reads a value from a mapping.",
+      "signature": "def find_mapping(values, key):",
+      "reference_body": "    return values.get(key, 0)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "find_mapping",
+      "tests": [
+        {
+          "args": [
+            {
+              "alpha": 5
+            },
+            "alpha"
+          ],
+          "kwargs": {},
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "case_id": "C2-mapping-001",
+      "category": "method_calls",
+      "instruction": "Write a function that checks whether a key exists.",
+      "signature": "def has_mapping_key(values, key):",
+      "reference_body": "    return key in values",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "has_mapping_key",
+      "tests": [
+        {
+          "args": [
+            {
+              "alpha": 1
+            },
+            "beta"
+          ],
+          "kwargs": {},
+          "expected": false
+        }
+      ]
+    },
+    {
+      "case_id": "C2-comprehension-000",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the positive values.",
+      "signature": "def positive_filter(numbers):",
+      "reference_body": "    return [item for item in numbers if item > 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "positive_filter",
+      "tests": [
+        {
+          "args": [
+            [
+              -1,
+              0,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C2-comprehension-001",
+      "category": "comprehensions",
+      "instruction": "Write a function that returns the negative values.",
+      "signature": "def negative_filter(numbers):",
+      "reference_body": "    return [item for item in numbers if item < 0]",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "negative_filter",
+      "tests": [
+        {
+          "args": [
+            [
+              -2,
+              0,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": [
+            -2
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C2-loop-000",
+      "category": "loops",
+      "instruction": "Write a function that adds the values in a list.",
+      "signature": "def sum_all(numbers):",
+      "reference_body": "    total = 0\n    for item in numbers:\n        total += item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "sum_all",
+      "tests": [
+        {
+          "args": [
+            [
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "kwargs": {},
+          "expected": 14
+        }
+      ]
+    },
+    {
+      "case_id": "C2-loop-001",
+      "category": "loops",
+      "instruction": "Write a function that sums the squares of the values.",
+      "signature": "def square_sum(numbers):",
+      "reference_body": "    total = 0\n    for item in numbers:\n        total += item * item\n    return total",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "square_sum",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "kwargs": {},
+          "expected": 30
+        }
+      ]
+    },
+    {
+      "case_id": "C2-keyword-000",
+      "category": "keyword_arguments",
+      "instruction": "Write a function that renders a name with a punctuation mark.",
+      "signature": "def format_greeting(first_name, last_name, mark=\"!\"):",
+      "reference_body": "    return first_name + \" \" + last_name + mark",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "format_greeting",
+      "tests": [
+        {
+          "args": [
+            "Grace",
+            "Hopper"
+          ],
+          "kwargs": {},
+          "expected": "Grace Hopper!"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-keyword-001",
+      "category": "keyword_arguments",
+      "instruction": "Write a function that renders a host and optional port.",
+      "signature": "def format_host(host, port=80):",
+      "reference_body": "    return host + \":\" + str(port)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "format_host",
+      "tests": [
+        {
+          "args": [
+            "example.test"
+          ],
+          "kwargs": {
+            "port": 443
+          },
+          "expected": "example.test:443"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-ambiguous-000",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that returns the suffix supplied.",
+      "signature": "def keep_suffix(prefix, suffix):",
+      "reference_body": "    return suffix",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "keep_suffix",
+      "tests": [
+        {
+          "args": [
+            "start",
+            "end"
+          ],
+          "kwargs": {},
+          "expected": "end"
+        }
+      ]
+    },
+    {
+      "case_id": "C2-ambiguous-001",
+      "category": "ambiguous_binding",
+      "instruction": "Write a function that chooses the left value.",
+      "signature": "def return_left(left_value, middle_value, right_value):",
+      "reference_body": "    return left_value",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": true,
+      "function_name": "return_left",
+      "tests": [
+        {
+          "args": [
+            10,
+            20,
+            30
+          ],
+          "kwargs": {},
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "case_id": "C2-nested-000",
+      "category": "nested_functions",
+      "instruction": "Write a function that counts items with a helper.",
+      "signature": "def count_with_helper(records):",
+      "reference_body": "    def nested(values):\n        return len(values)\n    return nested(records)",
+      "negative": false,
+      "negative_kind": null,
+      "execution_safe": false,
+      "function_name": "count_with_helper",
+      "tests": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "kwargs": {},
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "case_id": "C2-negative-000",
+      "category": "unsupported_ambiguous",
+      "instruction": "Ask for a live exchange rate from an external service.",
+      "signature": "def get_rate(currency):",
+      "reference_body": "    raise RuntimeError('unsupported')",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "get_rate",
+      "tests": []
+    },
+    {
+      "case_id": "C2-negative-001",
+      "category": "unsupported_ambiguous",
+      "instruction": "Write the supplied text to the console.",
+      "signature": "def print_value(value):",
+      "reference_body": "    print(value)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "print_value",
+      "tests": []
+    },
+    {
+      "case_id": "C2-negative-002",
+      "category": "unsupported_ambiguous",
+      "instruction": "Request a value from a remote API.",
+      "signature": "def fetch_remote(name):",
+      "reference_body": "    return remote_lookup(name)",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "fetch_remote",
+      "tests": []
+    },
+    {
+      "case_id": "C2-negative-003",
+      "category": "unsupported_ambiguous",
+      "instruction": "Leave the implementation empty.",
+      "signature": "def empty_result(value):",
+      "reference_body": "    pass",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "empty_result",
+      "tests": []
+    },
+    {
+      "case_id": "C2-negative-004",
+      "category": "unsupported_ambiguous",
+      "instruction": "Divide values without validation.",
+      "signature": "def divide_pair(first_number, second_number):",
+      "reference_body": "    return first_number / second_number",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "divide_pair",
+      "tests": []
+    },
+    {
+      "case_id": "C2-negative-005",
+      "category": "unsupported_ambiguous",
+      "instruction": "Return a value that was not supplied.",
+      "signature": "def use_unbound(value):",
+      "reference_body": "    return unknown_value + value",
+      "negative": true,
+      "negative_kind": "unsupported_ambiguous",
+      "execution_safe": false,
+      "function_name": "use_unbound",
+      "tests": []
+    }
+  ],
+  "digest": "d96ee2de638236bc743dd96280dbefeb1c93a481eed2bdf6bf0188c720087d21",
+  "file_version": "binding_repair_qualification_2026_10_23_v2"
+}

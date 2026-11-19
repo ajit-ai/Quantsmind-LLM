@@ -1,0 +1,20 @@
+# Code tokenizer config — Python + JavaScript/TypeScript focused
+# Trained on public code corpora (permissive licenses)
+tokenizer:
+  name: qm-code-bpe-v0
+  vocab_size: 32768
+  min_frequency: 5
+  normalizer: NFKC
+  pre_tokenizer: ByteLevel
+  decoder: ByteLevel
+  special_tokens:
+    - "<pad>"
+    - "<bos>"
+    - "<eos>"
+    - "<unk>"
+    - "<|fim_prefix|>"
+    - "<|fim_suffix|>"
+    - "<|fim_middle|>"
+    - "<|repo_name|>"
+    - "<|file_sep|>"
+    - "<|language|>"

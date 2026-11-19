@@ -1,0 +1,51 @@
+{
+  "schema": "taksh.l071_dedup/1",
+  "generated_by": "evaluation/l071_dedup.py",
+  "fixtures_label": "synthetic",
+  "groups": {
+    "1": [
+      0,
+      1
+    ],
+    "2": [
+      2
+    ],
+    "3": [
+      3
+    ]
+  },
+  "statuses": [
+    "EXACT_DUPLICATE",
+    "EXACT_DUPLICATE",
+    "UNIQUE",
+    "UNIQUE"
+  ],
+  "benchmark_contamination": {
+    "decision": "CLEAN (fixtures only)",
+    "exact_matches": [],
+    "near_duplicates": []
+  },
+  "exclusion_audit": [
+    {
+      "sample_id": "631938b0-8bdc-534c-a65c-6038d3c78e16",
+      "original_fingerprint": "9384a0466b6574019c3c4b84244de7176593e6e8e6b6c9aa62412f8d550fe168",
+      "reason": "SYNTHETIC_TEST_FIXTURE"
+    },
+    {
+      "sample_id": "b51971b6-6bd4-54f7-9846-f19af311f1ec",
+      "original_fingerprint": "9384a0466b6574019c3c4b84244de7176593e6e8e6b6c9aa62412f8d550fe168",
+      "reason": "SYNTHETIC_TEST_FIXTURE"
+    },
+    {
+      "sample_id": "6ca7e1cd-d748-5a8d-a920-634e18e33f22",
+      "original_fingerprint": "68fee4fd46809cc8fc32bb29796ac3fdb4eff2626eaa3b9ca1e5112cab1b7dde",
+      "reason": "SYNTHETIC_TEST_FIXTURE"
+    },
+    {
+      "sample_id": "4d257a21-9962-5eec-8a8a-8d7e46dd84e7",
+      "original_fingerprint": "8588d75d0f4611270e97b4d1208356b08b344ceea6ef50886e07748c94de44b9",
+      "reason": "SYNTHETIC_TEST_FIXTURE"
+    }
+  ],
+  "policy": "no silent deletion; groups preserved; benchmark collisions block eligibility"
+}

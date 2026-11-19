@@ -1,0 +1,85 @@
+{
+  "schema": "taksh.l070_license_decisions/1",
+  "generated_by": "evaluation/l070_license_qualification.py",
+  "valid": true,
+  "problems": [],
+  "summary": {
+    "overall": {
+      "APPROVED_WITH_CONDITIONS": 1,
+      "HUMAN_LEGAL_REVIEW_REQUIRED": 4,
+      "REJECTED": 1
+    },
+    "fail_closed_axes": {
+      "source_license": 5,
+      "file_package_licenses": 5,
+      "dependency_licenses": 5,
+      "redistribution_restrictions": 4,
+      "commercial_use_permissions": 5,
+      "derivative_work_restrictions": 5,
+      "ml_training_permissions": 5,
+      "terms_of_service": 3,
+      "dataset_specific_restrictions": 5,
+      "copyright_attribution": 3
+    }
+  },
+  "decision_records": [
+    {
+      "source_id": "src-taksh-l04-code-corpus",
+      "overall_decision": "APPROVED_WITH_CONDITIONS",
+      "owner_approval_state": "APPROVED_WITH_CONDITIONS (internal research use; prior L0.4 authorization)",
+      "unresolved_questions": [
+        "external or commercial release of checkpoints trained on this corpus requires fresh counsel review"
+      ]
+    },
+    {
+      "source_id": "src-bigcode-stack-v1",
+      "overall_decision": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_state": "not_requested",
+      "unresolved_questions": [
+        "commercial use of TAKSH checkpoints trained on The Stack \u2014 no express grant located",
+        "opt-out ablation mechanics for an internal mirror (version pinning vs ToU clause 2 freshness)",
+        "liability allocation for memorized PII or non-redistribution licenses misdetected upstream",
+        "benchmark contamination: TAKSH must supply own exclusion pipeline before any use"
+      ]
+    },
+    {
+      "source_id": "src-bigcode-stack-v2",
+      "overall_decision": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_state": "not_requested",
+      "unresolved_questions": [
+        "whether TAKSH may hold a private bulk mirror under the INRIA agreement for commercial purposes",
+        "exact sla for opt-out propagation into an internal static training snapshot",
+        "contamination overlap with TAKSH's frozen Python benchmark at task granularity"
+      ]
+    },
+    {
+      "source_id": "src-codesearchnet",
+      "overall_decision": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_state": "not_requested",
+      "unresolved_questions": [
+        "definitive corpus-level license for the released function/docstring pairs",
+        "whether C-UDA applies to derivatives (paper predates C-UDA release)",
+        "per-file license reconstruction strategy and its reliability"
+      ]
+    },
+    {
+      "source_id": "src-pypi-permissive",
+      "overall_decision": "REJECTED",
+      "owner_approval_state": "not_requested",
+      "unresolved_questions": [
+        "legally defensible bulk-ingestion mechanism (license audit at scale) \u2014 none exists today"
+      ]
+    },
+    {
+      "source_id": "src-karkain-corpus",
+      "overall_decision": "HUMAN_LEGAL_REVIEW_REQUIRED",
+      "owner_approval_state": "not_requested",
+      "unresolved_questions": [
+        "whether any Karkain corpus may ever enter TAKSH training data \u2014 owner decision, no current grant",
+        "kcc repair path on a supported host"
+      ]
+    }
+  ],
+  "no_legal_advice": "engineering decision records only; licensed counsel review required before any acquisition",
+  "verdict": "NO SOURCE IS APPROVED FOR ACQUISITION; all external candidates require legal review"
+}

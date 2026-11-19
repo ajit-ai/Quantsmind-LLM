@@ -1,0 +1,71 @@
+{
+  "schema": "taksh.l071_karkain_adapter/1",
+  "generated_by": "evaluation/l071_karkain.py",
+  "valid": true,
+  "adapter_schema": {
+    "sample_id": "uuid5(taksh:karkain:<original_fingerprint>:<index>)",
+    "language_id": "karkain",
+    "extensions": [
+      ".kark"
+    ],
+    "spec_version_pinned": "1.1.0",
+    "compiler_version_pinned": "1.1.0 (windows/amd64, Stable Build)",
+    "kir_version": "KIR v1 (SSA)",
+    "required_metadata": [
+      "per-file sha256",
+      "spec_pin",
+      "compiler_pin",
+      "repo+revision+branch",
+      "license + owner authorization record id",
+      "kcc validation status"
+    ],
+    "corpus_groups": [
+      "std_examples",
+      "positive_programs",
+      "negative_programs",
+      "borrow_move_cases",
+      "codegen_cases",
+      "debug_repair",
+      "repository_level",
+      "kir_annotated",
+      "diagnostics"
+    ]
+  },
+  "adapter_self_check": {
+    "fixtures": [
+      {
+        "kind": "positive-syntax",
+        "label": "SYNTHETIC \u2014 adapter test; NOT training data",
+        "original_fingerprint": "a090ec39479233e20f48521c02f87bdec74a27fdfaf23486ffcb495ab48d66f1",
+        "language": "karkain",
+        "spec_version": "1.1.0",
+        "kcc_validation": "NOT_POSSIBLE (0xC0000135)",
+        "training_eligibility": "INELIGIBLE"
+      },
+      {
+        "kind": "ownership-case",
+        "label": "SYNTHETIC \u2014 adapter test; NOT training data",
+        "original_fingerprint": "34d86740a98e4cbc7b8ca4d60afd528a6a0aa30cb1016dad757217ebd8bb9a4a",
+        "language": "karkain",
+        "spec_version": "1.1.0",
+        "kcc_validation": "NOT_POSSIBLE (0xC0000135)",
+        "training_eligibility": "INELIGIBLE"
+      },
+      {
+        "kind": "negative-syntax",
+        "label": "SYNTHETIC \u2014 adapter test; NOT training data",
+        "original_fingerprint": "6bb108810d7b94f3dcd04bde561e0e9b231123aa08b6693007560c09ce447ca3",
+        "language": "karkain",
+        "spec_version": "1.1.0",
+        "kcc_validation": "NOT_POSSIBLE (0xC0000135)",
+        "training_eligibility": "INELIGIBLE"
+      }
+    ],
+    "fixtures_label": "SYNTHETIC_TEST_FIXTURE"
+  },
+  "corpus_tokens_measured": 0,
+  "corpus_claim": "NONE \u2014 zero Karkain corpus exists",
+  "host_blocker": "kcc.exe exits 0xC0000135; all compile-pipeline commands exit 3; no diagnostics",
+  "frozen_python_benchmark_unchanged": true,
+  "verdict": "KARK ADAPTER QUALIFIED (schema only; no ingestion; zero capability claims)"
+}

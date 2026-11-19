@@ -1,0 +1,534 @@
+{
+  "schema": "taksh.live_lab.generation_diagnostic/1",
+  "generated_at": "2026-10-21T09:10:55+05:30",
+  "status": "COMPLETE",
+  "probe_budget": 6,
+  "probes_used": 5,
+  "repository": {
+    "path": "F:\\Codes\\Git\\Quantsmind-LLM",
+    "branch": "develop",
+    "head": "cb9b81ef7ecdfed07ef1a7f69324bf04c8bd24c4",
+    "tag": "v1.0.0",
+    "tag_commit": "a156892dfa230ba45f9bc140f4d7d04844327b75",
+    "status_at_start": "only reports/live-lab untracked"
+  },
+  "checkpoint": {
+    "path": "runs/m7_sft/checkpoint_best.pt",
+    "bytes": 112414501,
+    "sha256": "421C218D626524FFA8266A5F5C5CCB06FA743D3CCF8E75CC036B1047478B4DD9",
+    "step": 120,
+    "parameters": 9359104,
+    "model_id": "qm-code-m3-9m",
+    "context_window": 512,
+    "tokenizer": "tokenizer/qm_code_bpe_v0.json",
+    "tokenizer_sha256": "90FD1C8B968EDF9C7EB841EF41E89DD7CEA898239A589C1E5EB46AE233C6C988"
+  },
+  "existing_baseline": {
+    "source": "reports/live-lab/hang-diagnostic.json",
+    "counts_as_new_probe": false,
+    "request": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 2 + 2? Reply with only the number."
+        }
+      ],
+      "max_tokens": 16,
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "seed": 7,
+      "stream": false
+    },
+    "http_status": 200,
+    "latency_ms": 2100,
+    "prompt_tokens": 103,
+    "completion_tokens": 16,
+    "finish_reason": "length",
+    "expected": "4",
+    "content": "    :param _pytest.abc.\n    \"\"\"\n    :",
+    "answer_correct": false
+  },
+  "offline_prompt_trace": {
+    "training_format": "qm.plain_instruction/1",
+    "training_renderer": "training/instruction_format.py",
+    "training_prompt": "<bos>### Instruction\nWhat is 2 + 2? Reply with only the number.\n\n### Response\n",
+    "training_prompt_tokens": 27,
+    "serving_renderer": "serving/openai_server.py::build_prompt -> serving/code_chat.py::format_prompt -> training/chat_template.py::render_prompt",
+    "serving_prompt_tokens": 103,
+    "system_prompt_chars": 419,
+    "prompts_are_prefixes": false,
+    "role_markers_absent_from_tokenizer": [
+      "<|system|>",
+      "<|user|>",
+      "<|assistant|>",
+      "<|eos|>"
+    ],
+    "finding": "The OpenAI server serves the M7 checkpoint with a chat template and system preamble that M7 did not train on."
+  },
+  "historical_eval_evidence": {
+    "file": "runs/m7_eval/m7_candidate/records_combined.jsonl",
+    "locked_code_generation": {
+      "attempted": 40,
+      "syntax_valid": 0,
+      "functional_passed": 0,
+      "fragment_markers": [
+        ":param",
+        "_pytest",
+        "return None"
+      ]
+    },
+    "code_explanation_format_passes": 48,
+    "code_explanation_semantic": "NOT_EVALUABLE",
+    "finding": "The checkpoint also degenerates under the plain training format; served format is not the only cause."
+  },
+  "probe_plan": [
+    {
+      "id": "P1",
+      "path": "HTTP chat template",
+      "purpose": "Reproduce live symptom"
+    },
+    {
+      "id": "P2",
+      "path": "Plain training prompt",
+      "purpose": "Same question under trained format"
+    },
+    {
+      "id": "P3",
+      "path": "Plain training prompt",
+      "purpose": "Known M7 explanation or instruction task"
+    },
+    {
+      "id": "P4",
+      "path": "Chat template",
+      "purpose": "Same task through serving renderer"
+    },
+    {
+      "id": "P5",
+      "path": "Plain training prompt",
+      "purpose": "Locked code-generation task"
+    },
+    {
+      "id": "P6",
+      "path": "Reserved",
+      "purpose": "Only if attribution remains ambiguous"
+    }
+  ],
+  "probes": [
+    {
+      "id": "P1",
+      "timestamp": "2026-10-21T09:09:38+05:30",
+      "path": "HTTP /v1/chat/completions -> serving chat template",
+      "request": {
+        "model": "qm-code-m3-9m",
+        "messages": [
+          {
+            "role": "user",
+            "content": "What is 2 + 2? Reply with only the number."
+          }
+        ],
+        "max_tokens": 16,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "seed": 7,
+        "stream": false
+      },
+      "server": {
+        "pid": 13320,
+        "startup_ms": 19613,
+        "health_http_status": 200,
+        "port_8012_after_probe": false
+      },
+      "http_status": 200,
+      "latency_ms": 952,
+      "timed_out": false,
+      "retries": 0,
+      "prompt_tokens": 103,
+      "completion_tokens": 16,
+      "finish_reason": "length",
+      "expected": "4",
+      "answer_correct": false,
+      "content": "    :param _pytest.abc.\n    \"\"\"\n    :",
+      "raw_response_file": "reports/live-lab/generation-response-p1-raw.json",
+      "raw_response_sha256": "4492A838F30227FCADC8D36908016E42B7BAA9A01F1D5FEEBBE688C6A560DB63",
+      "note": "Exact reproduction of the prior hang-diagnostic response."
+    },
+    {
+      "id": "P2",
+      "path": "in-process training.generate -> qm.plain_instruction/1 with BOS",
+      "prompt": "<bos>### Instruction\nWhat is 2 + 2? Reply with only the number.\n\n### Response\n",
+      "prompt_tokens": 27,
+      "max_new_tokens": 16,
+      "decoding": "greedy",
+      "seed": 7,
+      "completion": "from _pytest.abc.abc.abc.abc. Anyp",
+      "token_ids": [
+        477,
+        416,
+        2968,
+        17,
+        3686,
+        17,
+        3686,
+        17,
+        3686,
+        17,
+        3686,
+        17,
+        893,
+        81,
+        92,
+        83
+      ],
+      "finish_reason": "length",
+      "completion_tokens": 16,
+      "expected": "4",
+      "answer_correct": false,
+      "elapsed_ms": 7474,
+      "checkpoint_info": {
+        "checkpoint": "runs\\m7_sft\\checkpoint_best.pt",
+        "checkpoint_step": 120,
+        "checkpoint_schema": "quantsmind.checkpoint/1",
+        "tokens_processed": 491520,
+        "val_loss_at_checkpoint": 4.67524254322052,
+        "interrupted": false,
+        "model_config_source": "configs/model/code_m3_9m.yaml",
+        "parameters": 9359104,
+        "parameters_loaded": 75,
+        "max_seq_len": 512,
+        "vocab_size": 5822,
+        "device": "cpu",
+        "dataset_identity": null,
+        "tokenizer_identity": null
+      },
+      "raw_response_file": "reports/live-lab/generation-p2-raw.json",
+      "raw_response_sha256": "652EA8923B6A85337BD59C190B219565FC24E88EB450FB1DB5FD7AEF3D8E6B18",
+      "note": "Same question and budget as P1, but with the exact M7 training prompt. Output is still unrelated code fragments."
+    },
+    {
+      "id": "P3",
+      "path": "in-process training.generate -> qm.plain_instruction/1 with BOS",
+      "task": "code_explanation",
+      "record_id": "qm-codeexplanation-20b9eed984f9",
+      "instruction": "In one short paragraph, explain what the function `get_env_proxy_for_url` does, based on its signature and documentation.",
+      "input": "def get_env_proxy_for_url(url: URL) -> tuple[URL, str | None]:",
+      "reference": "Get a permitted proxy for the given URL from the env.",
+      "prompt": "<bos>### Instruction\nIn one short paragraph, explain what the function `get_env_proxy_for_url` does, based on its signature and documentation.\n\n### Input\ndef get_env_proxy_for_url(url: URL) -> tuple[URL, str | None]:\n\n### Response\n",
+      "prompt_tokens": 86,
+      "max_new_tokens": 32,
+      "decoding": "greedy",
+      "seed": 7,
+      "completion": "    \"\"\"Return a given if the given to the given.\n    \"\"\n    return \"\"\n    if not None:\n   ",
+      "token_ids": [
+        263,
+        365,
+        5,
+        5,
+        530,
+        378,
+        384,
+        2058,
+        331,
+        433,
+        2058,
+        585,
+        433,
+        2058,
+        17,
+        202,
+        263,
+        365,
+        5,
+        202,
+        263,
+        386,
+        365,
+        5,
+        202,
+        263,
+        331,
+        456,
+        476,
+        29,
+        202,
+        263
+      ],
+      "finish_reason": "length",
+      "completion_tokens": 32,
+      "elapsed_ms": 10179,
+      "raw_response_file": "reports/live-lab/generation-p3-raw.json",
+      "note": "In-domain validation explanation task under the exact M7 training prompt.",
+      "output_matches_reference": false,
+      "raw_response_sha256": "3A7C5DC7F64403EF326EEA268027C0AD838567B32F61F85E5BC84232BB223171"
+    },
+    {
+      "id": "P4",
+      "path": "in-process serving.code_chat.format_prompt -> chat_template + CODE_SYSTEM_PROMPT",
+      "task": "code_explanation",
+      "record_id": "qm-codeexplanation-20b9eed984f9",
+      "instruction": "In one short paragraph, explain what the function `get_env_proxy_for_url` does, based on its signature and documentation.",
+      "input": "def get_env_proxy_for_url(url: URL) -> tuple[URL, str | None]:",
+      "reference": "Get a permitted proxy for the given URL from the env.",
+      "prompt": "<bos>You are Taksh Coder, an expert programming assistant specializing in Python and JavaScript/TypeScript.\n- Provide correct, idiomatic code with proper error handling.\n- Explain your reasoning before code solutions.\n- For code review: identify bugs, security issues, and performance problems.\n- Follow PEP 8 for Python and standard conventions for JavaScript/TypeScript.\n- State assumptions about API versions when unsure.\n\nIn one short paragraph, explain what the function `get_env_proxy_for_url` does, based on its signature and documentation.\n\ndef get_env_proxy_for_url(url: URL) -> tuple[URL, str | None]:\n\n",
+      "prompt_tokens": 156,
+      "max_new_tokens": 32,
+      "decoding": "greedy",
+      "seed": 7,
+      "completion": "    \"\"\"\n    \"\"\"Return a given a given if the given \"\"\"\"\"\"\n    return \"\"\n    return",
+      "token_ids": [
+        263,
+        365,
+        5,
+        5,
+        202,
+        263,
+        365,
+        5,
+        5,
+        530,
+        378,
+        384,
+        2058,
+        384,
+        2058,
+        331,
+        433,
+        2058,
+        365,
+        5,
+        5,
+        5,
+        5,
+        5,
+        202,
+        263,
+        386,
+        365,
+        5,
+        202,
+        263,
+        386
+      ],
+      "finish_reason": "length",
+      "completion_tokens": 32,
+      "elapsed_ms": 5103,
+      "raw_response_file": "reports/live-lab/generation-p4-raw.json",
+      "note": "The same in-domain task through the serving chat template.",
+      "output_matches_reference": false,
+      "raw_response_sha256": "BDBD32AD49843C2C655B6C32E078B19873A1F7ADFFA733726E03B7C52DE02640"
+    },
+    {
+      "id": "P5",
+      "path": "in-process training.generate -> qm.plain_instruction/1 with BOS",
+      "task": "code_generation",
+      "record_id": "qm-codegeneration-02dbade9d520",
+      "instruction": "Implement the Python function described below. Return the complete function definition, including its signature and docstring. Do not add tests, examples, or explanation.",
+      "input": "```python\ndef check_header_validity(header: tuple[str | bytes, str | bytes]) -> None:\n    \"\"\"Verifies that header parts don't contain leading whitespace\n    reserved characters, or return characters.\n\n    :param header: tuple, in the format (name, value).\n    \"\"\"\n    ...\n```",
+      "reference": "def check_header_validity(header: tuple[str | bytes, str | bytes]) -> None:\n    \"\"\"Verifies that header parts don't contain leading whitespace\n    reserved characters, or return characters.\n\n    :param header: tuple, in the format (name, value).\n    \"\"\"\n    name, value = header\n    _validate_header_part(header, name, 0)\n    _validate_header_part(header, value, 1)",
+      "prompt": "<bos>### Instruction\nImplement the Python function described below. Return the complete function definition, including its signature and docstring. Do not add tests, examples, or explanation.\n\n### Input\n```python\ndef check_header_validity(header: tuple[str | bytes, str | bytes]) -> None:\n    \"\"\"Verifies that header parts don't contain leading whitespace\n    reserved characters, or return characters.\n\n    :param header: tuple, in the format (name, value).\n    \"\"\"\n    ...\n```\n\n### Response\n",
+      "prompt_tokens": 143,
+      "max_new_tokens": 32,
+      "decoding": "greedy",
+      "seed": 7,
+      "completion": "    :param _pytest.get_path(\n    \"\"\"\n    return _pytest.get(\"{\")\n    return \"\"",
+      "token_ids": [
+        263,
+        747,
+        3286,
+        416,
+        2968,
+        17,
+        419,
+        66,
+        356,
+        11,
+        202,
+        263,
+        365,
+        5,
+        5,
+        202,
+        263,
+        386,
+        416,
+        2968,
+        17,
+        419,
+        11,
+        5,
+        94,
+        5,
+        12,
+        202,
+        263,
+        386,
+        365,
+        5
+      ],
+      "finish_reason": "length",
+      "completion_tokens": 32,
+      "elapsed_ms": 15816,
+      "raw_response_file": "reports/live-lab/generation-p5-raw.json",
+      "note": "A locked code-generation task under the exact M7 training prompt.",
+      "output_matches_reference": false,
+      "raw_response_sha256": "4A8E23496AD4DBC7D0F9F43ADD3B44D5B2E5D69AFEF57143C2BC937AB746C303"
+    }
+  ],
+  "errors_and_timeouts": {
+    "errors": [],
+    "timeouts": [],
+    "retries": 0,
+    "note": "No probe timed out or errored. P1 startup was 19.6 s and all five generations completed within the 60 s per-call deadline."
+  },
+  "files_changed": [
+    "reports/live-lab/generation-diagnostic.md",
+    "reports/live-lab/generation-diagnostic.json",
+    "reports/live-lab/generation-probes-raw.json",
+    "reports/live-lab/generation-response-p1-raw.json",
+    "reports/live-lab/generation-p2-raw.json",
+    "reports/live-lab/generation-p3-raw.json",
+    "reports/live-lab/generation-p4-raw.json",
+    "reports/live-lab/generation-p5-raw.json"
+  ],
+  "cleanup": {
+    "diagnostic_server_pid": 13320,
+    "server_stopped_after_p1": true,
+    "port_8012_listening": false,
+    "background_jobs_left": 0,
+    "tracked_files_modified": 0,
+    "git_operation_performed": false
+  },
+  "final_disposition": "MODEL_UNDERTRAINED",
+  "final_confidence": "high",
+  "contributing_defects": [
+    {
+      "id": "SERVING_PROMPT_MISMATCH",
+      "confidence": "high",
+      "description": "The OpenAI server serves M7 through the chat template and CODE_SYSTEM_PROMPT, but M7 was trained with qm.plain_instruction/1. The single-turn prompt is 103 tokens instead of 27 and is not a prefix of the training prompt."
+    }
+  ],
+  "probes_remaining": 1,
+  "training_run": {
+    "run_id": "qm-code-m7-sft",
+    "base_checkpoint_step": 300,
+    "parameters": 9359104,
+    "max_steps": 120,
+    "tokens_processed": 491520,
+    "train_records": 507,
+    "val_records": 58,
+    "total_tokens_in_dataset": 138565,
+    "supervised_tokens": 58123,
+    "supervised_fraction": 0.4194637895572475,
+    "best_validation_loss": 4.67524254322052,
+    "best_step": 120,
+    "coverage": {
+      "dataset_size": 507,
+      "consumed_examples": 960,
+      "unique_examples_seen": 507,
+      "unique_coverage": 1.0,
+      "epochs_completed": 1,
+      "shuffle_refills": 2
+    },
+    "format": "qm.plain_instruction/1",
+    "assistant_only_loss": true,
+    "note": "The run manifest records a complete one-shuffle-plus-partial-second-shuffle SFT run, not a production-scale instruction run."
+  },
+  "dataset_patterns": {
+    "train_records": 507,
+    "pytest_source_records": 224,
+    "pytest_share": 0.4418,
+    "records_with__pytest": 33,
+    "records_with_from__pytest": 20,
+    "records_with_colon_param": 60,
+    "records_with_return_None": 20,
+    "records_with_triple_quote": 372,
+    "locked_records_with__pytest": 0,
+    "finding": "The emitted fragments mirror the dominant training source and recurring docstring/import patterns."
+  },
+  "historical_evaluation": {
+    "checkpoint": "runs/m7_sft/checkpoint_best.pt",
+    "locked_attempted": 159,
+    "code_generation": {
+      "attempted": 40,
+      "syntax_valid": 0,
+      "functional_passed": 0,
+      "functional_attempted": 8
+    },
+    "code_completion": {
+      "attempted": 14,
+      "syntax_valid": 0,
+      "generation_errors": 6
+    },
+    "documentation": {
+      "attempted": 54,
+      "format_passed": 0
+    },
+    "code_explanation": {
+      "attempted": 48,
+      "format_passed": 46,
+      "semantic": "NOT_EVALUABLE"
+    },
+    "format_following": {
+      "attempted": 1,
+      "passed": 0
+    },
+    "sql": {
+      "attempted": 1,
+      "passed": 0
+    },
+    "config_output": {
+      "attempted": 1,
+      "passed": 0
+    },
+    "finding": "The same checkpoint already failed code generation and reproduced _pytest/docstring fragments under its own evaluation prompts."
+  },
+  "root_cause": {
+    "classification": "MODEL_UNDERTRAINED",
+    "confidence": "high",
+    "summary": "The checkpoint loads correctly and the server/transport work, but M7 is a 9.36M-parameter model trained for only 120 steps on 507 records. It reproduces frequent training-corpus patterns (notably pytest imports and docstring fragments) instead of following instructions. A second, definite defect is that the OpenAI server uses a chat template the checkpoint never trained on.",
+    "evidence": [
+      "P2 used the exact qm.plain_instruction/1 prompt and BOS that M7 trained on; it still returned from _pytest.abc.abc... instead of 4.",
+      "P3 used an in-domain validation explanation prompt in the training format and returned docstring/code fragments, not the reference explanation.",
+      "P5 used a locked code-generation prompt in the training format and reproduced the live :param _pytest... pattern.",
+      "P4 sent the same in-domain task through the serving chat template and also returned degenerate docstring fragments.",
+      "Historical M7 evaluation of the same checkpoint: 0/40 code-generation syntax-valid, 0/8 functional probes, 0/54 documentation format passes; 46/48 explanation format passes are shape-only and NOT_EVALUABLE for meaning.",
+      "The training corpus is dominated by pytest (224/507 records, 44.2%); 33 records contain _pytest, 20 contain from _pytest, 60 contain :param, 20 contain return None, and 372 contain triple quotes. The emitted fragments mirror this distribution.",
+      "The checkpoint hash matches the M7 manifest, all 75 tensors load, the tokenizer and model vocabulary are both 5822, and no shape mismatch or corruption was reported.",
+      "P1 and P2 both finish by length, not EOS; no transport, timeout, or memory failure occurred."
+    ],
+    "not_the_primary_cause": [
+      "CHECKPOINT_CORRUPTION",
+      "TOKENIZER_MISMATCH",
+      "TRANSPORT_FAILURE",
+      "SAMPLING_CONFIGURATION",
+      "SERVER_STARTUP_FAILURE",
+      "MEMORY_PRESSURE",
+      "SERVING_PROMPT_MISMATCH_ALONE"
+    ],
+    "contributing_defect": {
+      "classification": "SERVING_PROMPT_MISMATCH",
+      "confidence": "high",
+      "evidence": [
+        "M7 trained on qm.plain_instruction/1: <bos>### Instruction ... ### Response\\n.",
+        "The single-user-turn OpenAI path renders <bos> + CODE_SYSTEM_PROMPT + user + blank line, 103 tokens, with no Instruction/Response headers.",
+        "The exact training-format prompt is 27 tokens; the two prompts are not prefixes of one another.",
+        "The OpenAI server multi-turn branch constructs <|system|>, <|user|>, and <|assistant|>, which are absent from the tokenizer."
+      ],
+      "effect": "It invalidates the API as an M7 evaluation surface and makes the live request even further out of distribution, but P2, P3, and P5 show it is not the sole cause of the fragments."
+    },
+    "conclusion": "Fix the model/data scale and the serving prompt. Changing only the server template cannot turn M7 into a working coding assistant, and changing only the checkpoint would still leave the OpenAI API serving the wrong prompt."
+  },
+  "recommended_actions": [
+    "Do not present M7 as a working coding assistant or production model. Keep the v1.0.0 tag and release unchanged.",
+    "For M7 on the OpenAI surface, render qm.plain_instruction/1 prompts with instruction_format.render_prompt and prepend BOS, rather than CODE_SYSTEM_PROMPT and the chat template. Reject multi-turn histories until real role tokens exist. This was not implemented in this diagnostic.",
+    "Retrain or continue training with a substantially larger budget and a balanced instruction corpus; 9.36M parameters, 120 steps, and 507 records are not sufficient for the observed task. Re-evaluate with the exact plain-format prompt and BOS.",
+    "Add a regression check that the serving prompt equals the M7 training prompt prefix, and a plain-format smoke test for a trivial request. These are follow-up code changes, outside this report.",
+    "Remove or down-weight the pytest-dominated examples if the objective is general instruction following; the model currently reproduces their local patterns."
+  ],
+  "limitations": [
+    "Five generation calls were used of a six-call budget; P6 was not needed.",
+    "P1 is HTTP; P2-P5 are in-process and use training.generate with the same checkpoint/tokenizer, not the HTTP handler.",
+    "The 2+2 request is out of domain for a code model; the in-domain P3 and P5 failures prevent treating that alone as the conclusion.",
+    "Historical M7 evaluation used instruction_format.render_prompt without BOS, so those prompts were also not byte-identical to training. The new P2/P3/P5 prompts include BOS.",
+    "No retraining, weight change, UI, or statistical study was performed. One checkpoint and one seed/decoding setting are covered."
+  ]
+}

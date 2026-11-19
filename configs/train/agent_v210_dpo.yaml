@@ -1,0 +1,54 @@
+# Taksh v2.1.0 — Agent DPO: 7B Parameter Model
+#
+# Aligns the v210 trajectory model using preference pairs.
+# Prefers trajectories that complete tasks successfully, use fewer tool calls,
+# ask for clarification when ambiguous, and don't make destructive changes
+# without approval.
+#
+# GPU cluster required.
+
+run:
+  name: qm-code-v210-7b-dpo
+  base_checkpoint: runs/v210_agent_trajectory/checkpoint_last.pt
+  base_model_config: configs/model/code_v210_7b_agent.yaml
+  seed: 42
+
+data:
+  tokenizer: tokenizer/taksh_code_bpe_v2.json
+  train_jsonl: data/v210_agent/dpo_pairs.jsonl
+  val_jsonl: data/v210_agent/dpo_pairs_val.jsonl
+  max_length: 8192
+  dataset_manifest: data/v210_agent/manifest.json
+  beta: 0.1
+
+optimizer:
+  type: adamw
+  lr_peak: 1.0e-6
+  lr_schedule: cosine
+  warmup_steps: 25
+  min_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16
+  device: auto
+
+batch:
+  micro_batch_size: 4
+  grad_accum_steps: 8
+
+training:
+  max_steps: 5000
+  checkpoint_every_steps: 500
+  log_every_steps: 25
+
+watchdog:
+  nan_check_every_steps: 25
+
+logging:
+  tracker: wandb
+  write_run_manifest: true
+  run_manifest_path: runs/v210_agent_dpo/run_manifest.json

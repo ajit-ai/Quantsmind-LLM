@@ -1,0 +1,46 @@
+# QuantsMind-LLM M3 base model, host-sized (~2.85M parameters), from scratch.
+#
+# WHY THIS EXISTS
+# ---------------
+# `configs/model/code_m3_9m.yaml` is the architecture M3 actually wants, but
+# preflight MEASURED it does not fit on this host:
+#
+#   measured peak RSS over real optimizer steps ... see
+#   python -m training.preflight --config configs/train/pretrain_m3_small.yaml --probe-steps 3
+#
+# The host has 3.91 GiB total RAM with roughly 0.2 GiB free while a browser is
+# open. With a 30% safety margin that leaves ~150 MiB, and the 9.36M-parameter
+# config needs more. Rather than silently truncate the 9M run, this config
+# records the reduction that was actually made, and why.
+#
+# WHAT CHANGED vs code_m3_9m.yaml (everything else is identical):
+#
+#   n_layers    8  -> 5
+#   d_model   256  -> 160
+#   n_heads     8  -> 4
+#   n_kv_heads  4  -> 2
+#   ffn_dim  1024  -> 640
+#
+# vocab_size stays 5822 -- the vocabulary is a correctness contract with
+# tokenizer/qm_code_bpe_v0.json and is never reduced for convenience.
+# max_seq_len stays 512 so training windows match the held-out evaluation
+# window length used by the M2 holdout.
+#
+# Parameter arithmetic:
+#   tied embedding  5822 x 160 = 931,520
+#   per layer       attn 76,800 + ffn 307,200 + norms 320 = 384,320
+#   5 layers                                                   1,921,600
+#   embedding + final norm                                     931,680
+#   total                                              ~= 2,853,280
+model:
+  name: qm-code-m3-3m
+  vocab_size: 5822          # must equal tokenizer/qm_code_bpe_v0.json exactly
+  d_model: 160
+  n_layers: 5
+  n_heads: 4
+  n_kv_heads: 2
+  ffn_dim: 640
+  max_seq_len: 512
+  rope_theta: 10000.0
+  norm_eps: 1.0e-5
+  tie_embeddings: true

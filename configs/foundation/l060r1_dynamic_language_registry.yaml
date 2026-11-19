@@ -1,0 +1,73 @@
+# TAKSH L0.6.0-R1 — Dynamic language registry rules (no fixed ceiling)
+#
+# Extends, does NOT replace, the verified 53-language registry in
+# configs/feasibility/l051_languages.yaml. Karkain is the 54th first-class
+# language (id: karkain). Registration/discovery never implies capability.
+# No language-count ceiling is permitted by this schema or by the tools that
+# read it (there is deliberately no max_languages field).
+
+schema: taksh.dynamic_language_registry/1
+created: "2026-11-11"
+source_of_truth:
+  base_registry: configs/feasibility/l051_languages.yaml   # immutable for 53 languages
+  extension_entries: this file
+
+statuses:
+  - REGISTERED            # id + name + purpose recorded; nothing evaluated
+  - DISCOVERED            # docs/source/toolchain found; provenance recorded; not yet comprehended
+  - COMPREHENSION_IN_PROGRESS   # approved knowledge ingest + progressive comprehension underway
+  - FUNCTIONALLY_QUALIFIED      # passes the dynamic-language benchmark at the required bar
+  - ENGINEERING_QUALIFIED       # passes repository-engineering qualification gates
+  - BLOCKED               # cannot proceed (license, toolchain, spec conflict, safety)
+
+status_rules:
+  - registration_never_implies_capability
+  - discovery_never_implies_capability
+  - comprehension_never_implies_capability
+  - only_functionally_qualified_and_engineering_qualified_are_capability_states
+  - blocked_is_terminal_until_an_explicit_owner_unblock
+  - demotion_on_regression_is_mandatory
+
+required_fields:
+  - id
+  - name
+  - aliases
+  - version_or_dialect
+  - extensions
+  - tokenizer_metadata
+  - grammar_or_spec_reference
+  - semantic_metadata
+  - compiler_or_runtime_integration
+  - execution_config
+  - stdlib_knowledge_reference
+  - documentation_and_provenance
+  - license_and_source_authorization
+  - qualification_status
+  - benchmark_associations
+  - adaptation_history
+
+entries:
+  - id: karkain
+    name: Karkain
+    aliases: [karkain-lang, Karkain Programming Language]
+    version_or_dialect: "SPEC v1.1.0 (reference compiler v1.1.0); branch feature/v1.2.0-native-independence"
+    extensions: [.kark]
+    tokenizer_metadata: "reuses taksh_code_bpe_v1.json (vocab 5,822); no new tokens assumed"
+    grammar_or_spec_reference: "Karkain SPEC.md v1.1.0 (extracted from pkg/lexer|parser|sema|codegen|ir/ssa); repo: github.com/ajit-ai/Karkain"
+    semantic_metadata: "static typing; ownership + borrow checker (borrow/move semantics); no GC in native path; KIR v1 SSA IR"
+    compiler_or_runtime_integration: "Karkain CLI (cmd/karkain); engine kcc (Go reference compiler); KCC is the authoritative compilation + validation oracle wherever available; local toolchain health: PARTIAL (see limitations)"
+    execution_config: "native executable emission (x86_64-windows native; c-free PE backend); transpile C23/wasm32-wasi; runtime requirements per target"
+    stdlib_knowledge_reference: "stdlib/ (async, collections, core, crypto, db, encoding, generics, gpu, http, io, math, net, numerics, string, system, testing)"
+    documentation_and_provenance: "SPEC.md, stdlib.md, examples/ (app.kark golden sample), conformance/ corpus; local clone at F:/Codes/Git/Karkain"
+    license_and_source_authorization: "owner-internal repository; owner authorization required for any redistribution or training-corpus use; NOT cleared for training ingestion"
+    qualification_status: DISCOVERED
+    benchmark_associations: [TAKSH-KARK-BENCH v1.0.0 schema]
+    adaptation_history: []
+
+local_toolchain_limitations:
+  verified_on_this_host:
+    - "karkain CLI runs for help/config/target/explain/version (exit 0)"
+  not_available:
+    - "kcc.exe cannot start on this host: Windows error 0xC0000135 (a required DLL is missing)"
+    - "every compile-pipeline command (run/build/check/kir/lint/test/transpile) exits code 3 (ExitCompile) with zero diagnostics, reproducible also with a freshly built reference compiler"
+  consequence: "Karkain syntax can be read and documented; native compilation cannot be validated on this host until the toolchain dependency is repaired or a different host is supplied"

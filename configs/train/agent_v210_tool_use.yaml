@@ -1,0 +1,52 @@
+# Taksh v2.1.0 — Agent Tool Use Fine-Tuning: 7B Parameter Model
+#
+# Fine-tunes v2.0.0 7B base on tool use trajectories.
+# Teaches the model to recognize when to use tools, generate correct tool calls,
+# and parse tool results.
+#
+# GPU cluster required.
+
+run:
+  name: qm-code-v210-7b-tool-use
+  base_checkpoint: runs/v200_7b_dpo/checkpoint_last.pt
+  base_model_config: configs/model/code_v200_7b.yaml
+  seed: 42
+
+data:
+  tokenizer: tokenizer/taksh_code_bpe_v2.json
+  train_jsonl: data/v210_agent/tool_use.jsonl
+  val_jsonl: data/v210_agent/tool_use_val.jsonl
+  max_length: 4096
+  dataset_manifest: data/v210_agent/manifest.json
+
+optimizer:
+  type: adamw
+  lr_peak: 1.0e-5
+  lr_schedule: cosine
+  warmup_steps: 100
+  min_ratio: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+precision:
+  dtype: bfloat16
+  device: auto
+
+batch:
+  micro_batch_size: 8
+  grad_accum_steps: 4
+
+training:
+  max_steps: 20000
+  checkpoint_every_steps: 2000
+  log_every_steps: 50
+
+watchdog:
+  nan_check_every_steps: 50
+
+logging:
+  tracker: wandb
+  write_run_manifest: true
+  run_manifest_path: runs/v210_agent_tool_use/run_manifest.json

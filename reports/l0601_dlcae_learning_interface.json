@@ -1,0 +1,61 @@
+{
+  "schema": "taksh.l0601_dlcae_learning_interface/1",
+  "generated_by": "evaluation/l0601_dlcae_learning_interface.py",
+  "stages": [
+    "DISCOVERED",
+    "COMPREHENSION_IN_PROGRESS",
+    "KNOWLEDGE_VALIDATED",
+    "ELIGIBLE_FOR_TRAINING",
+    "TRAINING_AUTHORIZED",
+    "TRAINED",
+    "FUNCTIONALLY_QUALIFIED",
+    "ENGINEERING_QUALIFIED",
+    "BLOCKED",
+    "ROLLED_BACK"
+  ],
+  "required_provenance": [
+    "language_id",
+    "purpose",
+    "source",
+    "license",
+    "revision",
+    "license_note",
+    "approved_by",
+    "provenance_record_id"
+  ],
+  "transitions": [
+    {
+      "to": "COMPREHENSION_IN_PROGRESS",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "to": "KNOWLEDGE_VALIDATED",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "to": "ELIGIBLE_FOR_TRAINING",
+      "ok": false,
+      "reason": "owner authorization required before any training run"
+    }
+  ],
+  "final_stage_reached": "KNOWLEDGE_VALIDATED",
+  "handoff": {
+    "states": [
+      "KNOWLEDGE_VALIDATED"
+    ],
+    "counts": {
+      "KNOWLEDGE_VALIDATED": 1
+    },
+    "authorization_boundary": "no entry reaches TRAINING_AUTHORIZED without owner_authorization_id",
+    "ingestion_boundary": "no entry reaches ELIGIBLE_FOR_TRAINING on provenance alone; owner sign-off required"
+  },
+  "invariants": [
+    "DISCOVERED != TRAINING-ELIGIBLE: never automatic",
+    "KNOWLEDGE_VALIDATED != TRAINING-AUTHORIZED: owner sign-off required",
+    "FUNCTIONALLY_QUALIFIED requires recorded evaluation evidence",
+    "BLOCKED blocks everything; only owner unblocks"
+  ],
+  "verdict": "DLCAE-LEARNING CONTRACT QUALIFIED (interfaces only; nothing authorized for training)"
+}

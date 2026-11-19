@@ -1,0 +1,84 @@
+# TAKSH L0.7.0 — Karkain data strategy (54th first-class language)
+#
+# Structure only. ZERO corpus counts are asserted. Karkain source arrives from
+# the owner-internal Karkain repository only if and when the owner authorizes
+# it; the KCC compiler (or a repaired successor) is the validation oracle;
+# synthetic fixtures below are labeled synthetic and are for schema tests only.
+schema: taksh.karkain_data_strategy/1
+id: taksh-karkain-data-strategy-v1
+version: 1
+created: "2026-11-11"
+
+identity:
+  language_id: karkain
+  extensions: [.kark]
+  registry: configs/foundation/l060r1_dynamic_language_registry.yaml
+  qualification_status: DISCOVERED
+  spec_version_pinned: "1.1.0"
+  compiler_version_pinned: "1.1.0 (windows/amd64, Stable Build)"
+  kir_version: "KIR v1 (SSA)"
+
+corpus_requirements:
+  # Each requirement names WHAT is needed; none invents counts.
+  - id: kark-req-std-examples
+    kind: "stdlib canonical examples (async, collections, core, crypto, db, encoding, generics, gpu, http, io, math, net, numerics, string, system, testing)"
+    source_requirement: "Karkain repository stdlib/ + examples/ (owner-internal)"
+    validation: "kcc-run each example; expect exit 0 (blocked on this host)"
+    license_requirement: "owner grant recorded BEFORE any ingestion"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-positive-programs
+    kind: "positive compile-pass programs"
+    validation: "kcc check exit 0"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-negative-programs
+    kind: "negative compile-fail programs with expected diagnostics"
+    validation: "kcc check nonzero + diagnostic match (requires working kcc)"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-borrow-move-cases
+    kind: "ownership/borrow/move semantics cases incl. negatives"
+    validation: "kcc borrow diagnostics"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-codegen-cases
+    kind: "code generation output expectations (x86_64-windows native, c-free PE)"
+    validation: "bitwise/assembly spot checks by kcc"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-debug-repair
+    kind: "buggy program + repair pairs for repair-style training"
+    validation: "kcc diagnostics + repaired program compiles"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-repo-level
+    kind: "repository-level example projects (module layout, imports)"
+    validation: "kcc build of example workspace"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-kir-annotated
+    kind: "KIR dumps aligned to source for IR-understanding training"
+    validation: "kcc kir output matches SPEC"
+    status: "NOT_INSTANTIATED"
+  - id: kark-req-error-diagnostics
+    kind: "diagnostic message corpus for error-explanation training"
+    validation: "kcc emits expected diagnostic classes"
+    status: "NOT_INSTANTIATED"
+
+compiler_backed_validation_requirements:
+  - "no Karkain example enters any training set without a passing kcc validation (or documented toolchain exception)"
+  - "model_only vs compiler_assisted evaluation modes stay separate; compiler results never reported as model capability"
+  - "any repaired toolchain path (e.g. different host) re-pins spec/compiler versions in this file and the learning contract"
+
+contamination_controls:
+  - "TAKSH-KARK-BENCH (schema fe6acbcd9a41…) is never a training target"
+  - "Karkain sample programs authored for the benchmark are excluded from corpora by fingerprint"
+
+provenance_metadata_required:
+  - "per-file sha256"
+  - "SPEC version pin + compiler version pin"
+  - "source repo, revision, branch"
+  - "license + owner authorization record id"
+
+current_blockers:
+  - "kcc.exe exits 0xC0000135 on the authorized host; all compile-pipeline commands exit 3 with zero diagnostics (reproduced with freshly built reference compiler)"
+  - "zero owner authorization for training ingestion; only DISCOVERED status"
+  - "no measured corpus counts; no benchmark tasks instantiated"
+
+synthetic_fixtures_note:
+  description: "Tests in test_l070_data_readiness.py fabricate tiny .kark-shaped string fixtures labeled SYNTHETIC. They validate schema handling only and are NOT training data."
+  count: 3

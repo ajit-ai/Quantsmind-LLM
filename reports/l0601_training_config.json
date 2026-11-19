@@ -1,0 +1,59 @@
+{
+  "schema": "taksh.l0601_training_config/1",
+  "generated_by": "evaluation/l0601_training_config.py",
+  "valid": true,
+  "config_id": "taksh-foundation-111m-training-v1",
+  "version": 1,
+  "config_sha256": "edf857db867329be7b2a174a1c6a48c5b921412db3b08424011c50935833ffc4",
+  "base_foundation_sha256": "01a90464e6f2155177a1032430286ce3c991997863a637d6aef9c7cf5e4a2fa3",
+  "model": {
+    "config_id": "taksh-foundation-111m",
+    "vocab_size": 5822,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "n_kv_heads": 6,
+    "ffn_dim": 3072,
+    "max_seq_len": 2048,
+    "rope_theta": 10000.0,
+    "norm_eps": 1e-05,
+    "tie_embeddings": true
+  },
+  "optimizer": {
+    "type": "adamw",
+    "lr_peak": 0.001,
+    "schedule": "cosine",
+    "warmup_steps": 200,
+    "min_lr_ratio": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0
+  },
+  "batch": {
+    "micro_batch_size": 4,
+    "grad_accum_steps": 4,
+    "max_micro_batch_size": 16,
+    "max_context_length": 2048
+  },
+  "training": {
+    "max_steps": 3000,
+    "tokens_per_step": 8192,
+    "seeds": [
+      42
+    ],
+    "deterministic": true,
+    "checkpoint_every_steps": 500,
+    "eval_every_steps": 100,
+    "val_batches": 8,
+    "val_seed": 1234,
+    "failure_states": [
+      "interrupted",
+      "nonfinite_loss",
+      "nonfinite_grad",
+      "resource_exhausted"
+    ]
+  },
+  "status": "NOT_YET_AUTHORIZED",
+  "verdict": "CANONICAL TRAINING CONFIG QUALIFIED (no run authorized)"
+}

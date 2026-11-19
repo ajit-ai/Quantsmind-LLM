@@ -1,0 +1,203 @@
+{
+  "schema": "taksh.final_pretraining_readiness/1",
+  "generated_by": "evaluation/l075_final_readiness.py",
+  "verified_on": "2026-11-11",
+  "dimensions": {
+    "corpus_snapshot_integrity": {
+      "status": "PASS",
+      "evidence": "snapshot_id=l072-l04-fdb1fee2beaae9c2; integrity match=True; frozen_for_training=False",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "none (passed) \u2014 but immutability alone confers nothing",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "snapshot preserved; owner needed only for new freeze"
+    },
+    "data_provenance": {
+      "status": "PASS",
+      "evidence": "internal l04 corpus provenance VERIFIED; train.jsonl re-hashed at ingest; dataset_manifest.json audited L0.4",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "external candidates require counsel \u2014 none acquired",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering (internal corpus); external scope = owner+counsel"
+    },
+    "technical_corpus_eligibility": {
+      "status": "PASS",
+      "evidence": "technically_eligible=1050; excluded=2; training_eligible=0",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "none; technical != legal != training",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering (recompute at run time); authorization is owner's"
+    },
+    "legal_training_permission": {
+      "status": "PARTIAL",
+      "evidence": "l070 license record: APPROVED_WITH_CONDITIONS \u2014 internal SFT/pretraining previously authorized (L0.4); external/commercial release requires fresh counsel review; redistribution NOT granted",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A3.2 (external datasets \u2014 counsel); A3.3/A3.4 (distribution/publication)",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner + counsel"
+    },
+    "owner_training_authorization": {
+      "status": "MISSING",
+      "evidence": "no owner authorization for any training run exists; A1.1 of the L0.7.5 decision register = MISSING; A1.2 = CONDITIONAL (internal research pretraining only, aggregate registry still not an authorization)",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A1.1 written authorization (snapshot, scope, environment, budget, distribution, expiry)",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner"
+    },
+    "multilingual_language_coverage": {
+      "status": "PARTIAL",
+      "evidence": "python 1,380,611 eligible tokens (only); 52 of 53 languages: zero; Karkain: zero (DISCOVERED); supporting technologies: separate; scope unchanged",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "data acquisition decisions (A3.2) \u2014 external corpora need counsel + owner",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering fact; scope decisions are owner's"
+    },
+    "tokenizer_model_compatibility": {
+      "status": "PASS",
+      "evidence": "tokenizer committed LF blob fbedf003774183c4\u2026 matches fbedf003\u2026; foundation config matches; vocab 5822; context 2048; tied embeddings; 110,658,816 params",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "none",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering"
+    },
+    "canonical_checkpoint_availability": {
+      "status": "MISSING",
+      "evidence": "taksh-foundation-111m has NO checkpoint anywhere; v180_sft exists (28.8M, d_model 384) \u2014 GEOMETRY_INCOMPATIBLE vs canonical (l074 validator); synthetic fixture rejected; spec present (l074_canonical_checkpoint_readiness.yaml)",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "a canonical 111M artifact must be produced by an authorized training run (which does not exist)",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering \u2014 but blocked by owner decisions A1/A2"
+    },
+    "hardware_resource_feasibility": {
+      "status": "BLOCKED",
+      "evidence": "measured 2026-11-11: RAM total 4199780352 B, available 853.9 MiB, 78.7% used; disk free 170.4 GiB; MX150 4 GiB (CUDA 11.1, CPU torch); fp32+Adam \u2248 1.77 GiB estimate exceeds host",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A2-compute-authorization + qualifying GPU (\u226516 GiB VRAM estimate) + corpus residency policy",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner must provide/authorize environment"
+    },
+    "benchmark_thresholds": {
+      "status": "PASS",
+      "evidence": "frozen Python benchmark 854c7ca8\u2026 intact; multilingual 64-task 7a839060\u2026 intact; thresholds and expected outputs unchanged; 0/30 stands",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "none",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering (frozen; mutation forbidden without owner-approved milestone)"
+    },
+    "focused_regression_qualification": {
+      "status": "PASS",
+      "evidence": "l073 ledger: 7/7 RESOLVED; suites unchanged through L0.7.5",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "CI execution still requires owner action (A4)",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering"
+    },
+    "full_github_actions_ci_execution": {
+      "status": "BLOCKED",
+      "evidence": "production CI triggers are push-to-develop/main + PR-to-those-branches only; workflow has no workflow_dispatch; ci-l0704-manual-qualification.yml exists on branch but GitHub exposes workflows only from the DEFAULT branch (HTTP 404 verified 2026-11-11); dispatch attempts: HTTP 422 (no trigger) and HTTP 404",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A4 owner action: push the qualification workflow to main (or add workflow_dispatch to production CI) or open+merge an authorized PR",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner"
+    },
+    "python_runtime_compatibility": {
+      "status": "CONDITIONAL",
+      "evidence": "requires-python >=3.10; 479 files statically parsed at 3.11 grammar \u2014 0 real-code incompatibilities; all deps cp311; runtime NOT EXECUTED \u2014 no Python 3.11 interpreter installed on host; downloads unauthorized",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "owner authorization for interpreter provisioning then runtime qualification",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner (to authorize interpreter); engineering (to verify runtime)"
+    },
+    "reproducibility_and_recovery": {
+      "status": "PASS",
+      "evidence": "content-derived snapshot id rebuilt byte-reproducibly; atomic writes verified; resume gates closed; l071/l072 lineage intact; leakage checks green",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "none",
+      "responsible_party": "engineering",
+      "owner_decision_required": false,
+      "responsibility": "engineering"
+    },
+    "training_artifact_provenance": {
+      "status": "MISSING",
+      "evidence": "no training run exists; artifact contract specified (l074_canonical_checkpoint_readiness.yaml) but NO artifact has ever been materialized; v180_sft is a different model (GEOMETRY_INCOMPATIBLE)",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A1.1 authorization \u2192 authorized run \u2192 artifact",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner authorization; engineering execution under authorization"
+    },
+    "training_environment_authorization": {
+      "status": "MISSING",
+      "evidence": "no authorized training environment exists \u2014 MX150 unusable (0x\u2026/CUDA 11.1); no external compute approved; no residency policy defined",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "A2-compute-authorization",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner"
+    },
+    "external_checkpoint_distribution_permission": {
+      "status": "NOT_AUTHORIZED",
+      "evidence": "no external/commercial checkpoint distribution right exists; A3.3/A3.4 = NOT_AUTHORIZED; internal research conditional only (A3.1)",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "counsel opinion + owner decision before any external artifact leaves internal custody",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner + counsel"
+    },
+    "karkain_readiness_and_integration": {
+      "status": "BLOCKED",
+      "evidence": "Karkain remains DISCOVERED (SPEC 1.1.0; compiler 1.1.0 pinned; kcc.exe 0xC0000135; zero corpus; qualification never upgraded); extension registry entry intact (54th first-class language)",
+      "last_verified": "2026-11-11",
+      "blocking_dependency": "owner-authorized Karkain corpus + kcc repair; never implied by this milestone",
+      "responsible_party": "owner_decision",
+      "owner_decision_required": true,
+      "responsibility": "owner (Karkain repo); engineering otherwise"
+    }
+  },
+  "dimension_count": 18,
+  "blocking_dimensions": [
+    "canonical_checkpoint_availability",
+    "external_checkpoint_distribution_permission",
+    "full_github_actions_ci_execution",
+    "hardware_resource_feasibility",
+    "karkain_readiness_and_integration",
+    "owner_training_authorization",
+    "training_artifact_provenance",
+    "training_environment_authorization"
+  ],
+  "verdict": "BLOCKED",
+  "verdict_options": [
+    "READY_FOR_L0_8_WITHIN_AUTHORIZED_SCOPE",
+    "CONDITIONALLY_READY",
+    "BLOCKED"
+  ],
+  "training_eligible_tokens": 0,
+  "mandatory_fact_check": {
+    "l072_snapshot": "l072-l04-fdb1fee2beaae9c2",
+    "python_samples": 1050,
+    "python_tokens": 1380611,
+    "other_languages_tokens": 0,
+    "karkain_tokens": 0,
+    "owner_training_authorization": "MISSING",
+    "training_eligible_tokens": 0
+  },
+  "invariants": [
+    "READY verdict only with owner authorization + checkpoint initialization path + authorized viable environment",
+    "no owner decision may be fabricated by tooling",
+    "technical facts never override owner decisions",
+    "zero tolerance for skipped/deleted/weakened regression tests"
+  ],
+  "verdict_text": "BLOCKED \u2014 L0.8.0 must not begin. Training authorization is MISSING (A1.1), no canonical foundation-111m artifact exists, the host cannot hold the training state, and every legal right beyond internal research pretraining is absent. The owner must act first; then this gate flips automatically in a new milestone without new code."
+}
