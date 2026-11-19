@@ -24,7 +24,12 @@ LANGUAGE_INFO = {
 
 @torch.no_grad()
 def generate_code(model, tokenizer, prompt: str, max_new_tokens: int = 512, temperature: float = 0.2, device: str = "cpu") -> str:
-    """Generate a completion. Delegates to the shared sampler in local_inference."""
+    """Generate a completion. Delegates to the shared sampler in local_inference.
+
+    Returns the full completion string. Streaming here is achieved by the caller
+    yielding the complete string; real token-by-token streaming requires an
+    `on_token` callback in ``generate_ids`` and is tracked as I5 work.
+    """
     result = generate_ids(
         model,
         tokenizer,
@@ -60,11 +65,8 @@ def create_code_chat_ui(model, tokenizer, device: str):
         if not message.strip():
             yield ""
             return
-        prompt = format_prompt(message, language, context)
-        full = ""
-        for chunk in generate_code(model, tokenizer, prompt, device=device):
-            full += chunk
-            yield full
+        prompt = format_prompt(message, language, context, tokenizer=tokenizer)
+        yield generate_code(model, tokenizer, prompt, device=device)
 
     with gr.Blocks(title="Taksh Coder", theme=gr.themes.Soft()) as ui:
         gr.Markdown("# Taksh Coder — AI Programming Assistant")
@@ -101,7 +103,7 @@ def main():
 
     p = argparse.ArgumentParser(description="Taksh Coder — Code Chat UI")
     p.add_argument("--ckpt", required=True)
-    p.add_argument("--tokenizer", default="tokenizer/qm_code_bpe_v0.json")
+    p.add_argument("--tokenizer", default="tokenizer/taksh_code_bpe_v1.json")
     p.add_argument("--port", type=int, default=7860)
     args = p.parse_args()
 
@@ -113,9 +115,9 @@ def main():
     from tokenizers import Tokenizer
     tokenizer = Tokenizer.from_file(args.tokenizer)
 
-    print(f"Starting Taksh Coder on http://localhost:{args.port}")
+    print(f"Starting Taksh Coder on http://127.0.0.1:{args.port}")
     ui = create_code_chat_ui(model, tokenizer, device)
-    ui.launch(server_name="0.0.0.0", server_port=args.port)
+    ui.launch(server_name="127.0.0.1", server_port=args.port, share=False)
 
 
 if __name__ == "__main__":
