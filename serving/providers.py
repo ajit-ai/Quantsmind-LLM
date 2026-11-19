@@ -11,11 +11,12 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Iterable, Protocol
 
 
 class ProviderError(Exception):
@@ -32,6 +33,41 @@ class ProviderUnavailableError(ProviderError):
 
 class ProviderTimeoutError(ProviderError):
     pass
+
+
+class ProviderAuthenticationError(ProviderUnavailableError):
+    """The provider rejected or lacks the configured credential."""
+
+
+class ProviderRateLimitError(ProviderError):
+    """The provider asked the caller to slow down."""
+
+
+class ProviderServerError(ProviderError):
+    """The provider returned a server-side failure."""
+
+
+class ProviderResponseError(ProviderError):
+    """The provider returned a malformed, empty, or unusable response."""
+
+
+def redact_secrets(text: Any, secrets: Iterable[str] | None = None) -> str:
+    """Return *text* with configured secrets and common credential patterns removed."""
+    value = "" if text is None else str(text)
+    for secret in secrets or ():
+        if secret and len(str(secret)) >= 4:
+            value = value.replace(str(secret), "[REDACTED]")
+    value = re.sub(
+        r"(?i)(authorization\s*:\s*bearer\s+)[^\s,;]+",
+        r"\1[REDACTED]",
+        value,
+    )
+    value = re.sub(
+        r"(?i)((?:api[_-]?key|access[_-]?token|secret)\s*[=:]\s*)[^\s,;]+",
+        r"\1[REDACTED]",
+        value,
+    )
+    return value
 
 
 @dataclass(frozen=True)
@@ -110,6 +146,9 @@ class ProviderCapabilities:
     modes: tuple[str, ...] = ()
     max_context_tokens: int | None = None
     notes: str = ""
+    configured: bool = False
+    status: str = "unknown"
+    test_only: bool = False
 
     def as_dict(self) -> dict[str, Any]:
         data = asdict(self)
