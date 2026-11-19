@@ -23,7 +23,7 @@ Status vocabulary: `NOT_STARTED` · `IN_PROGRESS` · `BLOCKED` · `PRESERVED_UNT
 | V3 | Native serving qualification | **IMPLEMENTED_NOT_QUALIFIED (product)** — serving/integrity only | `serving/foundation_inference.py` qualification, `tests/test_i5_native_serving.py` | Not a capability result; see `docs/audit/TAKSH-STEP0.6-NATIVE-SERVING-QUALIFICATION.md` |
 | V4 | Engineering intelligence | **NOT_STARTED** | `taksh/dlcae/coding/orchestrator.py` exists (engineering-qualified only) | After V2/V3 gates |
 | V5 | Gradio product integration | **IN_PROGRESS (partial)** | `serving/code_chat.py` works; defects C1/C2 found | I1 fixes then I6 |
-| V6 | Release qualification | **NOT_STARTED** | Publication scaffolding present but unused | After V3–V5 gates |
+| V6 | Release qualification developer preview | **CONDITIONAL_PASS** — packaging/pipeline qualified; capability NOT_EVALUATED; publication NOT authorized | See `docs/audit/TAKSH-STEP0.9-RELEASE-QUALIFICATION.md` | Publication is owner decision; evidence regenerated per release |
 | V7 | Dense scale-up (100M→3B, tokenizer v2) | **BLOCKED (owner gates)** | Configs/model cards exist (v190/…/v300), none trained | Training authorization + GPU |
 | V8 | Repository intelligence | **NOT_STARTED** | Roadmap L2.0–L2.10 | After V7 |
 | V9 | MoE scale-up | **DEFERRED (premature)** | No MoE implementation yet | Only after dense proof |
