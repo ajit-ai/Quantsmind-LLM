@@ -66,13 +66,20 @@ def load_foundation(checkpoint_path: str, tokenizer_path: str, device: str = "cp
         raise CheckpointIncompatibleError(
             f"tokenizer vocab {tokenizer.get_vocab_size()} != checkpoint vocab {cfg['vocab_size']}"
         )
+    try:
+        total_parameters = sum(int(p.numel()) for p in model.parameters())
+    except Exception:  # noqa: BLE001 - diagnostic only
+        total_parameters = None
     meta = {
         "checkpoint": str(checkpoint_path),
         "tokenizer": str(tokenizer_path),
         "vocab_size": tokenizer.get_vocab_size(),
         "parameters": model.num_params(),
+        "total_parameters": total_parameters,
         "device": device,
         "max_seq_len": int(cfg.get("max_seq_len", 0)),
+        "model_name": str(cfg.get("name") or cfg.get("model_name") or "taksh-native"),
+        "model_config": dict(cfg),
     }
     return model, tokenizer, meta
 
