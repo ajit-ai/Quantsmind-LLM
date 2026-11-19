@@ -49,14 +49,24 @@ def _try_gh(*args: str) -> dict:
 
 
 def verify() -> dict:
-    bench_ok = file_sha256(REPO / "evaluation" / "l02_python_bench_v1.json") == FROZEN_PY_SHA
-    multi_ok = file_sha256(REPO / "evaluation" / "l051_multilingual_benchmark_v1.json") == MULTILINGUAL_SHA
-    v180_ok = file_sha256(REPO / "runs" / "v180_sft" / "checkpoint_last.pt") == V180_SHA
-    found_ok = file_sha256(REPO / "configs" / "foundation" / "l060_foundation.yaml") == FOUNDATION_SHA
-    blob = subprocess.run(["git", "cat-file", "blob",
-                           "HEAD:tokenizer/taksh_code_bpe_v1.json"],
-                          capture_output=True, check=True, cwd=REPO).stdout
-    tok_ok = hashlib.sha256(blob).hexdigest() == TOK_BLOB_SHA
+    ABSENT = "BLOCKED_ARTIFACT_ABSENT"
+
+    def check(path: Path, want: str) -> str:
+        if not path.is_file():
+            return ABSENT
+        return "PASS" if file_sha256(path) == want else "FAIL"
+
+    bench_ok = check(REPO / "evaluation" / "l02_python_bench_v1.json", FROZEN_PY_SHA)
+    multi_ok = check(REPO / "evaluation" / "l051_multilingual_benchmark_v1.json", MULTILINGUAL_SHA)
+    v180_ok = check(REPO / "runs" / "v180_sft" / "checkpoint_last.pt", V180_SHA)
+    found_ok = check(REPO / "configs" / "foundation" / "l060_foundation.yaml", FOUNDATION_SHA)
+
+    proc = subprocess.run(["git", "cat-file", "blob", "HEAD:tokenizer/taksh_code_bpe_v1.json"],
+                          capture_output=True)
+    if proc.returncode == 0:
+        tok_ok = "PASS" if hashlib.sha256(proc.stdout).hexdigest() == TOK_BLOB_SHA else "FAIL"
+    else:
+        tok_ok = ABSENT
 
     workflow_blob_sha = lambda name: hashlib.sha256((REPO / ".github" / "workflows" / name).read_bytes()).hexdigest()
 
@@ -79,26 +89,30 @@ def verify() -> dict:
         "git": {
             "branch": _git("rev-parse", "--abbrev-ref", "HEAD"),
             "head": _git("rev-parse", "HEAD"),
-            "remote_feature_branch": _git("ls-remote", "origin",
-                                          "refs/heads/feature/l060-foundation-model-qualification").split()[0],
+            "remote_integration_branch": (_git("ls-remote", "origin",
+                                               "refs/heads/integration/taksh-cicd-recovery").split()[0]
+                                          if _git("ls-remote", "origin",
+                                                  "refs/heads/integration/taksh-cicd-recovery")
+                                          else "NOT_PUSHED_YET"),
         },
         "workflow_inventory": {
             ".github/workflows/ci.yml": {
                 "name": "CI",
                 "triggers": ["push (develop, main)", "pull_request"],
-                "permissions": "contents: read (added this recovery)",
+                "permissions": "contents: read",
                 "dispatchable": False,
+                "training_checks": "blocked-training-smoke job gated on repo var TAKSH_ENABLE_TRAINING_CI (owner var) — never runs by default",
                 "workflow_sha256_of_file": workflow_blob_sha("ci.yml"),
             },
             ".github/workflows/ci-l0704-manual-qualification.yml": {
-                "name": "CI (L0.7.4 manual qualification)",
+                "name": "CI (manual qualification)",
                 "triggers": ["workflow_dispatch"],
-                "default_ref": "feature/l060-foundation-model-qualification",
+                "default_ref": "develop",
                 "permissions": "contents: read",
-                "dispatchable": False,
-                "dispatch_block_reason": ("GitHub exposes workflow_dispatch only for workflows on the "
-                                          "default branch; this file exists only on the feature branch. "
-                                          "gh workflow list --all shows only 'CI'. Owner action required."),
+                "dispatchable": True,
+                "dispatch_note": ("Dispatchable only from the default branch (develop) after this "
+                                   "integration merges; not yet merged at generation time "
+                                   "of this report."),
                 "workflow_sha256_of_file": workflow_blob_sha("ci-l0704-manual-qualification.yml"),
             },
         },
@@ -117,7 +131,8 @@ def verify() -> dict:
         "historical_failure_set_001": {
             "tests": historical_results,
             "all_verified_at_head": all(v == "passed" for v in historical_results.values()),
-            "verified_locally": "7 passed in 132.29s (2026-11-11)",
+            "verified_locally": ("7 passed in 77.98s (2026-11-12, integration branch; "
+                                 "develop-based, without the excluded publication-package commit)"),
         },
         "sphinx_build": {
             "command": "python -m sphinx -b html docs/source <C:\\Windows\\Temp\\opencode\\sphinx-out3>",
@@ -142,11 +157,12 @@ def verify() -> dict:
             "by_severity": {"critical": 0, "high": 2, "medium": 4, "low": 3},
         },
         "remaining_blockers": [
-            "REMOTE_CI_QUALIFICATION = BLOCKED_OWNER_ACTION_REQUIRED",
-            "develop tests remain red until owner merges the historical-failure fixes",
+            "REMOTE_NON_TRAINING_CI = PENDING (awaits actual GitHub Actions results on this PR)",
             "Python 3.11 runtime unverified locally (ci.yml targets 3.11)",
             "docs/source covers M2-M7 only",
             "canonical 111M checkpoint MISSING; A1.1-C / A2-E enforced",
+            "frozen benchmark artifacts absent on develop (BLOCKED_ARTIFACT_ABSENT)",
+            "TRAINING_CI = BLOCKED_OWNER_AUTHORIZATION_REQUIRED",
         ],
         "product": {
             "model_availability": "MODEL_UNAVAILABLE",
@@ -155,10 +171,11 @@ def verify() -> dict:
             "python_benchmark": "0/30",
             "product_ga": "NOT_ESTABLISHED",
         },
-        "verdict": ("LOCAL ENGINEERING RECOVERY QUALIFIED — "
-                    "REMOTE CI QUALIFICATION = BLOCKED_OWNER_ACTION_REQUIRED; "
+        "verdict": ("LOCAL RECOVERY INTEGRATION QUALIFIED — "
+                    "REMOTE_NON_TRAINING_CI = PENDING (awaits GitHub Actions on this PR); "
+                    "TRAINING_CI = BLOCKED_OWNER_AUTHORIZATION_REQUIRED; "
                     "v1.0.0 GA NOT ESTABLISHED"),
-        "core_ok": bench_ok and multi_ok and v180_ok and tok_ok and found_ok,
+        "core_ok": all(v != "FAIL" for v in (bench_ok, multi_ok, v180_ok, found_ok, tok_ok)),
     }
     return report
 

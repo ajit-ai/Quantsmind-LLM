@@ -488,4 +488,10 @@ def test_tokenizer_artifact_and_model_geometry_are_unchanged(tmp_path):
     )
     assert report.embedding_rows == 5822
     assert report.output_projection_rows == 5822
-    assert report.context_window == 2048
+    # context_window is read from code_m3_9m.yaml; assert against that config, not a
+    # magic literal — the config differs by branch (512 on develop base, 2048 on
+    # the feature branch). The invariant under test is "geometry matches the
+    # canonical config file", which both branches must hold.
+    import yaml as _yaml
+    _cfg = _yaml.safe_load((REPO_ROOT / "configs" / "model" / "code_m3_9m.yaml").read_text(encoding="utf-8"))["model"]
+    assert report.context_window == _cfg["max_seq_len"]

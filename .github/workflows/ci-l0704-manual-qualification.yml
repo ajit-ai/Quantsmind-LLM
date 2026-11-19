@@ -1,16 +1,19 @@
-name: CI (L0.7.4 manual qualification)
+name: CI (manual qualification)
 
-# CI-only manual qualification path. Does NOT replace, alter or bypass the
-# production `CI` workflow. Runs read-only, no releases, no publication.
+# Manual qualification path consolidating both lineages:
+#   - L0.7.4 foundation qualification chain (DLCAE -> L1.0.0-ENG3);
+#   - recovery/CI lineage (CI recovery fixes from origin/main PR #2 and #3).
+# Does NOT replace, alter or bypass the production `CI` workflow. Runs
+# read-only: no releases, no publication, and — critically — no training.
+# Every training-dependent check of `CI` is intentionally absent here;
+# this path never creates weights or checkpoints.
 #
-# Expected usage (documented for the owner): on the default branch, dispatch
-# this workflow against ref=feature/l060-foundation-model-qualification. On the
-# feature branch alone it is not dispatchable — GitHub only exposes workflows
-# present on the default branch to workflow_dispatch. See
-# docs/audit/TAKSH-CICD-DOCUMENTATION-RECOVERY.md §5.
+# Triggerable only from the default branch (GitHub policy):
+#   gh workflow run "CI (manual qualification)" --ref <ref> --repo ajit-ai/Quantsmind-LLM
+# It is dispatch-only, least-privilege, and never runs on push or PR.
 #
-# Tests-only: focused L0.6.0 → L1.0.0-ENG3 chain plus the suite excluding three
-# tests that require untracked local runs/ artifacts not present on a bare checkout:
+# Test selection unions the two lineages; the three tests requiring untracked
+# local runs/ artifacts are deselected on a bare checkout:
 #   tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility
 #   tests/test_l04_pipeline.py::test_overfit_checkpoint_greedy_determinism
 #   tests/test_l05_feasibility.py::test_preservation_block_records_all_ten_checkpoints
@@ -21,15 +24,15 @@ on:
       ref:
         description: 'Git ref to qualify (branch, tag or SHA)'
         required: false
-        default: 'feature/l060-foundation-model-qualification'
+        default: 'main'
         type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-l0704-${{ inputs.ref }}
-  cancel-in-progress: false
+  group: ci-manual-qualification-${{ inputs.ref }}
+  cancel-in-progress: false      # qualification runs must execute to completion
 
 jobs:
   qualify:
@@ -72,10 +75,22 @@ jobs:
             tests/test_l100eng_dlcae_runtime.py \
             tests/test_l100eng2_semantic_validation.py \
             tests/test_l100eng3_end_to_end.py \
-            tests/test_ci_workflows.py \
             -q
 
-      - name: Full suite minus untracked-artifact tests
+      - name: Focused CI + historical-failure chain (recovery)
+        run: |
+          python -m pytest \
+            tests/test_ci_workflows.py \
+            tests/test_m5_adapters_syntax.py::test_external_adapter_does_not_download_by_default \
+            tests/test_m6_sovereign.py::test_available_ram_is_the_binding_constraint \
+            tests/test_v120_python_data.py::test_g7_manifest_has_no_timestamp_or_absolute_path \
+            tests/test_v150_coding_foundation.py::test_geometry_inspector_reports_a_matching_triple \
+            tests/test_v150_coding_foundation.py::test_tokenizer_artifact_and_model_geometry_are_unchanged \
+            tests/test_v160_authorization_and_baseline.py::test_g10_geometry_inspector_accepts_the_s2_triple \
+            tests/test_v180_corpus_qualification.py::test_sampled_decoding_is_reproducible_with_a_seed \
+            -q
+
+      - name: Full test suite minus untracked-artifact tests
         run: |
           python -m pytest tests -q \
             --deselect tests/test_l04_pipeline.py::test_warmstart_l03_checkpoint_loads_with_strict_compatibility \
@@ -85,14 +100,19 @@ jobs:
       - name: Training readiness gate (informational; fail-closed)
         run: python -m evaluation.l073_readiness --out "$RUNNER_TEMP/l073.json" && cat "$RUNNER_TEMP/l073.json" | python -c "import json,sys; print('verdict:', json.load(sys.stdin)['verdict'])"
 
-      - name: Frozen benchmark hashes (must match exactly)
+      - name: Frozen benchmark hashes (fail closed when artifacts absent)
         run: |
           python - <<'EOF'
-          import hashlib
+          import hashlib, sys, os
           expected = {
               "evaluation/l02_python_bench_v1.json": "854c7ca833c224eb97aa71bea5dfd534e6e8ed1ba4b375d9cf7bf3f368a5e4a6",
               "evaluation/l051_multilingual_benchmark_v1.json": "7a839060c236c557a7ad77b36020ec858af09ecac7e952394357de5034d9064e",
           }
+          missing = [p for p in expected if not os.path.isfile(p)]
+          if missing:
+              print(f"BLOCKED: frozen benchmark artifact(s) absent on this branch: {missing}")
+              print("Integrity cannot be verified; qualification here is NOT confirmed either way.")
+              sys.exit(2)
           for path, want in expected.items():
               got = hashlib.sha256(open(path, "rb").read()).hexdigest()
               assert got == want, f"{path}: {got} != {want}"
