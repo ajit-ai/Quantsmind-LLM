@@ -5,6 +5,7 @@
 **Owner:** ajit-ai
 **Parent plan:** `docs/audit/TAKSH-IMPLEMENTATION-PLAN.md`
 **Status:** adopted by owner instruction; Git mutations still require explicit per-step approval.
+**PR policy (2026-11-19):** all changes to `main` (and `develop`) land **only via pull request**. Direct or local merges to protected branches are not permitted by the agent, even with owner approval of the content; the agent stops at PR creation and asks the owner to review/merge.
 
 ---
 
@@ -12,9 +13,9 @@
 
 | Branch class | Role | Rules |
 |---|---|---|
-| `main` | Release lineage | No direct commits. Merge only by owner-approved action. No push without explicit authorization. |
-| `develop` | Integration lineage | Owner-gated merges only. |
-| `feature/<track>-<slug>` | Unit of work, e.g. `feature/coding-genius-i1-serving-fixes` | Branch from the approved baseline. Keep one logical unit per branch. |
+| `main` | Release lineage | No direct commits; changes arrive **only via PR**. No local merges, no push to `origin/main` by the agent. |
+| `develop` | Integration lineage | Same: PR-only; owner-gated. |
+| `feature/<track>-<slug>` | Unit of work, e.g. `feature/coding-genius-i1-serving-fixes` | Branch from the approved baseline. Keep one logical unit per branch. Lands in `main`/`develop` via PR. |
 | `integration/*`, `planning/*` | Pre-existing lineages | Preserve; do not delete or rename. |
 
 Default baseline for active work is the current foundation lineage tip (`feature/l060-foundation-model-qualification` @ `78b6cdf…`) until the owner authorizes another baseline (e.g. `feature/l060-1-integration-closure`).
@@ -66,18 +67,19 @@ Host constraint: full suite historically exceeds memory/time on this machine; fo
 | `.github/workflows/ci.yml` | Production trigger policy (push to `develop`/`main`). |
 | `.github/workflows/ci-l0704-manual-qualification.yml` | Manual qualification workflow; dispatch blocked from non-default branch. |
 | Local gates G1–G4 | Stand-in until CI from the feature branch is authorized by owner (requires default-branch action). |
-| Merge to `main` | Only after all local gates pass **and** CI evidence exists or CI limitation is explicitly recorded. |
+| Merge to `main` | Only via a **pull request** after all local gates pass **and** CI evidence exists or CI limitation is explicitly recorded. The agent creates the PR (if authorized to push) and stops; merging is an owner action. |
 
 CI authorization is an owner action; this document does not grant it.
 
-## 5. Merge-to-main procedure
+## 5. Merge-to-main procedure (PR-required)
 
 1. Owner designates the feature branch and full SHA.
 2. All gates G1–G4 green; failures recorded, not hidden.
-3. Regression evidence recorded (focused suite + manifest).
-4. Explicit owner approval message quoting the SHA ("approved to merge <sha> into main").
-5. Merge performed by owner or by explicitly authorized agent action; **no force-push, no rebase of protected history**.
-6. Tag/release only with separate owner authorization; publication is never implied by a merge.
+3. Push the feature branch to `origin` only with explicit owner authorization (network operation).
+4. Open a PR from the feature branch into `main` (or `develop` if agreed) describing scope, evidence, test results and limitations.
+5. The agent stops at PR creation and explicitly asks the owner to review and merge. **The agent never clicks/executes the merge.**
+6. Owner merges via PR (or authorizes a specific merge action, still never a direct push).
+7. Tag/release only with separate owner authorization; publication is never implied by a PR merge.
 
 ## 6. Rollback
 
@@ -97,4 +99,4 @@ CI authorization is an owner action; this document does not grant it.
 
 ## 8. Standing prohibitions
 
-No force-push · no push without explicit owner command · no tag/release/publication without authorization · no committing protected corpora/checkpoints/publication artifacts · no claiming CI exists when it is manually blocked · no claiming capability from unexecuted benchmarks.
+No force-push · no push without explicit owner command · no local commits/merges to `main`/`develop` (PR-only) · no agent-side PR merge · no tag/release/publication without authorization · no committing protected corpora/checkpoints/publication artifacts · no claiming CI exists when it is manually blocked · no claiming capability from unexecuted benchmarks.
