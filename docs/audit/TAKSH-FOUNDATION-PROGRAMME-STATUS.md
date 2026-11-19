@@ -20,7 +20,7 @@ Status vocabulary: `NOT_STARTED` · `IN_PROGRESS` · `BLOCKED` · `PRESERVED_UNT
 | I3 | Recovery/CI selective review | **NOT_STARTED** | `61ae12a`, `30facf5`, `90eba0a`, `61e2dba` assessed; none integrated | Review against L0.7.4 CI |
 | V1 | Native diagnostic closure | **IN_PROGRESS (evidence present)** | `evaluation/native_v02/*` and `TAKSH-NATIVE-V0.2-DIAGNOSIS.md` integrated in closure worktree; this branch + #5 integrate v0/v0.1/v0.2 evidence | Accept/reject v0.2 diagnosis as authoritative |
 | V2 | Capability recovery | **NEGATIVE RESULT (0/20 syntax/executable/correct)** — aligned-format SFT on v180/l02 with frozen seeds, evaluated against immutable Native v0.1; empty-output drop 16→14 with no syntax/correctness gain. See `docs/audit/TAKSH-STEP0.5-CAPABILITY-RECOVERY.md` | Owner decision required for scale-up; no capability claim | No progress; re-evaluation for I4 recommended |
-| V3 | Native serving qualification | **NOT_STARTED** | `serving/foundation_inference.py`, `native_provider.py` recovered | After I2 + I4 |
+| V3 | Native serving qualification | **IMPLEMENTED_NOT_QUALIFIED (product)** — serving/integrity only | `serving/foundation_inference.py` qualification, `tests/test_i5_native_serving.py` | Not a capability result; see `docs/audit/TAKSH-STEP0.6-NATIVE-SERVING-QUALIFICATION.md` |
 | V4 | Engineering intelligence | **NOT_STARTED** | `taksh/dlcae/coding/orchestrator.py` exists (engineering-qualified only) | After V2/V3 gates |
 | V5 | Gradio product integration | **IN_PROGRESS (partial)** | `serving/code_chat.py` works; defects C1/C2 found | I1 fixes then I6 |
 | V6 | Release qualification | **NOT_STARTED** | Publication scaffolding present but unused | After V3–V5 gates |
