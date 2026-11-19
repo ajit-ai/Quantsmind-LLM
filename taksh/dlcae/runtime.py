@@ -53,8 +53,7 @@ class DLCAERuntime:
     def open_session(self, document_id: str, language_id: str, text: str, *,
                      source: str = "session", license_spdx: str = "owner-internal-research") -> str:
         """Open a comprehension session; builds a tracked sequence."""
-        session_id = f"session-{fingerprint({'doc': document_id, 'src': source,
-                                              'n': utcnow_iso()})[:12]}"
+        session_id = f"session-{fingerprint({'doc': document_id, 'src': source, 'n': utcnow_iso()})[:12]}"
         sequence_id = self.sequences.create_sequence(
             f"comprehend:{document_id}",
             [{"task_id": "C", "action": "comprehend_document",
