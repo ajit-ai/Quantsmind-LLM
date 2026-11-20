@@ -1,8 +1,8 @@
 # TAKSH — Foundation Programme Status Register
 
 **Document ID:** `TAKSH-FOUNDATION-PROGRAMME-STATUS`
-**Date:** 2026-11-19
-**Branch:** `feature/l060-foundation-model-qualification` @ `78b6cdf76ccbd416d1208eb5e71e01a03d59c5b1`
+**Date:** 2026-11-20
+**Branch:** `feature/coding-genius-cap-local`
 **Scope:** central register for the coding-only genius programme. Statuses are never self-assigned upward; they follow the gates they record.
 
 Status vocabulary: `NOT_STARTED` · `IN_PROGRESS` · `BLOCKED` · `PRESERVED_UNTRACKED` · `IMPLEMENTED_NOT_QUALIFIED` · `RECOVERED_NOT_INTEGRATED` · `READY_FOR_OWNER_CONSOLIDATION_APPROVAL` · `OWNER_APPROVAL_REQUIRED` · `QUALIFIED`
@@ -28,6 +28,7 @@ Status vocabulary: `NOT_STARTED` · `IN_PROGRESS` · `BLOCKED` · `PRESERVED_UNT
 | V8 | Repository intelligence | **NOT_STARTED** | Roadmap L2.0–L2.10 | After V7 |
 | V9 | MoE scale-up | **DEFERRED (premature)** | No MoE implementation yet | Only after dense proof |
 | V10 | World distribution | **NOT_STARTED** | `hf_export/` scaffolding exists (not authorized) | Owner publication authorization |
+| V11 | Local free-resource capability experiment (Step 0.10) | **NEGATIVE RESULT — 0/20 correct** — benchmark-clean local corpus; raw/template mismatch isolated; 1,000-step SFT improved syntax only; higher-LR continuation regressed | `docs/audit/TAKSH-STEP0.10-LOCAL-CAPABILITY-EXPERIMENT.md`, `TAKSH-CAP-CORPUS-PROVENANCE.md`, `evaluation/capability/*` | Owner decision on authorised GPU/compute and larger corpus; no local CPU path remains |
 
 ---
 
