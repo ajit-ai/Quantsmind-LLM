@@ -1,0 +1,42 @@
+{
+  "files_seen": 8857,
+  "files_excluded": 3273,
+  "files_yielded": 6790,
+  "chunks_seen": 14436,
+  "kept": 6973,
+  "rejected_quality": 19,
+  "rejected_dup": 76,
+  "rejected_fuzzy": 189,
+  "rejected_minified": 11,
+  "rejected_syntax": 7179,
+  "rejected_short": 322,
+  "rejected_decode": 0,
+  "bytes_in": 131627960,
+  "bytes_out": 39287271,
+  "by_source_kind": {
+    "repo": 172,
+    "pip": 6618
+  },
+  "total_sources": 6790,
+  "excluded_roots": [
+    ".git",
+    "benchmark",
+    "benchmarks",
+    "build",
+    "data",
+    "dist",
+    "evaluation",
+    "hf_export",
+    "native_v01",
+    "native_v02",
+    "node_modules",
+    "runs",
+    "taksh-env",
+    "taksh-hf-publication",
+    "taksh.egg-info",
+    "test",
+    "tests"
+  ],
+  "corpus_sha256": "0052ed153a2c765dede6a68b193e17ebdfc33951f99f2c9839bc0dc980d9b273",
+  "size_bytes": 41554333
+}
