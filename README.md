@@ -21,6 +21,13 @@ trained from scratch on Python + JavaScript/TypeScript code.
 > `docs/TAKSH-MASTER-ROADMAP-v3.0.0.md` and `docs/TAKSH-RELEASE-GOVERNANCE.md`.
 > The status block below (2026-10-20) is the historical M7-era record, preserved verbatim.
 
+> **Local coding API (2026-11-22).** `serving/openai_server.py` now exposes
+> buffered and SSE-streamed chat completions, legacy text completions, a native
+> FIM endpoint and text-protocol tool-call parsing. This is API plumbing over the
+> same experimental checkpoint: **capability remains 0/20 correct** on the frozen
+> Native v0.1 baseline, and no release or publication is authorized. See
+> `docs/TAKSH-LOCAL-API.md` and `docs/audit/TAKSH-INDEPENDENCE-CHARTER.md`.
+
 **Status (2026-10-20):** local prototype. The pipeline runs end to end on CPU; **no model
 capability is demonstrated**. The M7 sovereign capability experiment completed and
 reported a negative result: 0/40 locked syntax-valid generations, 0/8 functional

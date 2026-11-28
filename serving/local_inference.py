@@ -200,6 +200,142 @@ def _filter_logits(logits, temperature, top_k, top_p):
     return probs
 
 
+def _sample_tokens(
+    model,
+    tokenizer,
+    prompt_ids: list,
+    max_new_tokens: int,
+    temperature: float,
+    top_k: int,
+    top_p: float,
+    stop_list: list,
+    presence_penalty: float,
+    frequency_penalty: float,
+    device: str,
+    seed: int | None,
+    use_kv_cache: bool,
+):
+    """Yield ``(token_id, None)`` per sampled token, then ``(None, finish_reason)``.
+
+    This is the single sampling loop shared by :func:`generate_ids` (buffered)
+    and :func:`stream_text` (incremental). A second copy of the loop would
+    inevitably drift, so both surfaces sample from exactly the same code.
+
+    A generator must open its own ``torch.no_grad()`` context: decorating a
+    generator function only disables gradients for the call that creates the
+    generator, not for the body that runs later.
+    """
+    with torch.no_grad():
+        max_seq_len = model.cfg["max_seq_len"]
+        eos_id = tokenizer.token_to_id("<eos>")
+        generated: list[int] = []
+        finish_reason = "length"
+
+        if seed is not None:
+            torch.manual_seed(seed)
+
+        def stop_hit() -> bool:
+            if not stop_list:
+                return False
+            tail = tokenizer.decode(generated)
+            return any(s and s in tail for s in stop_list)
+
+        # A model config without layer geometry cannot build a cache. Falling
+        # back is mathematically identical (only slower), whereas raising would
+        # turn a valid no-cache checkpoint into an unservable one.
+        use_kv_cache = bool(use_kv_cache and "n_layers" in model.cfg)
+        if use_kv_cache:
+            kv_cache = KVCache(n_layers=model.cfg["n_layers"])
+
+            # Step 0: process the full prompt through the model to populate cache.
+            x_full = torch.tensor([prompt_ids], dtype=torch.long, device=device)
+            if x_full.size(1) > max_seq_len:
+                x_full = x_full[:, -max_seq_len:]
+            logits, _ = model(
+                x_full,
+                kv_cache=kv_cache,
+                use_cache=True,
+                position_offset=0,
+            )
+            pos = len(prompt_ids)  # absolute position of the next token
+            x_new = None
+
+            for step in range(max_new_tokens):
+                if step == 0:
+                    next_logits = logits[:, -1, :]
+                else:
+                    if pos >= max_seq_len:
+                        # Window is full; stop to avoid RoPE misalignment.
+                        break
+                    logits, _ = model(
+                        x_new,
+                        kv_cache=kv_cache,
+                        use_cache=True,
+                        position_offset=pos,
+                    )
+                    next_logits = logits[:, -1, :]
+                    pos += 1
+
+                next_logits = _apply_penalties(
+                    next_logits, generated, presence_penalty, frequency_penalty
+                )
+                if temperature and temperature > 0:
+                    probs = _filter_logits(next_logits, temperature, top_k, top_p)
+                    next_id = torch.multinomial(probs, num_samples=1)
+                else:
+                    next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
+                tok = int(next_id.item())
+
+                if tok == eos_id:
+                    finish_reason = "stop"
+                    break
+
+                generated.append(tok)
+                x_new = next_id  # single new token for subsequent steps
+                yield tok, None
+                if stop_hit():
+                    finish_reason = "stop"
+                    break
+        else:
+            x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
+            for _ in range(max_new_tokens):
+                idx_cond = x if x.size(1) <= max_seq_len else x[:, -max_seq_len:]
+                logits, _ = model(idx_cond)
+                next_logits = _apply_penalties(
+                    logits[:, -1, :], generated, presence_penalty, frequency_penalty
+                )
+                if temperature and temperature > 0:
+                    probs = _filter_logits(next_logits, temperature, top_k, top_p)
+                    next_id = torch.multinomial(probs, num_samples=1)
+                else:
+                    next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
+                tok = int(next_id.item())
+
+                if tok == eos_id:
+                    finish_reason = "stop"
+                    break
+
+                generated.append(tok)
+                x = torch.cat([x, next_id], dim=1)
+                yield tok, None
+                if stop_hit():
+                    finish_reason = "stop"
+                    break
+
+        yield None, finish_reason
+
+
+def _trim_at_stop(text: str, stop_list: list) -> str:
+    """Truncate ``text`` at the earliest occurrence of any stop sequence.
+
+    Stop order is by position, not list order: a caller that supplies both
+    ``"\\n\\n"`` and ``"\\n"`` must be cut at the earliest boundary, otherwise the
+    output depends on argument order.
+    """
+    positions = [text.index(s) for s in stop_list if s and s in text]
+    return text[: min(positions)] if positions else text
+
+
 @torch.no_grad()
 def generate_ids(
     model,
@@ -217,7 +353,7 @@ def generate_ids(
     binding_repair: bool = True,
     use_kv_cache: bool = True,
 ):
-    """Single shared sampling implementation for every serving surface.
+    """Single shared sampling implementation for every buffered serving surface.
 
     Returns a dict with ``text`` (completion only, prompt stripped), ``token_ids``,
     ``finish_reason`` (``"stop"`` for EOS or a stop sequence, ``"length"`` when the
@@ -237,123 +373,41 @@ def generate_ids(
     model.eval()
     prompt_ids = tokenizer.encode(prompt).ids
     prompt_tokens = len(prompt_ids)
-    max_seq_len = model.cfg["max_seq_len"]
     eos_id = tokenizer.token_to_id("<eos>")
     stop_list = [stop] if isinstance(stop, str) else list(stop or [])
     generated = []
     finish_reason = "length"
 
-    if seed is not None:
-        torch.manual_seed(seed)
+    for tok, reason in _sample_tokens(
+        model,
+        tokenizer,
+        prompt_ids,
+        max_new_tokens,
+        temperature,
+        top_k,
+        top_p,
+        stop_list,
+        presence_penalty,
+        frequency_penalty,
+        device,
+        seed,
+        use_kv_cache,
+    ):
+        if tok is None:
+            finish_reason = reason
+            break
+        generated.append(tok)
 
-    if use_kv_cache:
-        # ---- KV-cache path -------------------------------------------------
-        kv_cache = KVCache(n_layers=model.cfg["n_layers"])
-
-        # Step 0: process the full prompt through the model to populate cache.
-        x_full = torch.tensor([prompt_ids], dtype=torch.long, device=device)
-        if x_full.size(1) > max_seq_len:
-            x_full = x_full[:, -max_seq_len:]
-        logits, _ = model(
-            x_full,
-            kv_cache=kv_cache,
-            use_cache=True,
-            position_offset=0,
-        )
-        next_logits = logits[:, -1, :]
-
-        # Apply penalties and sample the first token.
-        next_logits = _apply_penalties(
-            next_logits, generated, presence_penalty, frequency_penalty
-        )
-        if temperature and temperature > 0:
-            probs = _filter_logits(next_logits, temperature, top_k, top_p)
-            next_id = torch.multinomial(probs, num_samples=1)
-        else:
-            next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
-        tok = int(next_id.item())
-
-        if tok == eos_id:
+    # Preserve the historical stop-sequence truncation exactly: re-encode the
+    # text prefix instead of slicing token ids, so BPE merges are respected.
+    if stop_list:
+        tail = tokenizer.decode(generated)
+        hit = next((s for s in stop_list if s and s in tail), None)
+        if hit is not None:
+            generated = tokenizer.encode(tail[: tail.index(hit)]).ids
             finish_reason = "stop"
-        else:
-            generated.append(tok)
-            x_new = next_id  # single new token for subsequent steps
-            pos = prompt_tokens  # absolute position of the next token
 
-            for _ in range(1, max_new_tokens):
-                if pos >= max_seq_len:
-                    # Window is full; stop generating to avoid RoPE misalignment.
-                    break
-
-                logits, _ = model(
-                    x_new,
-                    kv_cache=kv_cache,
-                    use_cache=True,
-                    position_offset=pos,
-                )
-                next_logits = logits[:, -1, :]
-                next_logits = _apply_penalties(
-                    next_logits, generated, presence_penalty, frequency_penalty
-                )
-                if temperature and temperature > 0:
-                    probs = _filter_logits(next_logits, temperature, top_k, top_p)
-                    next_id = torch.multinomial(probs, num_samples=1)
-                else:
-                    next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
-                tok = int(next_id.item())
-
-                if tok == eos_id:
-                    finish_reason = "stop"
-                    break
-
-                generated.append(tok)
-                x_new = next_id
-                pos += 1
-
-                if stop_list:
-                    tail = tokenizer.decode(generated)
-                    hit = next((s for s in stop_list if s and s in tail), None)
-                    if hit is not None:
-                        generated = tokenizer.encode(tail[: tail.index(hit)]).ids
-                        finish_reason = "stop"
-                        break
-
-        completion = tokenizer.decode(generated)
-
-    else:
-        # ---- No-cache path (original behaviour) ----------------------------
-        x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
-
-        for _ in range(max_new_tokens):
-            idx_cond = x if x.size(1) <= max_seq_len else x[:, -max_seq_len:]
-            logits, _ = model(idx_cond)
-            next_logits = _apply_penalties(
-                logits[:, -1, :], generated, presence_penalty, frequency_penalty
-            )
-            if temperature and temperature > 0:
-                probs = _filter_logits(next_logits, temperature, top_k, top_p)
-                next_id = torch.multinomial(probs, num_samples=1)
-            else:
-                next_id = torch.argmax(next_logits, dim=-1, keepdim=True)
-            tok = int(next_id.item())
-
-            if tok == eos_id:
-                finish_reason = "stop"
-                break
-
-            generated.append(tok)
-            x = torch.cat([x, next_id], dim=1)
-
-            if stop_list:
-                tail = tokenizer.decode(generated)
-                hit = next((s for s in stop_list if s and s in tail), None)
-                if hit is not None:
-                    generated = tokenizer.encode(tail[: tail.index(hit)]).ids
-                    finish_reason = "stop"
-                    break
-
-        completion = tokenizer.decode(generated)
-
+    completion = tokenizer.decode(generated)
     raw_completion = completion
     repair_diagnostic: dict = {
         "enabled": bool(binding_repair),
@@ -394,6 +448,91 @@ def generate_ids(
         "completion_tokens": len(generated),
         "eos_id": eos_id,
         "repair": repair_diagnostic,
+    }
+
+
+def stream_text(
+    model,
+    tokenizer,
+    prompt: str,
+    max_new_tokens: int = 256,
+    temperature: float = 0.8,
+    top_k: int = 50,
+    top_p: float = 1.0,
+    stop: list | None = None,
+    presence_penalty: float = 0.0,
+    frequency_penalty: float = 0.0,
+    device: str = "cpu",
+    seed: int | None = None,
+    use_kv_cache: bool = True,
+):
+    """Yield incremental completion events from the shared sampling loop.
+
+    Events are ``{"type": "delta", "text": str}`` followed by exactly one
+    ``{"type": "done", "finish_reason": ..., "completion_tokens": int,
+    "token_ids": [...]}``.
+
+    Binding repair is deliberately **not** applied. Repair is a whole-completion
+    AST transform: it can rename an identifier that has already been sent to the
+    client, so it cannot be made incremental without lying. The buffered
+    :func:`generate_ids` path remains the repaired path.
+
+    Two kinds of tail are held back rather than guessed at:
+
+    * a partial stop sequence (``len(stop) - 1`` characters), and
+    * a trailing ``U+FFFD`` produced when a multi-byte character is split across
+      byte-level BPE tokens.
+
+    Both are flushed once they are complete.
+    """
+    model.eval()
+    prompt_ids = tokenizer.encode(prompt).ids
+    stop_list = [stop] if isinstance(stop, str) else list(stop or [])
+    holdback = max((len(s) for s in stop_list if s), default=0) - 1
+    holdback = max(0, holdback)
+
+    generated: list[int] = []
+    emitted = 0
+    finish_reason = "length"
+
+    for tok, reason in _sample_tokens(
+        model,
+        tokenizer,
+        prompt_ids,
+        max_new_tokens,
+        temperature,
+        top_k,
+        top_p,
+        stop_list,
+        presence_penalty,
+        frequency_penalty,
+        device,
+        seed,
+        use_kv_cache,
+    ):
+        if tok is None:
+            finish_reason = reason
+            break
+        generated.append(tok)
+
+        visible = _trim_at_stop(tokenizer.decode(generated), stop_list)
+        stable = max(0, len(visible) - holdback)
+        # Do not emit half of a UTF-8 sequence as U+FFFD and then contradict it.
+        while stable > 0 and visible[stable - 1] == "\ufffd":
+            stable -= 1
+
+        if stable > emitted:
+            yield {"type": "delta", "text": visible[emitted:stable]}
+            emitted = stable
+
+    final_text = _trim_at_stop(tokenizer.decode(generated), stop_list)
+    if len(final_text) > emitted:
+        yield {"type": "delta", "text": final_text[emitted:]}
+    yield {
+        "type": "done",
+        "finish_reason": finish_reason,
+        "completion_tokens": len(generated),
+        "token_ids": generated,
     }
 
 

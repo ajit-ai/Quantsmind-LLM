@@ -71,6 +71,9 @@ def client(monkeypatch):
     openai_server.state.checkpoint_step = 200
     openai_server.state.api_key = None
     openai_server.state.ckpt_path = None
+    openai_server.state.flatten_history = False
+    openai_server.state.prompt_surface = "chat"
+    openai_server.state.surface_tokenizer = None
 
     captured = {}
 
@@ -78,8 +81,11 @@ def client(monkeypatch):
         captured["prompt"] = prompt
         captured["kwargs"] = kwargs
         finish = captured.get("force_finish", "stop")
-        n = min(kwargs.get("max_new_tokens", 1), 5)
-        text = "".join(chr(97 + (i % 26)) for i in range(n))
+        if "force_text" in captured:
+            text = captured["force_text"]
+        else:
+            n = min(kwargs.get("max_new_tokens", 1), 5)
+            text = "".join(chr(97 + (i % 26)) for i in range(n))
         return {
             "text": text,
             "token_ids": list(range(len(text))),
@@ -89,7 +95,20 @@ def client(monkeypatch):
             "eos_id": 2,
         }
 
+    def fake_stream_text(model, tokenizer, prompt, **kwargs):
+        captured["stream_prompt"] = prompt
+        captured["stream_kwargs"] = kwargs
+        yield {"type": "delta", "text": "he"}
+        yield {"type": "delta", "text": "llo"}
+        yield {
+            "type": "done",
+            "finish_reason": "stop",
+            "completion_tokens": 2,
+            "token_ids": [1, 2],
+        }
+
     monkeypatch.setattr(openai_server, "generate_ids", fake_generate_ids)
+    monkeypatch.setattr(openai_server, "stream_text", fake_stream_text)
     return TestClient(app), captured
 
 
@@ -258,24 +277,50 @@ def test_empty_messages_rejected(client):
 # --------------------------------------------------------------------------- #
 # Structured errors and rejection of unsupported input
 # --------------------------------------------------------------------------- #
-def test_streaming_rejected_clearly(client):
-    c, _ = client
-    r = c.post(
+def _sse_events(body):
+    """Split an SSE body into decoded JSON payloads, ignoring ``[DONE]``."""
+    import json
+
+    events = []
+    for line in body.splitlines():
+        if not line.startswith("data: "):
+            continue
+        data = line[len("data: "):]
+        if data == "[DONE]":
+            continue
+        events.append(json.loads(data))
+    return events
+
+
+def test_streaming_emits_sse_chunks(client):
+    c, captured = client
+    with c.stream(
+        "POST",
         "/v1/chat/completions",
         json={"messages": [{"role": "user", "content": "hi"}], "stream": True},
+    ) as response:
+        assert response.status_code == 200
+        assert response.headers["content-type"].startswith("text/event-stream")
+        body = "".join(response.iter_text())
+
+    events = _sse_events(body)
+    assert events[0]["choices"][0]["delta"]["role"] == "assistant"
+    text = "".join(
+        event["choices"][0]["delta"].get("content", "") for event in events
     )
-    assert r.status_code == 400
-    err = r.json()["error"]
-    assert err["code"] == "streaming_unsupported"
-    assert err["param"] == "stream"
+    assert text == "hello"
+    assert events[-1]["choices"][0]["finish_reason"] == "stop"
+    assert events[-1]["usage"]["completion_tokens"] == 2
+    assert body.rstrip().endswith("data: [DONE]")
+    assert captured["stream_kwargs"]["max_new_tokens"] >= 1
 
 
 @pytest.mark.parametrize(
     "param,value",
     [
-        ("tools", [{"type": "function"}]),
         ("functions", [{"name": "f"}]),
-        ("tool_choice", "auto"),
+        ("function_call", "auto"),
+        ("parallel_tool_calls", True),
         ("n", 2),
         ("logprobs", True),
         ("logit_bias", {"1": 1}),
@@ -297,7 +342,7 @@ def test_error_envelope_shape(client):
     c, _ = client
     r = c.post(
         "/v1/chat/completions",
-        json={"messages": [{"role": "user", "content": "x"}], "stream": True},
+        json={"messages": [{"role": "user", "content": "x"}], "max_tokens": 0},
     )
     err = r.json()["error"]
     assert set(err) == {"message", "type", "param", "code"}
@@ -580,3 +625,219 @@ def test_base_surface_accepts_dict_messages(monkeypatch):
                 {"role": "user", "content": "third"},
             ]
         )
+# --------------------------------------------------------------------------- #
+# Tool protocol shim
+# --------------------------------------------------------------------------- #
+TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "read_file",
+            "description": "Read a repository file",
+            "parameters": {
+                "type": "object",
+                "properties": {"path": {"type": "string"}},
+                "required": ["path"],
+            },
+        },
+    }
+]
+
+
+def test_tool_declarations_are_rendered_into_the_prompt(client):
+    c, captured = client
+    captured["force_text"] = "plain answer"
+    body = c.post(
+        "/v1/chat/completions",
+        json={"messages": [{"role": "user", "content": "hi"}], "tools": TOOLS},
+    ).json()
+    assert "read_file" in captured["prompt"]
+    assert body["choices"][0]["finish_reason"] == "stop"
+    assert body["choices"][0]["message"]["content"] == "plain answer"
+    assert body["quantsmind"]["tool_protocol"]
+
+
+def test_valid_tool_block_is_parsed(client):
+    import json
+
+    c, captured = client
+    captured["force_text"] = (
+        '<tool_call>{"name": "read_file", "arguments": {"path": "a.py"}}</tool_call>'
+    )
+    body = c.post(
+        "/v1/chat/completions",
+        json={"messages": [{"role": "user", "content": "hi"}], "tools": TOOLS},
+    ).json()
+    choice = body["choices"][0]
+    assert choice["finish_reason"] == "tool_calls"
+    call = choice["message"]["tool_calls"][0]
+    assert call["type"] == "function"
+    assert call["function"]["name"] == "read_file"
+    assert json.loads(call["function"]["arguments"]) == {"path": "a.py"}
+
+
+def test_undeclared_tool_block_is_never_invented(client):
+    c, captured = client
+    captured["force_text"] = (
+        '<tool_call>{"name": "delete_everything", "arguments": {}}</tool_call>'
+    )
+    body = c.post(
+        "/v1/chat/completions",
+        json={"messages": [{"role": "user", "content": "hi"}], "tools": TOOLS},
+    ).json()
+    choice = body["choices"][0]
+    assert choice["finish_reason"] == "stop"
+    assert "tool_calls" not in choice["message"]
+    assert "not declared" in body["quantsmind"]["tool_call_error"]
+
+
+def test_malformed_tool_declaration_is_rejected(client):
+    c, _ = client
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": "hi"}],
+            "tools": [{"type": "function"}],
+        },
+    )
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "invalid_tools"
+
+
+def test_tool_choice_none_disables_the_protocol(client):
+    c, captured = client
+    captured["force_text"] = "plain answer"
+    c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": "hi"}],
+            "tools": TOOLS,
+            "tool_choice": "none",
+        },
+    )
+    assert "read_file" not in captured["prompt"]
+
+
+def test_forced_tool_choice_is_refused_honestly(client):
+    c, _ = client
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": "hi"}],
+            "tools": TOOLS,
+            "tool_choice": "required",
+        },
+    )
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "invalid_tools"
+
+
+def test_tools_with_stream_are_refused(client):
+    c, _ = client
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": "hi"}],
+            "tools": TOOLS,
+            "stream": True,
+        },
+    )
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "unsupported_combination"
+
+
+# --------------------------------------------------------------------------- #
+# FIM / text completion
+# --------------------------------------------------------------------------- #
+def test_fim_endpoint_uses_the_documented_text_protocol(client):
+    c, captured = client
+    r = c.post(
+        "/v1/fim/completions",
+        json={"prefix": "def add(a, b):\n    ", "suffix": "\n", "max_tokens": 4},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert body["object"] == "fim.completion"
+    assert body["quantsmind"]["protocol"] == "taksh.fim_text/1"
+    assert "<|fim_prefix|>" in captured["prompt"]
+    assert "<|fim_suffix|>" in captured["prompt"]
+    assert "<|fim_middle|>" in captured["prompt"]
+
+
+def test_legacy_completions_with_suffix_is_fim(client):
+    c, captured = client
+    r = c.post(
+        "/v1/completions",
+        json={"prompt": "def add(a, b):\n    ", "suffix": "\n", "max_tokens": 4},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert body["object"] == "text_completion"
+    assert "<|fim_suffix|>" in captured["prompt"]
+
+
+def test_legacy_completions_without_suffix_keeps_the_prompt_verbatim(client):
+    c, captured = client
+    r = c.post("/v1/completions", json={"prompt": "def add(a, b):", "max_tokens": 4})
+    assert r.status_code == 200
+    assert captured["prompt"] == "def add(a, b):"
+
+
+def test_prompt_arrays_are_refused_not_silently_taken_from(client):
+    c, _ = client
+    r = c.post("/v1/completions", json={"prompt": ["a", "b"], "max_tokens": 4})
+    assert r.status_code == 400
+    assert r.json()["error"]["param"] == "prompt"
+
+
+def test_fim_streams_text_completion_chunks(client):
+    c, _ = client
+    with c.stream(
+        "POST",
+        "/v1/fim/completions",
+        json={"prefix": "def add(a, b):\n    ", "stream": True},
+    ) as response:
+        assert response.status_code == 200
+        body = "".join(response.iter_text())
+    events = _sse_events(body)
+    text = "".join(event["choices"][0]["text"] for event in events)
+    assert text == "hello"
+    assert events[-1]["choices"][0]["finish_reason"] == "stop"
+
+# --------------------------------------------------------------------------- #
+# Opt-in multi-turn compatibility mode
+# --------------------------------------------------------------------------- #
+def test_flatten_history_is_off_by_default(client):
+    c, _ = client
+    r = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        },
+    )
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "invalid_messages"
+
+
+def test_flatten_history_serialises_turns_as_plain_text(client):
+    c, captured = client
+    openai_server.state.flatten_history = True
+    body = c.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [
+                {"role": "user", "content": "first"},
+                {"role": "assistant", "content": "second"},
+                {"role": "user", "content": "third"},
+            ]
+        },
+    ).json()
+    prompt = captured["prompt"]
+    assert "User: first" in prompt
+    assert "Assistant: second" in prompt
+    assert "User: third" in prompt
+    assert body["quantsmind"]["history_serialization"] == "plain_text_transcript/1"

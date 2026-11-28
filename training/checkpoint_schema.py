@@ -172,17 +172,23 @@ def verify_against(provenance: dict, *, tokenizer=None, tokenizer_sha256: str | 
         )
 
     recorded = provenance["tokenizer"].get("sha256")
-    if tokenizer is not None and recorded:
+    if recorded:
+        # ``tokenizer_identity`` records the file digest when a path is known and
+        # the in-memory serialization digest otherwise. Both identify the same
+        # artifact, so a loader that knows both must accept either; comparing
+        # only the in-memory form rejected every checkpoint whose provenance was
+        # built from a file path (including the aligned SFT checkpoint).
         from training.tokenizer_contract import tokenizer_fingerprint
 
-        if tokenizer_fingerprint(tokenizer) != recorded:
+        acceptable = set()
+        if tokenizer is not None:
+            acceptable.add(tokenizer_fingerprint(tokenizer))
+        if tokenizer_sha256 is not None:
+            acceptable.add(tokenizer_sha256)
+        if acceptable and recorded not in acceptable:
             raise ContractMismatch(
                 "checkpoint tokenizer hash does not match the tokenizer being loaded"
             )
-    if tokenizer_sha256 is not None and recorded and tokenizer_sha256 != recorded:
-        raise ContractMismatch(
-            "checkpoint tokenizer file hash does not match the tokenizer file supplied"
-        )
 
 
 def schema_of(ckpt: dict) -> str | None:
