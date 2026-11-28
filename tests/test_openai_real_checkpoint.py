@@ -210,16 +210,54 @@ def test_stop_sequence_truncates_real_output(real_client):
 # --------------------------------------------------------------------------- #
 # 3. Errors and auth hold with real weights loaded
 # --------------------------------------------------------------------------- #
-def test_streaming_still_rejected_with_real_model(real_client):
-    r = _chat(real_client, stream=True)
-    assert r.status_code == 400
-    assert r.json()["error"]["code"] == "streaming_unsupported"
+def test_streaming_returns_sse_with_real_model(real_client):
+    with real_client.stream(
+        "POST",
+        "/v1/chat/completions",
+        json={
+            "model": "qm-code-tiny",
+            "messages": [{"role": "user", "content": USER_MSG}],
+            "max_tokens": 4,
+            "temperature": 0.0,
+            "stream": True,
+        },
+    ) as response:
+        assert response.status_code == 200
+        body = "".join(response.iter_text())
+
+    assert body.rstrip().endswith("data: [DONE]")
+    chunks = [
+        line[len("data: "):]
+        for line in body.splitlines()
+        if line.startswith("data: ") and line != "data: [DONE]"
+    ]
+    assert chunks
+    first = __import__("json").loads(chunks[0])
+    assert first["choices"][0]["delta"]["role"] == "assistant"
 
 
-def test_unsupported_tool_param_still_rejected(real_client):
+def test_malformed_tool_param_still_rejected_with_real_model(real_client):
     r = _chat(real_client, tools=[{"type": "function"}])
     assert r.status_code == 400
     assert r.json()["error"]["param"] == "tools"
+    assert r.json()["error"]["code"] == "invalid_tools"
+
+
+def test_valid_tool_declaration_is_accepted_with_real_model(real_client):
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "read_file",
+                "description": "Read a file",
+                "parameters": {"type": "object", "properties": {"path": {"type": "string"}}},
+            },
+        }
+    ]
+    body = _chat(real_client, tools=tools, max_tokens=4).json()
+    assert body["choices"][0]["finish_reason"] in ("stop", "length")
+    # The checkpoint has no tool training; the shim must never invent a call.
+    assert "tool_calls" not in body["choices"][0]["message"]
 
 
 def test_bad_role_still_rejected(real_client):

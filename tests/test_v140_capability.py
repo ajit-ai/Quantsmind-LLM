@@ -448,15 +448,15 @@ def test_g7_non_positive_token_limit_is_refused(serving_client):
     assert excinfo.value.status == 400
 
 
-def test_g7_tool_calling_is_refused_explicitly(serving_client):
+def test_g7_tool_declarations_are_accepted_by_the_protocol_shim(serving_client):
     client, _, _ = serving_client
-    with pytest.raises(AgentClientError) as excinfo:
-        client.request_tools(
-            [{"role": "user", "content": "hi"}],
-            [{"type": "function", "function": {"name": "f"}}],
-        )
-    assert excinfo.value.status == 400
-    assert excinfo.value.code
+    response = client.request_tools(
+        [{"role": "user", "content": "hi"}],
+        [{"type": "function", "function": {"name": "f", "parameters": {"type": "object"}}}],
+    )
+    assert response["choices"][0]["message"]["content"]
+    # No tool-use training: the shim must not invent a call from prose.
+    assert "tool_calls" not in response["choices"][0]["message"]
 
 
 def test_g7_error_codes_are_consistent(serving_client):
@@ -487,13 +487,16 @@ def test_g8_client_records_its_calls(serving_client):
 
 def test_g8_profile_declares_what_the_server_actually_supports():
     profile = default_profile()
-    assert profile.streaming_supported is False
+    assert profile.streaming_supported is True
     assert profile.tool_calling_supported is False
+    assert profile.tool_call_parsing_supported is True
     assert profile.structured_output_supported is False
     assert "POST /v1/chat/completions" in profile.supported_endpoints
-    assert not any("/v1/completions" in endpoint for endpoint in profile.supported_endpoints)
+    assert "POST /v1/completions" in profile.supported_endpoints
+    assert "POST /v1/fim/completions" in profile.supported_endpoints
     assert profile.integration_status == "EXTERNAL_AGENT_INTEGRATION_PENDING"
     assert "tool calling" in profile.summary()
+    assert "no tool-use training" in profile.tool_calling_status
 
 
 def test_g8_profile_serialises_with_its_schema():

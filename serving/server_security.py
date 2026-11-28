@@ -105,15 +105,24 @@ def resolve_device():
     return "cuda" if torch.cuda.is_available() else "cpu"
 
 
-def verify_serving_contract(ckpt_path: str, tokenizer) -> str:
+def verify_serving_contract(ckpt_path: str, tokenizer, tokenizer_path: str | None = None) -> str:
     """Prove the checkpoint and tokenizer belong to the same prompt contract.
 
     Schema /2 must match exactly: a ``ContractMismatch`` propagates and the server
     refuses to start. Schema /1 predates contracts and is served under the
     documented legacy contract, with a warning that it is not a v2 artifact.
+
+    ``tokenizer_path`` lets the check supply the tokenizer *file* digest as well
+    as the in-memory digest. Provenance records one or the other depending on
+    whether a path was available at training time; both identify the same
+    artifact.
     """
     from training.checkpoint_schema import SCHEMA_V2, verify_against
-    from training.tokenizer_contract import CONTRACT_V1, detect_contract
+    from training.tokenizer_contract import (
+        CONTRACT_V1,
+        detect_contract,
+        tokenizer_file_fingerprint,
+    )
 
     from serving.local_inference import torch_load_checkpoint
 
@@ -122,7 +131,15 @@ def verify_serving_contract(ckpt_path: str, tokenizer) -> str:
     metadata = torch_load_checkpoint(str(ckpt_path), allow_unsafe_trusted=True)
     detected = detect_contract(tokenizer)
     if metadata.get("schema") == SCHEMA_V2:
-        verify_against(metadata["provenance"], tokenizer=tokenizer, contract_id=detected)
+        file_digest = None
+        if tokenizer_path and Path(tokenizer_path).is_file():
+            file_digest = tokenizer_file_fingerprint(tokenizer_path)
+        verify_against(
+            metadata["provenance"],
+            tokenizer=tokenizer,
+            tokenizer_sha256=file_digest,
+            contract_id=detected,
+        )
         return detected
     print(
         "WARNING: checkpoint has no provenance contract (schema /1); serving under "
@@ -162,7 +179,7 @@ def load_trusted_state(ckpt: str, tokenizer: str, device: str):
             "token ids would index outside the embedding table."
         )
 
-    verify_serving_contract(str(ckpt_path), tok)
+    verify_serving_contract(str(ckpt_path), tok, str(tok_path))
     return model, model_cfg, tok
 
 

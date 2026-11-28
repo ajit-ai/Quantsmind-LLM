@@ -10,6 +10,7 @@ from pydantic import BaseModel
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from serving.languages import is_supported_language
+from serving.fim import render_fim
 from serving.server_security import (
     add_standard_args,
     api_key_from_env,
@@ -67,7 +68,7 @@ async def complete(request: CompletionRequest):
         raise HTTPException(status_code=400, detail="top_k must be a sampling cutoff in [1, 512]")
 
     if request.suffix:
-        prompt = f"<|fim_prefix|>{request.prefix}<|fim_suffix|>{request.suffix}<|fim_middle|>"
+        prompt = render_fim(request.prefix, request.suffix)
     else:
         prompt = request.prefix
 
